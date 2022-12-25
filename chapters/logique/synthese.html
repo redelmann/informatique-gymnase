@@ -1,0 +1,238 @@
+---
+title: Des tables aux propositions
+order: 6
+---
+
+<p>
+    Comme nous le verrons dans le chapitre suivant,
+    nous serons parfois amenés à chercher une proposition étant donné sa table de vérité.
+    En effet, parfois une liste des interprétations que l'on souhaite satisfaire nous sera donnée,
+    et non serons intéressés à connaître la proposition qui leur correspond.
+    Nous allons donc étudier ici une méthode pour concevoir une proposition à partir de sa table de vérité.
+</p>
+
+<p>
+    Pour illustrer la méthode que nous allons utiliser, considérons ensemble un exemple.
+    Soit la table de vérité suivante qui correspond à une proposition que l'on souhaite déterminer :
+</p>
+
+<table class="truth-table">
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>C</th>
+        <th class="delimited">?</th>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="delimited">0</td>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+        <td class="delimited">0</td>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td class="delimited">1</td>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="delimited">1</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="delimited">0</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>1</td>
+        <td class="delimited">1</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td class="delimited">0</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="delimited">0</td>
+    </tr>
+</table>
+
+<p>
+    Pour déterminer la proposition correspondante, nous allons procéder de la façon suivante :    
+    Commençons par chercher une collection de variables (ou de négations de variables) dont la conjonction satisfait le plus grand nombre d'interprétations que l'on désire, sans toutefois satisfaire des interprétations indésirables.
+    Visuellement, on va chercher à trouver une combinaison de variables ou de leur négation qui couvre le plus grand nombre possible de lignes de la table de vérité où la valeur de vérité de la proposition est 1,
+    sans toutefois couvrir de lignes où la valeur est 0.
+</p>
+<p>
+    À noter que la conjonction que l'on utilisera ne doit pas forcément faire usage de toutes les variables.
+    En effet, si on utilise toutes les variables, alors une seule interprétation sera couverte.
+    Plus le nombre de variable utilisées est petit, plus le nombre d'interprétations couvertes est grand.
+    Au mieux, on utilisera une seule variable (ou sa négation), quand cela sera possible.
+</p>
+<p>
+    Ici, pour notre exemple, une seule variable ne suffira malheureusement pas.
+    Nous allons donc essayer d'utiliser deux variables.
+    Ici, la conjonction <i>(non \(A\)) et \(B\)</i> permet de couvrir deux lignes de la table de vérité :
+</p>
+
+<table class="truth-table">
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>C</th>
+        <th class="delimited">?</th>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="delimited">0</td>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+        <td class="delimited">0</td>
+    </tr>
+    <tr class="highlighted">
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td class="delimited">1</td>
+    </tr>
+    <tr class="highlighted">
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="delimited">1</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="delimited">0</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>1</td>
+        <td class="delimited">1</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td class="delimited">0</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="delimited">0</td>
+    </tr>
+</table>
+
+<p>
+    Prenons note de cette conjonction.
+</p>
+
+<p>
+    Une fois cette première conjonction trouvée, on cherche couvrir le reste des lignes à l'aide d'autres conjonctions, selon le même procédé.
+    À chaque fois, on cherche à trouver une conjonction qui couvre le plus grand nombre de lignes <i>non-couvertes</i> de la table de vérité où la valeur de vérité de la proposition est 1,
+    sans toutefois couvrir des lignes où la valeur de vérité de la proposition est 0.
+</p>
+
+<p>
+    Dans notre cas, il suffit d'ajouter la conjonction <i>\(A\) et (non \(B\)) et \(C\)</i> pour couvrir la ligne manquante dans la table de vérité.
+</p>
+
+<table class="truth-table">
+    <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>C</th>
+        <th class="delimited">?</th>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="delimited">0</td>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+        <td class="delimited">0</td>
+    </tr>
+    <tr class="dimmed">
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td class="delimited">1</td>
+    </tr>
+    <tr class="dimmed">
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="delimited">1</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="delimited">0</td>
+    </tr>
+    <tr class="highlighted">
+        <td>1</td>
+        <td>0</td>
+        <td>1</td>
+        <td class="delimited">1</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td class="delimited">0</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+        <td class="delimited">0</td>
+    </tr>
+</table>
+
+<p>
+    À noter qu'il est possible de couvrir certaines lignes à plusieurs reprises.
+    Cela permet parfois de trouver une proposition plus courte.
+</p>
+
+<p>
+    Une fois toutes les lignes couvertes, il suffit de prendre comme résultat la disjonction de toutes les conjonctions trouvées.
+    Dans le cas présent, la proposition obtenue est <i>((non \(A\)) et \(B\)) ou (\(A\) et (non \(B\)) et \(C\))</i>.
+</p>
+
+$remark$
+<p>
+    Pour des cas plus complexes, la méthode des <a href="https://fr.wikipedia.org/wiki/Table_de_Karnaugh">tables de Karnaugh</a> peut être utilisée.
+    La méthode se base sur le même procédé que décrit ici mais utilise une représentation graphique des valeurs de vérité sous forme de table qui permet d'identifier plus facilement les conjonctions de variables à utiliser.
+    Les tables de Karnaugh différent légérement des tables de vérité dans leur présentation, permettant ainsi une meilleure lisibilité.
+</p>
+$endremark$

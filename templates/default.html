@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        $if(chapterNumber)$
+        <title>$chapterNumber$.$if(sectionNumber)$$sectionNumber$.$endif$ $title$</title>
+        $else$
+        <title>$title$</title>
+        $endif$
+        <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script type="text/javascript" src="/js/logic-questions.min.js"></script>
+        <script type="text/javascript" src="/js/global-nav.js"></script>
+    </head>
+    <body>
+        $partial("templates/header.html")-$
+
+        <main>
+            $body-$
+        </main>
+
+        $partial("templates/footer.html")-$
+        <script type="text/javascript" src="/js/self-check.js"></script>
+    </body>
+</html>

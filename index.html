@@ -1,0 +1,35 @@
+---
+title: Informatique - École de Maturité
+---
+
+<section>
+  <h1>Informatique</h1>
+
+  <p>
+    Bienvenue !
+    Ce site propose des ressources pour l'apprentissage de l'informatique en école de maturité.
+  </p>
+
+  <p>
+    Le site est actuellement en construction.
+  </p>
+
+  <h2>Chapitres</h2>
+
+  <ul class="table-of-content">
+  $for(chapters)$
+    <li>
+      <a href="$url$">$chapterNumber$. $title$</a>
+      <ul>
+      $for(sections)$
+        <li>
+          <a href="$url$">$chapterNumber$.$sectionNumber$. $title$</a>
+        </li>
+      $endfor$
+      </ul>
+    </li>
+  $endfor$
+  </ul>
+</section>
+
+

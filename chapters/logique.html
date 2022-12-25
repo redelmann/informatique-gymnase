@@ -1,0 +1,119 @@
+---
+title: Logique propositionnelle
+order: 0
+---
+
+<p>
+    Ce premier chapitre est consacré à la logique, et plus précisément la logique propositionnelle.
+    Dans cette section d'introduction, nous allons tout d'abord tenter de définir ce qu'est <i>&laquo; la logique &raquo;</i>.
+    Par la suite, tout au long de ce chapitre, nous allons étudier les constructions et les opérations de base de la logique.
+    Non seulement ces outils nous seront utiles pour la suite du cours,
+    mais ils nous donneront aussi un aperçu de ce qu'est une discipline formelle.
+</p>
+
+<h3>La logique, définition</h3>
+
+<p>
+    Dans le langage courant, l'adjectif <i>&laquo; logique &raquo;</i> est souvent utilisé pour signifier <i>&laquo; raisonnable &raquo;</i>, <i>&laquo; réfléchi &raquo;</i> ou encore <i>&laquo; normal &raquo;</i>.
+    On parle d'un raisonnement logique, d'une décision logique, d'une action logique.
+    Selon le sens commun, quelque chose de logique est quelque chose qui découle du bon sens.
+    Dans ce chapitre, nous allons essayer de dépasser le sens commun pour découvrir la logique en tant que discipline –
+    une discipline dotée de son langage et de ses règles.
+    Pour cela, nous allons étudier ce que l'on appelle <i>la logique</i>.
+</p>
+
+<p>
+    Qu'est-ce donc que la logique ?
+    Si on se réfère à la définition du dictionnaire <cite><a href="https://dictionnaire.lerobert.com/definition/logique">Le Robert</a></cite>, la logique est l'<q>étude scientifique, surtout formelle, des normes de la vérité</q>.
+    La logique est une science — une science qui a trait à la vérité, au raisonnement, à la déduction.
+</p>
+
+<p>
+    La logique est une science <i>&laquo; formelle &raquo;</i>.
+    Cela signifie que la logique est une science qui utilise des règles précises, définies de façon rigoureuse,
+    et qui étudie ce qui en découle.
+    Ceci contraste avec les sciences qualifiées de <i>&laquo; naturelles &raquo;</i>, comme la physique, la chimie ou la biologie,
+    qui étudient des phénomènes naturels, observables et mesurables.
+    Dans ce genre de discipline, on développe des théories, on établit des prédictions que l'on confronte ensuite à la réalité.
+    En logique, on n'observe pas de phénomènes naturels, on ne s'attèle pas à comprendre la réalité du monde naturel.
+    À la place, on cherchera à modéliser le savoir et à codifier le raisonnement.
+</p>
+
+<p>
+    La logique a de nombreux domaines d'application, entre autres :
+    <ul>
+        <li>
+            En mathématiques, la logique est utilisée pour énoncer des théorèmes et les démontrer, c'est-à-dire en faire des preuves.
+            La logique forme la base, les fondements, des mathématiques.
+        </li>
+        <li>
+            En philosophie, la logique est utilisée pour analyser les arguments et leur validité.
+            La logique trouve d'ailleurs ses origines dans la philosophie.
+        </li>
+        <li>
+            La logique peut être utilisée pour analyser et concevoir des lois et des règlements juridiques.
+        </li>
+    </ul>
+</p>
+
+<p>
+    De façon très intéressante, la logique est aussi intimement liée à l'informatique.
+    Les liens entre la logique et l'informatique sont très nombreux, et nous aurons l'occasion d'en aborder quelques-uns.
+    En premier lieu, nous découvrirons que les ordinateurs sont construits à partir de composants qui effectuent des calculs logiques.
+    La logique sera donc un outil essentiel pour comprendre le fonctionnement des ordinateurs.
+</p>
+
+<h3>La logique, un outil de pensée</h3>
+
+<p>
+    En plus de son utilité dans le cadre de l'informatique, la logique est un formidable <i>outil de pensée</i>.
+    Un outil de pensée est un concept, une méthode, une technique qui permet d'aider à penser.
+</p>
+
+<blockquote>
+    <p lang="en">
+        You can't do much carpentry with your bare hands and you can't do much thinking with your bare brain.
+    </p>
+    <p>
+        <i>— </i>
+        <cite>Bo Dahlbom</cite>, philosophe et informaticien suédois
+    </p>
+</blockquote>
+
+<p>
+    Comme l'a énoncé <cite>Bo Dahlbom</cite>, <q>comme on ne peut pas beaucoup faire de menuiserie à mains nues,
+    on ne peut pas beaucoup penser à cerveau nu</q> (traduction libre).
+    Un cerveau sans outils ne peut pas beaucoup penser.
+</p>
+
+<p>
+    La logique est en soit un outil de pensée.
+    Un outil qui vous permettra de plus penser, de mieux penser.
+    Dans un certain sens, la logique est même l'outil de pensée par excellence,
+    l'outil sur lequel toutes les disciplines scientifiques s'appuient.
+</p>
+
+<h3>La logique propositionnelle</h3>
+
+<p>
+    Dans ce chapitre, nous allons étudier un domaine de la logique bien particulier, appellé la logique <i>propositionnelle</i>.
+    La logique propositionnelle a pour objet d'étude les propositions, de simple énoncés qui peuvent être vrais ou faux.
+    La logique porpositionnelle nous permettra d'aborder les concepts de base de la logique.
+</p>
+
+$objectives$
+<p>
+    À la fin de ce chapitre, vous serez capable :
+    <ul>
+        <li>D'expliquer ce qu'est une <i>proposition</i>.</li>
+        <li>De lister divers <i>connecteurs logiques</i> et d'expliquer leur sens.</li>
+        <li>De représenter des propositions à l'aide d'<i>arbres syntaxiques</i>.</li>
+        <li>D'expliquer le concept d'<i>interprétation</i>.</li>
+        <li>De calculer la <i>valeur de vérité</i> d'une proposition.</li>
+        <li>De définir les notions de <i>satisfiabilité</i> et de <i>validité</i> d'une proposition.</li>
+        <li>De déterminer si deux propositions sont <i>équivalentes</i>.</li>
+        <li>De concevoir une <i>table de vérité</i> à partir d'une proposition.</li>
+        <li>De concevoir une proposition à partir d'une table de vérité.</li>
+    </ul>
+</p>
+$endobjectives$

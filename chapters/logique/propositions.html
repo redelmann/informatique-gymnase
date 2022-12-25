@@ -1,0 +1,134 @@
+---
+title: Propositions basiques
+order: 1
+---
+
+Comme nous l'avons vu en introduction de ce chapitre, la logique propositionnelle est une branche de la logique qui étudie les propositions.
+Dans cette section, nous allons discuter de ce qu'est une <i></i>proposition</i> et regarder les constructions de bases qui perment d'en former. 
+
+<h3>Propositions</h3>
+
+<p>
+    La logique propositionnelle a pour objet d'étude les propositions.
+    Une <i>proposition</i> est un simplement un énoncé, une affirmation, auquel on peut accorder une <i>valeur de vérité</i>.
+    Les propositions sont des affirmations qui peuvent être vraies ou fausses selon le contexte que l'on considère.
+</p>
+
+$example$
+<p>
+    La phrase <i>&laquo; La Terre est ronde. &raquo;</i> est une proposition,
+    tout comme la phrase <i>&laquo; La maison est bleue. &raquo;</i>.
+    Dans les deux cas, la phrase est une affirmation que l'on peut considérer comme <i>vraie</i> ou <i>fausse</i>.
+</p>
+<p>
+    Au contraire, les phrases <i>&laquo; Est-ce qu'il y a quelqu'un ? &raquo;</i>,
+    <i>&laquo; Creuse ! &raquo;</i>, ou encore <i>&laquo; Boom ! &raquo;</i> ne sont pas des propositions.
+    En effet, ces phrases ne sont pas des affirmations.
+</p>
+$endexample$
+
+<h3>Valeurs de vérité</h3>
+
+<div class="illustration left">
+    <img src="images/zero_un.png" style="max-height: 200px;" alt="Zéro et un.">
+</div>
+
+<p>
+    La <i>valeur de vérité</i> d'une proposition est soit <i>vraie</i> soit <i>fausse</i>.
+    On utilise le symbole 1 pour représenter la valeur <i>vrai</i> et le symbole 0 pour représenter la valeur <i>faux</i>.
+</p>
+
+<p>
+    La valeur de vérité d'une proposition n'est pas forcément fixe.
+    Dans certains contextes, certaines propositions peuvent être vraies (1), alors que dans d'autres contextes elles peuvent être fausses (0).
+    Par exemple, la proposition <i>&laquo; La maison est bleue. &raquo;</i> peut être vraie ou fausse selon la maison auquelle on fait référence.
+    On parlera d'<i>interprétation</i> d'une proposition pour faire référence à ce contexte.
+</p>
+
+$example$
+<p>
+    La valeur de vérité de la proposition <i>&laquo; Nous sommes lundi. &raquo;</i> peut être 1 (<i>vrai</i>) ou 0 (<i>faux</i>).
+    Selon l'interprétation que l'on considère, la proposition peut être vraie ou fausse.
+</p>
+$endexample$
+
+<h3>Variables</h3>
+
+<p>
+    Pour représenter des propositions simples telles que celles que l'on a pu voir, on utilisera ce qu'on appelle des <i>variables propositionnelles</i> ou plus simplement <i>variables</i>.
+    Une variable est un simple nom que l'on donne à une proposition.
+    Par exemple, on peut nommer la proposition <i>&laquo; La maison est bleue. &raquo;</i> par la variable <i>B</i>.
+    Les variables sont souvent représentées par des lettres majuscules.
+</p>
+
+$example$
+<p>
+    La phrase <i>&laquo; Il pleut. &raquo;</i> est une proposition, à laquelle on pourrait attribuer une variable propositionnelle, par exemple \(P\).
+</p>
+$endexample$
+
+<h3>Constantes</h3>
+
+<div class="illustration right">
+    <img src="images/yin_yang.png" style="max-height: 150px;" alt="Yin and yang avec vrai et faux.">
+</div>
+
+<p>
+    En plus des variables propositionnelles, on considère deux propositions constantes :
+    <i>vrai</i> et <i>faux</i>.
+    Ces propositions sont dîtes <i>&laquo; constantes &raquo;</i>, car leur valeur de vérité n'est pas sujette à interprétation.
+    La proposition <i>vrai</i> est une affirmation toujours vraie (valeur de vérité 1), tandis la proposition <i>faux</i> est une affirmation toujours fausse (valeur de vérité 0).
+</p>
+
+$remark$
+<p>
+    On note parfois la proposition <i>vrai</i> avec le symbole \(\top\) et la proposition <i>faux</i> avec le symbole \(\bot\).
+    La valeur de vérité de \(\top\) (<i>vrai</i>) est 1 et la valeur de vérité de \(\bot\) (<i>faux</i>) est 0.
+</p>
+$endremark$
+
+$selfcheck$
+<p>
+    La logique propositionnelle a pour objet d'étude
+    <select class="self-pick">
+        <option data-correct>les propositions</option>
+        <option>les variables</option>
+        <option>les constantes</option>
+    </select>.
+    Les propositions sont des  
+    <select class="self-pick">
+        <option>questions</option>
+        <option data-correct>affirmations</option>
+        <option>procédures</option>
+    </select>
+    auxquelles il est possible d'attribuer
+    <select class="self-pick">
+        <option>une probabilité</option>
+        <option>une opinion</option>
+        <option data-correct>une valeur de vérité</option>
+    </select>.
+</p>
+<p>
+    Les variables propositionnelles ont une valeur de vérité qui dépend de 
+    <select class="self-pick">
+        <option>la date du jour</option>
+        <option data-correct>l'interprétation</option>
+        <option>la météo</option>
+    </select>.
+    Au contraire, les constantes ont toujours la même valeur de vérité.
+    La proposition constante <i>vrai</i> a pour valeur de vérité 
+    <select class="self-pick">
+        <option>⊤</option>
+        <option>⊥</option>
+        <option data-correct>1</option>
+        <option>0</option>
+    </select>.
+    La constante <i>faux</i> a pour valeur de vérité 
+    <select class="self-pick">
+        <option>⊤</option>
+        <option>⊥</option>
+        <option>1</option>
+        <option data-correct>0</option>
+    </select>.
+</p>
+$endselfcheck$

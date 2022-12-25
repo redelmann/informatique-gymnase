@@ -1,0 +1,48 @@
+
+<h1>Générateur de tables de vérité</h1>
+
+<script src="js/truth-tables.js"></script>
+
+<p>
+    Entrez une proposition dans le champ de texte ci-dessous et cliquez sur le bouton <i>Calculer</i> pour obtenir la table de vérité de cette proposition.
+</p>
+<div class="expr-input" id="table-gen">
+    <input type="text" placeholder="(A et B) ou non C">
+    <button>Calculer</button>
+</div>
+
+<table id="generated-truth-table" class="truth-table"></table>
+
+<script type="text/javascript">
+    (function() {
+        const container = document.getElementById('table-gen');
+        const input = container.querySelector('input');
+        const button = container.querySelector('button');
+        const table = document.getElementById('generated-truth-table');
+
+        const previous = sessionStorage.getItem('table-gen-input');
+        if (previous) {
+            input.value = previous;
+        }
+        
+        function handler() {
+            table.innerHTML = '';
+
+            sessionStorage.setItem('table-gen-input', input.value);
+
+            try {
+                populateTable(table, input.value);
+            } catch (e) {
+                console.log(e);
+                table.innerHTML = '<tr><td>Oups, l\'expression est mal formée.</td></tr>';
+            }
+        }
+
+        button.addEventListener('click', handler);
+        input.addEventListener('keyup', function() {
+            if (event.key === "Enter") {
+                handler();
+            }
+        });
+    })();
+</script>

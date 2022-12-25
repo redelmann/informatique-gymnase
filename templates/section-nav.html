@@ -1,0 +1,51 @@
+<nav class="chapter-nav">
+    <div class="prev">
+$if(prevSectionUrl)$
+        <a class="prev" href="/$prevSectionUrl$">
+            <i class="fa fa-angle-left" />
+            <div>
+                <span class="label">Section précédente</span>
+                <span class="title">$prevSectionTitle$</span>
+            </div>
+        </a>
+$else$
+        <a class="prev" href="/$chapterUrl$">
+            <i class="fa fa-angles-left" />
+            <div>
+                <span class="label">Retour au chapitre</span>
+                <span class="title">$chapterTitle$</span>
+            </div>
+        </a>
+$endif$
+    </div>
+$globalNav$
+    <div class="next">
+$if(nextSectionUrl)$
+        <a class="next" href="/$nextSectionUrl$">
+            <div>
+                <span class="label">Section suivante</span>
+                <span class="title">$nextSectionTitle$</span>
+            </div>
+            <i class="fa fa-angle-right" />
+        </a>
+$else$
+    $if(nextChapterUrl)$
+        <a class="next" href="/$nextChapterUrl$">
+            <div>
+                <span class="label">Chapitre suivant</span>
+                <span class="title">$nextChapterTitle$</span>
+            </div>
+            <i class="fa fa-angles-right" />
+        </a>
+    $else$
+        <a class="next" href="/$indexUrl$">
+            <div>
+                <span class="label">Retour</span>
+                <span class="title">Accueil</span>
+            </div>
+            <i class="fa fa-angles-up" />
+        </a>
+    $endif$
+$endif$
+    </div>
+</nav>

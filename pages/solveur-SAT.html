@@ -1,0 +1,132 @@
+
+<h1>Solveur SAT</h1>
+
+<p>
+Entrez une proposition ci-dessous pour déterminer si elle est satisfiable.
+</p>
+
+<style>
+    #sat-solver {
+        position: relative;
+    }
+
+    #sat-solver .buttons {
+        position: absolute;
+        right: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #sat-solver .buttons button {
+        padding: 20px;
+    }
+
+    #sat-solver textarea {
+        font-size: 16pt;
+        font-family: 'Courier New', Courier, monospace;
+    }
+</style>
+
+<div id="sat-solver">
+    <textarea rows="5" cols="62"></textarea>
+    <div class="buttons">
+        <button id="sat-btn">Satisfiable ?</button>
+        <button id="all-btn">Lister les solutions</button>
+    </div>
+    <p class="output"></p>
+</div>
+
+<script type="text/javascript">
+    (function() {
+
+        function escapeHtml(unsafe){
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        const satSolver = document.getElementById('sat-solver');
+        const input = satSolver.querySelector('textarea');
+        const button = satSolver.querySelector('#sat-btn');
+        const buttonAll = satSolver.querySelector('#all-btn');
+        const output = satSolver.querySelector('.output');
+
+        const previous = sessionStorage.getItem('sat-solver-input');
+        if (previous) {
+            input.value = previous;
+        }
+
+        function showInterpretation(interpretation) {
+            const keys = Object.keys(interpretation);
+            if (keys.length === 0) {
+                return '&laquo; &raquo;';
+            }
+            return "&laquo;&nbsp;" + keys.map(key => `$${escapeHtml(key)} = $${interpretation[key] ? 1 : 0}`).join(', ') + "&nbsp;&raquo;";
+        }
+
+        function handler() {
+            output.innerHTML = '';
+            const text = input.value;
+
+            sessionStorage.setItem('sat-solver-input', text);
+
+            let expr;
+            try {
+                expr = logicQuestions.parse(text);
+            } catch (e) {
+                output.innerHTML = 'Oups, la proposition est mal formée.';
+                return;
+            }
+            const model = logicQuestions.getModel(expr);
+            if (model !== null) {
+                output.innerHTML = 'La proposition est satisfiable.<br /><br />' +
+                    'Une interprétation qui satisfait la proposition est :\n<i>' +
+                    showInterpretation(model) +
+                    '</i>.';
+
+            } else {
+                output.innerHTML = 'La proposition n\'est pas satisfiable.';
+            }
+        }
+
+        function handlerAll() {
+            output.innerHTML = '';
+            const text = input.value;
+            const MAX_N = 1000;
+
+            sessionStorage.setItem('sat-solver-input', text);
+
+            let expr;
+            try {
+                expr = logicQuestions.parse(text);
+            } catch (e) {
+                output.innerHTML = 'Oups, la proposition est mal formée.';
+                return;
+            }
+            const models = logicQuestions.getAllModels(expr, MAX_N);
+            if (models.length > 0) {
+                output.innerHTML = 'La proposition est satisfiable.<br /><br />';
+                output.innerHTML += '<b>La proposition est satisfaite par ' +
+                    (models.length === MAX_N ? 'au moins' : 'exactement') + ' ' +
+                    models.length + ' interprétation' +
+                    (models.length === 1 ? '' : 's') + ' :</b><br />';
+                models.forEach(model => {
+                    output.innerHTML += '<i>' +
+                        showInterpretation(model) +
+                        '</i><br />';
+                });
+
+            } else {
+                output.innerHTML = 'La proposition n\'est pas satisfiable.';
+            }
+        }
+
+        button.addEventListener('click', handler);
+        buttonAll.addEventListener('click', handlerAll);
+    })();
+</script>

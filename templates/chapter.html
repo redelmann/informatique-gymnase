@@ -1,0 +1,18 @@
+$partial("templates/chapter-nav.html")-$
+
+<section>
+<h1>$chapterNumber$. $title$</h1>
+
+$body$
+
+<h2>Table des matières</h2>
+<ul class="table-of-content">
+$for(sections)$
+    <li>
+        <a href="$url$">$chapterNumber$.$sectionNumber$. $title$</a>
+    </li>
+$endfor$
+</ul>
+</section>
+
+$partial("templates/chapter-nav.html")-$

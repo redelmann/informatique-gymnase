@@ -1,0 +1,161 @@
+---
+title: Équivalences
+order: 5
+---
+
+<script src="/js/truth-tables.js"></script>
+
+<p>
+On dit qu'une proposition est <i>équivalente</i> à une autre proposition si les deux propositions ont la même valeur de vérité pour toutes les interprétations possibles.
+On peut constater que les deux propositions sont équivalentes de manière visuelle à l'aide d'une table de vérité :
+les colonnes de deux expressions équivalentes contiennent les mêmes valeurs.
+</p>
+
+$example$
+<p>
+Par exemple, les propositions <i>\(A\)</i> et <i>non non \(A\)</i> sont équivalentes.
+Comme en témoigne la table de vérité ci-dessous, peu importe la valeur de vérité de \(A\), les deux propositions auront la même valeur.
+On dit que <i>\(A\)</i> et <i>non non \(A\)</i> sont <i>équivalentes</i>.
+</p>
+
+<table class="truth-table" id="truth-table-a-non-non-a"></table>
+
+<script type="text/javascript">
+    populateTable('truth-table-a-non-non-a', 'A, non non A');
+</script>
+$endexample$
+
+<h3>Le connecteur <i>ssi</i></h3>
+
+<p>
+    De manière intéressante, énoncer que deux propositions sont équivalentes est aussi une proposition.
+    En effet, il s'agit d'une affirmation qui peut être vraie ou fausse.
+</p>
+<p>
+    On utilise le connecteur logique <i>si et seulement si</i> pour énoncer cette proposition.
+    On utilisera l'abbréviation <i>ssi</i> pour dénoter ce connecteur.
+    Parfois, la notation <i>\(p \Leftrightarrow q\)</i> est utilisée pour dénoter l'équivalence entre deux propositions \(p\) et \(q\).
+</p>
+
+<p>La table de vérité du connecteur <i>ssi</i> est affichée ci-dessous. L'équivalence est vraie uniquement quand les deux propositions ont la même valeur.</p>
+
+<table class="truth-table" id="truth-table-ssi"></table>
+
+<script type="text/javascript">
+    populateTable('truth-table-ssi', 'p ssi q');
+</script>
+
+<h3>Lois de De Morgan</h3>
+
+<p>
+    <a href="https://fr.wikipedia.org/wiki/Auguste_De_Morgan">Auguste De Morgan</a> est un mathématicien anglais du XIXe siècle, 
+    qui a donné son nom à des lois de la logique – les lois de De Morgan – qui mettent en évidence des équivalences entre des propositions.
+    Les lois de De Morgan énoncent comment les connecteurs <i>et</i> et <i>ou</i> se comportent avec le connecteur <i>non</i>.
+</p>
+<p>
+    Les lois sont les suivantes :
+    <ul>
+        <li>
+            La proposition <i>non (\(p\) et \(q\))</i> est équivalente à <i>(non \(p\)) ou (non \(q\))</i>.
+        </li>
+        <li>
+            La proposition <i>non (\(p\) ou \(q\))</i> est équivalente à <i>(non \(p\)) et (non \(q\))</i>.
+        </li>
+    </ul>
+</p>
+
+<p>
+    Les lois établissent le comportement de la négation sur les connecteurs logiques <i>et</i> et <i>ou</i> :
+    Elles stipulent que la négation d'une conjonction est une disjonction de négations,
+    tandis que la négation d'une disjonction est une conjonction de négations.
+</p>
+
+$example$
+<p>
+    Soit la variable \(F\) qui signifie <i>&laquo; La personne commande des fromages. &raquo;</i>
+    et la variable \(D\) qui signifie <i>&laquo; La personne commande un dessert. &raquo;</i>.
+</p>
+<div class="illustration left">
+    <img src="images/fromages-dessert.png" style="width: 300px; margin-top: 50px; margin-bottom: 50px;" alt="Un plateau de fromages et de desserts.">
+</div>
+<p>
+    La proposition <i>non (\(F\) et \(D\))</i> est équivalente à <i>(non \(F\)) ou (non \(D\))</i>.
+    Dire que la personne ne commande pas à la fois des fromages et un dessert revient à dire qu'elle ne commande pas de fromages ou qu'elle ne commande pas de dessert.
+</p>
+<p>
+    La proposition <i>non (\(F\) ou \(D\))</i> est équivalente à <i>(non \(F\)) et (non \(D\))</i>.
+    Dire qu'il n'est pas vrai que la personne commande des fromages ou un dessert revient à dire qu'elle ne commande pas de fromages et qu'elle ne commande pas de dessert.
+</p>
+$endexample$
+
+<p>
+    Les lois de De Morgan peuvent être visualées à l'aide de la table de vérité ci-dessous.
+    Les colonnes contenant les mêmes valeurs correspondent à des expressions équivalentes.
+</p>
+
+<table class="truth-table" id="table-De-Morgan"></table>
+
+<script type="text/javascript">
+    populateTable('table-De-Morgan', 'non (p ou q), non p et non q, non (p et q), non p ou non q');
+</script>
+
+<p>
+    Les lois de De Morgan peuvent aussi être exprimées sous forme de propositions.
+    Vues sous cette forme, les lois correspondent aux deux propositions suivantes:
+    <ul>
+        <li>
+            <i>(non (\(p\) et \(q\))) ssi ((non \(p\)) ou (non \(q\)))</i>
+        </li>
+        <li>
+            <i>(non (\(p\) ou \(q\))) ssi ((non \(p\)) et (non \(q\)))</i>
+        </li>
+    </ul>
+</p>
+<p>
+    Les deux propositions sont des <i>tautologies</i>.
+    Peu importe la valeur de vérité des propositions \(p\) et \(q\), les deux lois seront toujours vraies.
+</p>
+
+<h3>Contraposée de l'implication</h3>
+
+<p>
+    L'implication interagit elle aussi de façon intéressante avec la négation.
+    On pourrait croire, à première vue, que si \(p\) implique \(q\), alors <i>non \(p\)</i> implique forcément <i>non \(q\)</i>.
+    Cependant, ce n'est pas le cas, comme on peut le voir à l'aide de la table de vérité ci-dessous.
+    En effet, les colonnes correspondant à ces expressions ne contiennent pas les mêmes valeurs.
+</p>
+
+<table class="truth-table" id="table-equ-3"></table>
+
+<script type="text/javascript">
+    populateTable('table-equ-3', 'p implique q, non p implique non q, non q implique non p');
+</script>
+
+<p>
+    Comme on peut l'observer dans la table ci-dessus, il y a bien une proposition
+    formée d'une implication qui est équivalente à <i>\(p\) implique \(q\)</i>.
+    Cette proposition est <i>(non \(q\)) implique non \(p\)</i>.
+    On appelle cette dernière proposition la <i>contraposée</i> de l'implication.
+</p>
+
+$example$
+
+<div class="illustration right">
+    <img src="images/biere.png" style="max-width: 200px; margin-top:20px" alt="Une bière.">
+</div>
+
+<p>
+    Prenons par exemple la variable \(A\) qui représente la proposition <i>&laquo; La personne boit de l'alcool. &raquo;</i> et
+    la variable \(M\) qui représente la proposition <i>&laquo; La personne est majeure. &raquo;</i>.
+</p>
+<p>
+    L'implication <i>\(A\) implique \(M\)</i> énonce que lorsque la personne boit de l'alcool, alors forcément elle est majeure.
+    La contraposée de cette implication est <i>(non \(M\)) implique non \(A\)</i>.
+    Cette proposition énonce que lorsque la personne n'est pas majeure, alors forcément elle ne boit pas d'alcool.
+    Les deux propositions sont équivalentes : satisfaire une proposition revient à satisfaire sa contraposée, et inversement.
+</p>
+<p>
+    Ces propositions contrastent avec la proposition <i>(non \(A\)) implique non \(M\)</i>, qui elle énonce que lorsque une personne ne boit pas d'alcool c'est forcément qu'elle n'est pas majeure.
+    Cette proposition est équivalente à la proposition <i>\(M\) implique \(A\)</i>, qui énonce que lorsque la personne est majeure, alors forcément elle boit de l'alcool.
+</p>
+$endexample$

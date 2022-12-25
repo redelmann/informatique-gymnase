@@ -1,0 +1,11 @@
+<div class="middle">
+    <select class="global-nav">
+        <option value="$relativizeUrl(indexUrl)$">Accueil</option>
+$for(chapters)$
+        <option value="$relativizeUrl(url)$"$if(active)$ selected$endif$>$chapterNumber$. $title$</option>
+$for(sections)$
+        <option value="$relativizeUrl(url)$"$if(active)$ selected$endif$>&nbsp;&nbsp;$chapterNumber$.$sectionNumber$. $title$</option>
+$endfor$
+$endfor$
+    </select>
+</div>

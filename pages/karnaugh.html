@@ -1,0 +1,133 @@
+
+<style>
+
+.table {
+    margin: auto;
+    font-size: 25px;
+}
+
+.table td, .table th {
+    text-align: center;
+    padding: 5px;
+    user-select: none;
+}
+
+.table td {
+    cursor: pointer;
+}
+
+.variable-row {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.variables {
+    flex-grow: 1;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.variable-row .minus {
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.variable-row .minus span {
+    display: block;
+    background-color: #999;
+    color: #fff;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 20px;
+    user-select: none;
+}
+
+.variable-selector {
+    padding: 6px;
+    border-radius: 15px;
+    cursor: pointer;
+    user-select: none;
+    display: inline-block;
+}
+
+.not {
+    padding-right: 5px;
+}
+
+.state-0 {
+    background-color: #999;
+    color: #eee;
+}
+
+.state-1 {
+    background-color: rgb(6, 93, 6);
+    color: #fff;
+}
+
+.state-2 {
+    background-color: #f00;
+    color: #fff;
+}
+
+.state-0 .not, .state-1 .not {
+    visibility: hidden;
+}
+
+.groups {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.groups .or {
+    text-align: center;
+}
+
+.groups .plus {
+    font-size: 30px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.groups .plus span {
+    display: inline-block;
+    background-color: #999;
+    color: #fff;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+    user-select: none;
+}
+
+</style>
+
+<h1>Tables de Karnaugh</h1>
+
+<script src="js/karnaugh.js"></script>
+
+<table id="table">
+
+</table>
+
+<div id="groups">
+
+</div>
+
+<script type="text/javascript">
+    makeTable(document.getElementById('table'), 1, 2, function (interpretation, value) {
+        console.log(interpretation, value);
+    });
+
+    const vars = ['N2', 'N1', 'N0'];
+    
+    makeVarsList(document.getElementById('groups'), vars);
+</script>

@@ -1,0 +1,79 @@
+---
+title: Tables de vérité
+order: 4
+---
+
+<script src="/js/truth-tables.js"></script>
+
+<div class="illustration right">
+    <img src="images/table.png" style="max-height: 250px;" alt="Une table avec une nappe.">
+</div>
+
+<p>
+Les <i>tables de vérité</i> sont un moyen graphique de lister de manière exhaustive les différentes interprétations possibles d'une proposition,
+ainsi que la valeur de vérité de cette proposition pour chacune des interprétations.
+</p>
+<p>
+Ci-dessous est la table de vérité de la proposition <i>\(A\) ou (\(B\) et non \(C\))</i>.
+Les trois premières colonnes contiennent la valeur de vérité des trois variables propositionnelles.
+La quatrième colonne contient la valeur de vérité de la proposition.
+La première ligne contient les noms des variables propositionnelles ainsi que la proposition.
+Chaque ligne suivante correspond à une interprétation différente.
+</p>
+
+<table class="truth-table" id="truth-table-ex"></table>
+
+<script type="text/javascript">
+populateTable('truth-table-ex', 'A ou (B et non C)');
+</script>
+
+<p>
+Il est aussi possible de créer des tables de vérité avec plus d'une proposition.
+Dans ce cas, chaque proposition est affichée dans une colonne différente, et ce après les colonnes des variables.
+La table de vérité ci-dessous présente plusieurs propositions en même temps.
+Dans cet exemple, chaque proposition correspond à un connecteur logique différent.
+</p>
+
+<table class="truth-table" id="truth-table-connectors"></table>
+
+<script type="text/javascript">
+populateTable('truth-table-connectors', 'non A, A ou B, A et B, A implique B');
+</script>
+
+$tryout$
+<p>
+    Entrez une proposition dans le champ de texte ci-dessous et cliquez sur le bouton <i>Calculer</i> pour obtenir la table de vérité de cette proposition.
+</p>
+<div class="expr-input" id="table-gen">
+    <input type="text" placeholder="(A et B) ou non C">
+    <button>Calculer</button>
+</div>
+
+<table id="generated-truth-table" class="truth-table"></table>
+
+<script type="text/javascript">
+    (function() {
+        const container = document.getElementById('table-gen');
+        const input = container.querySelector('input');
+        const button = container.querySelector('button');
+        const table = document.getElementById('generated-truth-table');
+        
+        function handler() {
+            table.innerHTML = '';
+            try {
+                populateTable(table, input.value);
+            } catch (e) {
+                console.log(e);
+                table.innerHTML = '<tr><td>Oups, l\'expression est mal formée.</td></tr>';
+            }
+        }
+
+        button.addEventListener('click', handler);
+        input.addEventListener('keyup', function() {
+            if (event.key === "Enter") {
+                handler();
+            }
+        });
+    })();
+</script>
+$endtryout$

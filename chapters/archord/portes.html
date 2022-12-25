@@ -1,0 +1,230 @@
+---
+title: Portes logiques et circuits
+order: 1
+---
+
+<style>
+.logic-frame {
+    width: 290px;
+    border: 0;
+    margin: auto;
+}
+</style>
+
+<script src="/js/logic-simulator.js"></script>
+<script src="/js/truth-tables.js"></script>
+
+<h3>Entrées</h3>
+
+<div class="logic-frame" style="height: 40px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+            {
+                "v": 4,
+                "in": [
+                    {"pos": [40, 20], "id": 3, "val": 0, "name": "A"}
+                ]
+            }
+        </script>
+    </logic-editor>
+</div>
+
+<h3>Sorties</h3>
+
+<div class="logic-frame" style="height: 40px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "in": [
+            {"pos": [40, 20], "id": 3, "val": 0, "name": "A"}
+          ],
+          "out": [
+            {"pos": [240, 20], "id": 4, "name": "S"}
+          ],
+          "wires": [[3, 4]]
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<h3>Portes logiques</h3>
+
+<h4>La porte NON</h4>
+
+<div class="logic-frame" style="height: 60px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "in": [
+            {"pos": [40, 30], "id": 3, "val": 0, "name": "A"}
+          ],
+          "out": [
+            {"pos": [240, 30], "id": 4, "name": "S"}
+          ],
+          "gates": [
+            {"type": "NOT", "pos": [140, 30], "in": 5, "out": 6}
+          ],
+          "wires": [[3, 5], [6, 4]]
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<table class="truth-table" id="truth-table-non"></table>
+
+<script type="text/javascript">
+populateTable('truth-table-non', 'non A');
+</script>
+
+<h4>La porte ET</h4>
+
+<div class="logic-frame" style="height: 100px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "in": [
+            {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
+            {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
+          ],
+          "out": [
+            {"pos": [240, 50], "id": 4, "name": "S"}
+          ],
+          "gates": [
+            {"type": "AND", "pos": [140, 50], "in": [8, 9], "out": 10}
+          ],
+          "wires": [[7, 9], [3, 8], [10, 4]]
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<table class="truth-table" id="truth-table-et"></table>
+
+<script type="text/javascript">
+populateTable('truth-table-et', 'A et B');
+</script>
+
+<h4>La porte OU</h4>
+
+<div class="logic-frame" style="height: 100px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "in": [
+            {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
+            {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
+          ],
+          "out": [
+            {"pos": [240, 50], "id": 4, "name": "S"}
+          ],
+          "gates": [
+            {"type": "OR", "pos": [140, 50], "in": [8, 9], "out": 10}
+          ],
+          "wires": [[7, 9], [3, 8], [10, 4]]
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<table class="truth-table" id="truth-table-ou"></table>
+
+<script type="text/javascript">
+populateTable('truth-table-ou', 'A ou B');
+</script>
+
+<h4>La porte OU-X</h4>
+
+<div class="logic-frame" style="height: 100px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "in": [
+            {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
+            {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
+          ],
+          "out": [
+            {"pos": [240, 50], "id": 4, "name": "S"}
+          ],
+          "gates": [
+            {"type": "XOR", "pos": [140, 50], "in": [8, 9], "out": 10}
+          ],
+          "wires": [[7, 9], [3, 8], [10, 4]]
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<table class="truth-table" id="truth-table-ou-x"></table>
+
+<script type="text/javascript">
+populateTable('truth-table-ou-x', 'A ou-x B');
+</script>
+
+<h4>La porte NON-ET</h4>
+
+<div class="logic-frame" style="height: 100px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "in": [
+            {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
+            {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
+          ],
+          "out": [
+            {"pos": [240, 50], "id": 4, "name": "S"}
+          ],
+          "gates": [
+            {"type": "NAND", "pos": [140, 50], "in": [8, 9], "out": 10}
+          ],
+          "wires": [[7, 9], [3, 8], [10, 4]]
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<table class="truth-table" id="truth-table-non-et"></table>
+
+<script type="text/javascript">
+populateTable('truth-table-non-et', 'A non-et B');
+</script>
+
+<h4>La porte NON-OU</h4>
+
+<div class="logic-frame" style="height: 100px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "in": [
+            {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
+            {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
+          ],
+          "out": [
+            {"pos": [240, 50], "id": 4, "name": "S"}
+          ],
+          "gates": [
+            {"type": "NOR", "pos": [140, 50], "in": [8, 9], "out": 10}
+          ],
+          "wires": [[7, 9], [3, 8], [10, 4]]
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<table class="truth-table" id="truth-table-non-ou"></table>
+
+<script type="text/javascript">
+populateTable('truth-table-non-ou', 'A non-ou B');
+</script>
+
+<h3>Circuits</h3>
+
+<h3>Multiplexeurs</h3>
+
+<h3>Démultiplexeurs</h3>

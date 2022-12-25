@@ -1,0 +1,328 @@
+---
+title: Connecteurs
+order: 2
+---
+
+<div class="illustration right">
+    <img src="images/lego.png" alt="Dessin de briques LEGO.">
+</div>
+
+<p>
+    Jusqu'à présent, nous avons vu comment former des propositions simples à
+    l'aide de variables propositionnelles et de constantes.
+    Dans cette section, nous allons découvrir comment former des propositions plus complexes
+    en combinant des propositions.
+    Pour combiner des propositions, nous allons utiliser ce qu'on appelle des <i>connecteurs</i>.
+    Un connecteur permet de lier des propositions entre elles pour n'en former qu'une seule.
+    Le résultat de la combinaison de propositions est une nouvelle proposition dont le sens
+    est déterminé par le connecteur utilisé et les propositions combinées.
+</p>
+
+$example$
+<p>
+    Imaginons que nous ayons deux variables propositionnelles \(G\) et \(R\),
+    auquel on peut attribuer le sens, par exemple, de respectivement
+    <i>&laquo; Le fruit est grand. &raquo;</i> et <i>&laquo; Le fruit est rouge. &raquo;</i>.
+</p>
+<p>
+    À l'aide d'un connecteur logique comme le <i>&laquo; et &raquo;</i>, nous pouvons combiner les deux propositions
+    pour former une nouvelle proposition \(G\) <i>et</i> \(R\).
+    Cette dernière exprime que <i>&laquo; Le fruit est grand et le fruit est rouge. &raquo;</i>, ou encore,
+    plus simplement <i>&laquo; Le fruit est grand et rouge. &raquo;</i>.
+</p>
+$endexample$
+
+<p>
+    Les connecteurs que nous allons voir sont : la négation (le <i>non</i>), la conjonction (le <i>et</i>), la disjonction (le <i>ou</i>) et finalement l'implication (le <i>implique</i>).
+</p>
+
+<h3>Négation</h3>
+
+<p>
+    La négation est un connecteur qui permet d'obtenir l'inverse d'une proposition.
+    Étant donné une proposition \(p\), on note <i>non</i> \(p\) la négation de \(p\).
+    On utilise parfois la notation \(\neg p\) pour signifier la négation de \(p\).
+</p>
+
+$remark$
+    <p>
+        Dans le paragraphe précédent, nous avons utilisé une lettre minuscule, en l'occurence
+        \(p\), pour représenter une proposition arbitraire.
+        Cette lettre représente ce qu'on appelle une <i>meta-variable</i>.
+        Il s'agit simplement d'un moyen de faire référence une proposition arbitraire en lui donnant un nom, ici \(p\).
+        Il peut s'agir d'une proposition simple comme une variable ou d'une proposition plus complexe voire même d'une constante.
+    </p>
+$endremark$
+
+<p>
+    La négation d'une proposition énonce son contraire :
+    La négation d'une proposition est vraie si et seulement si la proposition originale est fausse.
+</p>
+
+$example$
+    <p>
+        En admettant que la variable \( R \) signifie  <i>&laquo; La Terre est ronde. &raquo;</i>,
+        la proposition <i>non \(R\)</i> énonce que <i>&laquo; La Terre n'est pas ronde. &raquo;</i>.
+        La proposition <i>non \(R\)</i> est vraie quand \(R\) est fausse, et est fausse quand \(R\) est vraie.
+    </p>
+$endexample$
+
+<h3>Conjonction</h3>
+
+<p>
+    La conjonction est un connecteur qui permet d'affirmer la véracité de deux propositions en même temps.
+    Étant donné deux propositions \(p\) et \(q\), on note <i>\(p\) et \(q\)</i> la conjonction de \(p\) et de \(q\).
+    On utilise parfois la notation \(p \wedge q\) pour référer à la conjonction de \(p\) et de \(q\).
+</p>
+<p>
+    La conjonction de deux propositions énonce que les deux propositions sont vraies.
+    La conjonction résultante est elle-même une proposition.
+    Cette proposition est vraie si et seulement si les deux propositions sont vraies.
+</p>
+<p>
+    On appelle les propositions qui composent une proposition construite à l'aide d'un connecteur (comme la conjonction) ses <i>sous-propositions</i>.
+</p> 
+
+$example$
+    <p>
+        Admettons que la variable \(R\) signifie  <i>&laquo; La Terre est ronde. &raquo;</i>
+        et que la variable \(B\) signifie <i>&laquo; Le Soleil est bleu. &raquo;</i>.
+        La proposition <i>\(R\) et \(B\)</i> énonce que <i>&laquo; la Terre est ronde et le Soleil est bleu. &raquo;</i>.
+        La proposition est vraie uniquement dans le cas où les deux sous-propositions (c'est-à-dire la proposition \(R\) et la proposition \(B\)) sont les deux vraies.
+    </p>
+$endexample$
+
+<h3>Disjonction</h3>
+
+<p>
+    La disjonction est un connecteur qui permet d'affirmer la véracité d'une des deux propositions.
+    Étant donné deux propositions \(p\) et \(q\), on note <i>\(p\) ou \(q\)</i> la disjonction de \(p\) et de \(q\).
+    On utilise parfois la notation \(p \vee q\) pour référer à la disjonction de \(p\) et de \(q\).
+</p>
+
+<p>
+    La disjonction de deux propositions énonce que l'une des deux propositions est vraie.
+    Tout comme pour la conjonction, la disjonction résultante est elle-même une proposition.
+    Cette proposition est vraie si et seulement si l'une ou l'autre des deux propositions est vraie.
+    Dans le cas où les deux propositions sont vraies, la disjonction est elle aussi vraie.
+</p>
+
+$example$
+    <p>
+        Admettons que la variable \( R \) signifie  <i>&laquo; L'objet est rouge. &raquo;</i>
+        et que la variable \( C \) signifie <i>&laquo; L'objet est carré. &raquo;</i>.
+        La proposition <i>\(R\) ou \(S\)</i> énonce que <i>&laquo; l'objet est rouge ou l'objet est carré. &raquo;</i>.
+        La proposition est fausse dans le cas où les deux sous-propositions sont fausses, et uniquement dans ce cas.
+    </p>
+$endexample$
+<h3>Implication</h3>
+
+<p>
+    Le dernier connecteur que nous allons voir à présent est l'<i>implication</i>.
+    L'implication est un connecteur qui permet d'affirmer que quand une première proposition est vraie alors la seconde l'est aussi.
+    Étant donné deux propositions \(p\) et \(q\), on note <i>\(p\) implique \(q\)</i> l'affirmation que la proposition \(p\) implique la proposition \(q\).
+    On note parfois <i>\(p \to q\)</i> voire <i>\(p \Rightarrow q\)</i> pour dénoter une implication.
+</p>
+<p>
+    L'implication est un moyen d'exprimer des affirmations de la forme <i>&laquo; Si \(p\) alors \(q\). &raquo;</i> ou 
+<i>&laquo; Quand \(p\) alors \(q\). &raquo;</i>.
+    Quand la proposition \(p\) est vraie, la proposition \(q\) doit être vraie afin que l'implication soit vraie.
+    Quand la proposition \(p\) est fausse, l'implication sera toujours vraie, peu importe la valeur de vérité de \(q\).
+</p>
+<p>
+    Le seul moyen qu'une implication <i>\(p\) implique \(q\)</i> soit fausse est que la proposition \(p\) soit vraie et que la proposition \(q\) soit fausse.
+</p>
+
+$example$
+<p>
+    Soit la variable \(P\) qui signifie <i>&laquo; Il pleut. &raquo;</i> et la variable \(B\) qui signifie <i>&laquo; Je prends mes bottes. &raquo;</i>.
+    La proposition <i>\(P\) implique \(B\)</i> énonce que <i>&laquo; Quand il pleut, je prends mes bottes. &raquo;</i>.
+    L'énoncé est vrai dans le cas où il pleut et que je prends mes bottes, mais aussi dans le cas où il ne pleut pas, que je prenne ou non mes bottes.
+    Le seul cas où l'énoncé est faux est celui où il pleut et où je ne prends pas mes bottes.
+</p>
+$endexample$
+
+<h3>Mélanger les connecteurs</h3>
+
+<div class="illustration right">
+    <img src="images/connecteurs.png" style="max-height: 200px;" alt="Nuage de connecteurs.">
+</div>
+
+<p>
+    Il me semble important de clarifier qu'il est possible de combiner tous les connecteurs que nous avons vu jusqu'à présent pour former des propositions.
+    Lorsque nous formons une proposition, nous ne sommes pas limité à utiliser un seul connecteur.
+    Une proposition peut être construite à l'aide de plusieurs connecteurs.
+</p>
+
+<p>
+    Lorsque nous écrivons des propositions à l'aide de plus d'un connecteur, l'ordre d'application des connecteurs est important.
+    Comme pour les expressions arithmétique, où la multiplication est prioritaire sur l'addition, il est important de respecter l'ordre d'application des connecteurs.
+    Le connecteur <i>non</i> a la priorité sur le <i>et</i>, qui a la priorité sur le connecteur <i>ou</i>, qui a la priorité sur le connecteur <i>implique</i>.
+</p>
+
+$example$
+    <p>
+        Admettons que la variable \(R\) signifie <i>&laquo; La Terre est ronde. &raquo;</i> et que la variable \(B\) signifie <i>&laquo; Le Soleil est bleu. &raquo;</i>.
+        La proposition <i>\(R\) et non \(B\)</i> énonce que <i>&laquo; la Terre est ronde et le Soleil n'est pas bleu &raquo;</i>.
+        La proposition fait usage de la conjonction et de la négation.
+    </p>
+$endexample$
+
+<p>
+    Tout comme vous en avez certainement l'habitude en mathématiques, il est possible d'utiliser des parenthèses pour définir (ou clarifier) l'ordre d'application des connecteurs.
+    Je ferais mon possible pour utiliser des parenthèses même si elles ne sont pas strictement nécessaires afin de clarifier l'ordre d'application des connecteurs.
+</p>
+
+$example$
+    <p>
+        Admettons que la variable \(R\) signifie <i>&laquo; La Terre est ronde. &raquo;</i> et que la variable \(B\) signifie <i>&laquo; Le Soleil est bleu. &raquo;</i>.
+        La proposition <i>non (\(R\) et \(Q\))</i> énonce qu'<i>&laquo; Il n'est pas vrai que la Terre est ronde et le Soleil bleu. &raquo;</i>,
+        autrement dit que <i>&laquo; La Terre n'est pas ronde ou le Soleil n'est pas bleu. &raquo;</i>.
+    </p>
+    <p>
+        La proposition a un sens très différent de la proposition <i>non \(R\) et non \(B\)</i>
+        qui énonce que la <i>&laquo; Terre n'est pas ronde et le Soleil n'est pas bleu. &raquo;</i>.
+    </p>
+$endexample$
+
+<p>
+    Aussi, lorsqu'on utilisera plusieurs fois le même connecteur à la suite,
+    on adoptera la convention que les parenthèses sont mises à droite.
+    Ainsi, pour trois propositions \(p\), \(q\) et \(r\),
+    la proposition <i>\(p\) implique \(q\) implique \(r\)</i> correspondra à la proposition \(p\) implique (\(q\) implique \(r\)),
+    et non à la proposition (\(p\) implique \(q\)) implique \(r\).
+    Techniquement, on dit des connecteurs qu'ils <i>associent à droite</i>.
+</p>
+
+$remark$
+<p>
+    Pour le connecteur <i>et</i> et le connecteur <i>ou</i>, l'ordre d'application importe peu.
+    En effet, que l'on écrive <i>(\(p\) et \(q\)) et \(r\)</i> ou <i>\(p\) et (\(q\) et \(r\))</i>, le résultat sera toujours le même.
+    On dit que ces opérateurs sont <i>associatifs</i>.
+</p>
+<p>
+    De même, pour les opérateurs <i>et</i> et <i>ou</i>, l'ordre d'apparence importe peu.
+    En effet, que l'on écrive <i>\(p\) ou \(q\)</i> ou alors <i>\(q\) ou \(p\)</i>, le résultat sera identique.
+    On dit que ces opérateurs sont <i>commutatifs</i>.
+</p>
+$endremark$
+
+<h3>Arbres syntaxiques</h3>
+
+<script src="/js/d3.min.js" type="text/javascript"></script>
+
+<script src="/js/expr-trees.js" type="text/javascript"></script>
+
+<p>
+    Afin de mieux visualiser les propositions et leur structure,
+    il est possible de les représenter graphiquement sous forme de ce qu'on appelle
+    des <i>arbres syntaxiques</i>.
+    On parle d'<i>arbre</i> car la structure ressemble à celle d'un arbre naturel,
+    si ce n'est que nos arbres seront orientés à l'envers, vers le bas.
+</p>
+
+<p>
+    Afin d'illustrer ce concept, prenons pour exemple la proposition <i>\(A\) et ((non \(B\)) ou vrai)</i>.
+    L'arbre syntaxique de cette proposition est le suivant:
+</p>
+
+<div class="expr-tree-container" id="expr-tree-ex0"></div>
+
+<script type="text/javascript">
+displayExprTree('expr-tree-ex0', 'A et (non B ou vrai)');
+</script>
+
+<p>
+    L'arbre syntaxique qui représente la proposition est composé de <i>noeuds</i> et de <i>branches</i>:
+    <ul>
+        <li>
+            Les <i>noeuds</i> contiennent les <i>connecteurs</i>,
+            les <i>variables</i> et les <i>constantes</i>.
+        </li>
+        <li>
+            Les <i>branches</i> sont les lignes qui relient les noeuds entre eux.
+        </li>
+    </ul>
+    Les noeuds sont placés de manière hiérarchique selon l'ordre d'application des connecteurs.
+    Les noeuds des connecteurs sont placés au-dessus des noeuds sur lesquels ils s'appliquent
+    et y sont reliés par des branches.
+    À chaque niveau, l'ordre gauche-droite des noeuds respecte l'ordre d'apparition dans la proposition.
+    Le noeud le plus en haut de l'arbre est appelé la <i>racine</i> de l'arbre.
+</p>
+
+<p>
+    À noter que sous cette forme graphique,
+    il n'y a plus besoin de faire usage de parenthèses.
+</p>
+
+$tryout$
+<p>
+    Entrez une proposition dans le champ de texte ci-dessous et cliquez sur le bouton <i>Afficher</i> pour afficher l'arbre de cette proposition.
+</p>
+<div class="expr-input" id="expr-tree-gen">
+    <input type="text" placeholder="(A et B) ou non C">
+    <button>Afficher</button>
+</div>
+
+<div id="expr-tree-output" class="expr-tree-container"></div>
+
+<script type="text/javascript">
+    (function() {
+        const container = document.getElementById('expr-tree-gen');
+        const input = container.querySelector('input');
+        const button = container.querySelector('button');
+        const div = document.getElementById('expr-tree-output');
+        
+        function handler() {
+            div.innerHTML = '';
+            try {
+                displayExprTree(div, input.value);
+            } catch (e) {
+                div.innerHTML = 'Oups, l\'expression est mal formée.';
+            }
+        }
+
+        button.addEventListener('click', handler);
+        input.addEventListener('keyup', function() {
+            if (event.key === "Enter") {
+                handler();
+            }
+        });
+    })();
+</script>
+
+$endtryout$
+
+$selfcheck$
+<p>
+    La proposition <i>\(p\) et \(q\)</i> dénote une 
+    <select class="self-pick">
+        <option>négation</option>
+        <option data-correct>conjonction</option>
+        <option>disjonction</option>
+        <option>implication</option>
+    </select>. La proposition est vraie si et seulement si
+    <select class="self-pick">
+        <option data-correct>les deux propositions sont vraies</option>
+        <option>les deux propositions sont fausses</option>
+        <option>au moins une des deux propositions est vraie</option>
+        <option>au moins une des deux propositions est fausse</option>
+    </select>.
+</p>
+
+<p>
+    La proposition <i>\(p\) ou \(q\)</i> dénote une 
+    <select class="self-pick">
+        <option>négation</option>
+        <option>conjonction</option>
+        <option data-correct>disjonction</option>
+        <option>implication</option>
+    </select>. La proposition est vraie si et seulement si
+    <select class="self-pick">
+        <option>les deux propositions sont vraies</option>
+        <option>les deux propositions sont fausses</option>
+        <option data-correct>au moins une des deux propositions est vraie</option>
+        <option>au moins une des deux propositions est fausse</option>
+    </select>.
+</p>
+$endselfcheck$
