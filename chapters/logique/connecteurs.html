@@ -124,6 +124,9 @@ $endexample$
     On note parfois <i>\(p \to q\)</i> voire <i>\(p \Rightarrow q\)</i> pour dénoter une implication.
 </p>
 <p>
+    On appelle l'<i>impliquant</i> la proposition de gauche d'une implication, et on appelle l'<i>impliqué</i> la proposition de droite.
+</p>
+<p>
     L'implication est un moyen d'exprimer des affirmations de la forme <i>&laquo; Si \(p\) alors \(q\). &raquo;</i> ou 
 <i>&laquo; Quand \(p\) alors \(q\). &raquo;</i>.
     Quand la proposition \(p\) est vraie, la proposition \(q\) doit être vraie afin que l'implication soit vraie.
@@ -232,6 +235,10 @@ $endremark$
 displayExprTree('expr-tree-ex0', 'A et (non B ou vrai)');
 </script>
 
+<div class="illustration left">
+    <img src="images/arbre.png" style="margin-top: 20px; margin-bottom: 30px;" alt="Un arbre à l'envers.">
+</div>
+
 <p>
     L'arbre syntaxique qui représente la proposition est composé de <i>noeuds</i> et de <i>branches</i>:
     <ul>
@@ -325,4 +332,23 @@ $selfcheck$
         <option>au moins une des deux propositions est fausse</option>
     </select>.
 </p>
+
+<p>
+    La proposition <i>\(p\) implique \(q\)</i> dénote une 
+    <select class="self-pick">
+        <option>négation</option>
+        <option>conjonction</option>
+        <option>disjonction</option>
+        <option data-correct>implication</option>
+    </select>. La proposition est vraie si l'impliquant (ici \(p\)) est
+    <select class="self-pick">
+        <option>vrai</option>
+        <option data-correct>faux</option>
+    </select> ou alors si l'impliqué (ici \(q\)) est
+    <select class="self-pick">
+        <option data-correct>vrai</option>
+        <option>faux</option>
+    </select>.
+</p>
+
 $endselfcheck$

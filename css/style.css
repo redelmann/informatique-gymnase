@@ -155,6 +155,14 @@ section::after {
     clear: both;
 }
 
+footer {
+    font-size: 0.9em;
+    color: #444;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 40px;
+}
+
 .self-check, .example, .tryout, .objectives {
     margin-top: 60px;
     margin-bottom: 40px;
@@ -300,23 +308,28 @@ select.self-pick {
     display: none;  /* hide on mobile */
 }
 
-.expr-input {
+.expr-input, .expr-inter-input {
     display: flex;
 }
 
-.expr-input input {
+.expr-input input, .expr-inter-input input {
     font-size: inherit;
     flex-grow: 1;
     font-family: 'Courier New', Courier, monospace;
+    margin-right: 10px;
 }
 
-.expr-input input::placeholder {
+.expr-input input::placeholder, .expr-inter-input input::placeholder {
     color: #999;
 }
 
-.expr-input button {
+.expr-input button, .expr-inter-input button {
     font-size: inherit;
-    margin-left: 10px;
+}
+
+.expr-tree-container button {
+    margin-right: 10px;
+    font-size: inherit;
 }
 
 table.truth-table {
@@ -480,13 +493,23 @@ table.truth-table tr.dimmed {
     stroke-linecap: round;
 }
 
-.expr-tree circle {
+.expr-tree circle.node {
     fill: #fff;
 }
 
 .expr-tree text.label {
     text-anchor: middle;
     dominant-baseline: middle;
+}
+
+.expr-tree text.label.active {
+    cursor: pointer;
+    fill: #2539ca;
+    text-decoration: underline;
+}
+
+.expr-tree text.label.inactive {
+    cursor: not-allowed;
 }
 
 .cols-2 {

@@ -3,16 +3,12 @@ title: Interprétations et évaluation
 order: 3
 ---
 
-<script type="text/javascript">
-function escapeHtml(unsafe){
-    return unsafe
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-</script>
+<p>
+    Dans cette section, nous allons étudier regarder comment
+    attribuer une valeur de vérité à une proposition.
+    Dans quelles conditions une proposition est-elle vraie ?
+    Dans quelles conditions une proposition est-elle fausse ?
+</p>
 
 <p>
     De manière informelle, la valeur de vérité d'une proposition dépend du contexte auquel on l'applique.
@@ -23,13 +19,13 @@ function escapeHtml(unsafe){
 <h3>Interprétation</h3>
 
 <div class="illustration left">
-    <img src="images/terre_soleil.png" alt="La Terre plate et le Soleil bleu.">
+    <img src="images/terre_soleil.png" style="margin-bottom: 20px;" alt="La Terre plate et le Soleil bleu.">
 </div>
 
 <p>
     Formellement, on appelle une <i>interprétation</i> d'une proposition une assignation de valeur de vérité
     à chaque variable propositionnelle utilisée dans la proposition.
-    Une interprétation définit la valeur de vérité de chaque variable propositionnelle d'une proposition.
+    Autrement dit, une interprétation liste la valeur de vérité de chaque variable propositionnelle utilisée dans la proposition.
 </p>
 <p>
     On écrit ces assignations de la façon suivante :<br />
@@ -44,14 +40,16 @@ function escapeHtml(unsafe){
     Dans ce cas, <i>&laquo; \(B\) = 1, \(R\) = 0 &raquo;</i> est une interprétation de la proposition.
     Cette interprétation assigne la valeur 1 à la variable \(B\) et la valeur 0 à la variable \(R\).
     Sous cette interprétation, on considére que la variable \(B\) est vraie et la variable \(R\) est fausse.
-    À noter que sous cette interprétation, la proposition <i>non \(B\) et \(R\)</i> est fausse.
+</p>
+<p>
+    Comme vous saurez le déterminer plus tard, sous cette interprétation, la proposition <i>non \(B\) et \(R\)</i> est fausse.
 </p>
 
 $example$
 <p>
-Considérons la variable \(C\) qui représente la proposition <i>&laquo; L'objet est carré. &raquo;</i>
-et la variable \(R\) qui représente la proposition <i>&laquo; L'objet est rouge. &raquo;</i>.
-Admettons que nous étudions une proposition qui fait appel au variables \(C\) et \(R\), tel que par exemple <i>(non \(C\)) et \(R\)</i>.
+    Considérons la variable \(C\) qui représente la proposition <i>&laquo; L'objet est carré. &raquo;</i>
+    et la variable \(R\) qui représente la proposition <i>&laquo; L'objet est rouge. &raquo;</i>.
+    Admettons que nous étudions une proposition qui fait appel au variables \(C\) et \(R\), tel que par exemple <i>(non \(C\)) et \(R\)</i>.
 </p>
 <p>
     Une interprétation est une assignation de valeur de vérité aux deux variables \(C\) et \(R\).
@@ -86,8 +84,15 @@ $endremark$
 
 <script src="/js/expr-trees.js" type="text/javascript"></script>
 
-<p>Étant donné une proposition et une interprétation, il est possible de déterminer la valeur de vérité de la proposition par un procédé d'évaluation.</p>
-<p>Pour ce faire, il suffit de remplacer les occurences des différentes variables par leur valeur de vérité telle que renseignée par l'interprétation, puis d'appliquer les connecteurs en respectant l'ordre d'application.</p>
+<p>
+    Étant donné une proposition et une interprétation,
+    il est possible de déterminer la valeur de vérité de la proposition
+    sous l'interprétation donnée,
+    par un procédé d'<i>évaluation</i>.
+</p>
+<p>
+    Pour ce faire, il suffit de remplacer les occurences des différentes variables par leur valeur de vérité telle que renseignée par l'interprétation,
+    puis d'appliquer les connecteurs en respectant l'ordre d'application.</p>
 <p>
     Pour savoir la valeur retournée par les différents connecteurs en fonction des valeurs de vérité sur lesquels ils sont appliqués,
     on peut utiliser les tableaux présentés ci-dessous.
@@ -137,6 +142,28 @@ populateTable('table-or', 'p ou q');
 populateTable('table-implies', 'p implique q');
 </script>
 
+$remark$
+
+<div class="illustration right">
+    <img src="images/bebe.png" style="margin-top: 10px;" alt="Un bébé qui pleure.">
+</div>
+
+<p>
+    Il est possible de se souvenir facilement
+    du fonctionnement des connecteurs <i>et</i> et <i>ou</i>
+    via un moyen mnémotechnique.
+</p>
+<p>
+    On remarque que dans le cas du connecteur <i>et</i>, c'est le 0 qui prime: si l'une des deux entrées est à 0, alors le résultat est forcément de 0.
+    Pour se rappeler de cela, on peut se souvenir de l'allocution <i>&laquo; Hé oh ! &raquo;</i>, qui rappelle <i>ET 0</i>.
+</p>
+<p>
+    Avec le connecteur <i>ou</i>, c'est le 1 qui prime: si l'une des deux entrées est à 1, alors le résultat est 1.
+    Dans ce cas, on peut penser à <i>&laquo; Ouin ! &raquo;</i>, qui fait penser à <i>OU 1</i>.
+</p>
+
+$endremark$
+
 <h3>Visualiser l'évaluation à l'aide d'arbres</h3>
 
 <p>
@@ -159,18 +186,44 @@ displayExprTree('expr-tree-ex', 'A et ((non B) ou C)');
 <p>
     Pour obtenir la valeur de vérité de la proposition étant donné
     une certaine interprétation, on cherchera à obtenir la valeur de
-    vérité de la racine de l'arbre, le noeud tout en haut de l'arbre.
+    vérité de la racine de l'arbre (le noeud tout en haut de l'arbre).
 </p>
 
 <p>
     Pour obtenir la valeur de vérité d'un noeud de l'arbre,
     il faut connaître la valeur de vérité de tous les noeuds 
-    en dessous de lui reliés par des branches.
+    en dessous du noeud et qui y sont reliés par une branche
+    (on appelle ces noeuds les <i>enfants</i> du noeud).
+    Avant de pouvoir calculer la valeur de vérité de la racine,
+    il faut donc calculer la valeur de vérité de tous les
+    enfants de la racine, puis de tous les enfants de ces enfants,
+    et ainsi de suite jusqu'à arriver aux noeuds tout en bas de l'arbre (les <i>feuilles</i>).
+</p>
+
+$tryout$
+<p>
+    Essayez par vous-même de calculer la valeur de vérité de la racine
+    de l'arbre ci-dessous étant donné l'interprétation 
+    <i>&laquo; \(A\) = 1, \(B\) = 0, \(C\) = 0  &raquo;</i>
+    en évaluant un à un les noeuds de l'arbre.
 </p>
 
 <p>
+    Vous pouvez évaluer un noeud mis en évidence en cliquant dessus.
+    Vous pouvez aussi utiliser le bouton <i>Tout évaluer</i> pour évaluer
+    le reste des noeuds de l'arbre, l'un après l'autre.
+</p>
+
+<div class="expr-tree-container" id="expr-tree-ex-eval"></div>
+
+<script type="text/javascript">
+displayExprTree('expr-tree-ex-eval', 'A et ((non B) ou C)', { A: true, B: false, C: false });
+</script>
+$endtryout$
+
+<p>
     Pour évaluer une expression, on commence donc par évaluer les
-    noeuds tout en bas de l'arbre, les <i>feuilles</i> de l'arbre,
+    feuilles de l'arbre,
     puis on remonte progressivement vers la racine.
 </p>
 
@@ -179,12 +232,9 @@ displayExprTree('expr-tree-ex', 'A et ((non B) ou C)');
     il suffit de regarder sa valeur de vérité dans l'interprétation.
     Pour évaluer un noeud qui contient une constante,
     il suffit de retourner la valeur de vérité de la constante.
-</p>
-
-<p>
-    Pour évaluer un noeud qui contient un connecteur,
-    il suffit d'appliquer le connecteur à la valeur de vérité
-    des noeuds en dessous de lui.
+    Finalement, pour évaluer un noeud qui contient un connecteur,
+    il suffit d'appliquer le connecteur aux valeurs de vérité
+    des noeuds en dessous et reliés au noeud.
 </p>
 
 $tryout$
@@ -192,206 +242,92 @@ $tryout$
 <p>
     Entrez ci-dessous une proposition et une interprétation pour obtenir l'arbre de la proposition.
     Vous pourrez ensuite cliquer sur les différents noeuds de l'arbre
-    pour tenter de les évaluer.
+    mis en évidence pour procéder à l'évaluation de la proposition.
 </p>
+
+<div class="expr-inter-input">
+    <input type="text" id="eval-ex-expr" placeholder="A et ((non B) ou C)" />
+    <input type="text" id="eval-ex-inter" placeholder="A = 1, B = 0, C = 0" />
+    <button id="eval-ex-button">Essayer</button>
+</div>
 
 <div class="expr-tree-container" id="expr-tree-ex-eval"></div>
 
 <script type="text/javascript">
-displayExprTree('expr-tree-ex-eval', 'A et ((non B) ou C)', {'A': true, 'B': false, 'C': false});
+(function() {
+    const exprInput = document.getElementById('eval-ex-expr');
+    const interInput = document.getElementById('eval-ex-inter');
+    const button = document.getElementById('eval-ex-button');
+    const treeContainer = document.getElementById('expr-tree-ex-eval');
+
+    function parseInterpretation(str) {
+        const inter = {};
+        str.split(',').forEach(function (part) {
+            const [varName, value] = part.split('=').map(function (s) { return s.trim(); });
+            inter[varName] = value === '1';
+        });
+        return inter;
+    }
+
+    function update() {
+        try {
+            const expr = logicQuestions.parse(exprInput.value);
+            const inter = parseInterpretation(interInput.value);
+            displayExprTree(treeContainer, expr, inter);
+        } catch (e) {
+            treeContainer.innerHTML = 'Oups, une erreur est survenue.';
+        }
+    }
+
+    button.addEventListener('click', update);
+
+    exprInput.addEventListener('keyup', function() {
+        if (event.key === "Enter") {
+            if (interInput.value === '') {
+                interInput.focus();
+            } else {
+                update();
+            }
+        }
+    });
+
+    interInput.addEventListener('keyup', function() {
+        if (event.key === "Enter") {
+            update();
+        }
+    });
+})();
 </script>
 
 $endtryout$
 
-<h3>Satisfiabilité</h3>
-
+$selfcheck$
 <p>
-    Quand une proposition est vraie étant donné une certaine interprétation, on dit que l'interprétation <i>satisfait</i> la proposition.
-    Par exemple, l'interprétation <i>&laquo; \(A\) = 1, \(B\) = 1 &raquo;</i> satisfait la proposition <i>(non \(A\)) ou \(B\)</i>.
-</p>
-<p>
-    Quand il existe au moins une interprétation qui satisfait une proposition, on dit de la proposition qu'elle est <i>satisfiable</i>.
-</p>
-
-$example$
-<p>
-    La proposition <i>(non \(A\)) ou \(B\)</i> est satisfiable.
-    En effet, l'interprétation <i>&laquo; \(A\) = 0, \(B\) = 1 &raquo;</i> satisfait la proposition, de même que
-    l'interprétation <i>&laquo; \(A\) = 1, \(B\) = 1 &raquo;</i> ou encore l'interprétation <i>&laquo; \(A\) = 0, \(B\) = 0 &raquo;</i>.
-</p>
-<p>
-    Au contraire, la proposition <i>(non \(A\)) et \(A\)</i> n'est pas satisfiable.
-    En effet, aucune interprétation ne satisfait cette proposition.
-</p>
-$endexample$
-
-$remark$
-<p>
-    Déterminer si une proposition est satisfiable ou non est une tâche difficile.
-    Il existe des <i>algorithmes</i> (des méthodes, des procédures) qui permettent de le faire, mais ils sont généralement très coûteux en temps de calcul dès que la proposition devient relativement grande.
-</p>
-<p>
-    En pratique, pour déterminer si une proposition est satisfiable ou non, on cherchera à trouver une interprétation qui satisfait la proposition.
-    Pour trouver une telle interprétation, on essaie généralement à tâton, en testant toutes les interprétations possibles. 
-    On essaie ainsi jusqu'à trouver une interprétation qui satisfait la proposition ou jusqu'à ce que toutes les possibilités soient épuisées.
-</p>
-<p>
-    Parfois, en raisonnant un peu, on arrivera à déduire que, si une interprétation existe, alors elle aura une certaines forme.
-    Par exemple, si on considère la proposition <i>\(A\) et \(p\)</i>, où \(A\) est une variable et \(p\) est une proposition quelconque, on peut déduire que si une interprétation existe, alors elle doit être de la forme <i>&laquo; \(A\) = 1, ... &raquo;</i>.
-    En effet, aucune interprétation de la forme <i>&laquo; \(A\) = 0, ... &raquo;</i> ne peut satisfaire la proposition.
-    De telles observations permettent de grandement réduire le nombre d'interprétations à tester.
-</p>
-$endremark$
-
-$tryout$
-<p>
-    Entrez une proposition dans le champ ci-dessous pour déterminer si elle est satisfiable ou non.
-    
-    <div id="sat-solver">
-        <div class="expr-input">
-            <input type="text" placeholder="(A ou B) et non A">
-            <button>Satisfiable ?</button>
-        </div>
-        <p class="output"></p>
-    </div>
-
-    <script type="text/javascript">
-        (function() {
-            const satSolver = document.getElementById('sat-solver');
-            const input = satSolver.querySelector('.expr-input input');
-            const button = satSolver.querySelector('.expr-input button');
-            const output = satSolver.querySelector('.output');
-
-            function showInterpretation(interpretation) {
-                const keys = Object.keys(interpretation);
-                if (keys.length === 0) {
-                    return '&laquo; &raquo;';
-                }
-                return "&laquo;&nbsp;" + keys.map(key => `$${escapeHtml(key)} = $${interpretation[key] ? 1 : 0}`).join(', ') + "&nbsp;&raquo;";
-            }
-
-            function handler() {
-                output.innerHTML = '';
-                const text = input.value;
-                let expr;
-                try {
-                    expr = logicQuestions.parse(text);
-                } catch (e) {
-                    output.innerHTML = 'Oups, la proposition est mal formée.';
-                    return;
-                }
-                const model = logicQuestions.getModel(expr);
-                if (model !== null) {
-                    output.innerHTML = 'La proposition <i>' +
-                        escapeHtml(logicQuestions.verboseExprToString(expr)) +
-                        '</i> est satisfiable.<br /><br />' +
-                        'Une interprétation qui satisfait la proposition est :\n<i>' +
-                        showInterpretation(model) +
-                        '</i>.';
-
-                } else {
-                    output.innerHTML = 'La proposition <i>' +
-                        escapeHtml(logicQuestions.verboseExprToString(expr)) +
-                        '</i> n\'est pas satisfiable.';
-                }
-            }
-
-            button.addEventListener('click', handler);
-            input.addEventListener('keydown', function(event) {
-                if (event.key === 'Enter') {
-                    handler();
-                }
-            });
-        })();
-    </script>
-</p>
-$endtryout$
-
-<h3>Tautologie</h3>
-
-<p>
-    Quand une proposition est vraie pour toutes les interprétations possibles, on dit que la proposition est une <i>tautologie</i>.
-    Par exemple, la proposition <i>(non \(A\)) ou \(A\)</i> est une tautologie.
-    En effet, peu importe l'interprétation, la proposition est vraie.
-    On dit parfois aussi que la proposition est <i>valide</i>.
+    La valeur de vérité de la proposition <i>\(A\) et ((non \(B\)) ou \(C\))</i>
+    étant donné l'interprétation <i>&laquo; \(A\) = 1, \(B\) = 1, \(C\) = 1 &raquo;</i>
+    est <select class="self-pick">
+        <option>0</option>
+        <option data-correct>1</option>
+    </select>.
 </p>
 
-$remark$
 <p>
-    Déterminer si une proposition est une tautologie ou non est une tâche tout aussi difficile que de déterminer si une proposition est satisfiable.
-    En effet, une proposition \(p\) est une tautologie si et seulement si sa négation <i>non \(p\)</i> n'est pas satisfiable.
+    Cette même proposition, étant donné l'interprétation <i>&laquo; \(A\) = 0, \(B\) = 1, \(C\) = 0 &raquo;</i>,
+    a pour valeur de vérité <select class="self-pick">
+        <option data-correct>0</option>
+        <option>1</option>
+    </select>.
 </p>
-$endremark$
-
-$tryout$
-<p>
-    Entrez une proposition dans le champ ci-dessous pour déterminer si elle est valide ou non.
-    
-    <div id="valid-solver">
-        <div class="expr-input">
-            <input type="text" placeholder="(A ou B) et non A">
-            <button>Valide ?</button>
-        </div>
-        <p class="output"></p>
-    </div>
-
-    <script type="text/javascript">
-        (function() {
-            const validSolver = document.getElementById('valid-solver');
-            const input = validSolver.querySelector('.expr-input input');
-            const button = validSolver.querySelector('.expr-input button');
-            const output = validSolver.querySelector('.output');
-
-            function showInterpretation(interpretation) {
-                const keys = Object.keys(interpretation);
-                if (keys.length === 0) {
-                    return '&laquo; &raquo;';
-                }
-                return "&laquo;&nbsp;" + keys.map(key => `$${escapeHtml(key)} = $${interpretation[key] ? 1 : 0}`).join(', ') + "&nbsp;&raquo;";
-            }
-
-            function handler() {
-                output.innerHTML = '';
-                const text = input.value;
-                let expr;
-                try {
-                    expr = logicQuestions.parse(text);
-                } catch (e) {
-                    output.innerHTML = 'Oups, la proposition est mal formée.';
-                    return;
-                }
-                const model = logicQuestions.getCounterExample(expr);
-                if (model !== null) {
-                    output.innerHTML = 'La proposition <i>' +
-                        escapeHtml(logicQuestions.verboseExprToString(expr)) +
-                        '</i> n\'est pas valide.<br /><br />' +
-                        'Une interprétation qui ne satisfait pas la proposition est :\n<i>' +
-                        showInterpretation(model) +
-                        '</i>.';
-
-                } else {
-                    output.innerHTML = 'La proposition <i>' +
-                        escapeHtml(logicQuestions.verboseExprToString(expr)) +
-                        '</i> est valide.';
-                }
-            }
-
-            button.addEventListener('click', handler);
-            input.addEventListener('keydown', function(event) {
-                if (event.key === 'Enter') {
-                    handler();
-                }
-            });
-        })();
-    </script>
-</p>
-$endtryout$
-
-<h3>Contradiction</h3>
 
 <p>
-    Quand une proposition est fausse pour toutes les interprétations possibles, on dit que la proposition est une <i>contradiction</i>.
-    Par exemple, la proposition <i>(non \(A\)) et \(A\)</i> est une contradiction.
-    Peu importe l'interprétation que l'on choisit, la proposition est fausse.
-    On dit parfois aussi que la proposition est <i>insatisfiable</i>.
+    Il existe <select class="self-pick">
+        <option>exactement 2</option>
+        <option>exactement 4</option>
+        <option>exactement 6</option>
+        <option data-correct>exactement 8</option>
+        <option>une infinité d'</option>
+    </select>
+    interprétations différentes à la proposition
+    <i>\(A\) et ((non \(B\)) ou \(C\))</i>.
 </p>
+$endselfcheck$
