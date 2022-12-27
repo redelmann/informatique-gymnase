@@ -159,9 +159,9 @@ section::after {
     clear: both;
 }
 
-footer {
+footer p {
     font-size: 0.9em;
-    color: #444;
+    color: #777;
     text-align: center;
     margin-top: 15px;
     margin-bottom: 40px;
@@ -215,6 +215,8 @@ select.self-pick {
     line-height: inherit;
     border-radius: 10px;
     color: black;
+    min-width: 60px;
+    text-align: center;
 }
 
 .select-wrapper {
@@ -229,6 +231,7 @@ select.self-pick {
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
+    color: #ccc;
 }
 
 .select-wrapper.correct i {
@@ -312,6 +315,11 @@ select.self-pick {
     display: none;  /* hide on mobile */
 }
 
+.expr {
+    font-size: inherit;
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .expr-input, .expr-inter-input {
     display: flex;
     gap: 10px;
@@ -365,6 +373,11 @@ table.truth-table tr.dimmed {
     background-color: #eeeeff;
 }
 
+.bernays {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
 .bernays .tree {
     width: fit-content;
     display: flex;
@@ -377,7 +390,7 @@ table.truth-table tr.dimmed {
 }
 
 .bernays .hypotheses {
-    margin-left: 50px;
+    margin-left: 70px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -440,10 +453,12 @@ table.truth-table tr.dimmed {
 
 .bernays .name {
     text-align: right;
-    width: 40px;
+    width: 60px;
     flex-grow: 0;
     font-size: 0.8em;
     margin-right: 10px;
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .bernays .bar {
@@ -468,7 +483,7 @@ table.truth-table tr.dimmed {
 
 .bernays .conclusion {
     margin-top: 5px;
-    margin-left: 50px;
+    margin-left: 70px;
     pointer-events: none;
 }
 
@@ -476,6 +491,10 @@ table.truth-table tr.dimmed {
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
+}
+
+.bernays .deriving {
+    text-align: center;
 }
 
 .expr-tree-container {

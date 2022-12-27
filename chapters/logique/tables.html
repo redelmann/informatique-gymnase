@@ -99,3 +99,77 @@ $endtryout$
     L'éventuelle troisième variable la plus à droite alterne entre 0 et 1 entre chaque quatre lignes.
     Et ainsi de suite, en multipliant la taille des groupes par deux à chaque variable additionnelle.
 </p>
+
+$selfcheck$
+
+<p>
+    Complétez la table de vérité ci-dessous.
+</p>
+
+<table id="self-check-truth-table" class="truth-table"></table>
+
+<script type="text/javascript">
+(function() {
+    populateTable('self-check-truth-table', 'A et B, non A, A ou non B, A implique B');
+
+    const table = document.getElementById('self-check-truth-table');
+    const rows = table.querySelectorAll('tr');
+
+    for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        const cells = row.querySelectorAll('td');
+        
+        for (let j = 2; j < cells.length; j++) {
+            const cell = cells[j];
+            const value = +cell.textContent.trim();
+            
+            const select = document.createElement('select');
+            select.classList.add('self-pick');
+
+            for (let v = 0; v <= 1; v++) {
+                const option = document.createElement('option');
+                if (v === value) {
+                    option.setAttribute('data-correct', '');
+                }
+                option.textContent = v;
+                select.appendChild(option);
+            }
+
+            cell.innerHTML = '';
+            cell.appendChild(select);
+        }
+    }
+})();
+</script>
+
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Dans une table de vérité qui porte sur deux variables propositionnelles,
+    il y a <select class="self-pick">
+        <option>2</option>
+        <option data-correct>4</option>
+        <option>6</option>
+        <option>8</option>
+    </select> lignes (en dehors de l'entête),
+    alors que pour trois variables propositionnelles, il y a
+    <select class="self-pick">
+        <option>2</option>
+        <option>4</option>
+        <option>6</option>
+        <option data-correct>8</option>
+    </select> lignes.
+</p>
+
+<p>
+    Chaque variable propositionnelle additionnelle
+    <select class="self-pick">
+        <option>incrémente par 2</option>
+        <option data-correct>double</option>
+        <option>triple</option>
+        <option>quadruple</option>
+        <option>multiplie par 5</option>
+    </select> le nombre de lignes.
+</p>
+$endselfcheck$

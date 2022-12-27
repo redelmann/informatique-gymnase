@@ -6,8 +6,8 @@ order: 7
 <p>
     Comme nous le verrons dans le chapitre suivant,
     nous serons parfois amenés à chercher une proposition étant donné sa table de vérité.
-    En effet, parfois une liste des interprétations que l'on souhaite satisfaire nous sera donnée,
-    et non serons intéressés à connaître la proposition qui leur correspond.
+    En effet, parfois la liste des interprétations que l'on souhaite satisfaire nous sera donnée,
+    et nous serons intéressés à connaître la proposition qui leur correspond.
     Nous allons donc étudier ici une méthode pour concevoir une proposition à partir de sa table de vérité.
 </p>
 
@@ -153,7 +153,7 @@ order: 7
 </p>
 
 <p>
-    Une fois cette première conjonction trouvée, on cherche couvrir le reste des lignes à l'aide d'autres conjonctions, selon le même procédé.
+    Une fois cette première conjonction trouvée, on cherche à couvrir le reste des lignes à l'aide d'autres conjonctions, selon le même procédé.
     À chaque fois, on cherche à trouver une conjonction qui couvre le plus grand nombre de lignes <i>non-couvertes</i> de la table de vérité où la valeur de vérité de la proposition est 1,
     sans toutefois couvrir des lignes où la valeur de vérité de la proposition est 0.
 </p>
@@ -233,6 +233,137 @@ $remark$
 <p>
     Pour des cas plus complexes, la méthode des <a href="https://fr.wikipedia.org/wiki/Table_de_Karnaugh">tables de Karnaugh</a> peut être utilisée.
     La méthode se base sur le même procédé que décrit ici mais utilise une représentation graphique des valeurs de vérité sous forme de table qui permet d'identifier plus facilement les conjonctions de variables à utiliser.
-    Les tables de Karnaugh différent légérement des tables de vérité dans leur présentation, permettant ainsi une meilleure lisibilité.
+    Les tables de Karnaugh différent légérement des tables de vérité dans leur présentation, permettant ainsi de plus facilement établir
+    des conjonctions de variables qui couvrent le plus grand nombre d'interprétations possibles.
 </p>
 $endremark$
+
+$selfcheck$
+<p>
+    Soit la table de vérité suivante :
+</p>
+<table id="self-check-table-1" class="truth-table"></table>
+<p>
+    Une proposition qui correspond à cette table de vérité est 
+    <select class="self-pick">
+        <option>faux</option>
+        <option>\(A\)</option>
+        <option>\(B\)</option>
+        <option>non \(A\)</option>
+        <option>non \(B\)</option>
+        <option>\(A\) et \(B\)</option>
+        <option>\(A\) ou \(B\)</option>
+        <option data-correct>\(A\) et (non \(B\))</option>
+        <option>\(A\) ou (non \(B\))</option>
+        <option>(non \(A\)) et \(B\)</option>
+        <option>(non \(A\)) ou \(B\)</option>
+        <option>(non \(A\)) et (non \(B\))</option>
+        <option>(non \(A\)) ou (non \(B\))</option>
+        <option>vrai</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Soit la table de vérité suivante :
+</p>
+<table id="self-check-table-2" class="truth-table"></table>
+<p>
+    Une proposition qui correspond à cette table de vérité est 
+    <select class="self-pick">
+        <option>faux</option>
+        <option>\(A\)</option>
+        <option>\(B\)</option>
+        <option>non \(A\)</option>
+        <option>non \(B\)</option>
+        <option>\(A\) et \(B\)</option>
+        <option>\(A\) ou \(B\)</option>
+        <option>\(A\) et (non \(B\))</option>
+        <option>\(A\) ou (non \(B\))</option>
+        <option>(non \(A\)) et \(B\)</option>
+        <option data-correct>(non \(A\)) ou \(B\)</option>
+        <option>(non \(A\)) et (non \(B\))</option>
+        <option>(non \(A\)) ou (non \(B\))</option>
+        <option>vrai</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Soit la table de vérité suivante :
+</p>
+<table id="self-check-table-3" class="truth-table"></table>
+<p>Entrez une proposition qui correspond à cette table de vérité.</p>
+<div class="expr-input" id="self-check-ex-3-in">
+    <input type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" />
+    <button>Vérifier</button>
+</div>
+<div id="self-check-ex-3-out" style="margin-bottom: 10px;"></div>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Soit la table de vérité suivante :
+</p>
+<table id="self-check-table-4" class="truth-table"></table>
+<p>Entrez une proposition qui correspond à cette table de vérité.</p>
+<div class="expr-input" id="self-check-ex-4-in">
+    <input type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" />
+    <button>Vérifier</button>
+</div>
+<div id="self-check-ex-4-out" style="margin-bottom: 10px;"></div>
+$endselfcheck$
+
+<script src="/js/truth-tables.js"></script>
+
+<script type="text/javascript">
+(function() {
+    populateTable('self-check-table-1', 'A et (non B)', ['?']);
+    populateTable('self-check-table-2', 'non A ou B', ['?']);
+    populateTable('self-check-table-3', 'non A et B ou A et non B', ['?']);
+    populateTable('self-check-table-4', 'C ou (non A et B)', ['?']);
+
+    function handler(input, output, targetExpr) {
+        output.innerHTML = '';
+        const text = input.value;
+        let expr;
+        try {
+            expr = logicQuestions.parse(text);
+        } catch (e) {
+            output.innerHTML = '<p>Oups, la proposition est mal formée.</p>';
+            return;
+        }
+        const model = logicQuestions.getCounterExample(logicQuestions.iff(expr, targetExpr));
+        if (model === null) {
+            output.innerHTML = '<p>Correct ! Bravo !</p>';
+
+        } else {
+            output.innerHTML = '<p>Ce n\'est pas tout à fait ça.</p>';
+            const table = document.createElement('table');
+            table.classList.add('truth-table');
+            populateTable(table, [expr, targetExpr], ['La cible', 'Votre proposition']);
+            output.appendChild(table);
+        }
+    }
+
+    function setupCheckEquiv(id, targetExpr) {
+        const input = document.getElementById(id + '-in').querySelector('input');
+        const output = document.getElementById(id + '-out');
+        const button = document.getElementById(id + '-in').querySelector('button');
+        button.addEventListener('click', function() {
+            handler(input, output, targetExpr);
+        });
+        input.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                handler(input, output, targetExpr);
+            }
+        });
+    }
+
+    setupCheckEquiv('self-check-ex-3', logicQuestions.parse('non A et B ou A et non B'));
+    setupCheckEquiv('self-check-ex-4', logicQuestions.parse('C ou (non A et B)'));
+})();
+</script>
+

@@ -1,5 +1,5 @@
 ---
-title: Interprétations et évaluation
+title: Interprétations et calcul
 order: 3
 ---
 
@@ -78,7 +78,7 @@ $remark$
 </p>
 $endremark$
 
-<h3>Évaluation</h3>
+<h3>Calcul de la valeur d'une proposition</h3>
 
 <script src="/js/d3.min.js" type="text/javascript"></script>
 
@@ -88,7 +88,7 @@ $endremark$
     Étant donné une proposition et une interprétation,
     il est possible de déterminer la valeur de vérité de la proposition
     sous l'interprétation donnée,
-    par un procédé d'<i>évaluation</i>.
+    par une sorte de calcul.
 </p>
 <p>
     Pour ce faire, il suffit de remplacer les occurences des différentes variables par leur valeur de vérité telle que renseignée par l'interprétation,
@@ -164,17 +164,17 @@ $remark$
 
 $endremark$
 
-<h3>Visualiser l'évaluation à l'aide d'arbres</h3>
+<h3>Calculer à l'aide d'arbres</h3>
 
 <p>
-    Le processus d'évaluation peut être visualé très simplement en faisant usage de
+    Le processus de calcul de la valeur de vérité d'une proposition peut être visualé très simplement en faisant usage de
     la représentation graphique des propositions sous forme d'arbres que nous avons
     abordée précédemment.
 </p>
 
 <p>
     Par exemple, considérons la proposition <i>\(A\) et ((non \(B\) ou \(C\))</i>.
-    L'arbre correspondant est le suivant :
+    L'arbre correspondant est le suivant :
 </p>
 
 <div class="expr-tree-container" id="expr-tree-ex"></div>
@@ -204,14 +204,15 @@ $tryout$
 <p>
     Essayez par vous-même de calculer la valeur de vérité de la racine
     de l'arbre ci-dessous étant donné l'interprétation 
-    <i>&laquo; \(A\) = 1, \(B\) = 0, \(C\) = 0  &raquo;</i>
-    en évaluant un à un les noeuds de l'arbre.
+    <i>&laquo; \(A\) = 1, \(B\) = 0, \(C\) = 0  &raquo;</i>.
+    Pour cela, calculer la valeur de vérité de chaque noeud
+    un à un en cliquant dessus.
 </p>
 
 <p>
-    Vous pouvez évaluer un noeud mis en évidence en cliquant dessus.
-    Vous pouvez aussi utiliser le bouton <i>Tout évaluer</i> pour évaluer
-    le reste des noeuds de l'arbre, l'un après l'autre.
+    Vous pouvez calculer la valeur d'un noeud mis en évidence en cliquant dessus.
+    Vous pouvez aussi utiliser le bouton <i>Tout calculer</i> pour calculer
+    la valeur du reste des noeuds de l'arbre, l'un après l'autre.
 </p>
 
 <div class="expr-tree-container" id="expr-tree-example"></div>
@@ -222,17 +223,17 @@ displayExprTree('expr-tree-example', 'A et ((non B) ou C)', { A: true, B: false,
 $endtryout$
 
 <p>
-    Pour évaluer une expression, on commence donc par évaluer les
-    feuilles de l'arbre,
+    Pour calculer la valeur d'une proposition, on commence donc par calculer la
+    valeur des feuilles de l'arbre,
     puis on remonte progressivement vers la racine.
 </p>
 
 <p>
-    Pour évaluer un noeud qui contient une variable,
+    Pour calculer la valeur d'un noeud qui contient une variable,
     il suffit de regarder sa valeur de vérité dans l'interprétation.
-    Pour évaluer un noeud qui contient une constante,
+    Pour calculer la valeur d'un noeud qui contient une constante,
     il suffit de retourner la valeur de vérité de la constante.
-    Finalement, pour évaluer un noeud qui contient un connecteur,
+    Finalement, pour calculer la valeur d'un noeud qui contient un connecteur,
     il suffit d'appliquer le connecteur aux valeurs de vérité
     des noeuds en dessous et reliés au noeud.
 </p>
@@ -242,7 +243,7 @@ $tryout$
 <p>
     Entrez ci-dessous une proposition et une interprétation pour obtenir l'arbre de la proposition.
     Vous pourrez ensuite cliquer sur les différents noeuds de l'arbre
-    mis en évidence pour procéder à l'évaluation de la proposition.
+    mis en évidence pour procéder au calcul de la valeur de la proposition.
 </p>
 
 <div class="expr-inter-input">

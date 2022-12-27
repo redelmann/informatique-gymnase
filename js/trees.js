@@ -49,4 +49,24 @@ function htmlRule(name, conclusion, premises) {
     treeDiv.appendChild(conclusionDiv);
   
     return treeDiv;
-  }
+}
+
+function htmlDeriving(conclusion, hypothesis) {
+    const container = document.createElement('div');
+    container.classList.add('deriving');
+
+    const conclusionDiv = document.createElement('div');
+    conclusionDiv.innerText = conclusion;
+
+    const dotsDiv = document.createElement('div');
+    dotsDiv.innerText = '⋮';
+
+    const hypothesisDiv = document.createElement('div');
+    hypothesisDiv.innerText = "[" + hypothesis + "]";
+
+    container.appendChild(hypothesisDiv);
+    container.appendChild(dotsDiv);
+    container.appendChild(conclusionDiv);
+
+    return container;
+}

@@ -9,7 +9,7 @@ order: 8
 
 <p>
     Jusqu'à présent, nous avons vu un unique moyen de démontrer la validité d'une proposition :
-    vérifier que la formule évalue à 1 pour toutes les interprétations possibles.
+    vérifier que la formule vaut 1 pour toutes les interprétations possibles.
     Autrement dit, établir une table de vérité et vérifier que la colonne correspondant à la proposition ne contient bien que des 1.
     Cette méthode est parfois coûteuse, voire tout simplement inapplicable dans des logiques plus complexes
     tels que la <i>logique des prédicats</i> souvent employée en mathématiques.
@@ -23,15 +23,39 @@ order: 8
     Nous allons voir dans cette section comment construire des preuves de propositions à l'aide de ce système.
 </p>
 
-<p><i>À venir !</i></p>
+$remark$
+<p>
+    Cette section est optionnelle.
+    Le matériel présenté ici n'est pas nécessaire pour comprendre les autres sections du cours.
+    Cependant, les lecteurs intéressés pourront trouver dans cette section
+    des clés intéressantes pour comprendre ce qu'est une <i>preuve</i> mathématique,
+    ainsi que des outils de raisonnement formel.
+</p>
+$endremark$
 
-<!--
+$tryout$
+<p>
+    L'outil en ligne <a href="https://bernays.redelmann.ch">bernays.redelmann.ch</a>
+    permet de construire des preuves de propositions à l'aide de la déduction naturelle.
+    Vous pouvez essayer cet outil en parallele de la lecture de cette section.
+</p>
+$endtryout$
+
+
 <h3>Règle d'inférence</h3>
 
-<script type="text/javascript" src="js/trees.js"></script>
+<script type="text/javascript" src="/js/trees.js"></script>
 
 <p>
-    Une règle d'inférence est 
+    La déduction naturelle se base sur le concept de <i>règle d'inférence</i>.
+    Une règle d'inférence est une règle de raisonnement qui
+    permet d'établir qu'une proposition est valide à partir de
+    la validité d'autres propositions.
+</p>
+
+<p>
+    Les règles d'inférence sont généralement représentées graphiquement
+    de la manière suivante :
 </p>
 
 <div class="bernays" id="rule-1">
@@ -42,6 +66,271 @@ order: 8
     document.getElementById('rule-1').appendChild(htmlRule("nom", "conclusion", ["prémisse #1", "...", "premisse #n"]));
 </script>
 
-<h3>Arbre de dérivation</h3>
+<p>
+    Chaque règle a un nom, qui est indiqué sur la gauche de la barre.
+    La conclusion est la proposition qui est démontrée par la règle,
+    elle se situe sous la barre.
+    Enfin, les <i>prémisses</i> sont les propositions dont la validité est utilisée
+    pour démontrer la validité de la conclusion.
+</p>
 
--->
+<p>
+    Toutes les règles d'inférence imaginables ne correspondent pas
+    à des règles de raisonnement valides.
+    Par conséquent, seules certaines règles d'inférence bien précises sont utilisées dans la déduction naturelle.
+    Nous allons les découvrir dans la suite de cette section.
+</p>
+
+<h3>Preuves</h3>
+
+<p>
+    Avant de voir les règles d'inférence, nous allons définir ce qu'est une <i>preuve</i>
+    en déduction naturelle.
+</p>
+
+<p>
+    Pour former une preuve d'une proposition, on applique une règle d'inférence
+    dont la conclusion est la proposition à démontrer.
+    On s'attèle ensuite à démontrer la validité des prémisses de la règle utilisée,
+    selon le même procédé : pour chaque prémisse, on applique une règle d'inférence
+    dont la conclusion est la prémisse à démontrer.
+    La preuve est complète lorsque toutes les prémisses ont été démontrées.
+    Graphiquement, on peut représenter de telles preuves en emboitant les règles d'inférence.
+</p>
+
+<h4>Hypothèses</h4>
+
+<p>
+    Certaines règles d'inférence que nous allons voir par la suite spécifient une <i>hypothèse</i>.
+    Une hypothèse est une proposition qui est admise comme vraie dans un certain contexte.
+    Graphiquement, les règles d'inférence qui contiennent une hypothèse sont représentées de la manière suivante :
+</p>
+
+<div class="bernays" id="rule-2"></div>
+
+<p>
+    Une telle règle spécifie qu'il est possible d'utiliser l'hypothèse autre sans autre preuve
+    dans le contexte de la preuve de la prémisse.
+</p> 
+
+<script type="text/javascript">
+    document.getElementById('rule-2').appendChild(htmlRule("nom", "conclusion", [htmlDeriving("prémisse", "hypothèse")]));
+</script>
+
+$example$
+<p>
+    Prenons comme exemple une preuve de la proposition <i>(\(p\) et \(q\)) implique (\(q\) et \(p\))</i>,
+    qui est une proposition valide.
+</p>
+
+<div class="bernays" id="rule-3"></div>
+
+<script type="text/javascript">
+    document.getElementById('rule-3').appendChild(
+        htmlRule("IMP-I", "(p et q) implique (q et p)", [
+            htmlRule("ET-I", "q et p", [
+                htmlRule("ET-E2", "q", ["[p et q]"]),
+                htmlRule("ET-E1", "p", ["[p et q]"])
+            ])
+        ]));
+</script>
+$endexample$
+
+<h3>Liste des règles d'inférence</h3>
+
+<p>
+    Nous allons discuter à présent des règles d'inférences.
+    Ces règles sont généralement classifiées en deux catégories :
+    les règles d'<i>introduction</i> et les règles d'<i>élimination</i>.
+    Les règles d'introduction permettent
+    d'introduire un connecteur dans la conclusion,
+    alors que les règles d'élimination permettent
+    d'éliminer un connecteur situé dans une prémisse.
+</p>
+
+<h3>Règles liées à la conjonction</h3>
+
+En premier lieu, intéressons-nous aux règles liées à la conjonction.
+
+<h4>Règle d'introduction</h4>
+
+<p>
+    La première règle que nous allons aborder est la règle d'introduction de la conjonction.
+    La règle d'introduction de la conjonction permet de montrer qu'une proposition de
+    la forme <i>\(p\) et \(q\)</i> est valide
+    à partir de la validité de \(p\) et de \(q\).
+    Cette règle est représentée graphiquement de la manière suivante :
+</p>
+
+<div class="bernays" id="rule-and-I">
+
+</div>
+
+<script type="text/javascript">
+    document.getElementById('rule-and-I').appendChild(htmlRule("ET-I", "p et q", ["p", "q"]));
+</script>
+
+<p>
+    En termes simple, la règle énonce qu'il est possible de montrer que
+    la conjonction de deux propositions est valide
+    si l'on a que chacune des deux propositions est valide.
+</p>
+
+<h4>Règles d'élimination</h4>
+
+<p>
+    La règle d'introduction du ET s'accompagne des deux règles d'élimination suivantes :
+</p>
+
+<div class="cols-2">
+    <div class="bernays" id="rule-and-E-1">
+        
+    </div>
+    <div class="bernays" id="rule-and-E-2">
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.getElementById('rule-and-E-1').appendChild(htmlRule("ET-E1", "p", ["p et q"]));
+    document.getElementById('rule-and-E-2').appendChild(htmlRule("ET-E2", "q", ["p et q"]));
+</script>
+
+<p>
+    Les deux règles énoncent que l'on peut montrer
+    la partie gauche, respectivement la partie droite, d'une conjonction
+    à partir de la validité de la conjonction.
+</p>
+
+<h3>Règles liées à la disjonction</h3>
+
+<p>
+    Nous allons maintenant étudier les règles liées à la disjonction.
+</p>
+
+<h4>Règles d'introduction</h4>
+
+<p>
+    La disjonction possède deux règles d'introduction :
+</p>
+
+<div class="cols-2">
+    <div class="bernays" id="rule-or-I-1">
+        
+    </div>
+    <div class="bernays" id="rule-or-I-2">
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.getElementById('rule-or-I-1').appendChild(htmlRule("OU-I1", "p ou q", ["p"]));
+    document.getElementById('rule-or-I-2').appendChild(htmlRule("OU-I2", "p ou q", ["q"]));
+</script>
+
+<p>
+    Les deux règles d'introduction de la disjonction énoncent
+    que la disjonction de deux propositions est valide
+    si l'on a que l'une des deux propositions est valide.
+</p>
+
+<h4>Règle d'élimination</h4>
+
+<p>
+    La disjonction dispose d'une unique règle d'élimination, que nous allons décortiquer :
+</p>
+
+<div class="bernays" id="rule-or-E"></div>
+
+<script type="text/javascript">
+    document.getElementById('rule-or-E').appendChild(htmlRule("OU-E", "r", ["p ou q", "p implique r", "q implique r"]));
+</script>
+
+<p>
+    La règle d'élimination de la disjonction
+    correspond à ce qu'on appelle le raisonnement par <i>analyse de cas</i>.
+    Elle énonce que l'on peut montrer la validité de n'importe quelle proposition \(r\)
+    en admettant qu'une disjonction <i>\(p\) ou \(q\)</i> est valide
+    et que peu importe si \(p\) est valide ou si \(q\) est valide on peut montrer \(r\).
+</p>
+
+<h3>Règles liées à la négation</h3>
+
+<p>
+    Nous allons maintenant étudier les règles liées à la négation.
+</p>
+
+<h4>Règle d'introduction</h4>
+
+<p>
+    La négation dispose d'une unique règle d'introduction :
+</p>
+
+<div class="bernays" id="rule-not-I"></div>
+
+<script type="text/javascript">
+    document.getElementById('rule-not-I').appendChild(htmlRule("NON-I", "non p", [htmlDeriving("faux", "p")]));
+</script>
+
+<h4>Règle d'élimination</h4>
+
+<div class="bernays" id="rule-not-E"></div>
+
+<script type="text/javascript">
+    document.getElementById('rule-not-E').appendChild(htmlRule("NON-E", "faux", ["non p", "p"]));
+</script>
+
+<h3>Règles liées à l'implication</h3>
+
+<p>
+    Nous allons maintenant étudier les règles liées à l'implication.
+</p>
+
+<h4>Règle d'introduction</h4>
+
+<p>
+    L'implication dispose d'une unique règle d'introduction :
+</p>
+
+<div class="bernays" id="rule-impl-I"></div>
+
+<script type="text/javascript">
+    document.getElementById('rule-impl-I').appendChild(htmlRule("IMP-I", "p implique q", [htmlDeriving("q", "p")]));
+</script>
+
+<h4>Règle d'élimination</h4>
+
+<div class="bernays" id="rule-impl-E"></div>
+
+<script type="text/javascript">
+    document.getElementById('rule-impl-E').appendChild(htmlRule("IMP-E", "q", ["p implique q", "p"]));
+</script>
+
+<h3>Règles liées aux constantes</h3>
+
+<p>
+    Nous allons maintenant étudier les règles liées aux constantes.
+</p>
+
+<div class="cols-2">
+    <div class="bernays" id="rule-true-I">
+        
+    </div>
+    <div class="bernays" id="rule-false-E">
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.getElementById('rule-true-I').appendChild(htmlRule("VRAI-I", "vrai", []));
+    document.getElementById('rule-false-E').appendChild(htmlRule("FAUX-E", "p", ["faux"]));
+</script>
+
+<h3>Raisonnement par l'absurde</h3>
+
+<div class="bernays" id="rule-absurd"></div>
+
+<script type="text/javascript">
+    document.getElementById('rule-absurd').appendChild(htmlRule("RAA", "p", [htmlDeriving("faux", "non p")]));
+</script>
+

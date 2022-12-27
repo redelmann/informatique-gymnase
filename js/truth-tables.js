@@ -1,4 +1,4 @@
-function populateTable(container, exprs) {
+function populateTable(container, exprs, labels) {
 
     if (typeof container === 'string') {
         container = document.getElementById(container);
@@ -6,7 +6,12 @@ function populateTable(container, exprs) {
 
     if (typeof exprs === 'string') {
         exprs = exprs.split(',');
-        exprs = exprs.map(logicQuestions.parse);
+    }
+
+    for (let i = 0; i < exprs.length; i++) {
+        if (typeof exprs[i] === 'string') {
+            exprs[i] = logicQuestions.parse(exprs[i]);
+        }
     }
     
     const allExpr = logicQuestions.ands(exprs);
@@ -23,7 +28,12 @@ function populateTable(container, exprs) {
         }
         for (let i = 0; i < exprs.length; i++) {
             const th = document.createElement('th');
-            th.innerText = logicQuestions.verboseExprToString(exprs[i]);
+            if (labels && i < labels.length) {
+                th.innerText = labels[i];
+            }
+            else {
+                th.innerText = logicQuestions.verboseExprToString(exprs[i]);
+            }
             if (i === 0) {
                 th.classList.add('delimited');
             }

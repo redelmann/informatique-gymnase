@@ -173,3 +173,52 @@ $endexample$
 <script type="text/javascript">
     populateTable('truth-table-de-Morgan-sii', 'non (p et q) ssi non p ou non q, non (p ou q) ssi non p et non q');
 </script>
+
+$selfcheck$
+<p>
+    La proposition <i>non (\(A\) ou \(B\))</i> est équivalente à la proposition
+    <select class="self-pick">
+        <option data-correct>(non \(A\)) et (non \(B\))</option>
+        <option>(non \(A\)) ou (non \(B\))</option>
+        <option>(non \(A\)) ssi (non \(B\))</option>
+        <option>(non \(A\)) implique (non \(B\))</option>
+    </select>, tandis que la proposition <i>non (\(A\) et \(B\))</i> est équivalente à la proposition
+    <select class="self-pick">
+        <option>(non \(A\)) et (non \(B\))</option>
+        <option data-correct>(non \(A\)) ou (non \(B\))</option>
+        <option>(non \(A\)) ssi (non \(B\))</option>
+        <option>(non \(A\)) implique (non \(B\))</option>
+    </select>.
+</p>
+
+<p>
+    La proposition <i>(non \(A\)) implique (non \(B\))</i> est équivalente à la proposition
+    <select class="self-pick">
+        <option>\(A\) implique \(B\)</option>
+        <option>non (\(A\) implique \(B\))</option>
+        <option data-correct>\(B\) implique \(A\)</option>
+        <option>non (\(B\) implique \(A\))</option>
+    </select>, alors que la proposition
+    <i>(non \(A\)) implique \(B\)</i> est équivalente à la proposition
+    <select class="self-pick">
+        <option>\(A\) implique (non \(B\))</option>
+        <option>non (\(A\) implique \(B\))</option>
+        <option data-correct>(non \(B\)) implique \(A\)</option>
+        <option>non (\(B\) implique \(A\))</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    La proposition <i>\(A\) ssi non \(A\)</i> est une
+    <select class="self-pick">
+        <option>tautologie</option>
+        <option data-correct>contradiction</option>
+    </select>, alors que la proposition <i>(non (non \(A\))) ssi \(A\)</i> est
+    <select class="self-pick">
+        <option data-correct>tautologie</option>
+        <option>contradiction</option>
+    </select>.
+</p>
+$endselfcheck$

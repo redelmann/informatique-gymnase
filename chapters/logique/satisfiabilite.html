@@ -69,8 +69,8 @@ $tryout$
     
     <div id="sat-solver">
         <div class="expr-input">
-            <input type="text" placeholder="(A ou B) et non A" autocomplete="off" autocorrect="off" autocapitalize="off">
-            <button>Satisfiable ?</button>
+            <input type="text" placeholder="(A ou B) et non A" autocomplete="off" autocorrect="off" autocapitalize="off" />
+            <button>Satisfiable ?</button>
         </div>
         <p class="output"></p>
     </div>
@@ -105,7 +105,7 @@ $tryout$
                     output.innerHTML = 'La proposition <i>' +
                         escapeHtml(logicQuestions.verboseExprToString(expr)) +
                         '</i> est satisfiable.<br /><br />' +
-                        'Une interprétation qui satisfait la proposition est :\n<i>' +
+                        'Une interprétation qui satisfait la proposition est :\n<i>' +
                         showInterpretation(model) +
                         '</i>.';
 
@@ -150,7 +150,7 @@ $tryout$
     <div id="valid-solver">
         <div class="expr-input">
             <input type="text" placeholder="(A ou B) et non A" autocomplete="off" autocorrect="off" autocapitalize="off">
-            <button>Valide ?</button>
+            <button>Valide ?</button>
         </div>
         <p class="output"></p>
     </div>
@@ -185,7 +185,7 @@ $tryout$
                     output.innerHTML = 'La proposition <i>' +
                         escapeHtml(logicQuestions.verboseExprToString(expr)) +
                         '</i> n\'est pas valide.<br /><br />' +
-                        'Une interprétation qui ne satisfait pas la proposition est :\n<i>' +
+                        'Une interprétation qui ne satisfait pas la proposition est :\n<i>' +
                         showInterpretation(model) +
                         '</i>.';
 
@@ -249,10 +249,11 @@ Une proposition insatisfiable est
     On dit d'une proposition qu'elle est satisfiable
     si elle est
     <select class="self-pick">
-        <option>toujours</option>
-        <option data-correct>parfois</option>
-        <option>jamais</option>
-    </select> vraie.
+        <option>toujours vraie</option>
+        <option data-correct>parfois vraie</option>
+        <option>parfois vraie, parfois fausse</option>
+        <option>jamais vraie</option>
+    </select>.
 </p>
 
 $endselfcheck$
