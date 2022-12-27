@@ -50,7 +50,8 @@ $remark$
         \(p\), pour représenter une proposition arbitraire.
         Cette lettre représente ce qu'on appelle une <i>meta-variable</i>.
         Il s'agit simplement d'un moyen de faire référence une proposition arbitraire en lui donnant un nom, ici \(p\).
-        Il peut s'agir d'une proposition simple comme une variable ou d'une proposition plus complexe voire même d'une constante.
+        Il peut s'agir d'une proposition basique comme une variable ou un constante, voire même d'une proposition plus complexe,
+        elle-même composée de propositions plus simple combinées par des connecteurs.
     </p>
 $endremark$
 
@@ -95,13 +96,13 @@ $endexample$
 <h3>Disjonction</h3>
 
 <p>
-    La disjonction est un connecteur qui permet d'affirmer la véracité d'une des deux propositions.
+    La disjonction est un connecteur qui permet d'affirmer la véracité d'au moins un des deux propositions.
     Étant donné deux propositions \(p\) et \(q\), on note <i>\(p\) ou \(q\)</i> la disjonction de \(p\) et de \(q\).
     On utilise parfois la notation \(p \vee q\) pour référer à la disjonction de \(p\) et de \(q\).
 </p>
 
 <p>
-    La disjonction de deux propositions énonce que l'une des deux propositions est vraie.
+    La disjonction de deux propositions énonce qu'au moins une des deux propositions est vraie.
     Tout comme pour la conjonction, la disjonction résultante est elle-même une proposition.
     Cette proposition est vraie si et seulement si l'une ou l'autre des deux propositions est vraie.
     Dans le cas où les deux propositions sont vraies, la disjonction est elle aussi vraie.
@@ -120,7 +121,8 @@ $endexample$
 <p>
     Le dernier connecteur que nous allons voir à présent est l'<i>implication</i>.
     L'implication est un connecteur qui permet d'affirmer que quand une première proposition est vraie alors la seconde l'est aussi.
-    Étant donné deux propositions \(p\) et \(q\), on note <i>\(p\) implique \(q\)</i> l'affirmation que la proposition \(p\) implique la proposition \(q\).
+    Étant donné deux propositions \(p\) et \(q\), on note <i>\(p\) implique \(q\)</i> l'affirmation que la proposition \(p\) implique la proposition \(q\),
+    c'est-à-dire que quand on a \(p\), on a forcément \(q\).
     On note parfois <i>\(p \to q\)</i> voire <i>\(p \Rightarrow q\)</i> pour dénoter une implication.
 </p>
 <p>
@@ -129,10 +131,11 @@ $endexample$
 <p>
     L'implication est un moyen d'exprimer des affirmations de la forme <i>&laquo; Si \(p\) alors \(q\). &raquo;</i> ou 
 <i>&laquo; Quand \(p\) alors \(q\). &raquo;</i>.
-    Quand la proposition \(p\) est vraie, la proposition \(q\) doit être vraie afin que l'implication soit vraie.
-    Quand la proposition \(p\) est fausse, l'implication sera toujours vraie, peu importe la valeur de vérité de \(q\).
+    Quand l'impliquant \(p\) est vrai, l'impliqué \(q\) doit être vrai afin que l'implication soit vraie.
+    Quand la proposition \(p\) est fausse, l'implication sera toujours vraie, peu importe la valeur de vérité de \(q\).
 </p>
 <p>
+    Une implication <i>\(p\) implique \(q\)</i> est donc vraie lorsque l'impliquant est faux ou lorsque l'impliqué est vrai.
     Le seul moyen qu'une implication <i>\(p\) implique \(q\)</i> soit fausse est que la proposition \(p\) soit vraie et que la proposition \(q\) soit fausse.
 </p>
 
@@ -204,24 +207,35 @@ $remark$
     On dit que ces opérateurs sont <i>associatifs</i>.
 </p>
 <p>
-    De même, pour les opérateurs <i>et</i> et <i>ou</i>, l'ordre d'apparence importe peu.
+    De même, pour les opérateurs <i>et</i> et <i>ou</i>, l'ordre d'apparition importe peu.
     En effet, que l'on écrive <i>\(p\) ou \(q\)</i> ou alors <i>\(q\) ou \(p\)</i>, le résultat sera identique.
     On dit que ces opérateurs sont <i>commutatifs</i>.
 </p>
 $endremark$
 
-<h3>Arbres syntaxiques</h3>
+<h3>Représentation en arbre</h3>
 
 <script src="/js/d3.min.js" type="text/javascript"></script>
 
 <script src="/js/expr-trees.js" type="text/javascript"></script>
 
+<div class="illustration left">
+    <img src="images/arbre.png" style="margin-top: 20px; margin-bottom: 30px;" alt="Un arbre à l'envers.">
+</div>
+
 <p>
     Afin de mieux visualiser les propositions et leur structure,
     il est possible de les représenter graphiquement sous forme de ce qu'on appelle
-    des <i>arbres syntaxiques</i>.
+    un <i>arbre syntaxique</i>.
     On parle d'<i>arbre</i> car la structure ressemble à celle d'un arbre naturel,
     si ce n'est que nos arbres seront orientés à l'envers, vers le bas.
+    L'adjectif <i>syntaxique</i> fait référence à la <i>syntaxe</i>,
+    une branche de la linguistique qui étudie la structure des phrases.
+</p>
+
+<p>
+    L'arbre syntaxique d'une proposition permet de voir la structure de la proposition,
+    c'est-à-dire de voir comment les connecteurs sont utilisés.
 </p>
 
 <p>
@@ -234,10 +248,6 @@ $endremark$
 <script type="text/javascript">
 displayExprTree('expr-tree-ex0', 'A et (non B ou vrai)');
 </script>
-
-<div class="illustration left">
-    <img src="images/arbre.png" style="margin-top: 20px; margin-bottom: 30px;" alt="Un arbre à l'envers.">
-</div>
 
 <p>
     L'arbre syntaxique qui représente la proposition est composé de <i>noeuds</i> et de <i>branches</i>:
@@ -254,12 +264,20 @@ displayExprTree('expr-tree-ex0', 'A et (non B ou vrai)');
     Les noeuds des connecteurs sont placés au-dessus des noeuds sur lesquels ils s'appliquent
     et y sont reliés par des branches.
     À chaque niveau, l'ordre gauche-droite des noeuds respecte l'ordre d'apparition dans la proposition.
-    Le noeud le plus en haut de l'arbre est appelé la <i>racine</i> de l'arbre.
+</p>
+<p>
+    Le noeud le plus en haut de l'arbre est appelé la <i>racine</i> de l'arbre,
+    et les noeuds les plus bas sont appelés les <i>feuilles</i>.
+    Les noeuds en dessous et reliés à un noeud par une branche sont appelés ses <i>enfants</i>.
+    L'unique noeud en dessus et relié à un noeud par une branche est appelé son <i>parent</i>.
+    À noter que la racine n'a pas de parent, et que les feuilles n'ont pas d'enfants.
 </p>
 
 <p>
-    À noter que sous cette forme graphique,
+    Remarquez que sous cette forme graphique,
     il n'y a plus besoin de faire usage de parenthèses.
+    Cette représentation nous sera utile par la suite,
+    notamment pour visualiser comment <i>évaluer</i> une proposition.
 </p>
 
 $tryout$
@@ -267,7 +285,7 @@ $tryout$
     Entrez une proposition dans le champ de texte ci-dessous et cliquez sur le bouton <i>Afficher</i> pour afficher l'arbre de cette proposition.
 </p>
 <div class="expr-input" id="expr-tree-gen">
-    <input type="text" placeholder="(A et B) ou non C">
+    <input type="text" placeholder="(A et B) ou non C" autocomplete="off" autocorrect="off" autocapitalize="off">
     <button>Afficher</button>
 </div>
 
@@ -302,37 +320,75 @@ $endtryout$
 
 $selfcheck$
 <p>
-    La proposition <i>\(p\) et \(q\)</i> dénote une 
+    On utilise le connecteur
+    <select class="self-pick">
+        <option>non</option>
+        <option data-correct>et</option>
+        <option>ou</option>
+        <option>implique</option>
+    </select>
+    pour combiner deux propositions 
+    en une seule proposition
+    qui affirme que les deux sont vraies.
+</p>
+
+<p>
+    On utilise le connecteur
+    <select class="self-pick">
+        <option data-correct>non</option>
+        <option>et</option>
+        <option>ou</option>
+        <option>implique</option>
+    </select>
+    devant une proposition
+    pour former une nouvelle proposition
+    qui affirme le contraire de la proposition initiale.
+</p>
+
+<p>
+    On utilise le connecteur
+    <select class="self-pick">
+        <option>non</option>
+        <option>et</option>
+        <option data-correct>ou</option>
+        <option>implique</option>
+    </select>
+    pour combiner deux propositions 
+    en une seule proposition
+    qui affirme qu'au moins une des deux est vraie.
+</p>
+
+<p>
+    Finalement, on utilise le connecteur
+    <select class="self-pick">
+        <option>non</option>
+        <option>et</option>
+        <option>ou</option>
+        <option data-correct>implique</option>
+    </select>
+    pour combiner deux propositions 
+    en une seule proposition
+    qui affirme que lorsque la première proposition
+    est vraie, la seconde proposition doit aussi l'être.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    La proposition <i>\(p\) et \(q\)</i> dénote une
     <select class="self-pick">
         <option>négation</option>
         <option data-correct>conjonction</option>
         <option>disjonction</option>
         <option>implication</option>
-    </select>. La proposition est vraie si et seulement si
-    <select class="self-pick">
-        <option data-correct>les deux propositions sont vraies</option>
-        <option>les deux propositions sont fausses</option>
-        <option>au moins une des deux propositions est vraie</option>
-        <option>au moins une des deux propositions est fausse</option>
-    </select>.
-</p>
-
-<p>
-    La proposition <i>\(p\) ou \(q\)</i> dénote une 
+    </select>, tandis que la proposition <i>\(p\) ou \(q\)</i> dénote une
     <select class="self-pick">
         <option>négation</option>
         <option>conjonction</option>
         <option data-correct>disjonction</option>
         <option>implication</option>
-    </select>. La proposition est vraie si et seulement si
-    <select class="self-pick">
-        <option>les deux propositions sont vraies</option>
-        <option>les deux propositions sont fausses</option>
-        <option data-correct>au moins une des deux propositions est vraie</option>
-        <option>au moins une des deux propositions est fausse</option>
     </select>.
 </p>
-
 <p>
     La proposition <i>\(p\) implique \(q\)</i> dénote une 
     <select class="self-pick">
@@ -348,6 +404,53 @@ $selfcheck$
     <select class="self-pick">
         <option data-correct>vrai</option>
         <option>faux</option>
+    </select>.
+</p>
+
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Représenter une proposition sous forme d'arbre
+    <select class="self-pick">
+        <option>synthétique</option>
+        <option data-correct>syntaxique</option>
+        <option>symphonique</option>
+        <option>sympatique</option>
+    </select>, permet de mettre en évidence la
+    <select class="self-pick">
+        <option>valeur</option>
+        <option>signification</option>
+        <option data-correct>structure</option>
+    </select> d'une proposition.
+</p>
+<p>
+    L'arbre d'une proposition est
+    composés de <select class="self-pick">
+        <option data-correct>noeuds</option>
+        <option>croisements</option>
+        <option>branchements</option>
+    </select> et de
+    <select class="self-pick">
+        <option>fils</option>
+        <option data-correct>branches</option>
+        <option>troncs</option>
+    </select>.
+</p>
+
+<p>
+    On appelle le noeud tout en haut de l'arbre la
+    <select class="self-pick">
+        <option data-correct>racine</option>
+        <option>base</option>
+        <option>feuille</option>
+        <option>cime</option>
+    </select> de l'arbre, tandis que les noeuds tout en bas de l'arbre sont
+    appelés les <select class="self-pick">
+        <option>racines</option>
+        <option>bases</option>
+        <option data-correct>feuilles</option>
+        <option>cimes</option>
     </select>.
 </p>
 

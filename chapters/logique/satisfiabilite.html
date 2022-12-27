@@ -69,7 +69,7 @@ $tryout$
     
     <div id="sat-solver">
         <div class="expr-input">
-            <input type="text" placeholder="(A ou B) et non A">
+            <input type="text" placeholder="(A ou B) et non A" autocomplete="off" autocorrect="off" autocapitalize="off">
             <button>Satisfiable ?</button>
         </div>
         <p class="output"></p>
@@ -149,7 +149,7 @@ $tryout$
     
     <div id="valid-solver">
         <div class="expr-input">
-            <input type="text" placeholder="(A ou B) et non A">
+            <input type="text" placeholder="(A ou B) et non A" autocomplete="off" autocorrect="off" autocapitalize="off">
             <button>Valide ?</button>
         </div>
         <p class="output"></p>
@@ -215,3 +215,44 @@ $endtryout$
     Peu importe l'interprétation que l'on choisit, la proposition est fausse.
     On dit parfois aussi que la proposition est <i>insatisfiable</i>.
 </p>
+
+$selfcheck$
+<p>
+Une proposition valide est
+<select class="self-pick">
+    <option data-correct>toujours</option>
+    <option>parfois</option>
+    <option>jamais</option>
+</select> vraie. On appelle ce genre de proposition des
+<select class="self-pick">
+    <option>validations</option>
+    <option data-correct>tautologies</option>
+    <option>contradictions</option>
+</select>.
+</p>
+
+<p>
+Une proposition insatisfiable est
+<select class="self-pick">
+    <option>toujours</option>
+    <option>parfois</option>
+    <option data-correct>jamais</option>
+</select> vraie. On appelle ce genre de proposition des
+<select class="self-pick">
+    <option>validations</option>
+    <option>tautologies</option>
+    <option data-correct>contradictions</option>
+</select>.
+</p>
+
+<p>
+    On dit d'une proposition qu'elle est satisfiable
+    si elle est
+    <select class="self-pick">
+        <option>toujours</option>
+        <option data-correct>parfois</option>
+        <option>jamais</option>
+    </select> vraie.
+</p>
+
+$endselfcheck$

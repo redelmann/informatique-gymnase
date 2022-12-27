@@ -6,7 +6,14 @@ order: 6
 <script src="/js/truth-tables.js"></script>
 
 <p>
-On dit qu'une proposition est <i>équivalente</i> à une autre proposition si les deux propositions ont la même valeur de vérité pour toutes les interprétations possibles.
+    Dans cette section, nous allons nous intéresser à la notion d'<i>équivalence</i> entre des propositions.
+    Intuitivement, deux propositions sont <i>équivalentes</i> si elles affirme la même chose.
+    Au fil de la section, nous allons mettre en lumière
+    des équivalences entre des propositions.
+</p>
+
+<p>
+On dit qu'une proposition est équivalente à une autre proposition si les deux propositions ont la même valeur de vérité pour toutes les interprétations possibles.
 On peut constater que les deux propositions sont équivalentes de manière visuelle à l'aide d'une table de vérité :
 les colonnes de deux expressions équivalentes contiennent les mêmes valeurs.
 </p>
@@ -24,26 +31,6 @@ On dit que <i>\(A\)</i> et <i>non non \(A\)</i> sont <i>équivalentes</i>.
     populateTable('truth-table-a-non-non-a', 'A, non non A');
 </script>
 $endexample$
-
-<h3>Le connecteur <i>ssi</i></h3>
-
-<p>
-    De manière intéressante, énoncer que deux propositions sont équivalentes est aussi une proposition.
-    En effet, il s'agit d'une affirmation qui peut être vraie ou fausse.
-</p>
-<p>
-    On utilise le connecteur logique <i>si et seulement si</i> pour énoncer cette proposition.
-    On utilisera l'abbréviation <i>ssi</i> pour dénoter ce connecteur.
-    Parfois, la notation <i>\(p \Leftrightarrow q\)</i> est utilisée pour dénoter l'équivalence entre deux propositions \(p\) et \(q\).
-</p>
-
-<p>La table de vérité du connecteur <i>ssi</i> est affichée ci-dessous. L'équivalence est vraie uniquement quand les deux propositions ont la même valeur.</p>
-
-<table class="truth-table" id="truth-table-ssi"></table>
-
-<script type="text/javascript">
-    populateTable('truth-table-ssi', 'p ssi q');
-</script>
 
 <h3>Lois de De Morgan</h3>
 
@@ -99,23 +86,6 @@ $endexample$
     populateTable('table-De-Morgan', 'non (p ou q), non p et non q, non (p et q), non p ou non q');
 </script>
 
-<p>
-    Les lois de De Morgan peuvent aussi être exprimées sous forme de propositions.
-    Vues sous cette forme, les lois correspondent aux deux propositions suivantes:
-    <ul>
-        <li>
-            <i>(non (\(p\) et \(q\))) ssi ((non \(p\)) ou (non \(q\)))</i>
-        </li>
-        <li>
-            <i>(non (\(p\) ou \(q\))) ssi ((non \(p\)) et (non \(q\)))</i>
-        </li>
-    </ul>
-</p>
-<p>
-    Les deux propositions sont des <i>tautologies</i>.
-    Peu importe la valeur de vérité des propositions \(p\) et \(q\), les deux lois seront toujours vraies.
-</p>
-
 <h3>Contraposée de l'implication</h3>
 
 <p>
@@ -159,3 +129,47 @@ $example$
     Cette proposition est équivalente à la proposition <i>\(M\) implique \(A\)</i>, qui énonce que lorsque la personne est majeure, alors forcément elle boit de l'alcool.
 </p>
 $endexample$
+
+<h3>Le connecteur <i>ssi</i></h3>
+
+<p>
+    De manière intéressante, énoncer que deux propositions sont équivalentes est aussi une proposition.
+    En effet, il s'agit d'une affirmation qui peut être vraie ou fausse.
+</p>
+<p>
+    On utilise le connecteur logique <i>si et seulement si</i> pour énoncer cette proposition.
+    On utilisera l'abbréviation <i>ssi</i> pour dénoter ce connecteur.
+    Parfois, la notation <i>\(p \Leftrightarrow q\)</i> est utilisée pour dénoter l'équivalence entre deux propositions \(p\) et \(q\).
+</p>
+
+<p>La table de vérité du connecteur <i>ssi</i> est affichée ci-dessous. L'équivalence est vraie uniquement quand les deux propositions ont la même valeur.</p>
+
+<table class="truth-table" id="truth-table-ssi"></table>
+
+<script type="text/javascript">
+    populateTable('truth-table-ssi', 'p ssi q');
+</script>
+
+<p>
+    Les lois de De Morgan, que l'on a vues plus haut, peuvent être exprimées sous forme de propositions
+    à l'aide de ce connecteur.
+    Vues sous cette forme, les lois correspondent aux deux propositions suivantes:
+    <ul>
+        <li>
+            <i>(non (\(p\) et \(q\))) ssi ((non \(p\)) ou (non \(q\)))</i>
+        </li>
+        <li>
+            <i>(non (\(p\) ou \(q\))) ssi ((non \(p\)) et (non \(q\)))</i>
+        </li>
+    </ul>
+</p>
+<p>
+    En l'occurence, les deux propositions sont des <i>tautologies</i>.
+    Peu importe la valeur de vérité des propositions \(p\) et \(q\), les deux lois seront toujours vraies.
+</p>
+
+<table class="truth-table" id="truth-table-de-Morgan-sii"></table>
+
+<script type="text/javascript">
+    populateTable('truth-table-de-Morgan-sii', 'non (p et q) ssi non p ou non q, non (p ou q) ssi non p et non q');
+</script>

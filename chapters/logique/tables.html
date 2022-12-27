@@ -43,9 +43,10 @@ populateTable('truth-table-connectors', 'non A, A ou B, A et B, A implique B');
 $tryout$
 <p>
     Entrez une proposition dans le champ de texte ci-dessous et cliquez sur le bouton <i>Calculer</i> pour obtenir la table de vérité de cette proposition.
+    Vous pouvez entrer plusieurs propositions en les séparant par une virgule.
 </p>
-<div class="expr-input" id="table-gen">
-    <input type="text" placeholder="(A et B) ou non C">
+<div class="expr-input" id="table-gen" style="margin-bottom: 10px;">
+    <input type="text" placeholder="(A et B) ou non C" autocomplete="off" autocorrect="off" autocapitalize="off" />
     <button>Calculer</button>
 </div>
 
@@ -59,6 +60,8 @@ $tryout$
         const table = document.getElementById('generated-truth-table');
         
         function handler() {
+            table.style.display = 'table';
+            container.style.marginBottom = '0';
             table.innerHTML = '';
             try {
                 populateTable(table, input.value);
@@ -68,6 +71,7 @@ $tryout$
             }
         }
 
+        table.style.display = 'none';
         button.addEventListener('click', handler);
         input.addEventListener('keyup', function() {
             if (event.key === "Enter") {
@@ -77,3 +81,21 @@ $tryout$
     })();
 </script>
 $endtryout$
+
+<h3>Note sur l'ordre des lignes</h3>
+
+<p>
+    Avant toute chose, rappelons-nous que le nombre d'interprétations
+    d'une proposition est égal à \(2^n\), où \(n\) est le nombre de variables propositionnelles.
+    Le nombre de lignes d'une table de vérité, sans compter la ligne d'entête, est donc égal à \(2^n\).
+    Ces lignes sont ordonnées d'une manière bien précise.
+</p>
+
+<p>
+    Les lignes d'une table de vérité sont toujours ordonnées de la même manière.
+    La colonne de la variable propositionnelle la plus à droite
+    alterne entre 0 et 1 entre chaque ligne.
+    La deuxième variable la plus à droite alterne entre 0 et 1 entre chaque deux lignes.
+    L'éventuelle troisième variable la plus à droite alterne entre 0 et 1 entre chaque quatre lignes.
+    Et ainsi de suite, en multipliant la taille des groupes par deux à chaque variable additionnelle.
+</p>

@@ -4,8 +4,11 @@
 
 html {
     font-family: Verdana, system-ui, sans-serif;
-    font-size: 14pt;
     line-height: 1.7em;
+    font-size: 12pt;
+    text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
 
     --color-1: #1D1D2C;
     --color-2: #2f2f3a;
@@ -110,7 +113,7 @@ main {
     position: relative;
 }
 
-main section:not(:first-child) {
+main section {
     padding: 20px;
     margin-top: 20px;
 }
@@ -132,6 +135,7 @@ main .illustration {
 main .illustration img {
     display: inline-block;
     max-width: 100%;
+    max-height: 80vh;
 }
 
 main .illustration .legend {
@@ -310,13 +314,14 @@ select.self-pick {
 
 .expr-input, .expr-inter-input {
     display: flex;
+    gap: 10px;
+    flex-direction: column; /* column on mobile */
 }
 
 .expr-input input, .expr-inter-input input {
     font-size: inherit;
     flex-grow: 1;
     font-family: 'Courier New', Courier, monospace;
-    margin-right: 10px;
 }
 
 .expr-input input::placeholder, .expr-inter-input input::placeholder {
@@ -534,6 +539,14 @@ table.truth-table tr.dimmed {
 }
 
 @media (min-width: 768px) {
+    html {
+        font-size: 14pt;
+    }
+
+    .expr-input, .expr-inter-input {
+        flex-direction: row;
+    }
+
     .chapter-nav div.next, .chapter-nav div.prev {
         display: inline-block;
     }
