@@ -4,28 +4,30 @@ order: 3
 ---
 
 <p>
-    Dans cette section, nous allons étudier regarder comment
-    attribuer une valeur de vérité à une proposition.
+    Dans cette section, nous allons regarder comment
+    déterminer la valeur de vérité des propositions.
     Dans quelles conditions une proposition est-elle vraie ?
     Dans quelles conditions une proposition est-elle fausse ?
+    Par quel procédé peut-on calculer la valeur de vérité d'une proposition ?
 </p>
 
 <p>
     De manière informelle, la valeur de vérité d'une proposition dépend du contexte auquel on l'applique.
     Par exemple, la proposition <i>&laquo; La maison est rouge. &raquo;</i> est vraie si l'on parle d'une maison rouge, mais fausse si l'on parle d'une maison bleue.
-    Pour parler des différents contextes auquel on peut appliquer une proposition, on utilise le concept d'<i>interprétation</i>.
+    Pour parler des différents contextes auxquels on peut appliquer une proposition, on utilise le concept d'<i>interprétation</i>.
 </p>
 
 <h3>Interprétation</h3>
 
 <div class="illustration left">
-    <img src="images/terre_soleil.png" style="margin-bottom: 20px;" alt="La Terre plate et le Soleil bleu.">
+    <img src="images/terre_soleil.png" style="margin-bottom: 40px; margin-top: 30px;" alt="La Terre plate et le Soleil bleu.">
 </div>
 
 <p>
     Formellement, on appelle une <i>interprétation</i> d'une proposition une assignation de valeur de vérité
     à chaque variable propositionnelle utilisée dans la proposition.
     Autrement dit, une interprétation liste la valeur de vérité de chaque variable propositionnelle utilisée dans la proposition.
+    Pour chaque variable, l'interprétation permet de savoir si la variable est vraie ou fausse.
 </p>
 <p>
     On écrit ces assignations de la façon suivante :<br />
@@ -87,14 +89,14 @@ $endremark$
 <p>
     Étant donné une proposition et une interprétation,
     il est possible de déterminer la valeur de vérité de la proposition
-    sous l'interprétation donnée,
+    sous l'interprétation donnée
     par une sorte de calcul.
 </p>
 <p>
     Pour ce faire, il suffit de remplacer les occurences des différentes variables par leur valeur de vérité telle que renseignée par l'interprétation,
     puis d'appliquer les connecteurs en respectant l'ordre d'application.</p>
 <p>
-    Pour savoir la valeur retournée par les différents connecteurs en fonction des valeurs de vérité sur lesquels ils sont appliqués,
+    Pour savoir la valeur retournée par les différents connecteurs en fonction des valeurs de vérité sur lesquelles ils sont appliqués,
     on peut utiliser les tableaux présentés ci-dessous.
 </p>
 
@@ -193,11 +195,11 @@ displayExprTree('expr-tree-ex', 'A et ((non B) ou C)');
     Pour obtenir la valeur de vérité d'un noeud de l'arbre,
     il faut connaître la valeur de vérité de tous les noeuds 
     en dessous du noeud et qui y sont reliés par une branche
-    (on appelle ces noeuds les <i>enfants</i> du noeud).
+    (les enfants du noeud).
     Avant de pouvoir calculer la valeur de vérité de la racine,
     il faut donc calculer la valeur de vérité de tous les
     enfants de la racine, puis de tous les enfants de ces enfants,
-    et ainsi de suite jusqu'à arriver aux noeuds tout en bas de l'arbre (les <i>feuilles</i>).
+    et ainsi de suite jusqu'à arriver aux noeuds tout en bas de l'arbre (les feuilles).
 </p>
 
 $tryout$
@@ -235,7 +237,7 @@ $endtryout$
     il suffit de retourner la valeur de vérité de la constante.
     Finalement, pour calculer la valeur d'un noeud qui contient un connecteur,
     il suffit d'appliquer le connecteur aux valeurs de vérité
-    des noeuds en dessous et reliés au noeud.
+    des enfants du noeud.
 </p>
 
 $tryout$

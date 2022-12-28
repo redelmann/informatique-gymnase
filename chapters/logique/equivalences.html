@@ -7,7 +7,7 @@ order: 6
 
 <p>
     Dans cette section, nous allons nous intéresser à la notion d'<i>équivalence</i> entre des propositions.
-    Intuitivement, deux propositions sont <i>équivalentes</i> si elles affirme la même chose.
+    Intuitivement, deux propositions sont <i>équivalentes</i> si elles affirment la même chose.
     Au fil de la section, nous allons mettre en lumière
     des équivalences entre des propositions.
 </p>
@@ -67,7 +67,7 @@ $example$
 </div>
 <p>
     La proposition <i>non (\(F\) et \(D\))</i> est équivalente à <i>(non \(F\)) ou (non \(D\))</i>.
-    Dire que la personne ne commande pas à la fois des fromages et un dessert revient à dire qu'elle ne commande pas de fromages ou qu'elle ne commande pas de dessert.
+    Dire que la personne ne commande pas à la fois des fromages et un dessert revient à dire qu'elle ne commande pas de fromages ou pas de dessert.
 </p>
 <p>
     La proposition <i>non (\(F\) ou \(D\))</i> est équivalente à <i>(non \(F\)) et (non \(D\))</i>.
@@ -98,15 +98,26 @@ $endexample$
 <table class="truth-table" id="table-equ-3"></table>
 
 <script type="text/javascript">
-    populateTable('table-equ-3', 'p implique q, non p implique non q, non q implique non p');
+    populateTable('table-equ-3', 'p implique q, non p implique non q');
 </script>
 
 <p>
-    Comme on peut l'observer dans la table ci-dessus, il y a bien une proposition
-    formée d'une implication qui est équivalente à <i>\(p\) implique \(q\)</i>.
-    Cette proposition est <i>(non \(q\)) implique non \(p\)</i>.
-    On appelle cette dernière proposition la <i>contraposée</i> de l'implication.
+    Cependant, il y a bien une proposition
+    formée d'une implication et de négations qui est équivalente à <i>\(p\) implique \(q\)</i> :
+    il s'agit de <i>(non \(q\)) implique non \(p\)</i>.
+    Notez l'inversion de place des propositions \(p\) et \(q\) à l'intérieur des deux propositions.
 </p>
+<p>
+    On appelle <i>(non \(q\)) implique non \(p\)</i> la <i>contraposée</i> de l'implication <i>\(p\) implique \(q\)</i>.
+    Comme on peut le voir à l'aide de la table de vérité ci-dessous, les colonnes correspondant à ces deux propositions contiennent les mêmes valeurs,
+    les propositions sont donc équivalentes.
+</p>
+
+<table class="truth-table" id="table-equ-4"></table>
+
+<script type="text/javascript">
+    populateTable('table-equ-4', 'p implique q, non q implique non p');
+</script>
 
 $example$
 

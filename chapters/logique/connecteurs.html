@@ -16,7 +16,8 @@ order: 2
     Un connecteur permet de lier des propositions entre elles pour n'en former qu'une seule.
     Le résultat de la combinaison de propositions est une nouvelle proposition dont le sens
     est déterminé par le connecteur utilisé et les propositions combinées.
-</p>
+    On appelle les propositions qui composent une proposition construite à l'aide d'un connecteur ses <i>sous-propositions</i>.
+</p> 
 
 $example$
 <p>
@@ -29,6 +30,9 @@ $example$
     pour former une nouvelle proposition \(G\) <i>et</i> \(R\).
     Cette dernière exprime que <i>&laquo; Le fruit est grand et le fruit est rouge. &raquo;</i>, ou encore,
     plus simplement <i>&laquo; Le fruit est grand et rouge. &raquo;</i>.
+</p>
+<p>
+    Les variables \(G\) et \(R\) sont les sous-propositions de la proposition <i>\(G\) et \(R\)</i>.
 </p>
 $endexample$
 
@@ -50,7 +54,7 @@ $remark$
         \(p\), pour représenter une proposition arbitraire.
         Cette lettre représente ce qu'on appelle une <i>meta-variable</i>.
         Il s'agit simplement d'un moyen de faire référence une proposition arbitraire en lui donnant un nom, ici \(p\).
-        Il peut s'agir d'une proposition basique comme une variable ou un constante, voire même d'une proposition plus complexe,
+        Il peut s'agir d'une proposition basique comme une variable ou une constante, voire même d'une proposition plus complexe,
         elle-même composée de propositions plus simple combinées par des connecteurs.
     </p>
 $endremark$
@@ -80,9 +84,6 @@ $endexample$
     La conjonction résultante est elle-même une proposition.
     Cette proposition est vraie si et seulement si les deux propositions sont vraies.
 </p>
-<p>
-    On appelle les propositions qui composent une proposition construite à l'aide d'un connecteur (comme la conjonction) ses <i>sous-propositions</i>.
-</p> 
 
 $example$
     <p>
@@ -163,6 +164,7 @@ $endexample$
 <p>
     Lorsque nous écrivons des propositions à l'aide de plus d'un connecteur, l'ordre d'application des connecteurs est important.
     Comme pour les expressions arithmétique, où la multiplication est prioritaire sur l'addition, il est important de respecter l'ordre d'application des connecteurs.
+    Nous allons adopter la convention suivante pour l'ordre d'application des connecteurs :
     Le connecteur <i>non</i> a la priorité sur le <i>et</i>, qui a la priorité sur le connecteur <i>ou</i>, qui a la priorité sur le connecteur <i>implique</i>.
 </p>
 
@@ -193,7 +195,7 @@ $endexample$
 
 <p>
     Aussi, lorsqu'on utilisera plusieurs fois le même connecteur à la suite,
-    on adoptera la convention que les parenthèses sont mises à droite.
+    on adoptera la convention que les parenthèses sont mises à droite en l'absence de parenthèses explicites.
     Ainsi, pour trois propositions \(p\), \(q\) et \(r\),
     la proposition <i>\(p\) implique \(q\) implique \(r\)</i> correspondra à la proposition \(p\) implique (\(q\) implique \(r\)),
     et non à la proposition (\(p\) implique \(q\)) implique \(r\).
@@ -227,7 +229,7 @@ $endremark$
     Afin de mieux visualiser les propositions et leur structure,
     il est possible de les représenter graphiquement sous forme de ce qu'on appelle
     un <i>arbre syntaxique</i>.
-    On parle d'<i>arbre</i> car la structure ressemble à celle d'un arbre naturel,
+    On parle d'<i>arbre</i> car la structure utilisée ressemble à celle d'un arbre naturel,
     si ce n'est que nos arbres seront orientés à l'envers, vers le bas.
     L'adjectif <i>syntaxique</i> fait référence à la <i>syntaxe</i>,
     une branche de la linguistique qui étudie la structure des phrases.
@@ -277,7 +279,7 @@ displayExprTree('expr-tree-ex0', 'A et (non B ou vrai)');
     Remarquez que sous cette forme graphique,
     il n'y a plus besoin de faire usage de parenthèses.
     Cette représentation nous sera utile par la suite,
-    notamment pour visualiser comment <i>évaluer</i> une proposition.
+    notamment pour visualiser comment calculer la valeur d'une proposition.
 </p>
 
 $tryout$
