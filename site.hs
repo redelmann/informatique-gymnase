@@ -14,6 +14,7 @@ import System.FilePath (takeDirectory, splitDirectories, joinPath)
 import qualified Data.Text as T
 import Data.Text.ICU.Char
 import Data.Text.ICU.Normalize
+import System.Process (readProcess)
 
 order :: Identifier -> Compiler Int
 order ident = do 
@@ -130,6 +131,10 @@ baseContext base =
     field "id" (return . toFilePath . itemIdentifier) <>
     functionField "youtube" youtubeFun <>
     field "globalNav" globalNavField <>
+    field "lastModified" lastModifiedField <>
+    field "globalLastModified" globalModifiedField <>
+    field "compileTime" compileTimeField <>
+    field "commit" commitField <>
     listField "chapters" (chapterContext base) (loadAllMetadataSorted "chapters/*") <>
     defaultContext <>
     base
@@ -166,7 +171,42 @@ baseContext base =
                             
         i <- loadAndApplyTemplate "templates/global-nav.html" fieldContext page
         return $ itemBody i
+    
+    lastModifiedField page = do
+        recompilingUnsafeCompiler $ do
+            str <- readProcess "git" [
+                        "log",
+                        "-1",
+                        "--format=%cd",
+                        "--date=format-local:%d.%m.%Y",
+                        toFilePath $ itemIdentifier page
+                    ] ""
+            return $ trim str
+    
+    globalModifiedField page = do
+        recompilingUnsafeCompiler $ do
+            str <- readProcess "git" [
+                        "log",
+                        "-1",
+                        "--format=%cd",
+                        "--date=format-local:%d.%m.%Y"
+                    ] ""
+            return $ trim str
+    
+    compileTimeField page = do
+        recompilingUnsafeCompiler $ do
+            str <- readProcess "date" [
+                        "+%d.%m.%Y %H:%M:%S"
+                    ] ""
+            return $ trim str
 
+    commitField page = do
+        recompilingUnsafeCompiler $ do
+            str <- readProcess "git" [
+                        "rev-parse",
+                        "HEAD"
+                    ] ""
+            return $ trim str
 
 chapterContext :: Context String -> Context String
 chapterContext base =
