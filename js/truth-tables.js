@@ -13,6 +13,11 @@ function populateTable(container, exprs, labels) {
             exprs[i] = logicQuestions.parse(exprs[i]);
         }
     }
+
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('truth-table-container');
+    container.parentNode.replaceChild(wrapper, container);
+    wrapper.appendChild(container);
     
     const allExpr = logicQuestions.ands(exprs);
     const variables = logicQuestions.freeVariables(allExpr);

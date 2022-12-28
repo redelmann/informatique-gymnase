@@ -116,6 +116,7 @@ main {
 main section {
     padding: 20px;
     margin-top: 20px;
+    overflow-x: hidden;
 }
 
 section {
@@ -345,6 +346,10 @@ select.self-pick {
     font-size: inherit;
 }
 
+.truth-table-container {
+    overflow-x: auto;
+}
+
 table.truth-table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -376,6 +381,7 @@ table.truth-table tr.dimmed {
 .bernays {
     margin-top: 40px;
     margin-bottom: 40px;
+    overflow-x: auto;
 }
 
 .bernays .tree {
