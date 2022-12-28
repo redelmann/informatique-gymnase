@@ -143,6 +143,13 @@ function displayExprTree(container, expr, interpretation) {
             
             text = g.selectAll('text.label')
                 .data(root.descendants(), function(d) { return d.id; });
+
+            const text_ = text;
+            setTimeout(function() {
+                text_.filter(function(d) {
+                    return d._evaled;
+                }).remove();
+            }, 300);
             
             text.exit().remove();
 
