@@ -45,7 +45,6 @@ h2:not(:first-child), h3:not(:first-child) {
 }
 
 p {
-    text-align: justify;
     line-height: 1.7em;
 }
 
@@ -217,7 +216,6 @@ select.self-pick {
     border-radius: 10px;
     color: black;
     min-width: 60px;
-    text-align: center;
 }
 
 .select-wrapper {
