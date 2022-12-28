@@ -343,8 +343,8 @@ $endselfcheck$
             output.innerHTML = '<p>Ce n\'est pas tout à fait ça.</p>';
             const table = document.createElement('table');
             table.classList.add('truth-table');
-            populateTable(table, [expr, targetExpr], ['La cible', 'Votre proposition']);
             output.appendChild(table);
+            populateTable(table, [targetExpr, expr], ['La cible', 'Votre proposition']);
         }
     }
 
