@@ -64,7 +64,7 @@ function displayExprTree(container, expr, interpretation) {
     if (interpretation) {
 
         const evalButton = document.createElement('button');
-        evalButton.innerHTML = '<i class="fa fa-play"></i> Tout évaluer';
+        evalButton.innerHTML = '<i class="fa fa-play"></i> Tout calculer';
 
         function go(d, elems) {
             if (d.children) {
