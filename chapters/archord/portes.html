@@ -596,3 +596,131 @@ $remark$
 </p>
 $endremark$
 
+$selfcheck$
+<p>Considérez les schémas de portes ci-dessous.</p>
+
+<div class="logic-frame" style="height: 60px; width: 380px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "opts": {"showDisconnectedPins": true, "hideWireColors": true, "hideTooltips": true},
+          "gates": [
+            {"type": "NOR", "pos": [50, 30], "in": [5, 6], "out": 7},
+            {"type": "XOR", "pos": [190, 30], "in": [8, 9], "out": 10},
+            {"type": "AND", "pos": [330, 30], "in": [14, 15], "out": 16}
+          ]
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<p>
+    La première porte est
+    une porte <select class="self-pick">
+        <option>NON</option>
+        <option>ET</option>
+        <option>NON-ET</option>
+        <option>OU</option>
+        <option data-correct>NON-OU</option>
+        <option>OU-X</option>
+        <option>NON-OU-X</option>
+    </select>,
+    la deuxième est une porte <select class="self-pick">
+        <option>NON</option>
+        <option>ET</option>
+        <option>NON-ET</option>
+        <option>OU</option>
+        <option>NON-OU</option>
+        <option data-correct>OU-X</option>
+        <option>NON-OU-X</option>
+    </select>
+    et la dernière est une porte <select class="self-pick">
+        <option>NON</option>
+        <option data-correct>ET</option>
+        <option>NON-ET</option>
+        <option>OU</option>
+        <option>NON-OU</option>
+        <option>OU-X</option>
+        <option>NON-OU-X</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>Considérez le schéma interactif suivant :</p>
+
+<div class="logic-frame" style="height: 100px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "opts": {"hideTooltips": true},
+          "in": [
+            {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
+            {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
+          ],
+          "out": [
+            {"pos": [240, 50], "id": 4, "name": "S"}
+          ],
+          "gates": [
+            {"type": "OR", "pos": [140, 50], "in": [8, 9], "out": 10, "showAsUnknown": true}
+          ],
+          "wires": [[7, 9], [3, 8], [10, 4]]
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<p>
+    La porte inconnue dans le schéma ci-dessus est une porte
+    <select class="self-pick">
+        <option>NON</option>
+        <option>ET</option>
+        <option>NON-ET</option>
+        <option data-correct>OU</option>
+        <option>NON-OU</option>
+        <option>OU-X</option>
+        <option>NON-OU-X</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>Considérez le schéma interactif suivant :</p>
+
+<div class="logic-frame" style="height: 100px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "opts": {"hideTooltips": true},
+          "in": [
+            {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
+            {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
+          ],
+          "out": [
+            {"pos": [240, 50], "id": 4, "name": "S"}
+          ],
+          "gates": [
+            {"type": "XNOR", "pos": [140, 50], "in": [8, 9], "out": 10, "showAsUnknown": true}
+          ],
+          "wires": [[7, 9], [3, 8], [10, 4]]
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<p>
+    La porte inconnue dans le schéma ci-dessus est une porte
+    <select class="self-pick">
+        <option>NON</option>
+        <option>ET</option>
+        <option>NON-ET</option>
+        <option>OU</option>
+        <option>NON-OU</option>
+        <option>OU-X</option>
+        <option data-correct>NON-OU-X</option>
+    </select>.
+</p>
+$endselfcheck$
