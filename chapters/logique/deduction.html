@@ -4,21 +4,23 @@ order: 8
 ---
 
 <div class="illustration left">
-    <img src="images/einstein.png" alt="Albert Einstein au tableau">
+    <img src="images/einstein.png" style="margin-top: 30px; margin-bottom: 30px;" alt="Albert Einstein au tableau">
 </div>
 
 <p>
     Jusqu'à présent, nous avons vu un unique moyen de démontrer la validité d'une proposition :
     vérifier que la formule vaut 1 pour toutes les interprétations possibles.
-    Autrement dit, établir une table de vérité et vérifier que la colonne correspondant à la proposition ne contient bien que des 1.
-    Cette méthode est parfois coûteuse, voire tout simplement inapplicable dans des logiques plus complexes
-    tels que la <i>logique des prédicats</i> souvent employée en mathématiques.
+    Autrement dit, pour montrer qu'une proposition est toujours vraie,
+    il nous fallait établir une table de vérité et vérifier que la colonne correspondant à la proposition ne contient bien que des 1.
+    Cette méthode est parfois très coûteuse, voire tout simplement inapplicable dans des logiques plus complexes
+    tels que la <i>logique des prédicats</i> souvent employée en mathématiques,
+    où il est impossible de tester toutes les interprétations possibles.
 </p>
 
 <p>
-    Dans cette section, nous allons étudier un système de déduction appelé <i>déduction naturelle</i>.
+    Dans cette section, nous allons étudier un système de déduction inventé par le logicien allemand <a href="https://fr.wikipedia.org/wiki/Gerhard_Gentzen">Gerhard Gentzen</a> au début du vingtième siècle et appelé la <i>déduction naturelle</i>.
     Ce système est basé sur l'idée que la validité d'une proposition peut être démontrée en appliquant des <i>règles d'inférence</i>.
-    Ces règles d'inférence sont des règles de raisonnement qui permettent de déduire une proposition à partir d'autres propositions.
+    Ces règles d'inférence sont des règles de raisonnement qui permettent de déduire la validité d'une proposition à partir de celle d'autres propositions.
     Ce système de déduction naturelle est une manière formelle de démontrer la validité d'une proposition sans avoir à énumérer toutes ses interprétations.
     Nous allons voir dans cette section comment construire des preuves de propositions à l'aide de ce système.
 </p>
@@ -31,13 +33,18 @@ $remark$
     des clés intéressantes pour comprendre ce qu'est une <i>preuve</i> mathématique,
     ainsi que des outils de raisonnement formel.
 </p>
+<p>
+    Il y a aussi des liens très forts entre la déduction naturelle et la programmation.
+    Pour les plus intéressés (et téméraires), je vous conseille la lecture de
+    <a href="https://fr.wikipedia.org/wiki/Correspondance_de_Curry-Howard">la page Wikipédia sur la <i>correspondance de Curry-Howard</i></a>.
+</p>
 $endremark$
 
 $tryout$
 <p>
     L'outil en ligne <a href="https://bernays.redelmann.ch">bernays.redelmann.ch</a>
     permet de construire des preuves de propositions à l'aide de la déduction naturelle.
-    Vous pouvez essayer cet outil en parallele de la lecture de cette section.
+    Vous pouvez essayer cet outil en parallèle de la lecture de cette section.
 </p>
 $endtryout$
 
@@ -67,12 +74,36 @@ $endtryout$
 </script>
 
 <p>
-    Chaque règle a un nom, qui est indiqué sur la gauche de la barre.
-    La conclusion est la proposition qui est démontrée par la règle,
+    Chaque règle a un <i>nom</i>, qui est indiqué sur la gauche de la barre.
+    La <i>conclusion</i> est la proposition qui est démontrée par la règle,
     elle se situe sous la barre.
     Enfin, les <i>prémisses</i> sont les propositions dont la validité est utilisée
     pour démontrer la validité de la conclusion.
 </p>
+
+$example$
+<p>
+    Voici un exemple de règle d'inférence.
+    Pour n'importe quelles propositions \(p\) et \(q\),
+    la règle suivante établit que pour montrer la proposition
+    <i>\(p\) et \(q\)</i>, il suffit de montrer \(p\) et de montrer \(q\).
+</p>
+
+<div class="bernays" id="rule-ex">
+
+</div>
+
+<script type="text/javascript">
+    document.getElementById('rule-ex').appendChild(htmlRule("ET-I", "p et q", ["p", "q"]));
+</script>
+
+<p>
+    Le nom de la règle est <i>ET-I</i> (pour <i>et</i> et <i>introduction</i>, comme nous pourrons le voir par la suite).
+    La conclusion est la proposition <i>\(p\) et \(q\)</i>.
+    Enfin, les prémisses sont au nombre de deux :
+    La première est \(p\), la deuxième est \(q\).
+</p>
+$endexample$
 
 <p>
     Toutes les règles d'inférence imaginables ne correspondent pas
@@ -84,7 +115,7 @@ $endtryout$
 <h3>Preuves</h3>
 
 <p>
-    Avant de voir les règles d'inférence, nous allons définir ce qu'est une <i>preuve</i>
+    Avant de voir plus en détails les règles d'inférence, nous allons définir ce qu'est une <i>preuve</i>
     en déduction naturelle.
 </p>
 
@@ -108,14 +139,14 @@ $endtryout$
 
 <div class="bernays" id="rule-2"></div>
 
-<p>
-    Une telle règle spécifie qu'il est possible d'utiliser l'hypothèse autre sans autre preuve
-    dans le contexte de la preuve de la prémisse.
-</p> 
-
 <script type="text/javascript">
     document.getElementById('rule-2').appendChild(htmlRule("nom", "conclusion", [htmlDeriving("prémisse", "hypothèse")]));
 </script>
+
+<p>
+    Une telle règle spécifie qu'il est possible d'utiliser l'hypothèse autre sans autre preuve
+    dans le contexte de la preuve de la prémisse, et à autant de reprises que désiré.
+</p>
 
 $example$
 <p>
@@ -134,6 +165,33 @@ $example$
             ])
         ]));
 </script>
+
+<p>
+    La preuve commence par l'application de la règle <i>IMP-I</i> (pour <i>implique</i> et <i>introduction</i>),
+    dont la conclusion est la proposition à démontrer.
+    La prémisse de cette règle est la proposition <i>\(q\) et \(p\)</i>.
+    Cette règle introduit aussi une hypothèse : <i>\(p\) et \(q\)</i>,
+    dont usage sera fait par la suite.
+</p>
+<p>
+    Ensuite, pour démontrer la proposition <i>\(q\) et \(p\)</i>,
+    on applique la règle <i>ET-I</i> (pour <i>et</i> et <i>introduction</i>).
+    La règle a deux prémisses : <i>\(q\)</i> et <i>\(p\)</i>,
+    qu'il faut démontrer.
+    <ol>
+        <li>
+            Pour démontrer la première prémisse, \(q\), on applique la
+            règle <i>ET-E2</i> (pour <i>et</i> et <i>élimination</i>).
+            La prémisse de cette règle est l'hypothèse <i>\(p\) et \(q\)</i>,
+            qui est utilisée sans autre preuve.
+        </li>
+        <li>
+            Pour démontrer la deuxième prémisse, \(p\), on applique la
+            règle <i>ET-E1</i> (pour <i>et</i> et <i>élimination</i>).
+            La prémisse de cette règle est aussi l'hypothèse <i>\(p\) et \(q\)</i>,
+            que l'on peut réutiliser.
+    </ol>
+</p>
 $endexample$
 
 <h3>Liste des règles d'inférence</h3>
@@ -150,7 +208,10 @@ $endexample$
 
 <h3>Règles liées à la conjonction</h3>
 
-En premier lieu, intéressons-nous aux règles liées à la conjonction.
+<p>
+    En premier lieu, intéressons-nous aux règles liées à la conjonction.
+    Elles sont au nombre de trois.
+</p>
 
 <h4>Règle d'introduction</h4>
 
@@ -231,7 +292,7 @@ En premier lieu, intéressons-nous aux règles liées à la conjonction.
 <p>
     Les deux règles d'introduction de la disjonction énoncent
     que la disjonction de deux propositions est valide
-    si l'on a que l'une des deux propositions est valide.
+    lorsque l'on a que l'une ou l'autre des deux propositions est valide.
 </p>
 
 <h4>Règle d'élimination</h4>
@@ -249,15 +310,20 @@ En premier lieu, intéressons-nous aux règles liées à la conjonction.
 <p>
     La règle d'élimination de la disjonction
     correspond à ce qu'on appelle le raisonnement par <i>analyse de cas</i>.
-    Elle énonce que l'on peut montrer la validité de n'importe quelle proposition \(r\)
-    en admettant qu'une disjonction <i>\(p\) ou \(q\)</i> est valide
-    et que peu importe si \(p\) est valide ou si \(q\) est valide on peut montrer \(r\).
+    Elle énonce que l'on peut démontrer n'importe quelle proposition \(r\)
+    en montrant une disjonction <i>\(p\) ou \(q\)</i> et en montrant
+    que si \(p\) est vrai alors \(r\) est vrai et que si \(q\) est vrai alors \(r\) est toujours vrai.
+</p>
+
+<p>
+    Cette règle est celle appliquée lorsque lors d'une démonstration
+    on traite plusieurs cas séparément.
 </p>
 
 <h3>Règles liées à la négation</h3>
 
 <p>
-    Nous allons maintenant étudier les règles liées à la négation.
+    Nous allons maintenant étudier les deux règles liées à la négation.
 </p>
 
 <h4>Règle d'introduction</h4>
@@ -272,13 +338,30 @@ En premier lieu, intéressons-nous aux règles liées à la conjonction.
     document.getElementById('rule-not-I').appendChild(htmlRule("NON-I", "non p", [htmlDeriving("faux", "p")]));
 </script>
 
+<p>
+    La règle d'introduction de la négation énonce que l'on peut démontrer
+    la négation d'une proposition en montrant qu'à l'aide
+    de la proposition comme hypothèse l'on peut démontrer quelque chose d'absurde, de faux
+    (en l'occurrence la proposition constante <i>faux</i>).
+</p>
+
 <h4>Règle d'élimination</h4>
+
+<p>
+    La négation dispose aussi d'une unique règle d'élimination :
+</p>
 
 <div class="bernays" id="rule-not-E"></div>
 
 <script type="text/javascript">
     document.getElementById('rule-not-E').appendChild(htmlRule("NON-E", "faux", ["non p", "p"]));
 </script>
+
+<p>
+    La règle d'élimination de la négation énonce que l'on peut démontrer
+    la proposition <i>faux</i> en montrant à la fois une chose et son contraire.
+    C'est ce qu'on appelle une <i>contradiction</i>.
+</p>
 
 <h3>Règles liées à l'implication</h3>
 
@@ -298,6 +381,12 @@ En premier lieu, intéressons-nous aux règles liées à la conjonction.
     document.getElementById('rule-impl-I').appendChild(htmlRule("IMP-I", "p implique q", [htmlDeriving("q", "p")]));
 </script>
 
+<p>
+    La règle d'introduction de l'implication énonce que l'on peut démontrer
+    une implication <i>\(p\) implique \(q\)</i> en montrant que si l'on a admet la proposition \(p\)
+    comme hypothèse alors on peut démontrer la proposition \(q\).
+</p>
+
 <h4>Règle d'élimination</h4>
 
 <div class="bernays" id="rule-impl-E"></div>
@@ -306,6 +395,16 @@ En premier lieu, intéressons-nous aux règles liées à la conjonction.
     document.getElementById('rule-impl-E').appendChild(htmlRule("IMP-E", "q", ["p implique q", "p"]));
 </script>
 
+<p>
+    La règle d'élimination de l'implication énonce que
+    lorsque une implication <i>\(p\) implique \(q\)</i> est vraie
+    et que l'impliquant \(p\) est vrai alors l'impliqué \(q\) est aussi forcément vrai.
+</p>
+<p>
+    Cette règle est aussi connue sous le nom de <a href="https://fr.wikipedia.org/wiki/Modus_ponens"><i>modus ponens</i></a> 
+    (abbréviation latine).
+</p>
+
 <h3>Règles liées aux constantes</h3>
 
 <p>
@@ -313,11 +412,32 @@ En premier lieu, intéressons-nous aux règles liées à la conjonction.
 </p>
 
 <div class="cols-2">
-    <div class="bernays" id="rule-true-I">
-        
+    <div>
+        <h4>Introduction du vrai</h4>
+        <p>
+            La règle d'introduction du vrai énonce que l'on peut démontrer
+            la proposition <i>vrai</i> sans aucune prémisse.
+            La proposition est <i>trivialement</i> vraie.
+        </p>
+        <div class="bernays" id="rule-true-I">
+            
+        </div>
     </div>
-    <div class="bernays" id="rule-false-E">
+    <div>
+        <h4>Élimination du faux</h4>
+        <p>
+            La règle d'élimination du faux énonce que l'on peut démontrer
+            la proposition n'importe quelle proposition
+            à partir de la proposition <i>faux</i>.
+        </p>
+        <div class="bernays" id="rule-false-E">
 
+        </div>
+        <p>
+            On appelle aussi cette règle le <i>principe d'explosion</i>,
+            aussi connue sous l'expression latine d'<i>ex falso quodlibet</i>
+            (litéralement, <i>du faux l'on déduit ce que l'on veut</i>).
+        </p>
     </div>
 </div>
 
@@ -328,9 +448,66 @@ En premier lieu, intéressons-nous aux règles liées à la conjonction.
 
 <h3>Raisonnement par l'absurde</h3>
 
+<p>
+    La toute dernière règle que nous allons aborder et celle du raisonnement par l'absurde,
+    <i>reductio ad absurdum</i> en latin.
+</p>
+
 <div class="bernays" id="rule-absurd"></div>
 
 <script type="text/javascript">
     document.getElementById('rule-absurd').appendChild(htmlRule("RAA", "p", [htmlDeriving("faux", "non p")]));
 </script>
+
+<p>
+    La règle du raisonnement par l'absurde énonce que l'on peut démontrer
+    une proposition \(p\) en montrant que si l'on admet comme hypothèse
+    la négation de \(p\) alors on peut démontrer la proposition <i>faux</i>.
+    En d'autres termes, s'il est absurde de nier \(p\) alors \(p\) est forcément vraie.
+</p>
+
+<p>
+    Notez la similarité entre cette règle et la règle d'introduction de la négation.
+    L'une permet de permet de demontrer une proposition \(p\) en montrant l'absurdité de la négation de \(p\),
+    l'autre permet de démontrer la négation de \(p\) en montrant l'absurdité de \(p\).
+</p>
+
+<h3>Autres règles</h3>
+
+<p>
+    La déduction naturelle peut aussi
+    inclure d'autres règles, notamment des règles d'introduction et d'élimination pour d'autres connecteurs logiques tels
+    que l'<i>équivalence</i>.
+    Dans l'intérêt de la simplicité, nous n'allons pas les étudier ici.
+    Vous pouvez trouver ces règles <a href="https://bernays.redelmann.ch">dans l'outil cité plus haut</a>.
+</p>
+
+<h3>Complétude et correction</h3>
+
+<p>
+    Prises ensemble, les règles qui forment la déduction naturelles
+    permettent de démontrer certaines propositions.
+    De manière intéressante, ce système de règles obéit à deux propriétés très importantes :
+    <ol>
+        <li>
+            <i>La complétude :</i>
+            Chaque proposition valide, chaque tautologie, peut être démontrée à l'aide de ces règles.
+            Toute proposition valide peut être démontrée.
+        </li>
+        <li>
+            <i>La correction :</i>
+            Chaque démonstration est correcte, c'est-à-dire que si l'on suit les règles
+            alors toute proposition démontrée est valide.
+            Chaque proposition prouvée est bel et bien une tautologie.
+        </li>
+    </ol>
+    Ces deux propriétés sont appelées <i>complétude et correction</i>.
+    Elles établissent que la déduction naturelle est une façon assurée et
+    correcte de démontrer la validité d'une proposition.
+</p>
+<p>
+    La propriété de complétude a été prouvée par
+    le mathématicien suisse <a href="https://fr.wikipedia.org/wiki/Paul_Bernays">Paul Bernays</a>.
+</p>
+
 
