@@ -1,6 +1,6 @@
 ---
-title: Portes logiques et circuits
-order: 1
+title: Portes logiques
+order: 2
 ---
 
 <style>
@@ -8,55 +8,79 @@ order: 1
     width: 290px;
     border: 0;
     margin: auto;
+    margin-bottom: 40px;
+    margin-top: 40px;
 }
 </style>
 
 <script src="/js/logic-simulator.js"></script>
 <script src="/js/truth-tables.js"></script>
 
-<h3>Entrées</h3>
+<p>
+    Les portes logiques sont des composants
+    qui permettent de réaliser des opérations logiques sur les valeurs qu'ils reçoivent.
+    Les portes prennent en entrée un ou plusieurs signaux et calculent
+    un signal de sortie en fonction de ces entrées.
+</p>
 
-<div class="logic-frame" style="height: 40px;">
-    <logic-editor mode="tryout" hidereset>
-        <script type="application/json">
-            {
-                "v": 4,
-                "in": [
-                    {"pos": [40, 20], "id": 3, "val": 0, "name": "A"}
-                ]
-            }
-        </script>
-    </logic-editor>
-</div>
+<p>
+    Les portes sont appelées <i>logiques</i> car elles
+    réalisent des opérations logiques telles que celles que l'on
+    a pu découvrir au chapitre précédent :
+    par exemple le <i>et</i>, le <i>ou</i>, ou encore le <i>non</i>.
+</p>
 
-<h3>Sorties</h3>
+<h3>Portes de base</h3>
 
-<div class="logic-frame" style="height: 40px;">
-    <logic-editor mode="tryout" hidereset>
-        <script type="application/json">
-        {
-          "v": 4,
-          "in": [
-            {"pos": [40, 20], "id": 3, "val": 0, "name": "A"}
-          ],
-          "out": [
-            {"pos": [240, 20], "id": 4, "name": "S"}
-          ],
-          "wires": [[3, 4]]
-        }
-        </script>
-    </logic-editor>
-</div>
-
-<h3>Portes logiques</h3>
+<p>
+    Commençons par les portes logiques de base :
+    La porte <i>NON</i>, la porte <i>ET</i>, et enfin la porte <i>OU</i>.
+</p>
 
 <h4>La porte NON</h4>
+
+<p>
+    La porte <i>NON</i> est une porte logique qui prend en entrée un signal et renvoie le signal inverse.
+    Lorsque la porte reçoit un signal de valeur 1, elle renvoie un signal de valeur 0.
+    Alors que lorsque la porte reçoit un signal de valeur 0, elle renvoie un signal de valeur 1.
+    La porte est représentée de la manière suivante :
+</p>
 
 <div class="logic-frame" style="height: 60px;">
     <logic-editor mode="tryout" hidereset>
         <script type="application/json">
         {
           "v": 4,
+          "opts": {"showDisconnectedPins": true, "hideWireColors": true, "hideTooltips": true},
+          "in": [],
+          "out": [],
+          "gates": [
+            {"type": "NOT", "pos": [140, 30], "in": 0, "out": 1}
+          ],
+          "wires": []
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<p>
+    Quand on la représente schématiquement, la porte <i>NON</i> reçoit le signal d'entrée sur le coté gauche et renvoie le signal de sortie sur le coté droit.
+</p>
+
+$tryout$
+<p>
+    Le circuit ci-dessous
+    contient une porte <i>NON</i> qui reçoit un signal d'une entrée <i>A</i> et renvoie le signal inverse à la sortie <i>S</i>.
+    Par conséquent, la sortie <i>S</i> est allumée lorsque l'entrée <i>A</i> est éteinte, et éteinte lorsque l'entrée <i>A</i> est allumée.
+    <i>Essayez de modifier la valeur en entrée pour vérifier !</i>
+</p>
+
+<div class="logic-frame" style="height: 60px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "opts": {"hideTooltips": true},
           "in": [
             {"pos": [40, 30], "id": 3, "val": 0, "name": "A"}
           ],
@@ -72,19 +96,90 @@ order: 1
     </logic-editor>
 </div>
 
+$endtryout$
+
+<p>
+    Le comportement de la porte peut être résumé à l'aide d'une table de vérité.
+    Ci-dessous est représentée la table de vérité du circuit ci-dessus.
+    On y observe la valeur de la sortie de la porte (reporté à la sortie <i>S</i>) en fonction de la valeur de son entrée (liée à l'entrée <i>A</i> du circuit).
+</p>
+
 <table class="truth-table" id="truth-table-non"></table>
 
 <script type="text/javascript">
-populateTable('truth-table-non', 'non A');
+populateTable('truth-table-non', 'non A', ['S']);
 </script>
 
+<p>
+    Remarquez que la table coincide exactement avec la table de vérité du connecteur <i>non</i> que nous avons vu au chapitre précédent.
+</p>
+
+<p>
+    La porte <i>NON</i> n'est pas la seule porte logique
+    à notre disposition. Nous allons à présent voir
+    les portes <i>ET</i> et <i>OU</i>.
+    Contrairement à la porte <i>NON</i>, ces portes prennent en entrée deux signaux.
+</p>
+
+<div class="cols-2">
+<div>
 <h4>La porte ET</h4>
+
+<p>
+    La porte <i>ET</i> est une porte logique qui prend en entrée deux signaux
+    et produit un unique signal de sortie.
+    La porte renvoie un signal de valeur 1 lorsque les deux signaux d'entrée sont à 1,
+    et un signal de valeur 0 dans tous les autres cas.
+</p>
+
+<p>
+    La porte est représentée de la manière suivante :
+</p>
+
+<div class="logic-frame" style="height: 60px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "opts": {"showDisconnectedPins": true, "hideWireColors": true, "hideTooltips": true},
+          "in": [],
+          "out": [],
+          "gates": [
+            {"type": "AND", "pos": [140, 30], "in": [0, 2], "out": 1}
+          ],
+          "wires": []
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<p>
+    Les entrées de la porte se situent sur le coté gauche et la sortie sur le coté droit.
+</p>
+
+<p>
+    Le comportement de la porte peut être résumé par la table de vérité suivante :
+</p>
+
+<table class="truth-table" id="truth-table-et"></table>
+
+<script type="text/javascript">
+populateTable('truth-table-et', 'A et B', ['S']);
+</script>
+
+$tryout$
+<p>
+    Le circuit ci-dessous, qui a deux entrées <i>A</i> et <i>B</i> et une sortie <i>S</i>,
+    présente une utilisation de la porte <i>ET</i>.
+    <i>Essayez de changer la valeur des entrées et observez le résultat !</i>
+</p>
 
 <div class="logic-frame" style="height: 100px;">
     <logic-editor mode="tryout" hidereset>
         <script type="application/json">
         {
           "v": 4,
+          "opts": {"hideTooltips": true},
           "in": [
             {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
             {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
@@ -101,19 +196,72 @@ populateTable('truth-table-non', 'non A');
     </logic-editor>
 </div>
 
-<table class="truth-table" id="truth-table-et"></table>
+<p>
+    Grâce à l'usage de la porte <i>ET</i>, la sortie <i>S</i> est allumée lorsque les entrées <i>A</i> et <i>B</i> sont allumées,
+    et uniquement dans ce cas.
+</p>
+$endtryout$
 
-<script type="text/javascript">
-populateTable('truth-table-et', 'A et B');
-</script>
+</div>
+<div>
 
 <h4>La porte OU</h4>
+
+<p>
+    Tout comme la porte <i>ET</i>, la porte <i>OU</i> prend en entrée deux signaux
+    et produit un seul signal de sortie.
+    La porte renvoie un signal de valeur 1 lorsque au moins un des signaux d'entrée est à 1,
+    et uniquement dans ce cas.
+</p>
+
+<p>
+    La porte est représentée de la manière suivante :
+</p>
+
+<div class="logic-frame" style="height: 60px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "opts": {"showDisconnectedPins": true, "hideWireColors": true, "hideTooltips": true},
+          "in": [],
+          "out": [],
+          "gates": [
+            {"type": "OR", "pos": [140, 30], "in": [0, 2], "out": 1}
+          ],
+          "wires": []
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<p>
+    Les entrées de la porte se situent sur le coté gauche et la sortie sur le coté droit.
+</p>
+
+<p>
+    Le comportement de la porte peut être résumé par la table de vérité suivante :
+</p>
+
+<table class="truth-table" id="truth-table-ou"></table>
+
+<script type="text/javascript">
+populateTable('truth-table-ou', 'A ou B', ['S']);
+</script>
+
+$tryout$
+<p>
+    Le circuit ci-dessous, qui a deux entrées <i>A</i> et <i>B</i> et une sortie <i>S</i>,
+    présente une utilisation de la porte <i>OU</i>.
+    <i>Essayez de changer la valeur des entrées et observez le résultat !</i>
+</p>
 
 <div class="logic-frame" style="height: 100px;">
     <logic-editor mode="tryout" hidereset>
         <script type="application/json">
         {
           "v": 4,
+          "opts": {"hideTooltips": true},
           "in": [
             {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
             {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
@@ -130,19 +278,234 @@ populateTable('truth-table-et', 'A et B');
     </logic-editor>
 </div>
 
-<table class="truth-table" id="truth-table-ou"></table>
+<p>
+    Par l'utilisation de la porte <i>OU</i>, 
+    la sortie <i>S</i> est allumée dès lors que l'une des entrées <i>A</i> ou <i>B</i> au moins est allumée.
+</p>
+$endtryout$
+
+</div>
+</div>
+
+<h3>Portes logiques inversées</h3>
+
+<p>
+    Certaines portes logiques disposent d'une version inversée.
+    La version inversée d'une porte logique calcul exactement le contraire de la version normale.
+    En quelque sorte, c'est comme si la porte logique était immédiatement reliée en sortie à une porte <i>NON</i>.
+    Lorsque l'on représente graphiquement ces portes inversées, c'est d'ailleurs ce qui est représenté.
+    Comme nous allons le voir, le schéma des portes inversées
+    est identique à celui des portes normales, sauf que la sortie du composant est annotée d'un cercle,
+    comme le cercle à la sortie de la porte <i>NON</i>.
+</p>
+
+<div class="cols-2">
+<div>
+    <h4>La porte NON-ET</h4>
+
+    <p>
+        La porte <i>NON-ET</i> est représentée de la manière suivante :
+    </p>
+    
+    <div class="logic-frame" style="height: 60px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+            {
+              "v": 4,
+              "opts": {"showDisconnectedPins": true, "hideWireColors": true, "hideTooltips": true},
+              "in": [],
+              "out": [],
+              "gates": [
+                {"type": "NAND", "pos": [140, 30], "in": [0, 2], "out": 1}
+              ],
+              "wires": []
+            }
+            </script>
+        </logic-editor>
+    </div>
+
+    <p>
+        Sa table de vérité est :
+    </p>
+
+    <table class="truth-table" id="truth-table-non-et"></table>
+    
+    <script type="text/javascript">
+    populateTable('truth-table-non-et', 'A non-et B', ['S']);
+    </script>
+
+$tryout$
+<p>
+    Testez par vous-même le comportement de la porte <i>NON-ET</i> 
+    dans le circuit ci-dessous :
+</p>
+<div class="logic-frame" style="height: 100px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+            "v": 4,
+            "opts": {"hideTooltips": true},
+            "in": [
+            {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
+            {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
+            ],
+            "out": [
+            {"pos": [240, 50], "id": 4, "name": "S"}
+            ],
+            "gates": [
+            {"type": "NAND", "pos": [140, 50], "in": [8, 9], "out": 10}
+            ],
+            "wires": [[7, 9], [3, 8], [10, 4]]
+        }
+        </script>
+    </logic-editor>
+</div>
+$endtryout$
+</div>
+
+<div>
+    <h4>La porte NON-OU</h4>
+    
+    <p>
+        La porte <i>NON-OU</i> est représentée de la manière suivante :
+    </p>
+    
+    <div class="logic-frame" style="height: 60px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+            {
+              "v": 4,
+              "opts": {"showDisconnectedPins": true, "hideWireColors": true, "hideTooltips": true},
+              "in": [],
+              "out": [],
+              "gates": [
+                {"type": "NOR", "pos": [140, 30], "in": [0, 2], "out": 1}
+              ],
+              "wires": []
+            }
+            </script>
+        </logic-editor>
+    </div>
+
+    <p>
+        Sa table de vérité est :
+    </p>
+
+    <table class="truth-table" id="truth-table-non-ou"></table>
+    
+    <script type="text/javascript">
+    populateTable('truth-table-non-ou', 'A non-ou B', ['S']);
+    </script>
+
+$tryout$
+<p>
+    Testez le comportement de la porte <i>NON-OU</i> 
+    dans le circuit ci-dessous :
+</p>
+<div class="logic-frame" style="height: 100px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+            "v": 4,
+            "opts": {"hideTooltips": true},
+            "in": [
+            {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
+            {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
+            ],
+            "out": [
+            {"pos": [240, 50], "id": 4, "name": "S"}
+            ],
+            "gates": [
+            {"type": "NOR", "pos": [140, 50], "in": [8, 9], "out": 10}
+            ],
+            "wires": [[7, 9], [3, 8], [10, 4]]
+        }
+        </script>
+    </logic-editor>
+</div>
+$endtryout$
+</div>
+</div>
+
+<h3>Disjonction exclusive</h3>
+
+<p>
+    Pour finir cette section,
+    abordons ensemble encore quelques portes
+    liées à la <i>disjonction exclusive</i>.
+</p>
+
+<p>
+    La disjonction exclusive est une opération logique
+    qui permet d'exprimer un choix <i>exclusif</i> entre deux propositions.
+    Pour satisfaire une disjonction exclusive entre deux propositions
+    \(p\) et \(q\), il faut soit satisfaire \(p\), soit satisfaire \(q\),
+    <i>mais pas les deux en même temps</i>.
+    Il s'agit là du côté <i>exclusif</i> de cet opérateur.
+</p>
+
+<p>
+    La disjonction exclusive, que l'on notera <i>ou-x</i>, mais que certains écrivent 
+    à l'aide du symbole \(\oplus\), a pour table de vérité :
+</p>
+
+<table class="truth-table" id="truth-table-ou-x-log"></table>
 
 <script type="text/javascript">
-populateTable('truth-table-ou', 'A ou B');
+populateTable('truth-table-ou-x-log', 'A ou-x B');
 </script>
 
+<p>
+    Tout comme les connecteurs <i>ou</i> et <i>et</i>,
+    la disjonction exclusive a deux portes logiques associées :
+    Une porte logique normale, appelée <i>OU-X</i>, et une porte logique inversée,
+    appelée <i>NON-OU-X</i>.
+</p>
+
+<div class="cols-2">
+<div>
 <h4>La porte OU-X</h4>
 
+La porte <i>OU-X</i> est représentée de la manière suivante :
+
+<div class="logic-frame" style="height: 60px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "opts": {"showDisconnectedPins": true, "hideWireColors": true, "hideTooltips": true},
+          "in": [],
+          "out": [],
+          "gates": [
+            {"type": "XOR", "pos": [140, 30], "in": [0, 2], "out": 1}
+          ],
+          "wires": []
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<p>
+    Sa table de vérité est :
+</p>
+
+<table class="truth-table" id="truth-table-ou-x"></table>
+
+<script type="text/javascript">
+populateTable('truth-table-ou-x', 'A ou-x B', ['S']);
+</script>
+
+$tryout$
+<p>
+    Testez le comportement de la porte <i>OU-X</i> 
+    dans le circuit ci-dessous :
+</p>
 <div class="logic-frame" style="height: 100px;">
     <logic-editor mode="tryout" hidereset>
         <script type="application/json">
         {
           "v": 4,
+          "opts": {"hideTooltips": true},
           "in": [
             {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
             {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
@@ -158,20 +521,53 @@ populateTable('truth-table-ou', 'A ou B');
         </script>
     </logic-editor>
 </div>
+$endtryout$
 
-<table class="truth-table" id="truth-table-ou-x"></table>
+</div>
+<div>
+
+<h4>La porte NON-OU-X</h4>
+
+La porte <i>NON-OU-X</i> est représentée de la manière suivante :
+
+<div class="logic-frame" style="height: 60px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "opts": {"showDisconnectedPins": true, "hideWireColors": true, "hideTooltips": true},
+          "in": [],
+          "out": [],
+          "gates": [
+            {"type": "XNOR", "pos": [140, 30], "in": [0, 2], "out": 1}
+          ],
+          "wires": []
+        }
+        </script>
+    </logic-editor>
+</div>
+
+<p>
+    Sa table de vérité est :
+</p>
+
+<table class="truth-table" id="truth-table-non-ou-x"></table>
 
 <script type="text/javascript">
-populateTable('truth-table-ou-x', 'A ou-x B');
+populateTable('truth-table-non-ou-x', 'A ssi B', ['S']);
 </script>
 
-<h4>La porte NON-ET</h4>
-
+$tryout$
+<p>
+    Testez le comportement de la porte <i>NON-OU-X</i> 
+    dans le circuit ci-dessous :
+</p>
 <div class="logic-frame" style="height: 100px;">
     <logic-editor mode="tryout" hidereset>
         <script type="application/json">
         {
           "v": 4,
+          "opts": {"hideTooltips": true},
           "in": [
             {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
             {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
@@ -180,51 +576,23 @@ populateTable('truth-table-ou-x', 'A ou-x B');
             {"pos": [240, 50], "id": 4, "name": "S"}
           ],
           "gates": [
-            {"type": "NAND", "pos": [140, 50], "in": [8, 9], "out": 10}
+            {"type": "XNOR", "pos": [140, 50], "in": [8, 9], "out": 10}
           ],
           "wires": [[7, 9], [3, 8], [10, 4]]
         }
         </script>
     </logic-editor>
 </div>
+$endtryout$
 
-<table class="truth-table" id="truth-table-non-et"></table>
-
-<script type="text/javascript">
-populateTable('truth-table-non-et', 'A non-et B');
-</script>
-
-<h4>La porte NON-OU</h4>
-
-<div class="logic-frame" style="height: 100px;">
-    <logic-editor mode="tryout" hidereset>
-        <script type="application/json">
-        {
-          "v": 4,
-          "in": [
-            {"pos": [40, 30], "id": 3, "val": 0, "name": "A"},
-            {"pos": [40, 70], "id": 7, "val": 0, "name": "B"}
-          ],
-          "out": [
-            {"pos": [240, 50], "id": 4, "name": "S"}
-          ],
-          "gates": [
-            {"type": "NOR", "pos": [140, 50], "in": [8, 9], "out": 10}
-          ],
-          "wires": [[7, 9], [3, 8], [10, 4]]
-        }
-        </script>
-    </logic-editor>
+</div>
 </div>
 
-<table class="truth-table" id="truth-table-non-ou"></table>
+$remark$
+<p>
+    La porte <i>NON-OU-X</i> correspond à
+    une connecteur logique que nous avons déjà rencontré :
+    le <i>si et seulement si</i>, que l'on note <i>ssi</i>, et qui affirme l'équivalence de deux propositions.
+</p>
+$endremark$
 
-<script type="text/javascript">
-populateTable('truth-table-non-ou', 'A non-ou B');
-</script>
-
-<h3>Circuits</h3>
-
-<h3>Multiplexeurs</h3>
-
-<h3>Démultiplexeurs</h3>

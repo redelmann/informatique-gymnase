@@ -1,0 +1,164 @@
+---
+title: Entrées et sorties
+order: 1
+---
+
+<style>
+    .logic-frame {
+        width: 290px;
+        border: 0;
+        margin: auto;
+        margin-bottom: 40px;
+        margin-top: 40px;
+    }
+</style>
+
+<script src="/js/logic-simulator.js"></script>
+<script src="/js/truth-tables.js"></script>
+
+<p>
+    Dans cette section, nous allons
+    découvrir comment concevoir l'<i>interface</i> d'un circuit à l'aide
+    d'entrées et de sorties.
+    Une interface est la partie d'un circuit qui est destinée à être utilisée
+    par les personnes qui font usage du circuit.
+    C'est par le biais de l'interface que l'on interagit avec le circuit.
+</p>
+
+<h3>Entrées</h3>
+
+<p>
+    Les entrées d'un circuit sont des composants que
+    l'on peut allumer ou éteindre.
+    Elles sont destinées à être utilisées par
+    les personnes qui utilisent le circuit et permettent d'entrer des données ou de configurer
+    le circuit.
+</p>
+
+<p>
+    Lorsqu'on réalise un véritable circuit,
+    on utilise généralement des boutons ou des interupteurs comme entrées.
+</p>
+
+$tryout$
+<p>
+    Ci-dessous est un exemple d'entrée.
+    L'entrée peut être allumée ou éteinte.
+    Dans le cas où elle est allumée, l'entrée fournit un <i>signal</i> de valeur 1.
+    Lorsque elle est éteinte, l'entrée fournit un signal de valeur 0.
+    <i>Dans le schéma de circuit ci-dessous, vous pouvez allumer ou éteindre l'entrée en cliquant dessus, essayez !</i>
+</p>
+
+<div class="logic-frame" style="height: 40px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+            {
+                "v": 4,
+                "opts": {"hideTooltips": true},
+                "in": [
+                    {"pos": [140, 20], "id": 3, "val": 0, "name": "A"}
+                ]
+            }
+        </script>
+    </logic-editor>
+</div>
+
+<p>
+    Dans le schéma de circuit ci-dessus, l'entrée est annotée du nom <i>A</i>.
+    Annoter les entrées d'un nom permet de les identifier facilement.
+</p>
+
+<p>
+    À noter que pour l'instant, l'entrée n'est pas reliée à d'autres composants.
+    À part l'allumer ou l'éteindre, cliquer dessus ne fait rien.
+</p>
+$endtryout$
+
+$remark$
+<p>
+    Dans un ordinateur, les touches du clavier sont des entrées.
+    Les boutons de la souris et ses capteurs de déplacement sont aussi des
+    entrées de l'ordinateur.
+</p>
+$endremark$
+
+<h3>Sorties</h3>
+
+<p>
+    Les sorties d'un circuit sont des composants qui
+    permettent de communiquer un résultat à l'utilisateur.
+    Lorsqu'on réalise un véritable circuit, les sorties sont généralement
+    des composants physiques simples tels que des ampoules ou des diodes.
+    Ci-dessous est un exemple de sortie représentée de façon schématique.
+</p>
+
+<div class="logic-frame" style="height: 40px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+            {
+                "v": 4,
+                "opts": {"hideTooltips": true},
+                "out": [
+                    {"pos": [140, 20], "id": 3, "name": "S"}
+                ]
+            }
+        </script>
+    </logic-editor>
+</div>
+
+<p>
+    Tout comme les entrées, les sorties peuvent être annotées d'un nom.
+    Ici, la sortie est annotée du nom <i>S</i>.
+</p>
+<p>
+    Remarquez qu'il n'est pas possible de changer la valeur d'une sortie en cliquant dessus.
+    En effet, les sorties sont destinées à fournir un résultat, et non à être modifiées directement par l'utilisateur.
+</p>
+<p>
+    Pour changer la valeur d'une sortie, il faut lui fournir un signal en la connectant à
+    d'autres composants par le biais de <i>fils</i>.
+</p>
+
+$tryout$
+<p>
+    Dans l'exemple ci-dessous,
+    la sortie <i>S</i> est directement connectée à l'entrée <i>A</i> par un fil.
+    Le fil transmet le signal de l'entrée <i>A</i> à la sortie <i>S</i>.
+    Lorsque l'entrée <i>A</i> est allumée, la sortie <i>S</i> est également allumée.
+    Alors que lorsque l'entrée <i>A</i> est éteinte, la sortie <i>S</i> est elle aussi éteinte. 
+</p>
+
+
+<div class="logic-frame" style="height: 40px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+        {
+          "v": 4,
+          "opts": {"hideTooltips": true},
+          "in": [
+            {"pos": [40, 20], "id": 3, "val": 0, "name": "A"}
+          ],
+          "out": [
+            {"pos": [240, 20], "id": 4, "name": "S"}
+          ],
+          "wires": [[3, 4]]
+        }
+        </script>
+    </logic-editor>
+</div>
+$endtryout$
+
+$remark$
+<p>
+    Dans un ordinateur, les diodes d'un écran sont des sorties.
+    Elles permettent d'afficher des couleurs à l'écran en fonction des signaux qu'elles reçoivent.
+    Les haut-parleurs sont également des sorties : ils produisent des sons en fonction des signaux qu'ils reçoivent.
+</p>
+$endremark$
+
+<p>
+    Pour pouvoir réaliser des circuits qui font plus que simplement
+    transmettre un signal d'une entrée à une sortie, 
+    nous allons devoir incorporer à nos circuits des composants plus complexes.
+    Les portes logiques, que l'on découvrira dans la prochaine section, sont de tels composants.
+</p>
