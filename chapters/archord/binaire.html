@@ -3,12 +3,140 @@ title: Le système binaire
 order: 4
 ---
 
-<h3>Notations positionnelles</h3>
+<p>
+    Dans cette section, nous allons 
+    découvrir comment représenter les nombres naturels (0, 1, 2, 3, etc.)
+    à l'aide uniquement des symboles 0 et 1,
+    en utilisant ce qu'on appelle le système binaire.
+    Ce système de notation nous sera utile pour
+    représenter les nombres dans un circuit.
+    C'est sur ce système que se base la représentation des nombres dans un ordinateur.
+</p>
 
-<h3>Compter en binaire</h3>
+<h3>Le système décimal</h3>
 
-<h3>Lire en binaire</h3>
+<p>
+    Avant de plonger dans le système binaire,
+    il est important de comprendre comment
+    les nombres sont représentés dans notre système de numération usuel,
+    le système <i>décimal</i>.
+</p>
 
-<h3>Écrire en binaire</h3>
+<p>
+    Dans le système décimal, on utilise 10 symboles différents pour représenter les nombres.
+    Ces symboles sont les chiffres de 0 à 9.
+    Pour représenter un nombre, on utilise une notation <i>positionnelle</i> :
+    On écrit le nombre en utilisant une suite de symboles,
+    chaque symbole représentant une valeur différente
+    qui dépend de la position du symbole dans le nombre.
+    Pour obtenir le nombre représenté par une suite de symboles,
+    on additionne les valeurs de chaque symbole.
+</p>
 
-<h3>Additionner en binaire</h3>
+<p>
+    Dans un nombre représenté en décimal,
+    le chiffre situé tout à droite représente les unités.
+    Ce chiffre a un <i>poids</i> de 1.
+    Le chiffre situé à sa gauche représente les dizaines
+    et a un poids de 10.
+    Viennent ensuite les centaines, les milliers, etc.
+</p>
+
+<p>
+    La poids de chaque chiffre dépend de sa position.
+    On peut calculer le poids d'un chiffre en utilisant la formule 10<sup>n</sup>,
+    où n est la position du chiffre, en commençant à compter à partir de 0.
+    La position d'un chiffre correspond au nombre de chiffres à sa droite.
+</p>
+
+$example$
+<p>
+    Prenons un exemple de nombre représenté en décimal,
+    par exemple le nombre 2638.
+</p>
+<p>
+    Le nombre 2638 est composé de 4 chiffres :
+    2, 6, 3 et 8.
+</p>
+<p>
+    Le chiffre le plus à droite, de poids le plus faible,
+    est le chiffre 8. Ici, le chiffre 8 a un poids de 10<sup>0</sup> = 1.
+    Ce chiffre contribue donc de 8 × 1 = 8 à la valeur du nombre.
+</p>
+<p>
+    Le deuxième chiffre depuis la droite est le chiffre 3.
+    À cette position, le poids est de 10<sup>1</sup> = 10.
+    En effet, il y a 1 chiffre à sa droite.
+    Ce chiffre contribue donc de 3 × 10 = 30 à la valeur du nombre.
+</p>
+<p>
+    Après vient le chiffre 6, en position 2 (car il y a 2 chiffres à sa droite).
+    À cette position, le poids est donc de 10<sup>2</sup> = 100.
+    Le chiffre contribue de 6 × 100 = 600 à la valeur du nombre.
+</p>
+<p>
+    Enfin, le chiffre 2, en position 3, a un poids de 10<sup>3</sup> = 1000.
+    Il contribue donc de 2 × 1000 = 2000 à la valeur du nombre.
+</p>
+<p>
+    En additionnant les valeurs de chaque chiffre,
+    on obtient la valeur totale du nombre :
+    8 + 30 + 600 + 2000 = 2638.
+</p>
+$endexample$
+
+<p>
+    Le système décimal, qui utilise 10 symboles différents,
+    est aussi appelé la numérotation en <i>base 10</i>,
+    ou tout simplement <i>base 10</i>.
+    On dit que la base du système décimal est 10.
+</p>
+
+<h4>Décomposition canonique</h4>
+
+<p>
+    On appelle la <i>décomposition canonique</i> d'un nombre
+    la représentation de ce nombre sous forme de somme de puissances de
+    la base, soit 10 en décimal.
+</p>
+
+$example$
+<p>
+    La décomposition canonique de 2638 en base 10 est :
+</p>
+<p style="text-align: center;">
+    2 × 10<sup>3</sup> + 6 × 10<sup>2</sup> + 3 × 10<sup>1</sup> + 8 × 10<sup>0</sup>
+</p>
+<p>
+    Notez que par convention d'écriture
+    les multiplications s'effectuent
+    avant les additions.
+    On peut donc se passer de parenthèses
+    dans l'écriture de la décomposition canonique d'un nombre.
+</p>
+$endexample$
+
+<h3>Le système binaire</h3>
+
+<p>
+    Tout comme le système décimal,
+    le système binaire utilise une notation positionnelle.
+    À la différence du système décimal,
+    le système binaire utilise 2 symboles différents pour représenter les nombres, et non 10.
+    Le système binaire est donc appelé la numérotation en <i>base 2</i>,
+    ou tout simplement <i>base 2</i>.
+</p>
+
+<p>
+    Les deux symboles utilisés dans le système binaire sont le 0 et le 1.
+    On appelle ces symboles les <i>chiffres binaires</i>,
+    ou <i>bit</i> (abbréviation de <i>binary digit</i>, en anglais litéralement <i>chiffre binaire</i>).
+</p>
+
+<h4>Compter en binaire</h4>
+
+<h4>Lire en binaire</h4>
+
+<h4>Écrire en binaire</h4>
+
+<h4>Additionner en binaire</h4>
