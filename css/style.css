@@ -67,7 +67,7 @@ code {
     white-space: nowrap;
 }
 
-code:only-child {
+.wrap {
     white-space: normal;
 }
 
