@@ -31,46 +31,46 @@ order: 3
 </p>
 <p>
     On écrit ces assignations de la façon suivante :<br />
-    Entre guillemets, on écrit le nom des variables, chacun suivi d'un signe égal puis de la valeur de vérité de la variable,
+    On écrit le nom des variables, chacun suivi d'un signe égal puis de la valeur de vérité de la variable,
     le tout séparé par des virgules.
-    Par exemple, on écrit <i>&laquo; \(A\) = 1, \(B\) = 0 &raquo;</i> pour l'assignation de la valeur 1 à la variable \(A\) et de la valeur 0 à la variable \(B\).
+    Par exemple, on écrit <code>A = 1, B = 0</code> pour l'assignation de la valeur 1 à la variable <code>A</code> et de la valeur 0 à la variable <code>B</code>.
 </p>
 
 <p>
-    Considérons par exemple la proposition <i>non \(B\) et \(R\)</i>.
-    Les variables propositionales sont \(B\) et \(R\).
-    Dans ce cas, <i>&laquo; \(B\) = 1, \(R\) = 0 &raquo;</i> est une interprétation de la proposition.
-    Cette interprétation assigne la valeur 1 à la variable \(B\) et la valeur 0 à la variable \(R\).
-    Sous cette interprétation, on considére que la variable \(B\) est vraie et la variable \(R\) est fausse.
+    Considérons par exemple la proposition <code>non B et R</code>.
+    Les variables propositionales sont <code>B</code> et <code>R</code>.
+    Dans ce cas, <code>B = 1, R = 0</code> est une interprétation de la proposition.
+    Cette interprétation assigne la valeur 1 à la variable <code>B</code> et la valeur 0 à la variable <code>R</code>.
+    Sous cette interprétation, on considére que la variable <code>B</code> est vraie et la variable <code>R</code> est fausse.
 </p>
 <p>
-    Comme vous saurez le déterminer plus tard, sous cette interprétation, la proposition <i>non \(B\) et \(R\)</i> est fausse.
+    Comme vous saurez le déterminer plus tard, sous cette interprétation, la proposition <code>non B et R</code> est fausse.
 </p>
 
 $example$
 <p>
-    Considérons la variable \(C\) qui représente la proposition <i>&laquo; L'objet est carré. &raquo;</i>
-    et la variable \(R\) qui représente la proposition <i>&laquo; L'objet est rouge. &raquo;</i>.
-    Admettons que nous étudions une proposition qui fait appel au variables \(C\) et \(R\), tel que par exemple <i>(non \(C\)) et \(R\)</i>.
+    Considérons la variable <code>C</code> qui représente la proposition <i>&laquo; L'objet est carré. &raquo;</i>
+    et la variable <code>R</code> qui représente la proposition <i>&laquo; L'objet est rouge. &raquo;</i>.
+    Admettons que nous étudions une proposition qui fait appel aux variables <code>C</code> et <code>R</code>, tel que par exemple <code>(non C) et R</code>.
 </p>
 <p>
-    Une interprétation est une assignation de valeur de vérité aux deux variables \(C\) et \(R\).
+    Une interprétation est une assignation de valeur de vérité aux deux variables <code>C</code> et <code>R</code>.
     Chaque contexte auquel on peut appliquer la proposition peut être représenté par une telle interprétation.
 </p>
 <p>
-    Par exemple, si l'on souhaite déterminer si la proposition <i>(non \(C\)) et \(R\)</i> est vraie ou fausse dans le contexte où l'objet est un carré rouge,
-    on utilisera l'interprétation <i>&laquo; \(C\) = 1, \(R\) = 1 &raquo;</i>.
+    Par exemple, si l'on souhaite déterminer si la proposition <code>(non C) et R</code> est vraie ou fausse dans le contexte où l'objet est un carré rouge,
+    on utilisera l'interprétation <code>C = 1, R = 1</code>.
 </p>
 <p>
-    Au contraire, pour un rond bleu, l'interprétation serait <i>&laquo; \(C\) = 0, \(R\) = 0 &raquo;</i>.
-    Pour un carré bleu on aurait <i>&laquo; \(C\) = 1, \(R\) = 0 &raquo;</i>, alors que pour un rond rouge on aurait <i>&laquo; \(C\) = 0, \(R\) = 1 &raquo;</i>.
+    Au contraire, pour un rond bleu, l'interprétation serait <code>C = 0, R = 0</code>.
+    Pour un carré bleu on aurait <code>C = 1, R = 0</code>, alors que pour un rond rouge on aurait <code>C = 0, R = 1</code>.
 </p>
 $endexample$
 
 $remark$
 <p>
     Le nombre d'interprétations différentes dépend uniquement du nombre de variables différentes dans la proposition.
-    Pour une unique variable (par exemple \(A\)), on compte uniquement deux interprétations différentes (<i>&laquo; \(A\) = 0 &raquo;</i> et <i>&laquo; \(A\) = 1 &raquo;</i>).
+    Pour une unique variable (par exemple <code>A</code>), on compte uniquement deux interprétations différentes (<code>A = 0</code> et <code>A = 1</code>).
     Pour deux variables, il y a quatre interprétations différentes.
     Pour trois variables, il y en a huit au total.
 </p>
@@ -104,33 +104,33 @@ $endremark$
 
 <div class="cols-2">
     <div>
-        <h4>Connecteur <i>non</i></h4>
+        <h4>Connecteur <code>non</code></h4>
         <p>
-            Le connecteur <i>non</i> retourne 1 pour une entrée à 0,
-            et 0 pour une entrée à 1.
+            Le connecteur <code>non</code> retourne 1 lorsqu'il est appliqué à 0,
+            et 0 lorsqu'il est appliqué à 1.
         </p>
         <table id="table-not" class="truth-table"></table>
     </div>
     <div>
-        <h4>Connecteur <i>et</i></h4>
+        <h4>Connecteur <code>et</code></h4>
         <p>
-            Le connecteur <i>et</i> retourne 1 quand les deux entrées sont à 1,
+            Le connecteur <code>et</code> retourne 1 quand les deux valeurs auxquelles il est appliqué sont à 1,
             et 0 dans tous les autres cas.
         </p>
         <table id="table-and" class="truth-table"></table>
     </div>
     <div>
-        <h4>Connecteur <i>ou</i></h4>
+        <h4>Connecteur <code>ou</code></h4>
         <p>
-            Le connecteur <i>ou</i> retourne 0 quand les deux entrées sont à 0,
+            Le connecteur <code>ou</code> retourne 0 quand les deux valeurs sur lesquelles le connecteur est appliqué sont à 0,
             et 1 dans tous les autres cas.
         </p>
         <table id="table-or" class="truth-table"></table>
     </div>
     <div>
-        <h4>Connecteur <i>implique</i></h4>
+        <h4>Connecteur <code>implique</code></h4>
         <p>
-            Le connecteur <i>implique</i> retourne 1 quand la première entrée est à 0 ou que les deux entrées sont à 1,
+            Le connecteur <code>implique</code> retourne 1 quand la première valeur est à 0 ou que les deux valeurs sont à 1,
             et 0 dans tous les autres cas.
         </p>
         <table id="table-implies" class="truth-table"></table>
@@ -152,15 +152,15 @@ $remark$
 
 <p>
     Il est possible de se souvenir facilement
-    du fonctionnement des connecteurs <i>et</i> et <i>ou</i>
+    du fonctionnement des connecteurs <code>et</code> et <code>ou</code>
     via un moyen mnémotechnique.
 </p>
 <p>
-    On remarque que dans le cas du connecteur <i>et</i>, c'est le 0 qui prime: si l'une des deux entrées est à 0, alors le résultat est forcément de 0.
+    On remarque que dans le cas du connecteur <code>et</code>, c'est le 0 qui prime: si l'une des deux valeurs est 0, alors le résultat est forcément de 0.
     Pour se rappeler de cela, on peut se souvenir de l'allocution <i>&laquo; Hé oh ! &raquo;</i>, qui rappelle <i>ET 0</i>.
 </p>
 <p>
-    Avec le connecteur <i>ou</i>, c'est le 1 qui prime: si l'une des deux entrées est à 1, alors le résultat est 1.
+    Avec le connecteur <code>ou</code>, c'est le 1 qui prime: si l'une des deux valeurs est à 1, alors le résultat est 1.
     Dans ce cas, on peut penser à <i>&laquo; Ouin ! &raquo;</i>, qui fait penser à <i>OU 1</i>.
 </p>
 
@@ -175,7 +175,7 @@ $endremark$
 </p>
 
 <p>
-    Par exemple, considérons la proposition <i>\(A\) et ((non \(B\) ou \(C\))</i>.
+    Par exemple, considérons la proposition <code>A et ((non B ou C)</code>.
     L'arbre correspondant est le suivant :
 </p>
 
@@ -206,7 +206,7 @@ $tryout$
 <p>
     Essayez par vous-même de calculer la valeur de vérité de la racine
     de l'arbre ci-dessous étant donné l'interprétation 
-    <i>&laquo; \(A\) = 1, \(B\) = 0, \(C\) = 0  &raquo;</i>.
+    <code>A = 1, B = 0, C = 0 </code>.
     Pour cela, calculer la valeur de vérité de chaque noeud
     un à un en cliquant dessus.
 </p>
@@ -306,8 +306,8 @@ $endtryout$
 
 $selfcheck$
 <p>
-    La valeur de vérité de la proposition <i>\(A\) et ((non \(B\)) ou \(C\))</i>
-    étant donné l'interprétation <i>&laquo; \(A\) = 1, \(B\) = 1, \(C\) = 1 &raquo;</i>
+    La valeur de vérité de la proposition <code>A et ((non B) ou C)</code>
+    étant donné l'interprétation <code>A = 1, B = 1, C = 1</code>
     est <select class="self-pick">
         <option>0</option>
         <option data-correct>1</option>
@@ -315,7 +315,7 @@ $selfcheck$
 </p>
 
 <p>
-    Cette même proposition, étant donné l'interprétation <i>&laquo; \(A\) = 0, \(B\) = 1, \(C\) = 0 &raquo;</i>,
+    Cette même proposition, étant donné l'interprétation <code>A = 0, B = 1, C = 0</code>,
     a pour valeur de vérité <select class="self-pick">
         <option data-correct>0</option>
         <option>1</option>
@@ -331,6 +331,6 @@ $selfcheck$
         <option>une infinité d'</option>
     </select>
     interprétations différentes à la proposition
-    <i>\(A\) et ((non \(B\)) ou \(C\))</i>.
+    <code>A et ((non B) ou C)</code>.
 </p>
 $endselfcheck$

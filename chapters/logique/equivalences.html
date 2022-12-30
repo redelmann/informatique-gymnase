@@ -20,9 +20,9 @@ les colonnes de deux propositions équivalentes contiennent les mêmes valeurs.
 
 $example$
 <p>
-Par exemple, les propositions <i>\(A\)</i> et <i>non non \(A\)</i> sont équivalentes.
-Comme en témoigne la table de vérité ci-dessous, peu importe la valeur de vérité de \(A\), les deux propositions auront la même valeur.
-On dit que <i>\(A\)</i> et <i>non non \(A\)</i> sont <i>équivalentes</i>.
+Par exemple, les propositions <code>A</code> et <code>non (non A)</code> sont équivalentes.
+Comme en témoigne la table de vérité ci-dessous, peu importe la valeur de vérité de <code>A</code>, les deux propositions auront la même valeur.
+On dit que <code>A</code> et <code>non (non A)</code> sont <i>équivalentes</i>.
 </p>
 
 <table class="truth-table" id="truth-table-a-non-non-a"></table>
@@ -35,42 +35,42 @@ $endexample$
 <h3>Lois de De Morgan</h3>
 
 <p>
-    <a href="https://fr.wikipedia.org/wiki/Auguste_De_Morgan">Auguste De Morgan</a> est un mathématicien anglais du XIXe siècle, 
+    <a href="https://fr.wikipedia.org/wiki/Auguste_De_Morgan">Auguste De Morgan</a> est un mathématicien anglais du XIX<sup>e</sup> siècle, 
     qui a donné son nom à des lois de la logique – les lois de De Morgan – qui mettent en évidence des équivalences entre des propositions.
-    Les lois de De Morgan énoncent comment les connecteurs <i>et</i> et <i>ou</i> se comportent avec le connecteur <i>non</i>.
+    Les lois de De Morgan énoncent comment les connecteurs <code>et</code> et <code>ou</code> se comportent avec le connecteur <code>non</code>.
 </p>
 <p>
     Les lois sont les suivantes :
     <ul>
         <li>
-            La proposition <i>non (\(p\) et \(q\))</i> est équivalente à <i>(non \(p\)) ou (non \(q\))</i>.
+            La proposition <code>non (p et q)</code> est équivalente à <code>(non p) ou (non q)</code>.
         </li>
         <li>
-            La proposition <i>non (\(p\) ou \(q\))</i> est équivalente à <i>(non \(p\)) et (non \(q\))</i>.
+            La proposition <code>non (p ou q)</code> est équivalente à <code>(non p) et (non q)</code>.
         </li>
     </ul>
 </p>
 
 <p>
-    Les lois établissent le comportement de la négation sur les connecteurs logiques <i>et</i> et <i>ou</i> :
+    Les lois établissent le comportement de la négation sur les connecteurs logiques <code>et</code> et <code>ou</code> :
     Elles stipulent que la négation d'une conjonction est une disjonction de négations,
     tandis que la négation d'une disjonction est une conjonction de négations.
 </p>
 
 $example$
 <p>
-    Soit la variable \(F\) qui signifie <i>&laquo; La personne commande des fromages. &raquo;</i>
-    et la variable \(D\) qui signifie <i>&laquo; La personne commande un dessert. &raquo;</i>.
+    Soit la variable <code>F</code> qui signifie <i>&laquo; La personne commande des fromages. &raquo;</i>
+    et la variable <code>D</code> qui signifie <i>&laquo; La personne commande un dessert. &raquo;</i>.
 </p>
 <div class="illustration left">
     <img src="images/fromages-dessert.png" style="width: 300px; margin-top: 50px; margin-bottom: 50px;" alt="Un plateau de fromages et de desserts.">
 </div>
 <p>
-    La proposition <i>non (\(F\) et \(D\))</i> est équivalente à <i>(non \(F\)) ou (non \(D\))</i>.
+    La proposition <code>non (F et D)</code> est équivalente à <code>(non F) ou (non D)</code>.
     Dire que la personne ne commande pas à la fois des fromages et un dessert revient à dire qu'elle ne commande pas de fromages ou pas de dessert.
 </p>
 <p>
-    La proposition <i>non (\(F\) ou \(D\))</i> est équivalente à <i>(non \(F\)) et (non \(D\))</i>.
+    La proposition <code>non (F ou D)</code> est équivalente à <code>(non F) et (non D)</code>.
     Dire qu'il n'est pas vrai que la personne commande des fromages ou un dessert revient à dire qu'elle ne commande pas de fromages et qu'elle ne commande pas de dessert.
 </p>
 $endexample$
@@ -83,14 +83,15 @@ $endexample$
 <table class="truth-table" id="table-De-Morgan"></table>
 
 <script type="text/javascript">
-    populateTable('table-De-Morgan', 'non (p ou q), non p et non q, non (p et q), non p ou non q');
+    populateTable('table-De-Morgan', 'non (p ou q), non p et non q, non (p et q), non p ou non q',
+        ['non\n(p ou q)', '(non p)\net\n(non q)', 'non\n(p et q)', '(non p)\nou\n(non q)']);
 </script>
 
 <h3>Contraposée de l'implication</h3>
 
 <p>
     L'implication interagit elle aussi de façon intéressante avec la négation.
-    On pourrait croire, à première vue, que si \(p\) implique \(q\), alors <i>non \(p\)</i> implique forcément <i>non \(q\)</i>.
+    On pourrait croire, à première vue, que si <code>p implique q</code>, alors forcément <code>(non p) implique (non q)</code>.
     Cependant, ce n'est pas le cas, comme on peut le voir à l'aide de la table de vérité ci-dessous.
     En effet, les colonnes correspondant à ces propositions ne contiennent pas les mêmes valeurs.
 </p>
@@ -103,12 +104,12 @@ $endexample$
 
 <p>
     Cependant, il y a bien une proposition
-    formée d'une implication et de négations qui est équivalente à <i>\(p\) implique \(q\)</i> :
-    il s'agit de <i>(non \(q\)) implique non \(p\)</i>.
-    Notez l'inversion de place des propositions \(p\) et \(q\) à l'intérieur des deux propositions.
+    formée d'une implication et de négations qui est équivalente à <code>p implique q</code> :
+    il s'agit de <code>(non q) implique (non p)</code>.
+    Notez l'inversion de place des propositions <code>p</code>p et <code>q</code> à l'intérieur des deux propositions.
 </p>
 <p>
-    On appelle <i>(non \(q\)) implique non \(p\)</i> la <i>contraposée</i> de l'implication <i>\(p\) implique \(q\)</i>.
+    On appelle <code>(non q) implique (non p)</code> la <i>contraposée</i> de l'implication <code>p implique q</code>.
     Comme on peut le voir à l'aide de la table de vérité ci-dessous, les colonnes correspondant à ces deux propositions contiennent les mêmes valeurs,
     les propositions sont donc équivalentes.
 </p>
@@ -126,22 +127,22 @@ $example$
 </div>
 
 <p>
-    Prenons par exemple la variable \(A\) qui représente la proposition <i>&laquo; La personne boit de l'alcool. &raquo;</i> et
-    la variable \(M\) qui représente la proposition <i>&laquo; La personne est majeure. &raquo;</i>.
+    Prenons par exemple la variable <code>A</code> qui représente la proposition <i>&laquo; La personne boit de l'alcool. &raquo;</i> et
+    la variable <code>M</code> qui représente la proposition <i>&laquo; La personne est majeure. &raquo;</i>.
 </p>
 <p>
-    L'implication <i>\(A\) implique \(M\)</i> énonce que lorsque la personne boit de l'alcool, alors forcément elle est majeure.
-    La contraposée de cette implication est <i>(non \(M\)) implique non \(A\)</i>.
+    L'implication <code>A implique M</code> énonce que lorsque la personne boit de l'alcool, alors forcément elle est majeure.
+    La contraposée de cette implication est <code>(non M) implique (non A)</code>.
     Cette proposition énonce que lorsque la personne n'est pas majeure, alors forcément elle ne boit pas d'alcool.
     Les deux propositions sont équivalentes : satisfaire une proposition revient à satisfaire sa contraposée, et inversement.
 </p>
 <p>
-    Ces propositions contrastent avec la proposition <i>(non \(A\)) implique non \(M\)</i>, qui elle énonce que lorsque une personne ne boit pas d'alcool c'est forcément qu'elle n'est pas majeure.
-    Cette proposition est équivalente à la proposition <i>\(M\) implique \(A\)</i>, qui énonce que lorsque la personne est majeure, alors forcément elle boit de l'alcool.
+    Ces propositions contrastent avec la proposition <code>(non A) implique (non M)</code>, qui elle énonce que lorsque une personne ne boit pas d'alcool c'est forcément qu'elle n'est pas majeure.
+    Cette proposition est équivalente à la proposition <code>M implique A</code>, qui énonce que lorsque la personne est majeure, alors forcément elle boit de l'alcool.
 </p>
 $endexample$
 
-<h3>Le connecteur <i>ssi</i></h3>
+<h3>Le connecteur <code>ssi</code></h3>
 
 <p>
     De manière intéressante, énoncer que deux propositions sont équivalentes est aussi une proposition.
@@ -149,11 +150,11 @@ $endexample$
 </p>
 <p>
     On utilise le connecteur logique <i>si et seulement si</i> pour énoncer cette proposition.
-    On utilisera l'abbréviation <i>ssi</i> pour dénoter ce connecteur.
-    Parfois, la notation <i>\(p \Leftrightarrow q\)</i> est utilisée pour dénoter l'équivalence entre deux propositions \(p\) et \(q\).
+    On utilisera l'abbréviation <code>ssi</code> pour dénoter ce connecteur.
+    Parfois, la notation <code>p ⇔ q</code> est utilisée pour dénoter l'équivalence entre deux propositions <code>p</code> et <code>q</code>.
 </p>
 
-<p>La table de vérité du connecteur <i>ssi</i> est affichée ci-dessous. L'équivalence est vraie uniquement quand les deux propositions ont la même valeur.</p>
+<p>La table de vérité du connecteur <code>ssi</code> est affichée ci-dessous. L'équivalence est vraie uniquement quand les deux propositions ont la même valeur.</p>
 
 <table class="truth-table" id="truth-table-ssi"></table>
 
@@ -167,66 +168,67 @@ $endexample$
     Vues sous cette forme, les lois correspondent aux deux propositions suivantes:
     <ul>
         <li>
-            <i>(non (\(p\) et \(q\))) ssi ((non \(p\)) ou (non \(q\)))</i>
+            <code>(non (p et q)) ssi ((non p) ou (non q))</code>
         </li>
         <li>
-            <i>(non (\(p\) ou \(q\))) ssi ((non \(p\)) et (non \(q\)))</i>
+            <code>(non (p ou q)) ssi ((non p) et (non q))</code>
         </li>
     </ul>
 </p>
 <p>
     En l'occurence, les deux propositions sont des <i>tautologies</i>.
-    Peu importe la valeur de vérité des propositions \(p\) et \(q\), les deux lois seront toujours vraies.
+    Peu importe la valeur de vérité des propositions <code>p</code> et <code>q</code>, les deux lois seront toujours vraies.
 </p>
 
 <table class="truth-table" id="truth-table-de-Morgan-sii"></table>
 
 <script type="text/javascript">
-    populateTable('truth-table-de-Morgan-sii', 'non (p et q) ssi non p ou non q, non (p ou q) ssi non p et non q');
+    populateTable('truth-table-de-Morgan-sii', 'non (p et q) ssi non p ou non q, non (p ou q) ssi non p et non q',
+        ['(non (p et q))\nssi\n((non p) ou (non q))', '(non (p ou q))\nssi\n((non p) et (non q))']);
 </script>
 
 $selfcheck$
 <p>
-    La proposition <i>non (\(A\) ou \(B\))</i> est équivalente à la proposition
-    <select class="self-pick">
-        <option data-correct>(non \(A\)) et (non \(B\))</option>
-        <option>(non \(A\)) ou (non \(B\))</option>
-        <option>(non \(A\)) ssi (non \(B\))</option>
-        <option>(non \(A\)) implique (non \(B\))</option>
-    </select>, tandis que la proposition <i>non (\(A\) et \(B\))</i> est équivalente à la proposition
-    <select class="self-pick">
-        <option>(non \(A\)) et (non \(B\))</option>
-        <option data-correct>(non \(A\)) ou (non \(B\))</option>
-        <option>(non \(A\)) ssi (non \(B\))</option>
-        <option>(non \(A\)) implique (non \(B\))</option>
+    La proposition <code>non (A ou B)</code> est équivalente à
+    <select class="self-pick code">
+        <option data-correct>(non A) et (non B)</option>
+        <option>(non A) ou (non B)</option>
+        <option>(non A) ssi (non B)</option>
+        <option>(non A) implique (non B)</option>
+    </select>, tandis que la proposition <code>non (A et B)</code> est équivalente à
+    <select class="self-pick code">
+        <option>(non A) et (non B)</option>
+        <option data-correct>(non A) ou (non B)</option>
+        <option>(non A) ssi (non B)</option>
+        <option>(non A) implique (non B)</option>
     </select>.
 </p>
 
 <p>
-    La proposition <i>(non \(A\)) implique (non \(B\))</i> est équivalente à la proposition
-    <select class="self-pick">
-        <option>\(A\) implique \(B\)</option>
-        <option>non (\(A\) implique \(B\))</option>
-        <option data-correct>\(B\) implique \(A\)</option>
-        <option>non (\(B\) implique \(A\))</option>
+    La proposition <code>(non A) implique (non B)</code> est équivalente à la proposition
+    <select class="self-pick code">
+        <option>A implique B</option>
+        <option>non (A implique B)</option>
+        <option data-correct>B implique A</option>
+        <option>non (B implique A)</option>
     </select>, alors que la proposition
-    <i>(non \(A\)) implique \(B\)</i> est équivalente à la proposition
-    <select class="self-pick">
-        <option>\(A\) implique (non \(B\))</option>
-        <option>non (\(A\) implique \(B\))</option>
-        <option data-correct>(non \(B\)) implique \(A\)</option>
-        <option>non (\(B\) implique \(A\))</option>
+    <code>(non A) implique B</code> est équivalente à la proposition
+    <select class="self-pick code">
+        <option>A implique (non B)</option>
+        <option>non (A implique B)</option>
+        <option data-correct>(non B) implique A</option>
+        <option>non (B implique A)</option>
     </select>.
 </p>
 $endselfcheck$
 
 $selfcheck$
 <p>
-    La proposition <i>\(A\) ssi non \(A\)</i> est une
+    La proposition <code>A ssi non A</code> est une
     <select class="self-pick">
         <option>tautologie</option>
         <option data-correct>contradiction</option>
-    </select>, alors que la proposition <i>(non (non \(A\))) ssi \(A\)</i> est
+    </select>, alors que la proposition <code>(non (non A)) ssi A</code> est
     <select class="self-pick">
         <option data-correct>tautologie</option>
         <option>contradiction</option>

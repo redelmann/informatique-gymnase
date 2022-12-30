@@ -27,20 +27,20 @@ order: 4
 
 <p>
     Quand une proposition est vraie étant donné une certaine interprétation, on dit que l'interprétation <i>satisfait</i> la proposition.
-    Par exemple, l'interprétation <i>&laquo; \(A\) = 1, \(B\) = 1 &raquo;</i> satisfait la proposition <i>(non \(A\)) ou \(B\)</i>.
+    Par exemple, l'interprétation <code>A = 1, B = 1</code> satisfait la proposition <code>(non A) ou B</code>.
 </p>
 <p>
-    Quand il existe au moins une interprétation qui satisfait une proposition, on dit de la proposition qu'elle est <i>satisfiable</i>.
+    Quand il existe au moins une interprétation qui satisfait une proposition, on dit de la proposition qu'elle est <code>satisfiable</code>.
 </p>
 
 $example$
 <p>
-    La proposition <i>(non \(A\)) ou \(B\)</i> est satisfiable.
-    En effet, l'interprétation <i>&laquo; \(A\) = 0, \(B\) = 1 &raquo;</i> satisfait la proposition, de même que
-    l'interprétation <i>&laquo; \(A\) = 1, \(B\) = 1 &raquo;</i> ou encore l'interprétation <i>&laquo; \(A\) = 0, \(B\) = 0 &raquo;</i>.
+    La proposition <code>(non A) ou B</code> est satisfiable.
+    En effet, l'interprétation <code>A = 0, B = 1</code> satisfait la proposition, de même que
+    l'interprétation <code>A = 1, B = 1</code> ou encore l'interprétation <code>A = 0, B = 0</code>.
 </p>
 <p>
-    Au contraire, la proposition <i>(non \(A\)) et \(A\)</i> n'est pas satisfiable.
+    Au contraire, la proposition <code>(non A) et A</code> n'est pas satisfiable.
     En effet, aucune interprétation ne satisfait cette proposition.
 </p>
 $endexample$
@@ -57,8 +57,8 @@ $remark$
 </p>
 <p>
     Parfois, en raisonnant un peu, on arrivera à déduire que, si une interprétation existe, alors elle aura une certaines forme.
-    Par exemple, si on considère la proposition <i>\(A\) et \(p\)</i>, où \(A\) est une variable et \(p\) est une proposition quelconque, on peut déduire que si une interprétation existe, alors elle doit être de la forme <i>&laquo; \(A\) = 1, ... &raquo;</i>.
-    En effet, aucune interprétation de la forme <i>&laquo; \(A\) = 0, ... &raquo;</i> ne peut satisfaire la proposition.
+    Par exemple, si on considère la proposition <code>A et p</code>, où <code>A</code> est une variable et <code>p</code> est une proposition quelconque, on peut déduire que si une interprétation existe, alors elle doit être de la forme <code>A = 1, ...</code>.
+    En effet, aucune interprétation de la forme <code>A = 0, ...</code> ne peut satisfaire la proposition.
     De telles observations permettent de grandement réduire le nombre d'interprétations à tester.
 </p>
 $endremark$
@@ -85,9 +85,9 @@ $tryout$
             function showInterpretation(interpretation) {
                 const keys = Object.keys(interpretation);
                 if (keys.length === 0) {
-                    return '&laquo; &raquo;';
+                    return '(vide)';
                 }
-                return "&laquo;&nbsp;" + keys.map(key => `$${escapeHtml(key)} = $${interpretation[key] ? 1 : 0}`).join(', ') + "&nbsp;&raquo;";
+                return keys.map(key => `$${escapeHtml(key)} = $${interpretation[key] ? 1 : 0}`).join(', ');
             }
 
             function handler() {
@@ -102,17 +102,17 @@ $tryout$
                 }
                 const model = logicQuestions.getModel(expr);
                 if (model !== null) {
-                    output.innerHTML = 'La proposition <i>' +
+                    output.innerHTML = 'La proposition <code>' +
                         escapeHtml(logicQuestions.verboseExprToString(expr)) +
-                        '</i> est satisfiable.<br /><br />' +
-                        'Une interprétation qui satisfait la proposition est :\n<i>' +
+                        '</code> est satisfiable.<br /><br />' +
+                        'Une interprétation qui satisfait la proposition est :\n<code>' +
                         showInterpretation(model) +
-                        '</i>.';
+                        '</code>.';
 
                 } else {
-                    output.innerHTML = 'La proposition <i>' +
+                    output.innerHTML = 'La proposition <code>' +
                         escapeHtml(logicQuestions.verboseExprToString(expr)) +
-                        '</i> n\'est pas satisfiable.';
+                        '</code> n\'est pas satisfiable.';
                 }
             }
 
@@ -131,15 +131,15 @@ $endtryout$
 
 <p>
     Quand une proposition est vraie pour toutes les interprétations possibles, on dit que la proposition est une <i>tautologie</i>.
-    Par exemple, la proposition <i>(non \(A\)) ou \(A\)</i> est une tautologie.
+    Par exemple, la proposition <code>(non A) ou A</code> est une tautologie.
     En effet, peu importe l'interprétation, la proposition est vraie.
-    On dit parfois aussi que la proposition est <i>valide</i>.
+    On dit aussi que la proposition est <i>valide</i>.
 </p>
 
 $remark$
 <p>
     Déterminer si une proposition est une tautologie ou non est une tâche tout aussi difficile que de déterminer si une proposition est satisfiable.
-    En effet, une proposition \(p\) est une tautologie si et seulement si sa négation <i>non \(p\)</i> n'est pas satisfiable.
+    En effet, une proposition <code>p</code> est une tautologie si et seulement si sa négation <code>non p</code> n'est pas satisfiable.
 </p>
 $endremark$
 
@@ -165,9 +165,9 @@ $tryout$
             function showInterpretation(interpretation) {
                 const keys = Object.keys(interpretation);
                 if (keys.length === 0) {
-                    return '&laquo; &raquo;';
+                    return '(vide)';
                 }
-                return "&laquo;&nbsp;" + keys.map(key => `$${escapeHtml(key)} = $${interpretation[key] ? 1 : 0}`).join(', ') + "&nbsp;&raquo;";
+                return keys.map(key => `$${escapeHtml(key)} = $${interpretation[key] ? 1 : 0}`).join(', ');
             }
 
             function handler() {
@@ -182,17 +182,17 @@ $tryout$
                 }
                 const model = logicQuestions.getCounterExample(expr);
                 if (model !== null) {
-                    output.innerHTML = 'La proposition <i>' +
+                    output.innerHTML = 'La proposition <code>' +
                         escapeHtml(logicQuestions.verboseExprToString(expr)) +
-                        '</i> n\'est pas valide.<br /><br />' +
-                        'Une interprétation qui ne satisfait pas la proposition est :\n<i>' +
+                        '</code> n\'est pas valide.<br /><br />' +
+                        'Une interprétation qui ne satisfait pas la proposition est :\n<code>' +
                         showInterpretation(model) +
-                        '</i>.';
+                        '</code>.';
 
                 } else {
-                    output.innerHTML = 'La proposition <i>' +
+                    output.innerHTML = 'La proposition <code>' +
                         escapeHtml(logicQuestions.verboseExprToString(expr)) +
-                        '</i> est valide.';
+                        '</code> est valide.';
                 }
             }
 
@@ -211,7 +211,7 @@ $endtryout$
 
 <p>
     Quand une proposition est fausse pour toutes les interprétations possibles, on dit que la proposition est une <i>contradiction</i>.
-    Par exemple, la proposition <i>(non \(A\)) et \(A\)</i> est une contradiction.
+    Par exemple, la proposition <code>(non A) et A</code> est une contradiction.
     Peu importe l'interprétation que l'on choisit, la proposition est fausse.
     On dit parfois aussi que la proposition est <i>insatisfiable</i>.
 </p>

@@ -84,9 +84,9 @@ $endtryout$
 $example$
 <p>
     Voici un exemple de règle d'inférence.
-    Pour n'importe quelles propositions \(p\) et \(q\),
+    Pour n'importe quelles propositions <code>p</code> et <code>q</code>,
     la règle suivante établit que pour montrer la proposition
-    <i>\(p\) et \(q\)</i>, il suffit de montrer \(p\) et de montrer \(q\).
+    <code>p et q</code>, il suffit de montrer la proposition <code>p</code> et de montrer la proposition <code>q</code>.
 </p>
 
 <div class="bernays" id="rule-ex">
@@ -98,10 +98,10 @@ $example$
 </script>
 
 <p>
-    Le nom de la règle est <i>ET-I</i> (pour <i>et</i> et <i>introduction</i>, comme nous pourrons le voir par la suite).
-    La conclusion est la proposition <i>\(p\) et \(q\)</i>.
+    Le nom de la règle est <i>ET-I</i> (pour <code>et</code> et <i>introduction</i>, comme nous pourrons le voir par la suite).
+    La conclusion est la proposition <code>p et q</code>.
     Enfin, les prémisses sont au nombre de deux :
-    La première est \(p\), la deuxième est \(q\).
+    La première est <code>p</code>, la deuxième est <code>q</code>.
 </p>
 $endexample$
 
@@ -150,7 +150,7 @@ $endexample$
 
 $example$
 <p>
-    Prenons comme exemple une preuve de la proposition <i>(\(p\) et \(q\)) implique (\(q\) et \(p\))</i>,
+    Prenons comme exemple une preuve de la proposition <code>(p et q) implique (q et p)</code>,
     qui est une proposition valide.
 </p>
 
@@ -167,28 +167,28 @@ $example$
 </script>
 
 <p>
-    La preuve commence par l'application de la règle <i>IMP-I</i> (pour <i>implique</i> et <i>introduction</i>),
+    La preuve commence par l'application de la règle <i>IMP-I</i> (pour <code>implique</code> et <i>introduction</i>),
     dont la conclusion est la proposition à démontrer.
-    La prémisse de cette règle est la proposition <i>\(q\) et \(p\)</i>.
-    Cette règle introduit aussi une hypothèse : <i>\(p\) et \(q\)</i>,
+    La prémisse de cette règle est la proposition <code>q et p</code>.
+    Cette règle introduit aussi une hypothèse : <code>p et q</code>,
     dont usage sera fait par la suite.
 </p>
 <p>
-    Ensuite, pour démontrer la proposition <i>\(q\) et \(p\)</i>,
-    on applique la règle <i>ET-I</i> (pour <i>et</i> et <i>introduction</i>).
-    La règle a deux prémisses : <i>\(q\)</i> et <i>\(p\)</i>,
+    Ensuite, pour démontrer la proposition <code>q et p</code>,
+    on applique la règle <i>ET-I</i> (pour <code>et</code> et <i>introduction</i>).
+    La règle a deux prémisses : <code>q</code> et <code>p</code>,
     qu'il faut démontrer.
     <ol>
         <li>
-            Pour démontrer la première prémisse, \(q\), on applique la
-            règle <i>ET-E2</i> (pour <i>et</i> et <i>élimination</i>).
-            La prémisse de cette règle est l'hypothèse <i>\(p\) et \(q\)</i>,
+            Pour démontrer la première prémisse, <code>q</code>, on applique la
+            règle <i>ET-E2</i> (pour <code>et</code> et <i>élimination</i>).
+            La prémisse de cette règle est l'hypothèse <code>p et q</code>,
             qui est utilisée sans autre preuve.
         </li>
         <li>
-            Pour démontrer la deuxième prémisse, \(p\), on applique la
-            règle <i>ET-E1</i> (pour <i>et</i> et <i>élimination</i>).
-            La prémisse de cette règle est aussi l'hypothèse <i>\(p\) et \(q\)</i>,
+            Pour démontrer la deuxième prémisse, <code>p</code>, on applique la
+            règle <i>ET-E1</i> (pour <code>et</code> et <i>élimination</i>).
+            La prémisse de cette règle est aussi l'hypothèse <code>p et q</code>,
             que l'on peut réutiliser.
     </ol>
 </p>
@@ -218,8 +218,8 @@ $endexample$
 <p>
     La première règle que nous allons aborder est la règle d'introduction de la conjonction.
     La règle d'introduction de la conjonction permet de montrer qu'une proposition de
-    la forme <i>\(p\) et \(q\)</i> est valide
-    à partir de la validité de \(p\) et de \(q\).
+    la forme <code>p et q</code> est valide
+    à partir de la validité de <code>p</code> et de <code>q</code>.
     Cette règle est représentée graphiquement de la manière suivante :
 </p>
 
@@ -310,9 +310,9 @@ $endexample$
 <p>
     La règle d'élimination de la disjonction
     correspond à ce qu'on appelle le raisonnement par <i>analyse de cas</i>.
-    Elle énonce que l'on peut démontrer n'importe quelle proposition \(r\)
-    en montrant une disjonction <i>\(p\) ou \(q\)</i> et en montrant
-    que si \(p\) est vrai alors \(r\) est vrai et que si \(q\) est vrai alors \(r\) est toujours vrai.
+    Elle énonce que l'on peut démontrer n'importe quelle proposition <code>r</code>
+    en montrant une disjonction <code>p ou q</code> et en montrant
+    que si <code>p</code> est vrai alors <code>r</code> est vrai et que si <code>q</code> est vrai alors <code>r</code> est toujours vrai.
 </p>
 
 <p>
@@ -342,7 +342,7 @@ $endexample$
     La règle d'introduction de la négation énonce que l'on peut démontrer
     la négation d'une proposition en montrant qu'à l'aide
     de la proposition comme hypothèse l'on peut démontrer quelque chose d'absurde, de faux
-    (en l'occurrence la proposition constante <i>faux</i>).
+    (en l'occurrence la proposition constante <code>faux</code>).
 </p>
 
 <h4>Règle d'élimination</h4>
@@ -359,7 +359,7 @@ $endexample$
 
 <p>
     La règle d'élimination de la négation énonce que l'on peut démontrer
-    la proposition <i>faux</i> en montrant à la fois une chose et son contraire.
+    la proposition <code>faux</code> en montrant à la fois une chose et son contraire.
     C'est ce qu'on appelle une <i>contradiction</i>.
 </p>
 
@@ -383,8 +383,8 @@ $endexample$
 
 <p>
     La règle d'introduction de l'implication énonce que l'on peut démontrer
-    une implication <i>\(p\) implique \(q\)</i> en montrant que si l'on a admet la proposition \(p\)
-    comme hypothèse alors on peut démontrer la proposition \(q\).
+    une implication <code>p implique q</code> en montrant que si l'on a admet la proposition <code>p</code>
+    comme hypothèse alors on peut démontrer la proposition <code>q</code>.
 </p>
 
 <h4>Règle d'élimination</h4>
@@ -397,8 +397,8 @@ $endexample$
 
 <p>
     La règle d'élimination de l'implication énonce que
-    lorsque une implication <i>\(p\) implique \(q\)</i> est vraie
-    et que l'impliquant \(p\) est vrai alors l'impliqué \(q\) est aussi forcément vrai.
+    lorsque une implication <code>p implique q</code> est vraie
+    et que l'impliquant <code>p</code> est vrai alors l'impliqué <code>q</code> est aussi forcément vrai.
 </p>
 <p>
     Cette règle est aussi connue sous le nom de <a href="https://fr.wikipedia.org/wiki/Modus_ponens"><i>modus ponens</i></a> 
@@ -413,10 +413,10 @@ $endexample$
 
 <div class="cols-2">
     <div>
-        <h4>Introduction du vrai</h4>
+        <h4>Introduction de <code>vrai</code></h4>
         <p>
             La règle d'introduction du vrai énonce que l'on peut démontrer
-            la proposition <i>vrai</i> sans aucune prémisse.
+            la proposition <code>vrai</code> sans aucune prémisse.
             La proposition est <i>trivialement</i> vraie.
         </p>
         <div class="bernays" id="rule-true-I">
@@ -424,11 +424,11 @@ $endexample$
         </div>
     </div>
     <div>
-        <h4>Élimination du faux</h4>
+        <h4>Élimination de <code>faux</code></h4>
         <p>
             La règle d'élimination du faux énonce que l'on peut démontrer
             la proposition n'importe quelle proposition
-            à partir de la proposition <i>faux</i>.
+            à partir de la proposition <code>faux</code>.
         </p>
         <div class="bernays" id="rule-false-E">
 
@@ -461,15 +461,15 @@ $endexample$
 
 <p>
     La règle du raisonnement par l'absurde énonce que l'on peut démontrer
-    une proposition \(p\) en montrant que si l'on admet comme hypothèse
-    la négation de \(p\) alors on peut démontrer la proposition <i>faux</i>.
-    En d'autres termes, s'il est absurde de nier \(p\) alors \(p\) est forcément vraie.
+    une proposition <code>p</code> en montrant que si l'on admet comme hypothèse
+    la négation de <code>p</code> alors on peut démontrer la proposition <i>faux</i>.
+    En d'autres termes, s'il est absurde de nier <code>p</code> alors <code>p</code> est forcément vraie.
 </p>
 
 <p>
     Notez la similarité entre cette règle et la règle d'introduction de la négation.
-    L'une permet de permet de demontrer une proposition \(p\) en montrant l'absurdité de la négation de \(p\),
-    l'autre permet de démontrer la négation de \(p\) en montrant l'absurdité de \(p\).
+    L'une permet de permet de demontrer une proposition <code>p</code> en montrant l'absurdité de <code>non p</code>,
+    l'autre permet de démontrer <code>non p</code> en montrant l'absurdité de <code>p</code>.
 </p>
 
 <h3>Autres règles</h3>

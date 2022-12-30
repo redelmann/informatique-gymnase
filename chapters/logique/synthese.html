@@ -88,7 +88,7 @@ order: 7
 <p>
     Ici, pour notre exemple, une seule variable ne suffira malheureusement pas.
     Nous allons donc essayer d'utiliser deux variables.
-    Ici, la conjonction <i>(non \(A\)) et \(B\)</i> permet de couvrir deux lignes de la table de vérité :
+    Ici, la conjonction <code>(non A) et B</code> permet de couvrir deux lignes de la table de vérité :
 </p>
 
 <table class="truth-table">
@@ -159,7 +159,7 @@ order: 7
 </p>
 
 <p>
-    Dans notre cas, il suffit d'ajouter la conjonction <i>\(A\) et (non \(B\)) et \(C\)</i> pour couvrir la ligne manquante dans la table de vérité.
+    Dans notre cas, il suffit d'ajouter la conjonction <code>A et (non B) et C</code> pour couvrir la ligne manquante dans la table de vérité.
 </p>
 
 <table class="truth-table">
@@ -226,7 +226,7 @@ order: 7
 
 <p>
     Une fois toutes les lignes couvertes, il suffit de prendre comme résultat la disjonction de toutes les conjonctions trouvées.
-    Dans le cas présent, la proposition obtenue est <i>((non \(A\)) et \(B\)) ou (\(A\) et (non \(B\)) et \(C\))</i>.
+    Dans le cas présent, la proposition obtenue est <code>((non A) et B) ou (A et (non B) et C)</code>.
 </p>
 
 $remark$
@@ -245,20 +245,20 @@ $selfcheck$
 <table id="self-check-table-1" class="truth-table"></table>
 <p>
     Une proposition qui correspond à cette table de vérité est 
-    <select class="self-pick">
+    <select class="self-pick code">
         <option>faux</option>
-        <option>\(A\)</option>
-        <option>\(B\)</option>
-        <option>non \(A\)</option>
-        <option>non \(B\)</option>
-        <option>\(A\) et \(B\)</option>
-        <option>\(A\) ou \(B\)</option>
-        <option data-correct>\(A\) et (non \(B\))</option>
-        <option>\(A\) ou (non \(B\))</option>
-        <option>(non \(A\)) et \(B\)</option>
-        <option>(non \(A\)) ou \(B\)</option>
-        <option>(non \(A\)) et (non \(B\))</option>
-        <option>(non \(A\)) ou (non \(B\))</option>
+        <option>A</option>
+        <option>B</option>
+        <option>non A</option>
+        <option>non B</option>
+        <option>A et B</option>
+        <option>A ou B</option>
+        <option data-correct>A et (non B)</option>
+        <option>A ou (non B)</option>
+        <option>(non A) et B</option>
+        <option>(non A) ou B</option>
+        <option>(non A) et (non B)</option>
+        <option>(non A) ou (non B)</option>
         <option>vrai</option>
     </select>.
 </p>
@@ -271,20 +271,20 @@ $selfcheck$
 <table id="self-check-table-2" class="truth-table"></table>
 <p>
     Une proposition qui correspond à cette table de vérité est 
-    <select class="self-pick">
+    <select class="self-pick code">
         <option>faux</option>
-        <option>\(A\)</option>
-        <option>\(B\)</option>
-        <option>non \(A\)</option>
-        <option>non \(B\)</option>
-        <option>\(A\) et \(B\)</option>
-        <option>\(A\) ou \(B\)</option>
-        <option>\(A\) et (non \(B\))</option>
-        <option>\(A\) ou (non \(B\))</option>
-        <option>(non \(A\)) et \(B\)</option>
-        <option data-correct>(non \(A\)) ou \(B\)</option>
-        <option>(non \(A\)) et (non \(B\))</option>
-        <option>(non \(A\)) ou (non \(B\))</option>
+        <option>A</option>
+        <option>B</option>
+        <option>non A</option>
+        <option>non B</option>
+        <option>A et B</option>
+        <option>A ou B</option>
+        <option>A et (non B)</option>
+        <option>A ou (non B)</option>
+        <option>(non A) et B</option>
+        <option data-correct>(non A) ou B</option>
+        <option>(non A) et (non B)</option>
+        <option>(non A) ou (non B)</option>
         <option>vrai</option>
     </select>.
 </p>

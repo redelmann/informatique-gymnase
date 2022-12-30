@@ -52,6 +52,21 @@ ul, ol {
     line-height: 1.7em;
 }
 
+code, .truth-table th, .code {
+    font-family: "Courier New", Courier, monospace !important;
+    font-size: 1.2em;
+}
+
+code, .truth-table th {
+    background: #f5f5f5;
+}
+
+code {
+    padding: 2px 5px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
 q {
     font-style: italic;
 }
@@ -364,6 +379,14 @@ table.truth-table th, table.truth-table td {
     font-weight: normal;
 }
 
+table.truth-table th:first-of-type {
+    border-radius: 10px 0 0 0;
+}
+
+table.truth-table th:last-of-type {
+    border-radius: 0 10px 0 0;
+}
+
 table.truth-table .delimited {
     border-left: 4px double #ccc;
 }
@@ -381,6 +404,8 @@ table.truth-table tr.dimmed {
     margin-bottom: 40px;
     overflow-x: auto;
     white-space: nowrap;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2em;
 }
 
 .bernays .tree {
@@ -529,6 +554,8 @@ table.truth-table tr.dimmed {
 .expr-tree text.label {
     text-anchor: middle;
     dominant-baseline: middle;
+    font-size: 1.2em;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .expr-tree text.label.active {

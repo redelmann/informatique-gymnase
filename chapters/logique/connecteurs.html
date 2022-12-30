@@ -21,39 +21,39 @@ order: 2
 
 $example$
 <p>
-    Imaginons que nous ayons deux variables propositionnelles \(G\) et \(R\),
+    Imaginons que nous ayons deux variables propositionnelles <code>G</code> et <code>R</code>,
     auquel on peut attribuer le sens, par exemple, de respectivement
     <i>&laquo; Le fruit est grand. &raquo;</i> et <i>&laquo; Le fruit est rouge. &raquo;</i>.
 </p>
 <p>
-    À l'aide d'un connecteur logique comme le <i>&laquo; et &raquo;</i>, nous pouvons combiner les deux propositions
-    pour former une nouvelle proposition \(G\) <i>et</i> \(R\).
+    À l'aide d'un connecteur logique comme le <code>et</code>, nous pouvons combiner les deux propositions
+    pour former une nouvelle proposition <code>G et R</code>.
     Cette dernière exprime que <i>&laquo; Le fruit est grand et le fruit est rouge. &raquo;</i>, ou encore,
     plus simplement <i>&laquo; Le fruit est grand et rouge. &raquo;</i>.
 </p>
 <p>
-    Les variables \(G\) et \(R\) sont les sous-propositions de la proposition <i>\(G\) et \(R\)</i>.
+    Les variables <code>G</code> et <code>R</code> sont les sous-propositions de la proposition <code>G et R</code>.
 </p>
 $endexample$
 
 <p>
-    Les connecteurs que nous allons voir sont : la négation (le <i>non</i>), la conjonction (le <i>et</i>), la disjonction (le <i>ou</i>) et finalement l'implication (le <i>implique</i>).
+    Les connecteurs que nous allons voir sont : la négation (le <code>non</code>), la conjonction (le <code>et</code>), la disjonction (le <code>ou</code>) et finalement l'implication (le <code>implique</code>).
 </p>
 
 <h3>Négation</h3>
 
 <p>
     La négation est un connecteur qui permet d'obtenir l'inverse d'une proposition.
-    Étant donné une proposition \(p\), on note <i>non</i> \(p\) la négation de \(p\).
-    On utilise parfois la notation \(\neg p\) pour signifier la négation de \(p\).
+    Étant donné une proposition <code>p</code>, on note <code>non p</code> la négation de <code>p</code>.
+    On utilise parfois la notation <code>¬p</code> ou encore <code style="text-decoration: underline; text-underline-offset: -0.8em;">p</code> pour dénoter une négation.
 </p>
 
 $remark$
     <p>
         Dans le paragraphe précédent, nous avons utilisé une lettre minuscule, en l'occurence
-        \(p\), pour représenter une proposition arbitraire.
+        <code>p</code>, pour représenter une proposition arbitraire.
         Cette lettre représente ce qu'on appelle une <i>meta-variable</i>.
-        Il s'agit simplement d'un moyen de faire référence une proposition arbitraire en lui donnant un nom, ici \(p\).
+        Il s'agit simplement d'un moyen de faire référence une proposition arbitraire en lui donnant un nom, ici <code>p</code>.
         Il peut s'agir d'une proposition basique comme une variable ou une constante, voire même d'une proposition plus complexe,
         elle-même composée de propositions plus simple combinées par des connecteurs.
     </p>
@@ -66,9 +66,9 @@ $endremark$
 
 $example$
     <p>
-        En admettant que la variable \( R \) signifie  <i>&laquo; La Terre est ronde. &raquo;</i>,
-        la proposition <i>non \(R\)</i> énonce que <i>&laquo; La Terre n'est pas ronde. &raquo;</i>.
-        La proposition <i>non \(R\)</i> est vraie quand \(R\) est fausse, et est fausse quand \(R\) est vraie.
+        En admettant que la variable <code>R</code> signifie  <i>&laquo; La Terre est ronde. &raquo;</i>,
+        la proposition <code>non R</code> énonce que <i>&laquo; La Terre n'est pas ronde. &raquo;</i>.
+        La proposition <code>non R</code> est vraie quand <code>R</code> est fausse, et est fausse quand <code>R</code> est vraie.
     </p>
 $endexample$
 
@@ -76,8 +76,8 @@ $endexample$
 
 <p>
     La conjonction est un connecteur qui permet d'affirmer la véracité de deux propositions en même temps.
-    Étant donné deux propositions \(p\) et \(q\), on note <i>\(p\) et \(q\)</i> la conjonction de \(p\) et de \(q\).
-    On utilise parfois la notation \(p \wedge q\) pour référer à la conjonction de \(p\) et de \(q\).
+    Étant donné deux propositions <code>p</code> et <code>q</code>, on note <code>p et q</code> la conjonction de <code>p</code> et de <code>q</code>.
+    On utilise parfois la notation <code>p ∧ q</code>, ou encore <code>p ⋅ q</code>, pour référer à la conjonction de <code>p</code> et de <code>q</code>.
 </p>
 <p>
     La conjonction de deux propositions énonce que les deux propositions sont vraies.
@@ -87,10 +87,10 @@ $endexample$
 
 $example$
     <p>
-        Admettons que la variable \(R\) signifie  <i>&laquo; La Terre est ronde. &raquo;</i>
-        et que la variable \(B\) signifie <i>&laquo; Le Soleil est bleu. &raquo;</i>.
-        La proposition <i>\(R\) et \(B\)</i> énonce que <i>&laquo; la Terre est ronde et le Soleil est bleu. &raquo;</i>.
-        La proposition est vraie uniquement dans le cas où les deux sous-propositions (c'est-à-dire la proposition \(R\) et la proposition \(B\)) sont les deux vraies.
+        Admettons que la variable <code>R</code> signifie  <i>&laquo; La Terre est ronde. &raquo;</i>
+        et que la variable <code>B</code> signifie <i>&laquo; Le Soleil est bleu. &raquo;</i>.
+        La proposition <code>R et B</code> énonce que <i>&laquo; la Terre est ronde et le Soleil est bleu. &raquo;</i>.
+        La proposition est vraie uniquement dans le cas où les deux sous-propositions (c'est-à-dire la proposition <code>R</code> et la proposition <code>B</code>) sont les deux vraies.
     </p>
 $endexample$
 
@@ -98,8 +98,8 @@ $endexample$
 
 <p>
     La disjonction est un connecteur qui permet d'affirmer la véracité d'au moins un des deux propositions.
-    Étant donné deux propositions \(p\) et \(q\), on note <i>\(p\) ou \(q\)</i> la disjonction de \(p\) et de \(q\).
-    On utilise parfois la notation \(p \vee q\) pour référer à la disjonction de \(p\) et de \(q\).
+    Étant donné deux propositions <code>p</code> et <code>q</code>, on note <code>p ou q</code> la disjonction de <code>p</code> et de <code>q</code>.
+    On utilise parfois la notation <code>p ∨ q</code>, ou encore <code>p + q</code>, pour référer à la disjonction de <code>p</code> et de <code>q</code>.
 </p>
 
 <p>
@@ -111,9 +111,9 @@ $endexample$
 
 $example$
     <p>
-        Admettons que la variable \( R \) signifie  <i>&laquo; L'objet est rouge. &raquo;</i>
-        et que la variable \( C \) signifie <i>&laquo; L'objet est carré. &raquo;</i>.
-        La proposition <i>\(R\) ou \(S\)</i> énonce que <i>&laquo; l'objet est rouge ou l'objet est carré. &raquo;</i>.
+        Admettons que la variable <code>R</code> signifie <i>&laquo; L'objet est rouge. &raquo;</i>
+        et que la variable <code>C</code> signifie <i>&laquo; L'objet est carré. &raquo;</i>.
+        La proposition <code>R ou S</code> énonce que <i>&laquo; L'objet est rouge ou l'objet est carré. &raquo;</i>.
         La proposition est fausse dans le cas où les deux sous-propositions sont fausses, et uniquement dans ce cas.
     </p>
 $endexample$
@@ -122,28 +122,28 @@ $endexample$
 <p>
     Le dernier connecteur que nous allons voir à présent est l'<i>implication</i>.
     L'implication est un connecteur qui permet d'affirmer que quand une première proposition est vraie alors la seconde l'est aussi.
-    Étant donné deux propositions \(p\) et \(q\), on note <i>\(p\) implique \(q\)</i> l'affirmation que la proposition \(p\) implique la proposition \(q\),
-    c'est-à-dire que quand on a \(p\), on a forcément \(q\).
-    On note parfois <i>\(p \to q\)</i> voire <i>\(p \Rightarrow q\)</i> pour dénoter une implication.
+    Étant donné deux propositions <code>p</code> et <code>q</code>, on note <code>p implique q</code> l'affirmation que la proposition <code>p</code> implique la proposition <code>q</code>,
+    c'est-à-dire que quand on a <code>p</code>, on a forcément <code>q</code>.
+    On note parfois <code>p → q</code> voire <code>p ⇒ q</code> pour dénoter une implication.
 </p>
 <p>
     On appelle l'<i>impliquant</i> la proposition de gauche d'une implication, et on appelle l'<i>impliqué</i> la proposition de droite.
 </p>
 <p>
-    L'implication est un moyen d'exprimer des affirmations de la forme <i>&laquo; Si \(p\) alors \(q\). &raquo;</i> ou 
-<i>&laquo; Quand \(p\) alors \(q\). &raquo;</i>.
-    Quand l'impliquant \(p\) est vrai, l'impliqué \(q\) doit être vrai afin que l'implication soit vraie.
-    Quand la proposition \(p\) est fausse, l'implication sera toujours vraie, peu importe la valeur de vérité de \(q\).
+    L'implication est un moyen d'exprimer des affirmations de la forme <i>&laquo; Si <code>p</code> alors <code>q</code>. &raquo;</i> ou 
+<i>&laquo; Quand <code>p</code> alors <code>q</code>. &raquo;</i>.
+    Quand l'impliquant <code>p</code> est vrai, l'impliqué <code>q</code> doit être vrai afin que l'implication soit vraie.
+    Quand la proposition <code>p</code> est fausse, l'implication sera toujours vraie, peu importe la valeur de vérité de <code>q</code>.
 </p>
 <p>
-    Une implication <i>\(p\) implique \(q\)</i> est donc vraie lorsque l'impliquant est faux ou lorsque l'impliqué est vrai.
-    Le seul moyen qu'une implication <i>\(p\) implique \(q\)</i> soit fausse est que la proposition \(p\) soit vraie et que la proposition \(q\) soit fausse.
+    Une implication <code>p implique q</code> est donc vraie lorsque l'impliquant est faux ou lorsque l'impliqué est vrai.
+    Le seul moyen qu'une implication <code>p implique q</code> soit fausse est que la proposition <code>p</code> soit vraie et que la proposition <code>q</code> soit fausse.
 </p>
 
 $example$
 <p>
-    Soit la variable \(P\) qui signifie <i>&laquo; Il pleut. &raquo;</i> et la variable \(B\) qui signifie <i>&laquo; Je prends mes bottes. &raquo;</i>.
-    La proposition <i>\(P\) implique \(B\)</i> énonce que <i>&laquo; Quand il pleut, je prends mes bottes. &raquo;</i>.
+    Soit la variable <code>P</code> qui signifie <i>&laquo; Il pleut. &raquo;</i> et la variable <code>B</code> qui signifie <i>&laquo; Je prends mes bottes. &raquo;</i>.
+    La proposition <code>P implique B</code> énonce que <i>&laquo; Quand il pleut, je prends mes bottes. &raquo;</i>.
     L'énoncé est vrai dans le cas où il pleut et que je prends mes bottes, mais aussi dans le cas où il ne pleut pas, que je prenne ou non mes bottes.
     Le seul cas où l'énoncé est faux est celui où il pleut et où je ne prends pas mes bottes.
 </p>
@@ -165,13 +165,13 @@ $endexample$
     Lorsque nous écrivons des propositions à l'aide de plus d'un connecteur, l'ordre d'application des connecteurs est important.
     Comme pour les expressions arithmétiques, où la multiplication est prioritaire sur l'addition, il est important de respecter l'ordre d'application des connecteurs.
     Nous allons adopter la convention suivante pour l'ordre d'application des connecteurs :
-    Le connecteur <i>non</i> a la priorité sur le <i>et</i>, qui a la priorité sur le connecteur <i>ou</i>, qui a la priorité sur le connecteur <i>implique</i>.
+    Le connecteur <code>non</code> a la priorité sur le <code>et</code>, qui a la priorité sur le connecteur <code>ou</code>, qui a la priorité sur le connecteur <code>implique</code>.
 </p>
 
 $example$
     <p>
-        Admettons que la variable \(R\) signifie <i>&laquo; La Terre est ronde. &raquo;</i> et que la variable \(B\) signifie <i>&laquo; Le Soleil est bleu. &raquo;</i>.
-        La proposition <i>\(R\) et non \(B\)</i> énonce que <i>&laquo; la Terre est ronde et le Soleil n'est pas bleu &raquo;</i>.
+        Admettons que la variable <code>R</code> signifie <i>&laquo; La Terre est ronde. &raquo;</i> et que la variable <code>B</code> signifie <i>&laquo; Le Soleil est bleu. &raquo;</i>.
+        La proposition <code>R et non B</code> énonce que <i>&laquo; la Terre est ronde et le Soleil n'est pas bleu &raquo;</i>.
         La proposition fait usage de la conjonction et de la négation.
     </p>
 $endexample$
@@ -183,12 +183,12 @@ $endexample$
 
 $example$
     <p>
-        Admettons que la variable \(R\) signifie <i>&laquo; La Terre est ronde. &raquo;</i> et que la variable \(B\) signifie <i>&laquo; Le Soleil est bleu. &raquo;</i>.
-        La proposition <i>non (\(R\) et \(Q\))</i> énonce qu'<i>&laquo; Il n'est pas vrai que la Terre est ronde et le Soleil bleu. &raquo;</i>,
+        Admettons que la variable <code>R</code> signifie <i>&laquo; La Terre est ronde. &raquo;</i> et que la variable <code>B</code> signifie <i>&laquo; Le Soleil est bleu. &raquo;</i>.
+        La proposition <code>non (R et Q)</code> énonce qu'<i>&laquo; Il n'est pas vrai que la Terre est ronde et le Soleil bleu. &raquo;</i>,
         autrement dit que <i>&laquo; La Terre n'est pas ronde ou le Soleil n'est pas bleu. &raquo;</i>.
     </p>
     <p>
-        La proposition a un sens très différent de la proposition <i>non \(R\) et non \(B\)</i>
+        La proposition a un sens très différent de la proposition <code>non R et non B</code>
         qui énonce que la <i>&laquo; Terre n'est pas ronde et le Soleil n'est pas bleu. &raquo;</i>.
     </p>
 $endexample$
@@ -196,21 +196,21 @@ $endexample$
 <p>
     Aussi, lorsqu'on utilisera plusieurs fois le même connecteur à la suite,
     on adoptera la convention que les parenthèses sont mises à droite en l'absence de parenthèses explicites.
-    Ainsi, pour trois propositions \(p\), \(q\) et \(r\),
-    la proposition <i>\(p\) implique \(q\) implique \(r\)</i> correspondra à la proposition \(p\) implique (\(q\) implique \(r\)),
-    et non à la proposition (\(p\) implique \(q\)) implique \(r\).
+    Ainsi, pour trois propositions <code>p</code>, <code>q</code> et <code>r</code>,
+    la proposition <code>p implique q implique r</code> correspondra à la proposition <code>p implique (q implique r)</code>,
+    et non à la proposition <code>(p implique q) implique r</code>.
     Techniquement, on dit des connecteurs qu'ils <i>associent à droite</i>.
 </p>
 
 $remark$
 <p>
-    Pour le connecteur <i>et</i> et le connecteur <i>ou</i>, l'ordre d'application importe peu.
-    En effet, que l'on écrive <i>(\(p\) et \(q\)) et \(r\)</i> ou <i>\(p\) et (\(q\) et \(r\))</i>, le résultat sera toujours le même.
+    Pour le connecteur <code>et</code> et le connecteur <code>ou</code>, l'ordre d'application importe peu.
+    En effet, que l'on écrive <code>(p et q) et r</code> ou alors <code>p et (q et r)</code>, le résultat sera toujours le même.
     On dit que ces opérateurs sont <i>associatifs</i>.
 </p>
 <p>
-    De même, pour les opérateurs <i>et</i> et <i>ou</i>, l'ordre d'apparition importe peu.
-    En effet, que l'on écrive <i>\(p\) ou \(q\)</i> ou alors <i>\(q\) ou \(p\)</i>, le résultat sera identique.
+    De même, pour les opérateurs <code>et</code> et <code>ou</code>, l'ordre d'apparition importe peu.
+    En effet, que l'on écrive <code>p ou q</code> ou alors <code>q ou p</code>, le résultat sera identique.
     On dit que ces opérateurs sont <i>commutatifs</i>.
 </p>
 $endremark$
@@ -241,7 +241,7 @@ $endremark$
 </p>
 
 <p>
-    Afin d'illustrer ce concept, prenons pour exemple la proposition <i>\(A\) et ((non \(B\)) ou vrai)</i>.
+    Afin d'illustrer ce concept, prenons pour exemple la proposition <code>A et ((non B) ou vrai)</code>.
     L'arbre syntaxique de cette proposition est le suivant:
 </p>
 
@@ -377,13 +377,13 @@ $endselfcheck$
 
 $selfcheck$
 <p>
-    La proposition <i>\(p\) et \(q\)</i> dénote une
+    La proposition <code>p et q</code> dénote une
     <select class="self-pick">
         <option>négation</option>
         <option data-correct>conjonction</option>
         <option>disjonction</option>
         <option>implication</option>
-    </select>, tandis que la proposition <i>\(p\) ou \(q\)</i> dénote une
+    </select>, tandis que la proposition <code>p ou q</code> dénote une
     <select class="self-pick">
         <option>négation</option>
         <option>conjonction</option>
@@ -392,17 +392,17 @@ $selfcheck$
     </select>.
 </p>
 <p>
-    La proposition <i>\(p\) implique \(q\)</i> dénote une 
+    La proposition <code>p implique q</code> dénote une 
     <select class="self-pick">
         <option>négation</option>
         <option>conjonction</option>
         <option>disjonction</option>
         <option data-correct>implication</option>
-    </select>. La proposition est vraie si l'impliquant (ici \(p\)) est
+    </select>. La proposition est vraie si l'impliquant (ici <code>p</code>) est
     <select class="self-pick">
         <option>vrai</option>
         <option data-correct>faux</option>
-    </select> ou alors si l'impliqué (ici \(q\)) est
+    </select> ou alors si l'impliqué (ici <code>q</code>) est
     <select class="self-pick">
         <option data-correct>vrai</option>
         <option>faux</option>
