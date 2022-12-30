@@ -67,6 +67,10 @@ code {
     white-space: nowrap;
 }
 
+code:only-child {
+    white-space: normal;
+}
+
 q {
     font-style: italic;
 }
