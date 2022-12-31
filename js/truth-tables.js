@@ -33,7 +33,7 @@ function populateTable(container, exprs, labels) {
         }
         for (let i = 0; i < exprs.length; i++) {
             const th = document.createElement('th');
-            if (labels && i < labels.length) {
+            if (labels && i < labels.length && labels[i]) {
                 th.innerText = labels[i];
             }
             else {

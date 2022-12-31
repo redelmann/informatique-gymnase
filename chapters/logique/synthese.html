@@ -338,13 +338,22 @@ $endselfcheck$
         const model = logicQuestions.getCounterExample(logicQuestions.iff(expr, targetExpr));
         if (model === null) {
             output.innerHTML = '<p>Correct ! Bravo !</p>';
-
         } else {
             output.innerHTML = '<p>Ce n\'est pas tout à fait ça.</p>';
             const table = document.createElement('table');
             table.classList.add('truth-table');
             output.appendChild(table);
-            populateTable(table, [targetExpr, expr], ['La cible', 'Votre proposition']);
+            populateTable(table, [targetExpr, expr], ['?', null]);
+            for (let rowIndex = 1; rowIndex < table.rows.length; rowIndex++) {
+                const row = table.rows[rowIndex];
+                const lastCell = row.cells[row.cells.length - 1];
+                const secondLastCell = row.cells[row.cells.length - 2];
+                if (lastCell.textContent === secondLastCell.textContent) {
+                    row.classList.add('correct');
+                } else {
+                    row.classList.add('incorrect');
+                }
+            }
         }
     }
 

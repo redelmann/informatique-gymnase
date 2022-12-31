@@ -403,6 +403,16 @@ table.truth-table tr.dimmed {
     background-color: #eeeeff;
 }
 
+table.truth-table tr.incorrect {
+    background-color: #ffcccc;
+    color: red;
+}
+
+table.truth-table tr.correct {
+    background-color: #ccffcc;
+    color: green;
+}
+
 .bernays {
     margin-top: 40px;
     margin-bottom: 40px;
