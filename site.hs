@@ -15,6 +15,7 @@ import qualified Data.Text as T
 import Data.Text.ICU.Char
 import Data.Text.ICU.Normalize
 import System.Process (readProcess)
+import qualified Network.URI.Encode as URI
 
 order :: Identifier -> Compiler Int
 order ident = do 
@@ -135,6 +136,7 @@ baseContext base =
     field "globalLastModified" globalModifiedField <>
     field "compileTime" compileTimeField <>
     field "commit" commitField <>
+    functionField "urlencode" urlencodeFun <>
     listField "chapters" (chapterContext base) (loadAllMetadataSorted "chapters/*") <>
     defaultContext <>
     base
@@ -207,6 +209,10 @@ baseContext base =
                         "HEAD"
                     ] ""
             return $ trim str
+    
+    urlencodeFun [arg] page = do
+        return $ URI.encode arg
+
 
 chapterContext :: Context String -> Context String
 chapterContext base =

@@ -11,5 +11,6 @@ executable site
                   , text-icu >= 0.7.0.1 && < 1
                   , text 
                   , process == 1.6.*
+                  , uri-encode
   ghc-options:      -threaded
   default-language: Haskell2010
