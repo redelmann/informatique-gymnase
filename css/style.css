@@ -586,7 +586,12 @@ table.truth-table tr.correct {
     cursor: not-allowed;
 }
 
-.cols-2 {
+.scroll-x {
+    max-width: 100%;
+    overflow-x: scroll;
+}
+
+.cols-2 {   
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 0;
