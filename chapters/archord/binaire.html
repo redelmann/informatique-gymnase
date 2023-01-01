@@ -135,6 +135,87 @@ $endexample$
 
 <h4>Compter en binaire</h4>
 
+<style>
+#binary-enum {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    column-gap: 50px;
+    width: 250px;
+    margin: 0 auto;
+}
+
+#binary-enum > div {
+    height: 50px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+#binary-enum > div > div {
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: right;
+}
+
+#binary-enum > div > .base2 {
+    font-size: 1.5em;
+}
+
+#binary-enum > div > .base10 {
+    font-size: 1.2em;
+    color: #666;
+}
+</style>
+
+<div id="binary-enum">
+
+</div>
+
+<script type="text/javascript">
+(function() {
+    const container = document.getElementById("binary-enum");
+    for (let i = 0; i < 16; i++) {
+        const div = document.createElement("div");
+        const base2 = document.createElement("div");
+        base2.classList.add("base2");
+        base2.textContent = i.toString(2);
+        div.appendChild(base2);
+        const base10 = document.createElement("div");
+        base10.classList.add("base10");
+        base10.textContent = i.toString(10);
+        div.appendChild(base10);
+        container.appendChild(div);
+    }
+})();
+</script>
+
+<script src="/js/d3.min.js" type="text/javascript"></script>
+
+<div id="incr-ex"></div>
+
+<script type="text/javascript">
+(function() {
+    const container = document.getElementById("incr-ex");
+    const svg = d3.select(container).append("svg");
+    const width = 400;
+    const height = 200;
+    svg.attr("width", width);
+    svg.attr("height", height);
+    const g = svg.append("g");
+    const inText = g.append("text");
+    inText.attr("x", 0);
+    inText.attr("y", 20);
+    inText.text("101011");
+    const outText = g.append("text");
+    outText.attr("x", 0);
+    outText.attr("y", 40);
+    outText.text("101100");
+})();
+</script>
+
 <h4>Lire en binaire</h4>
 
 <h4>Écrire en binaire</h4>
