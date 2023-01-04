@@ -25,23 +25,31 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
+    margin-top: 2.1em;
+    margin-bottom: 1.1em;
     font-size: 1.6em;
 }
 
 h2 {
+    margin-top: 1.8em;
+    margin-bottom: 1em;
     font-size: 1.4em;
 }
 
 h3 {
     font-size: 1.2em;
+    margin-top: 1.6em;
+    margin-bottom: 0.8em;
 }
 
 h4, h5 {
-    font-size: 1em;
+    font-size: 1.1em;
+    margin-top: 1.5em;
+    margin-bottom: 0.7em;
 }
 
-h2:not(:first-child), h3:not(:first-child) {
-    margin-top: 50px;
+h2:first-child, h3:first-child {
+    margin-top: 0;
 }
 
 p {
@@ -595,6 +603,11 @@ table.truth-table tr.correct {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 0;
+}
+
+.diagram {
+    display: block;
+    margin: 40px auto;
 }
 
 @media print {
