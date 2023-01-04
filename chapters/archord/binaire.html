@@ -7,7 +7,7 @@ order: 4
     Dans cette section, nous allons 
     découvrir comment représenter les nombres naturels (0, 1, 2, 3, etc.)
     à l'aide uniquement des symboles 0 et 1,
-    en utilisant ce qu'on appelle le système binaire.
+    en utilisant un système de notation qu'on appelle le système binaire.
     Ce système de notation nous sera utile pour
     représenter les nombres dans un circuit.
     C'est sur ce système que se base la représentation des nombres dans un ordinateur.
@@ -23,7 +23,7 @@ order: 4
 </p>
 
 <p>
-    Dans le système décimal, on utilise 10 symboles différents pour représenter les nombres.
+    Dans le système décimal, on utilise dix symboles différents pour représenter les nombres.
     Ces symboles sont les chiffres de 0 à 9.
     Pour représenter un nombre, on utilise une notation <i>positionnelle</i> :
     On écrit le nombre en utilisant une suite de symboles,
@@ -36,16 +36,16 @@ order: 4
 <p>
     Dans un nombre représenté en décimal,
     le chiffre situé tout à droite représente les unités.
-    Ce chiffre a un <i>poids</i> de 1.
+    Ce chiffre a un <i>poids</i> de un.
     Le chiffre situé à sa gauche représente les dizaines
-    et a un poids de 10.
+    et a un poids de dix.
     Viennent ensuite les centaines, les milliers, etc.
 </p>
 
 <p>
-    La poids de chaque chiffre dépend de sa position.
+    Le poids de chaque chiffre dépend de sa position.
     On peut calculer le poids d'un chiffre en utilisant la formule 10<sup>n</sup>,
-    où n est la position du chiffre, en commençant à compter à partir de 0.
+    où n est la position du chiffre depuis la droite, en commençant à compter à partir de 0.
     La position d'un chiffre correspond au nombre de chiffres à sa droite.
 </p>
 
@@ -55,7 +55,7 @@ $example$
     par exemple le nombre 2638.
 </p>
 <p>
-    Le nombre 2638 est composé de 4 chiffres :
+    Le nombre 2638 est composé de quatre chiffres :
     2, 6, 3 et 8.
 </p>
 <p>
@@ -90,6 +90,7 @@ $endexample$
     est aussi appelé la numérotation en <i>base 10</i>,
     ou tout simplement <i>base 10</i>.
     On dit que la base du système décimal est 10.
+    Les puissances de la base donnent le poids des différentes positions.
 </p>
 
 <h4>Décomposition canonique</h4>
@@ -97,7 +98,7 @@ $endexample$
 <p>
     On appelle la <i>décomposition canonique</i> d'un nombre
     la représentation de ce nombre sous forme de somme de puissances de
-    la base, soit 10 en décimal.
+    la base, soit dix en décimal.
 </p>
 
 $example$
@@ -106,6 +107,12 @@ $example$
 </p>
 <p style="text-align: center;">
     2 × 10<sup>3</sup> + 6 × 10<sup>2</sup> + 3 × 10<sup>1</sup> + 8 × 10<sup>0</sup>
+</p>
+<p>
+    On peut aussi écrire cette décomposition de la manière suivante :
+</p>
+<p style="text-align: center;">
+    2 × 1000 + 6 × 100 + 3 × 10 + 8 × 1
 </p>
 <p>
     Notez que par convention d'écriture
@@ -118,22 +125,392 @@ $endexample$
 
 <h3>Le système binaire</h3>
 
+<div class="illustration right">
+    <img src="images/un_zero.png" alt="Les bits 1 et 0." />
+</div>
+
 <p>
     Tout comme le système décimal,
     le système binaire utilise une notation positionnelle.
     À la différence du système décimal,
-    le système binaire utilise 2 symboles différents pour représenter les nombres, et non 10.
+    le système binaire utilise deux symboles différents pour représenter les nombres, et non dix.
     Le système binaire est donc appelé la numérotation en <i>base 2</i>,
     ou tout simplement <i>base 2</i>.
 </p>
 
 <p>
     Les deux symboles utilisés dans le système binaire sont le 0 et le 1.
-    On appelle ces symboles les <i>chiffres binaires</i>,
+    On appelle un tel symbole un <i>chiffre binaire</i>,
     ou <i>bit</i> (abbréviation de <i>binary digit</i>, en anglais litéralement <i>chiffre binaire</i>).
 </p>
 
+<p>
+    Dans cette section, nous allons apprendre à lire des nombres écrits en binaire,
+    compter en binaire, ainsi que d'écrire des nombres arbitraires en binaire.
+    Enfin, nous allons découvrir comment additionner des nombres écrits en binaire.
+    Toutes ces opérations nous permettront de comprendre comment fonctionne le système binaire
+    et ainsi de pouvoir faire usage de cette façon de représenter les nombres
+    lors de la conception de circuits logiques
+    ainsi que de <i>programmes</i> plus tard dans le cours.
+</p>
+
+<h4>Lire en binaire</h4>
+
+<p>
+    En notation binaire, les nombres sont représentés sous forme
+    de séquences de bits (de 0 et de 1).
+    Comme en base 10, chaque symbole a un poids qui lui est propre
+    et qui dépend de la position du symbole.
+    Cependant, contrairement à la base 10, les poids sont
+    basés sur les puissances de deux, non de dix.
+</p>
+
+$remark$
+<p>
+    Les puissances de deux sont les nombres de la forme 2<sup>n</sup>,
+    pour n un nombre naturel (0, 1, 2, etc.). 
+    La première puissance de deux, 2<sup>0</sup>, vaut 1.
+    Chaque puissance de deux suivante est simplement le double de la précédente. 
+</p>
+<p>
+    Les dix premières puissances de 2 sont donc
+    1, 2, 4, 8, 16, 32, 64, 128, 256, 512.
+</p>
+$endremark$
+
+<p>
+    Comme dit à l'instant,
+    chaque bit a un poids qui est une puissance de deux
+    qui dépend de la position du bit.
+    Le bit le plus à droite a un poids de 1,
+    puis le bit à sa gauche a un poids de 2,
+    le suivant de 4, puis 8 et ainsi de suite, en doublant à chaque étape.
+</p>
+
+<p>
+    Pour calculer la valeur d'un nombre écrit en binaire,
+    il suffit d'additionner les valeurs de chaque bit.
+    La valeur d'un bit est égale au poids du bit multiplié
+    par 0 ou par 1, selon que le bit est égal à 0 ou 1.
+</p>
+<p>
+    Cette addition correspond à la décomposition canonique en base 2 du nombre.
+</p>
+
+$example$
+<p>
+    Prenons par exemple la séquence de bits 1101.
+    Ce séquence de bits correspond à un nombre écrit en binaire,
+    que nous allons calculer.
+</p>
+<p>
+    La décomposition canonique de 1101 en base 2 est :
+</p>
+<p style="text-align: center;">
+    1 × 2<sup>3</sup> + 1 × 2<sup>2</sup> + 0 × 2<sup>1</sup> + 1 × 2<sup>0</sup>
+</p>
+<p>
+    Ou encore :
+</p>
+<p style="text-align: center;">
+    1 × 8 + 1 × 4 + 0 × 2 + 1 × 1
+</p>
+<p>
+    En effectuant, le calcul (8 + 4 + 0 + 1), on obtient la valeur du nombre: 13,
+    ici exprimé en notation décimale.
+</p>
+$endexample$
+
+<style>
+    .number {
+        font-size: 1.5em;
+        text-align: center;
+    }
+</style>
+
+$tryout$
+<p>
+Entrez un nombre écrit en binaire ci-dessous et appuyez sur le bouton pour calculer sa valeur en décimal.
+</p>
+<div class="expr-input" style="margin-bottom: 10px;">
+    <input type="text" id="read-number" autocomplete="off" autocorrect="off" autocapitalize="off" />
+    <button id="read-button">Calculer</button>
+</div>
+<div id="read-result"></div>
+$endtryout$
+
+<script type="text/javascript">
+(function() {
+    const readButton = document.getElementById('read-button');
+    const readResult = document.getElementById('read-result');
+    const readNumber = document.getElementById('read-number');
+
+    function handler() {
+        const number = readNumber.value.trim();
+        let result = BigInt(0);
+        let powers = [];
+        let degrees = [];
+        let bits = [];
+        for (let i = number.length - 1; i >= 0; i--) {
+            const bit = number[number.length - i - 1];
+            if (bit !== '0' && bit !== '1') {
+                readResult.innerHTML = '<p>Le nombre entré n\'est pas écrit en binaire.</p>';
+                return;
+            }
+            const power = BigInt(2) ** BigInt(i);
+            if (bit === '1') {
+                powers.push(power);
+                result += power;
+            }
+            degrees.push(i);
+            bits.push(bit);
+        }
+
+        let html = '<p>La décomposition canonique du nombre entré est :</p>';
+        html += '<div class="scroll-x">';
+        html += '<p style="text-align:center">';
+        for (let i = 0; i < bits.length; i++) {
+            if (i > 0) {
+                html += ' + ';
+            }
+            html += bits[i] + ' × 2<sup>' + degrees[i] + '</sup>';
+        }
+        html += '</p>';
+        html += '</div>';
+        html += '<p style="margin-bottom: 0;">Soit :</p>';
+        html += '<div class="scroll-x">';
+        html += '<p style="text-align:center">';
+        for (let i = 0; i < powers.length; i++) {
+            if (i > 0) {
+                html += ' + ';
+            }
+            html += powers[i].toString();
+        }
+        html += '</p>';
+        html += '</div>';
+        html += '<p style="margin-bottom:5px;">La valeur du nombre entré est donc :</p>' + 
+            '<div class="scroll-x" style="margin-bottom:10px;">' +
+            '<div class="number">' + result.toString() + '</div></div>';
+        readResult.innerHTML = html;
+    }
+
+    readButton.addEventListener('click', handler);
+    readNumber.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            handler();
+        }
+    });
+})();
+</script>
+
+$remark$
+<p>
+    Tout comme en base 10,
+    il est possible de rajouter des zéros à gauche d'un nombre écrit en binaire.
+    Cela n'a aucune influence sur la valeur du nombre,
+    en effet la valeur d'un bit à 0 est toujours de 0, et ce peu importe la
+    position du bit.
+</p>
+<p>
+    Par exemple, les séquences de bits 1101 et 01101 représentent le même nombre.
+</p>
+<p>
+    En vérité, c'est comme il y avait un nombre infini de zéros à gauche du nombre 1101,
+    et que l'on avait décidé de ne pas les écrire.
+    Il n'est pas faux d'en écrire un certain nombre, ce sera même parfois demandé
+    comme on le verra plus tard dans le cours.
+    À noter que, comme il y en a une infinité, il est impossible de tous les écrire.
+</p>
+$endremark$
+
+<h4>Décomposer à l'aide d'un tableau</h4>
+
+<p>
+    Lorsque l'on cherche à savoir la valeur d'un nombre écrit en binaire,
+    il est parfois plus simple de s'aider d'un tableau doté de trois lignes.
+    Sur la ligne du milieu, on note les bits du nombre.
+    Ensuite, on note le poids de chaque bit en
+    dessus de celui-ci. En dessous de chaque bit, on écrit la valeur du bit,
+    qui corresponds à la multiplication du poids du bit par le bit lui-même (soit 0, soit 1).
+</p>
+
+$example$
+
+<p>
+    Prenons par exemple la séquence de bits 10110101.
+    Ce séquence de bits correspond à un nombre écrit en binaire,
+    que nous allons calculer à l'aide du tableau ci-dessous.
+</p>
+
+<style>
+    .decomposition {
+        border-collapse: collapse;
+        margin: 30px auto;
+    }
+    .decomposition th {
+        text-align: right;
+        padding: 10px;
+        padding-right: 20px;
+        font-weight: normal;
+    }
+    .decomposition td {
+        text-align: center;
+        padding: 10px;
+        border-left: 1px solid black;
+        width: 60px;
+    }
+    .double-underlined {
+        border-top: 1px solid black;
+        border-bottom: 3px double black;
+    }
+</style>
+
+<div class="scroll-x">
+    <table class="decomposition">
+        <tr>
+            <th>Poids</th>
+            <td>128</td>
+            <td>64</td>
+            <td>32</td>
+            <td>16</td>
+            <td>8</td>
+            <td>4</td>
+            <td>2</td>
+            <td>1</td>
+        </tr>
+        <tr class="double-underlined">
+            <th>Bit</th>
+            <td>1</td>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <th>Valeur</th>
+            <td>128</td>
+            <td>0</td>
+            <td>32</td>
+            <td>16</td>
+            <td>0</td>
+            <td>4</td>
+            <td>0</td>
+            <td>1</td>
+        </tr>
+    </table>
+</div>
+
+<p>
+    La première ligne du tableau représente le poids de chaque bit.
+    Le poids d'un bit est 2 à la puissance de la position du bit, le
+    bit le plus à droite étant à la position 0.
+    La deuxième ligne contient les bits eux-mêmes.
+    Finalement, la troisième ligne contient la valeur de chaque bit,
+    qui est le produit du poids du bit par le bit lui-même.
+</p>
+<p>
+    Si l'on prend la somme de toutes les valeurs des bits, on obtient la valeur du nombre.
+    Dans notre exemple, la valeur du nombre est donc de 128 + 32 + 16 + 4 + 1 = 181.
+</p>
+
+$endexample$
+
+$remark$
+<p>
+    En binaire, il est très simple de savoir si un nombre est pair ou impair.
+    Pour cela, il suffit de regarder le bit le plus à droite, le bit de poids 1.
+    Si ce bit est à 1, alors le nombre est impair, sinon il est forcément pair.
+</p>
+<p>
+    De plus, en binaire, il est très simple de multiplier un nombre par 2.
+    Il suffit pour cela de décaler tous les bits du nombre d'une position vers la gauche,
+    ce qui revient simplement à ajouter un 0 tout à droite.
+</p>
+$endremark$
+
 <h4>Compter en binaire</h4>
+
+<div class="illustration right">
+    <img src="images/boulier.png" style="margin-left: 30px; margin-right: 20px;" alt="Un boulier avec une seule boule à chaque ligne." />
+</div>
+
+<p>
+    Maintenant que nous comprenons mieux
+    les principes de base de la notation binaire
+    des nombres, ainsi que comment lire des nombres
+    exprimés en binaire, la deuxième opération que nous allons
+    aborder est celle de compter en binaire.
+</p>
+
+<p>
+    Comme dans le système décimal, on commence à compter à partir de zéro.
+    Dans ce cas, comme dans le système décimal, nous disposons directement d'un symbole pour représenter le zéro,
+    il s'agit du bit 0.
+</p>
+
+<p class="number">
+    0
+</p>
+
+<p>
+    Après le zéro, vient le un, qui est lui aussi représenté par un unique symbole, le bit 1 :
+</p>
+
+<p class="number">
+    1
+</p>
+
+<p>
+    Après cela, les choses se compliquent un peu.
+    En effet, il n'y a pas de symbole pour représenter le nombre deux.
+    Pour cela, nous allons devoir utiliser plus d'un symbole.
+    Pour écrire le nombre deux en binaire, on écrit :
+</p>
+
+<p class="number">
+    10
+</p>
+
+<p>
+    En effet, si l'on décompose la séquence de bits, on obtient bien : 1 × 2<sup>1</sup> + 0 × 2<sup>0</sup> = 2.
+</p>
+
+$remark$
+<p>
+    Attention, il est tentant de prononcer le nombre binaire 10 comme <i>&laquo; dix &raquo;</i>.
+    Il est important de faire la distinction entre la notation et le nombre qui est représenté.
+    Lorsqu'on dit <i>&laquo; dix &raquo;</i>, on parle du nombre dix (qui est représenté par la suite de chiffres 10 en décimal).
+    En binaire la notation 10 a un autre sens : elle représente le nombre deux.
+    Pour ce fait, on préférera dire <i>&laquo; un, zéro &raquo;</i>
+    pour se référer à la notation ou simplement <i>&laquo; deux &raquo;</i> pour se référer au nombre.
+</p>
+$endremark$
+
+<p>
+    Vient ensuite le nombre trois.
+    Pour écrire le nombre trois en binaire, on écrit :
+</p>
+
+<p class="number">
+    11
+</p>
+
+<p>
+    En effet, on a bien : 1 × 2<sup>1</sup> + 1 × 2<sup>0</sup> = 3.
+    Vient ensuite le nombre quatre, qui est représenté par :
+</p>
+
+<p class="number">
+    100
+</p>
+
+<p>
+    On peut continuer ainsi indéfiniment, par un processus que nous allons discuter sous peu.
+    Voici les 16 premiers nombres écrits en décimal et en binaire :
+</p>
 
 <style>
 #binary-enum {
@@ -147,7 +524,7 @@ $endexample$
 #binary-enum > div {
     height: 50px;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
@@ -164,11 +541,23 @@ $endexample$
 #binary-enum > div > .base10 {
     font-size: 1.2em;
     color: #666;
-    width: 40px;
+    width: 80px;
+}
+
+#binary-enum > div > .header-base2 {
+    width: 150px;
+}
+
+#binary-enum > div > .header-base10 {
+    width: 80px;
 }
 </style>
 
 <div id="binary-enum">
+    <div>
+        <div class="header-base10">Décimal</div>
+        <div class="header-base2">Binaire</div>
+    </div>
 
 </div>
 
@@ -180,42 +569,489 @@ $endexample$
         const base2 = document.createElement("div");
         base2.classList.add("base2");
         base2.textContent = i.toString(2);
-        div.appendChild(base2);
         const base10 = document.createElement("div");
         base10.classList.add("base10");
         base10.textContent = i.toString(10);
         div.appendChild(base10);
+        div.appendChild(base2);
         container.appendChild(div);
     }
 })();
 </script>
 
-<script src="/js/d3.min.js" type="text/javascript"></script>
+<p>
+    Vous pouvez vérifier par vous-même que si vous tentez
+    de lire les nombres en binaire (à droite), vous obtenez bien
+    les nombres exprimé en décimal (à gauche).
+</p>
+<p>
+    Étant donné la représentation d'un nombre en binaire,
+    comment obtenir la représentation binaire du nombre suivant ?
+    C'est ce que nous allons voir à présent en abordant la notion d'<i>incrémentation</i>.
+</p>
 
-<div id="incr-ex"></div>
+<h4>Incrémenter</h4>
+
+<p>
+    On appelle <i>incrémenter</i> un nombre
+    le fait d'ajouter 1 à ce nombre.
+    Nous allons à présent voir comment s'y prendre pour incrémenter un nombre en binaire.
+</p>
+
+<p>
+    Pour incrémenter un nombre représenté en base 2,
+    on commence par se placer sur le bit le plus à droite.
+    Si ce bit est un 0, on le remplace simplement par un 1
+    et on recopie le reste des bits.
+</p>
+<p>
+    Si le bit est un 1, on le remplace par un 0
+    et on recommence la même procédure au bit suivant,
+    une position plus à gauche.
+</p>
+<p>
+    Si on vient à dépasser le bit le plus à gauche,
+    et ce sans avoir pu remplacer un 0 par un 1,
+    on considère qu'il y a un bit à 0 sur la gauche,
+    que l'on peut donc remplacer par un 1.
+</p>
+
+<p>
+    La procédure d'incrémentation peut être représentée par le schéma suivant :
+</p>
+
+<div class="scroll-x">
+    <svg width="630" height="570" class="diagram">
+        <defs>
+            <marker id="arrow" markerWidth="4" markerHeight="3" 
+            refX="0" refY="1.5" orient="auto">
+                <polygon points="0 0, 4 1.5, 0 3" />
+            </marker>
+        </defs>
+
+        <line x1="300" y1="45" x2="300" y2="65" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+        <line x1="300" y1="165" x2="300" y2="185" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+        <line x1="300" y1="265" x2="190" y2="352" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+        
+        <line x1="300" y1="265" x2="410" y2="352" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+        <line x1="130" y1="405" x2="130" y2="425" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+        <line x1="130" y1="485" x2="130" y2="505" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+        <line x1="470" y1="405" x2="470" y2="425" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+        <text x="180" y="310" text-anchor="middle" alignment-baseline="central">Oui</text>
+
+        <text x="420" y="310" text-anchor="middle" alignment-baseline="central">Non</text>
+
+        <path d="M 470 515 v 20 q 0 20 20 20 h 105 q 20 0 20 -20 v -250 q 0 -20 -20 -20 h -190"
+            stroke="#000" stroke-width="4" fill="none" marker-end="url(#arrow)" />
+
+        <g transform="translate(175 5)">
+            <rect x="0" y="0" width="250" height="40" fill="white" stroke="black" stroke-width="2" rx="20" />
+            <text x="125" y="20" text-anchor="middle" alignment-baseline="central">Commencer ici.</text>
+        </g>
+
+        <g transform="translate(175 85)">
+            <rect x="0" y="0" width="250" height="80" fill="white" stroke="black" stroke-width="2" />
+            <text x="125" y="10" text-anchor="middle" alignment-baseline="central">
+                <tspan x="125" dy="22">Se placer sur le bit</tspan>
+                <tspan x="125" dy="28">le plus à droite.</tspan>
+            </text>
+        </g>
+
+        <g transform="translate(215 205)">
+            <polygon points="0,60 85,0 170,60 85,120" fill="white" stroke="black" stroke-width="2" />
+            <text x="85" y="60" text-anchor="middle" alignment-baseline="central">
+                <tspan x="85" dy="0">Le bit est-il</tspan>
+                <tspan x="85" dy="25">à 0 ?</tspan>
+            </text>
+        </g>
+
+        <g transform="translate(5 365)">
+            <rect x="0" y="0" width="250" height="40" fill="white" stroke="black" stroke-width="2" />
+            <text x="125" y="20" text-anchor="middle" alignment-baseline="central">
+                Remplacer le bit par 1.
+            </text>
+        </g>
+
+        <g transform="translate(5 445)">
+            <rect x="0" y="0" width="250" height="40" fill="white" stroke="black" stroke-width="2" />
+            <text x="125" y="20" text-anchor="middle" alignment-baseline="central">Recopier le reste des bits.</text>
+        </g>
+
+        <g transform="translate(5 525)">
+            <rect x="0" y="0" width="250" height="40" fill="white" stroke="black" stroke-width="2" rx="20" />
+            <text x="125" y="20" text-anchor="middle" alignment-baseline="central">Terminé !</text>
+        </g>
+
+        <g transform="translate(345 365)">
+            <rect x="0" y="0" width="250" height="40" fill="white" stroke="black" stroke-width="2" />
+            <text x="125" y="20" text-anchor="middle" alignment-baseline="central">
+                Remplacer le bit par 0.
+            </text>
+        </g>
+
+        <g transform="translate(345 445)">
+            <rect x="0" y="0" width="250" height="80" fill="white" stroke="black" stroke-width="2" />
+            <text x="125" y="10" text-anchor="middle" alignment-baseline="central">
+                <tspan x="125" dy="22">Se placer sur le bit</tspan>
+                <tspan x="125" dy="28">un cran plus à gauche.</tspan>
+            </text>
+        </g>
+    </svg>
+</div>
+
+$remark$
+<p>
+    Comme nous allons le voir dans la suite du cours,
+    nous appelons ce genre de procédure un <i>algorithme</i>.
+    Un algorithme est une suite finie d'instructions non-ambigües
+    qui permet de résoudre un problème.
+    Le problème en question ici est celui de déterminer la représentation
+    binaire du successeur d'un nombre donné en binaire.
+</p>
+<p>
+    L'algorithme ci-dessus 
+    n'est pas le seul et unique algorithme possible
+    pour incrémenter un nombre binaire.
+    Ci-dessous est présenté un autre algorithme.
+    Certains préfèrerons l'un, d'autres l'autre.
+</p>
+<h4>Algorithme alternatif</h4>
+<p>
+    Pour incrémenter un nombre binaire,
+    on peut aussi commencer par chercher le 0 le plus à droite dans le nombre.
+    On remplace le 0 à cette position par un 1.
+    Tout ce qui est à droite de cette position est remplacé par des 0,
+    et tout ce qui est à gauche est recopié tel quel.
+</p>
+<p>
+    Comme pour l'algorithme précédent, si le nombre ne contient que des 1,
+    on considère qu'il contient un 0 tout à gauche.
+</p>
+$endremark$
+
+<h5>Comprendre l'algorithme</h5>
+
+<p>
+    Pour comprendre l'algorithme d'incrémentation, il est important de réaliser que
+    la valeur d'un bit dépend de sa position.
+</p>
+<p>
+    Pour incrémenter un nombre, on souhaite ajouter 1 à ce nombre.
+    Il faudrait donc mettre un 1 à la position la plus à droite (celle de poids 1).
+    Si cette position est inoccupée (contient un 0), on met un 1
+    et le tour et joué. En effet, mettre un 1 à cette position
+    correspond à ajouter 1 au nombre.
+</p>
+
+<p>
+    Cependant, si cette position est déjà occupée (contient un 1),
+    on doit trouver une autre position pour notre 1.
+    Cependant, c'est là la seul position de poids 1 disponible.
+    Pour sortir de cet impasse, on enlève ce bit à 1 de cette position
+    et on ajoute sa valeur à ce que l'on souhaite ajouter au nombre.
+</p>
+<p>
+    Ainsi, à la place d'ajouter 1 au nombre, on cherche maintenant
+    à ajouter 2. On regarde donc la position de poids 2.
+    Si elle est inoccupée, on met simplement un 1.
+    Sinon, on enlève le bit à 1 de cette position et
+    on ajoute 2 à ce que l'on souhaite ajouter au nombre,
+    ce qui amène à chercher une position de poids 4.
+    On continue ainsi jusqu'à ce que l'on ait trouvé une position
+    qui soit inoccupée.
+</p>
+
+<h4>Écrire en binaire</h4>
+
+<p>
+    Maintenant que nous avons vu comment incrémenter un nombre binaire,
+    nous allons voir comment écrire un nombre en binaire.
+    Nous pourrions imaginer que pour trouver la représentation
+    binaire d'un nombre il fasse commencer avec 0 et continuellement incrémenter jusqu'à
+    tomber sur le nombre en question. Cependant, il existe une méthode
+    plus efficace que cette méthode naïve.
+</p>
+
+<p>
+    Pour écrire un nombre en binaire, on commence par
+    chercher la décomposition du nombre en somme de puissances de 2.
+    Une fois cette décomposition trouvée,
+    il suffit de mettre un 1 à chaque position de poids correspondant
+    à une puissance de 2 de la somme, et un 0 aux autres positions.
+</p>
+
+<p>
+    Comment trouver cette décomposition ?
+    Pour cela, on peut utiliser l'algorithme représenté dans le schéma suivant :
+</p>
+
+<div class="scroll-x">
+    <svg width="630" height="590" class="diagram">
+        <defs>
+            <marker id="arrow" markerWidth="4" markerHeight="3" 
+            refX="0" refY="1.5" orient="auto">
+                <polygon points="0 0, 4 1.5, 0 3" />
+            </marker>
+        </defs>
+
+        <line x1="300" y1="45" x2="300" y2="65" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+        <line x1="300" y1="145" x2="190" y2="232" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+        
+        <line x1="300" y1="145" x2="410" y2="232" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+        <line x1="470" y1="285" x2="470" y2="305" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+        <line x1="470" y1="360" x2="470" y2="380" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+        <line x1="470" y1="440" x2="470" y2="460" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+        <text x="180" y="190" text-anchor="middle" alignment-baseline="central">Oui</text>
+
+        <text x="420" y="190" text-anchor="middle" alignment-baseline="central">Non</text>
+
+        <path d="M 470 535 v 20 q 0 20 20 20 h 105 q 20 0 20 -20 v -390 q 0 -20 -20 -20 h -190"
+            stroke="#000" stroke-width="4" fill="none" marker-end="url(#arrow)" />
+
+        <g transform="translate(175 5)">
+            <rect x="0" y="0" width="250" height="40" fill="white" stroke="black" stroke-width="2" rx="20" />
+            <text x="125" y="20" text-anchor="middle" alignment-baseline="central">Commencer ici.</text>
+        </g>
+
+        <g transform="translate(215 85)">
+            <polygon points="0,60 85,0 170,60 85,120" fill="white" stroke="black" stroke-width="2" />
+            <text x="85" y="58" text-anchor="middle" alignment-baseline="central">
+                <tspan x="85" dy="0">Le nombre</tspan>
+                <tspan x="85" dy="25">est-il 0 ?</tspan>
+            </text>
+        </g>
+
+        <g transform="translate(5 245)">
+            <rect x="0" y="0" width="250" height="40" fill="white" stroke="black" stroke-width="2" rx="20" />
+            <text x="125" y="20" text-anchor="middle" alignment-baseline="central">Terminé !</text>
+        </g>
+
+        <g transform="translate(345 245)">
+            <rect x="0" y="0" width="250" height="115" fill="white" stroke="black" stroke-width="2" />
+            <text x="125" y="0" text-anchor="middle" alignment-baseline="central">
+                <tspan x="125" dy="25">Trouver la plus grande</tspan>
+                <tspan x="125" dy="25">puissance de 2</tspan>
+                <tspan x="125" dy="25">inférieure ou égale</tspan>
+                <tspan x="125" dy="25">au nombre.</tspan>
+            </text>
+        </g>
+
+        <g transform="translate(345 400)">
+            <rect x="0" y="0" width="250" height="40" fill="white" stroke="black" stroke-width="2" />
+            <text x="125" y="20" text-anchor="middle" alignment-baseline="central">
+                Noter cette puissance.
+            </text>
+        </g>
+
+        <g transform="translate(345 480)">
+            <rect x="0" y="0" width="250" height="65" fill="white" stroke="black" stroke-width="2" />
+            <text x="125" y="0" text-anchor="middle" alignment-baseline="central">
+                <tspan x="125" dy="25">Soustraire cette</tspan>
+                <tspan x="125" dy="25">puissance du nombre.</tspan>
+            </text>
+        </g>
+    </svg>
+</div>
+
+<p>
+    L'idée de l'algorithme est très simple : tant que le nombre n'est pas zéro,
+    on cherche la plus grande puissance de 2 inférieure ou égale au nombre,
+    on la note, et on la soustrait au nombre.
+    À la fin de l'exécution de l'algorithme, 
+    tous les nombres notés sont les puissances de 2
+    qui composent le nombre initial.
+</p>
+
+$remark$
+<p>
+    Cet algorithme est un exemple de ce qu'on appelle un <i>algorithme glouton</i>.
+    On dit de cet algorithme qu'il est glouton car il prend
+    toujours la décision qui le rapproche le plus de son but à
+    chaque étape. Ici, l'algorithme enlève toujours la plus grande
+    puissance de 2 possible à chaque étape.
+</p>
+$endremark$
+
+<p>
+    Une fois la décomposition du nombre obtenue,
+    il suffit d'inscrire un 1 à chaque position
+    dont le poids a été noté.
+    Le reste des positions sont remplies par des 0.
+    Bien entendu, on inscrit généralement pas
+    les 0 inutiles à gauche.
+</p>
+
+$example$
+<p>
+    Prenons l'exemple du nombre 138.
+    En suivant l'algorithme, on commence par chercher la plus grande
+    puissance de 2 inférieure ou égale à 138.
+    On trouve 128, on la note, et on la soustrait au nombre.
+    On obtient 138 - 128 = 10.
+    On recommence, et on trouve 8.
+    On note cette puissance et on la soustrait au nombre.
+    On obtient 10 - 8 = 2.
+    On recommence, et on trouve 2, que l'on note et soustrait.
+    Finalement, on obtient 0, et on arrête.
+</p>
+
+<p>
+    On a donc que 138 = 128 + 8 + 2.
+    Pour obtenir la représentation binaire de 138,
+    on inscrit un 1 à chaque position dont le poids a été noté.
+    On obtient donc 10001010.
+    En effet, on met un 1 aux positions de poids 128, 8 et 2.
+</p>
+
+<h5>Notation</h5>
+
+<p>
+    Lorsque l'on suit l'algorithme décrit ci-dessus,
+    on peut noter les différentes soustractions effectuées
+    en colonne, comme ci-dessous.
+</p>
+
+<style>
+.write-col {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0 auto;
+    font-size: 1.2em;
+}
+.write-col > div.power {
+    border-bottom: 2px solid black;
+}
+.write-col > div.power::before {
+    content: "-";
+}
+</style>
+
+<div class="write-col">
+    <div class="rest">
+        138
+    </div>
+    <div class="power">
+        128
+    </div>
+    <div class="rest">
+        10
+    </div>
+    <div class="power">
+        8
+    </div>
+    <div class="rest">
+        2
+    </div>
+    <div class="power">
+        2
+    </div>
+    <div class="rest">
+        0
+    </div>
+</div>
+
+<p>
+    De cette façon, on peut facilement voir 
+    les différentes soustractions effectuées
+    et les puissances de 2 qui ont été notées.
+</p>
+$endexample$
+
+$tryout$
+<p>
+    Entrez un nombre écrit en décimal ci-dessous et appuyez sur le bouton pour
+    afficher sa décomposition en puissances de 2 et sa représentation binaire. 
+</p>
+<div class="expr-input" style="margin-bottom: 10px;">
+    <input type="text" id="write-number" autocomplete="off" autocorrect="off" autocapitalize="off" />
+    <button id="write-button">Calculer</button>
+</div>
+<div id="write-result" class="scroll-x"></div>
+$endtryout$
 
 <script type="text/javascript">
 (function() {
-    const container = document.getElementById("incr-ex");
-    const svg = d3.select(container).append("svg");
-    const width = 400;
-    const height = 200;
-    svg.attr("width", width);
-    svg.attr("height", height);
-    const g = svg.append("g");
-    const inText = g.append("text");
-    inText.attr("x", 0);
-    inText.attr("y", 20);
-    inText.text("101011");
-    const outText = g.append("text");
-    outText.attr("x", 0);
-    outText.attr("y", 40);
-    outText.text("101100");
+    const input = document.getElementById("write-number");
+    const button = document.getElementById("write-button");
+    const result = document.getElementById("write-result");
+
+    function handler() {
+        let number;
+        try {
+            number = BigInt(input.value.trim());
+        } catch (e) {
+            result.innerHTML = "Oups, la valeur entrée n'est pas un nombre.";
+            return;
+        }
+        if (number < 0n) {
+            result.innerHTML = "Oups, la valeur entrée est négative.<br />"
+                + "Nous verrons plus tard comment traiter les nombres négatifs.";
+            return;
+        }
+
+        const powers = [];
+        const rests = [];
+        let rest = number;
+        while (rest > 0n) {
+            let power = 1n;
+            while (power * 2n <= rest) {
+                power *= 2n;
+            }
+            powers.push(power);
+            rest -= power;
+            rests.push(rest);
+        }
+
+        let html = "<p>En utilisant la notation en colonne,"
+            + " on obtient :</p>";
+        html += "<div class='write-col'>";
+        html += "<div class='rest'>" + number + "</div>";
+        for (let i = 0; i < powers.length; i++) {
+            html += "<div class='power'>" + powers[i] + "</div>";
+            html += "<div class='rest'>" + rests[i] + "</div>";
+        }
+        html += "</div>";
+        if (number > 0n) {
+            html += "<p>On a donc que " + number + " = " + powers.join(" + ") + ".</p>";
+        }
+        html += "<p>En binaire, le nombre s'écrit donc : " + number.toString(2) + ".</p>"; 
+
+        result.innerHTML = html;
+    }
+
+    button.addEventListener("click", handler);
+    input.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            handler();
+        }
+    });
 })();
 </script>
-
-<h4>Lire en binaire</h4>
-
-<h4>Écrire en binaire</h4>
 
 <h4>Additionner en binaire</h4>
