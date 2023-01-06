@@ -513,7 +513,7 @@ $endremark$
 </p>
 
 <style>
-#binary-enum {
+.binary-enum {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -521,7 +521,7 @@ $endremark$
     column-gap: 50px;
 }
 
-#binary-enum > div {
+.binary-enum > div {
     height: 50px;
     display: flex;
     flex-direction: row;
@@ -529,31 +529,31 @@ $endremark$
     align-items: center;
 }
 
-#binary-enum > div > div {
+.binary-enum > div > div {
     text-align: right;
 }
 
-#binary-enum > div > .base2 {
+.binary-enum > div > .base2 {
     font-size: 1.5em;
     width: 150px;
 }
 
-#binary-enum > div > .base10 {
+.binary-enum > div > .base10 {
     font-size: 1.2em;
     color: #666;
     width: 80px;
 }
 
-#binary-enum > div > .header-base2 {
+.binary-enum > div > .header-base2 {
     width: 150px;
 }
 
-#binary-enum > div > .header-base10 {
+.binary-enum > div > .header-base10 {
     width: 80px;
 }
 </style>
 
-<div id="binary-enum">
+<div id="binary-enum-1" class="binary-enum">
     <div>
         <div class="header-base10">Décimal</div>
         <div class="header-base2">Binaire</div>
@@ -563,7 +563,7 @@ $endremark$
 
 <script type="text/javascript">
 (function() {
-    const container = document.getElementById("binary-enum");
+    const container = document.getElementById("binary-enum-1");
     for (let i = 0; i < 16; i++) {
         const div = document.createElement("div");
         const base2 = document.createElement("div");
@@ -1055,3 +1055,153 @@ $endtryout$
 </script>
 
 <h4>Additionner en binaire</h4>
+
+<p>
+    La dernière opération que nous allons voir dans cette (longue) section est l'addition
+    de deux nombres écrits en binaire.
+</p>
+
+<p>
+    Pour procéder à l'addition de deux nombres représentés en base 2,
+    il suffit de procéder par une <i>addition en colonnes</i>, comme pour l'addition en base 10.
+</p>
+
+<p>
+    Pour cela, on commence par aligner les deux nombres à additionner,
+    de tel sorte que les bits de même poids soient alignés.
+    En pratique, cela signifie que les deux nombres doivent être alignés à droite.
+    Au dessus des deux nombres, on laisse de la place pour une éventuelle <i>retenue</i>,
+    et en dessous on laisse de la place pour le résultat.
+</p>
+
+<style>
+.binary-addition {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 0 auto;
+    width: fit-content;
+}
+.binary-addition > .number1, .binary-addition > .number2 {
+    margin: 0 0.2em;
+    display: flex;
+    justify-content: center;
+    align-items: right;
+    font-size: 1.2em;
+}
+.binary-addition > .number2 {
+    border-bottom: 3px solid black;
+}
+.binary-addition > .number1 > div, .binary-addition > .number2 > div {
+    width: 1.5em;
+    text-align: center;
+    height: 1.5em;
+    line-height: 1.5em;
+}
+.binary-addition > .placeholder {
+    font-style: italic;
+    text-align: center;
+    width: 100%;
+    color: #666;
+    padding: 0.2em;
+}
+</style>
+
+$example$
+<p>
+    Prenons par exemple les nombres 101110 et 1011, ici exprimés en base 2.
+    Les deux nombres sont alignés à droite, et on laisse de la place pour une retenue
+    et pour le résultat.
+</p>
+<div class="binary-addition" id="binary-addition-1">
+    <div class="placeholder">Retenue</div>
+    <div class="number1"></div>
+    <div class="number2"></div>
+    <div class="placeholder">Résultat</div>
+</div>
+<p>
+    De plus, on tire un trait sous le nombre du bas,
+    en dessus du résultat. Un signe plus (+) est placé
+    à gauche du nombre du bas pour signifier que l'on
+    effectue une addition.
+</p>
+$endexample$
+
+<script type="text/javascript">
+(function() {
+    const container = document.getElementById("binary-addition-1");
+    const number1 = container.querySelector(".number1");
+    const number2 = container.querySelector(".number2");
+
+    const n1 = "101110";
+    const n2 = "1011";
+
+    const maxLength = Math.max(n1.length, n2.length);
+
+    for (let i = 0; i < maxLength; i++) {
+        const div = document.createElement("div");
+        div.innerHTML = n1[n1.length - 1 - i] || "";
+        number1.prepend(div);
+    }
+
+    for (let i = 0; i < maxLength; i++) {
+        const div = document.createElement("div");
+        div.innerHTML = n2[n2.length - 1 - i] || "";
+        number2.prepend(div);
+    }
+
+    const div = document.createElement("div");
+    div.innerHTML = "+";
+    number2.prepend(div);
+})();
+</script>
+
+<p>
+    On procède ensuite à l'addition colonne par colonne.
+    En commençant par la colonne tout à droite, on additionne les bits qui se situent
+    dans la colonne. Au maximum, à cause de la retenue, on peut obtenir 1 + 1 + 1 = 3.
+</p>
+<p>
+    On exprime ensuite le résultat de l'addition en binaire. Pour rappel, voici comment on représente les nombres entre 0 et 3 en binaire :
+</p>
+<div id="binary-enum-2" class="binary-enum">
+    <div>
+        <div class="header-base10">Décimal</div>
+        <div class="header-base2">Binaire</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+(function() {
+    const container = document.getElementById("binary-enum-2");
+    for (let i = 0; i < 4; i++) {
+        const div = document.createElement("div");
+        const base2 = document.createElement("div");
+        base2.classList.add("base2");
+        base2.textContent = i.toString(2);
+        const base10 = document.createElement("div");
+        base10.classList.add("base10");
+        base10.textContent = i.toString(10);
+        div.appendChild(base10);
+        div.appendChild(base2);
+        container.appendChild(div);
+    }
+})();
+</script>
+
+<p>
+    Le bit de poids 1 de la somme est placé comme résultat en bas de la colonne,
+    alors que le bit de poids 2 est placé en retenue pour la colonne
+    sur la gauche. Pour rappel, on considére que si un bit est absent,
+    alors il est considéré comme égal à 0. Ainsi, pour une somme de 0 ou de 1,
+    on place un 0 en retenue.
+</p>
+
+<p>
+    On continue ainsi jusqu'à ce que l'on ait traité toutes les colonnes.
+    Attention à ne pas oublier de traiter la retenue de la dernière colonne,
+    et ce même si les deux nombres à additionner n'ont pas de bit inscrit
+    dans la colonne.
+</p>
+
+
