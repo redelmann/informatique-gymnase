@@ -1082,7 +1082,14 @@ $endtryout$
     margin: 0 auto;
     width: fit-content;
 }
-.binary-addition > .number1, .binary-addition > .number2 {
+.binary-addition > .carry,
+.binary-addition > .result {
+    color: #666;
+}
+.binary-addition > .carry,
+.binary-addition > .number1,
+.binary-addition > .number2,
+.binary-addition > .result {
     margin: 0 0.2em;
     display: flex;
     justify-content: center;
@@ -1092,7 +1099,10 @@ $endtryout$
 .binary-addition > .number2 {
     border-bottom: 3px solid black;
 }
-.binary-addition > .number1 > div, .binary-addition > .number2 > div {
+.binary-addition > .carry > div,
+.binary-addition > .number1 > div,
+.binary-addition > .number2 > div,
+.binary-addition > .result > div {
     width: 1.5em;
     text-align: center;
     height: 1.5em;
@@ -1204,4 +1214,83 @@ $endexample$
     dans la colonne.
 </p>
 
+$example$
+<p>
+    Continuons avec l'exemple précédent.
+    Après l'addition des deux nombres, on obtient le résultat suivant :
+</p>
 
+<div class="binary-addition" id="binary-addition-2">
+    <div class="carry"></div>
+    <div class="number1"></div>
+    <div class="number2"></div>
+    <div class="result"></div>
+</div>
+
+<p>
+    En dessous de la barre se trouvent les bits du résulat de l'addition.
+    Dans ce cas, on peut voir que l'addition de 101110 et 1011 donne 111001.
+    La ligne du dessus contient les éventuelles retenues.
+</p>
+
+<p>
+    On peut s'assurer que le résultat est correct en convertissant les deux nombres
+    en base 10 puis en effectuant l'addition.
+    Le premier nombre est 46 et le second est 11. Leur somme est donc de 57.
+    En binaire, 57 est représenté par 111001.
+    On peut donc vérifier que le résultat est correct.
+</p>
+$endexample$
+
+<script type="text/javascript">
+    (function() {
+        const container = document.getElementById("binary-addition-2");
+        const carry = container.querySelector(".carry");
+        const number1 = container.querySelector(".number1");
+        const number2 = container.querySelector(".number2");
+        const result = container.querySelector(".result");
+    
+        const n1 = "101110";
+        const n2 =   "1011";
+
+        const sum = (BigInt("0b" + n1) + BigInt("0b" + n2)).toString(2);
+    
+        const maxLength = Math.max(n1.length, n2.length);
+    
+        let carryValue = 0;
+        const carries = [];
+
+        for (let i = 0; i < maxLength; i++) {
+            carries.push(carryValue);
+            const v1 = n1[n1.length - 1 - i] === "1" ? 1 : 0;
+            const v2 = n2[n2.length - 1 - i] === "1" ? 1 : 0;
+
+            const div1 = document.createElement("div");
+            div1.innerHTML = n1[n1.length - 1 - i] || "";
+            number1.prepend(div1);
+            const div2 = document.createElement("div");
+            div2.innerHTML = n2[n2.length - 1 - i] || "";
+            number2.prepend(div2);
+
+            const div3 = document.createElement("div");
+            if (carryValue === 0) {
+                div3.innerHTML = "";
+            } else {
+                div3.innerHTML = "1";
+            }
+            carry.prepend(div3);
+            carryValue = carryValue + v1 + v2 > 1 ? 1 : 0;
+        }
+        carries.push(carryValue);
+
+        for (let i = 0; i < sum.length; i++) {
+            const div = document.createElement("div");
+            div.innerHTML = sum[sum.length - 1 - i] || "";
+            result.prepend(div);
+        }
+    
+        const div = document.createElement("div");
+        div.innerHTML = "+";
+        number2.prepend(div);
+    })();
+    </script>
