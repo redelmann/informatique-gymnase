@@ -123,6 +123,84 @@ $example$
 </p>
 $endexample$
 
+$selfcheck$
+<p>
+    Le système décimal est un système de numération qui utilise
+    <select class="self-pick">
+        <option>2</option>
+        <option>4</option>
+        <option>8</option>
+        <option data-correct>10</option>
+        <option>16</option>
+    </select> symboles différents qu'on appelle des
+    <select class="self-pick">
+        <option data-correct>chiffres</option>
+        <option>nombres</option>
+        <option>octets</option>
+        <option>bits</option>
+    </select>.
+</p>
+<p>
+    Le système décimal est un système de numération
+    <select class="self-pick">
+        <option>potentiel</option>
+        <option data-correct>positionnel</option>
+        <option>présidentiel</option>
+        <option>parallèle</option>
+    </select> :
+    Chaque chiffre a un
+    <select class="self-pick">
+        <option>symbole</option>
+        <option>nom</option>
+        <option>motif</option>
+        <option data-correct>poids</option>
+    </select>
+    qui dépend de sa position dans la représentation du nombre.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    La décomposition canonique de 843 en base 10 est :
+    <select class="self-pick">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option data-correct>8</option>
+        <option>9</option>
+    </select> × 100 +
+    <select class="self-pick">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option data-correct>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+    </select> × 10 +
+    <select class="self-pick">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option data-correct>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+    </select> × 1.
+</p>
+$endselfcheck$
+
 <h3>Le système binaire</h3>
 
 <div class="illustration right">
@@ -431,6 +509,32 @@ $remark$
 </p>
 $endremark$
 
+$selfcheck$
+<p>
+    En binaire, la séquence de bits 11001 représente le nombre 
+    <select class="self-pick">
+        <option>12</option>
+        <option>13</option>
+        <option>24</option>
+        <option data-correct>25</option>
+        <option>50</option>
+        <option>51</option>
+        <option>101</option>
+    </select> (exprimé ici en système décimal).
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    En binaire, la séquence de bits 110010010010001 correspond à
+    un nombre  
+    <select class="self-pick">
+        <option>pair</option>
+        <option data-correct>impair</option>
+    </select>.
+</p>
+$endselfcheck$
+
 <h4>Compter en binaire</h4>
 
 <div class="illustration right">
@@ -582,7 +686,7 @@ $endremark$
 <p>
     Vous pouvez vérifier par vous-même que si vous tentez
     de lire les nombres en binaire (à droite), vous obtenez bien
-    les nombres exprimé en décimal (à gauche).
+    les nombres exprimés en décimal (à gauche).
 </p>
 <p>
     Étant donné la représentation d'un nombre en binaire,
@@ -760,19 +864,67 @@ $endremark$
     Cependant, si cette position est déjà occupée (contient un 1),
     on doit trouver une autre position pour notre 1.
     Cependant, c'est là la seul position de poids 1 disponible.
-    Pour sortir de cet impasse, on enlève ce bit à 1 de cette position
-    et on ajoute sa valeur à ce que l'on souhaite ajouter au nombre.
+    Pour sortir de cette impasse, on enlève ce bit à 1 de cette position
+    et on ajoute sa valeur à la valeur que l'on souhaite ajouter au nombre.
 </p>
 <p>
     Ainsi, à la place d'ajouter 1 au nombre, on cherche maintenant
     à ajouter 2. On regarde donc la position de poids 2.
-    Si elle est inoccupée, on met simplement un 1.
+    Si elle est inoccupée, on y met simplement un 1.
     Sinon, on enlève le bit à 1 de cette position et
-    on ajoute 2 à ce que l'on souhaite ajouter au nombre,
-    ce qui amène à chercher une position de poids 4.
+    on ajoute 2 à la valeur que l'on souhaite ajouter au nombre,
+    ce qui nous amène ensuite à chercher une position de poids 4.
     On continue ainsi jusqu'à ce que l'on ait trouvé une position
     qui soit inoccupée.
 </p>
+
+$selfcheck$
+<p>
+    Lorsque l'on compte en binaire, après 0, 1 viennent
+    <select class="self-pick">
+        <option>01</option>
+        <option data-correct>10</option>
+        <option>11</option>
+        <option>100</option>
+        <option>111</option>
+    </select>, 
+    <select class="self-pick">
+        <option>01</option>
+        <option>10</option>
+        <option data-correct>11</option>
+        <option>100</option>
+        <option>111</option>
+    </select>, puis
+    <select class="self-pick">
+        <option>01</option>
+        <option>10</option>
+        <option>11</option>
+        <option data-correct>100</option>
+        <option>101</option>
+        <option>110</option>
+        <option>111</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    En binaire, lorsque l'on incrémente 10110, on obtient
+    <select class="self-pick">
+        <option>110110</option>
+        <option>11110</option>
+        <option data-correct>10111</option>
+        <option>101101</option>
+    </select>.
+    Si l'on incrémente encore ce nombre, on obtient
+    <select class="self-pick">
+        <option>11011</option>
+        <option>11010</option>
+        <option>10000</option>
+        <option data-correct>11000</option>
+    </select>.
+</p>
+$endselfcheck$
 
 <h4>Écrire en binaire</h4>
 
@@ -1054,6 +1206,30 @@ $endtryout$
 })();
 </script>
 
+$selfcheck$
+<p>
+    La représentation binaire de 42 est
+    <select class="self-pick">
+        <option>101</option>
+        <option>1010</option>
+        <option>10100</option>
+        <option>101001</option>
+        <option data-correct>101010</option>
+        <option>100101</option>
+        <option>110010</option>
+    </select>, et la représentation binaire de 79 est
+    <select class="self-pick">
+        <option>1010101</option>
+        <option>1011101</option>
+        <option data-correct>1001111</option>
+        <option>1011110</option>
+        <option>1101111</option>
+        <option>1110111</option>
+        <option>1111111</option>
+    </select>.
+</p>
+$endselfcheck$
+
 <h4>Additionner en binaire</h4>
 
 <p>
@@ -1243,54 +1419,131 @@ $example$
 $endexample$
 
 <script type="text/javascript">
-    (function() {
-        const container = document.getElementById("binary-addition-2");
-        const carry = container.querySelector(".carry");
-        const number1 = container.querySelector(".number1");
-        const number2 = container.querySelector(".number2");
-        const result = container.querySelector(".result");
-    
-        const n1 = "101110";
-        const n2 =   "1011";
+function setupAddition(containerId, n1, n2) {
+    const container = document.getElementById(containerId);
+    const carry = container.querySelector(".carry");
+    const number1 = container.querySelector(".number1");
+    const number2 = container.querySelector(".number2");
+    const result = container.querySelector(".result");
 
-        const sum = (BigInt("0b" + n1) + BigInt("0b" + n2)).toString(2);
-    
-        const maxLength = Math.max(n1.length, n2.length);
-    
-        let carryValue = 0;
-        const carries = [];
+    const sum = (BigInt("0b" + n1) + BigInt("0b" + n2)).toString(2);
 
-        for (let i = 0; i < maxLength; i++) {
-            carries.push(carryValue);
-            const v1 = n1[n1.length - 1 - i] === "1" ? 1 : 0;
-            const v2 = n2[n2.length - 1 - i] === "1" ? 1 : 0;
+    const maxLength = Math.max(n1.length, n2.length);
 
-            const div1 = document.createElement("div");
-            div1.innerHTML = n1[n1.length - 1 - i] || "";
-            number1.prepend(div1);
-            const div2 = document.createElement("div");
-            div2.innerHTML = n2[n2.length - 1 - i] || "";
-            number2.prepend(div2);
+    let carryValue = 0;
+    const carries = [];
 
-            const div3 = document.createElement("div");
-            if (carryValue === 0) {
-                div3.innerHTML = "";
-            } else {
-                div3.innerHTML = "1";
-            }
-            carry.prepend(div3);
-            carryValue = carryValue + v1 + v2 > 1 ? 1 : 0;
-        }
+    for (let i = 0; i < maxLength; i++) {
         carries.push(carryValue);
+        const v1 = n1[n1.length - 1 - i] === "1" ? 1 : 0;
+        const v2 = n2[n2.length - 1 - i] === "1" ? 1 : 0;
 
-        for (let i = 0; i < sum.length; i++) {
-            const div = document.createElement("div");
-            div.innerHTML = sum[sum.length - 1 - i] || "";
-            result.prepend(div);
-        }
-    
+        const div1 = document.createElement("div");
+        div1.innerHTML = n1[n1.length - 1 - i] || "";
+        number1.prepend(div1);
+        const div2 = document.createElement("div");
+        div2.innerHTML = n2[n2.length - 1 - i] || "";
+        number2.prepend(div2);
+
+        carryValue = carryValue + v1 + v2 > 1 ? 1 : 0;
+    }
+    carries.push(carryValue);
+
+    for (let i = 0; i < sum.length; i++) {
         const div = document.createElement("div");
-        div.innerHTML = "+";
-        number2.prepend(div);
-    })();
-    </script>
+        div.innerHTML = sum[sum.length - 1 - i] || "";
+        result.prepend(div);
+    }
+
+    for (let i = 0; i < carries.length; i++) {
+        const div = document.createElement("div");
+        if (carries[i] === 0) {
+            div.innerHTML = "";
+        } else {
+            div.innerHTML = "1";
+        }
+        carry.prepend(div);
+    }
+
+    const div = document.createElement("div");
+    div.innerHTML = "+";
+    number2.prepend(div);
+}
+setupAddition("binary-addition-2", "101110", "1011");
+</script>
+
+$selfcheck$
+<p>
+    Complétez l'additon binaire suivante :
+</p>
+
+<style>
+#binary-addition-3 {
+    margin-bottom: 10px;
+}
+
+#binary-addition-3 > .carry > div,
+#binary-addition-3 > .number1 > div,
+#binary-addition-3 > .number2 > div,
+#binary-addition-3 > .result > div {
+    width: 2.5em;
+    text-align: left;
+    padding-right: 6px;
+    padding-left: 0;
+}
+
+#binary-addition-3 > .number1 > div,
+#binary-addition-3 > .number2 > div {
+    padding-right: 0;
+    padding-left: 6px;
+}
+
+#binary-addition-3 > .result {
+    padding-top: 3px;
+}
+</style>
+
+<div class="binary-addition" id="binary-addition-3">
+    <div class="carry"></div>
+    <div class="number1"></div>
+    <div class="number2"></div>
+    <div class="result"></div>
+</div>
+$endselfcheck$
+
+<script type="text/javascript">
+(function() {
+    setupAddition("binary-addition-3", "101110", "100110");
+    const container = document.getElementById("binary-addition-3");
+    const result = container.querySelector(".result");
+    const carry = container.querySelector(".carry");
+
+    function replaceTextBySelect(element) {
+        const select = document.createElement("select");
+        const content = element.innerText.trim();
+        const value = content === "" ? 0 : parseInt(content);
+        select.classList.add("self-pick");
+        for (let j = 0; j < 2; j++) {
+            const option = document.createElement("option");
+            option.innerHTML = j.toString();
+            if (value === j) {
+                option.setAttribute("data-correct", "");
+            }
+            select.appendChild(option);
+        }
+        element.innerHTML = "";
+        element.appendChild(select);
+    }
+
+    const resDivs = result.querySelectorAll("div");
+    const carryDivs = carry.querySelectorAll("div");
+
+    for (let i = 0; i < resDivs.length; i++) {
+        replaceTextBySelect(resDivs[i]);
+    }
+    for (let i = 0; i < carryDivs.length - 1; i++) {
+        replaceTextBySelect(carryDivs[i]);
+    }
+})();
+</script>
+
