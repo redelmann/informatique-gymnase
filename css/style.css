@@ -237,7 +237,7 @@ select.self-pick {
     border: 1px solid rgba(0, 0, 0, 0.2);
     padding: 0;
     padding-left: 5px;
-    padding-right: 26px;
+    padding-right: 30px;
     margin: 0;
     margin-bottom: 2px;
     font-family: inherit;
@@ -246,7 +246,6 @@ select.self-pick {
     line-height: inherit;
     border-radius: 10px;
     color: black;
-    min-width: 60px;
 }
 
 .select-wrapper {
