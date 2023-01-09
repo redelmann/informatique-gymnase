@@ -18,7 +18,7 @@ order: 4
 <p>
     Avant de plonger dans le système binaire,
     il est important de comprendre comment
-    les nombres sont représentés dans notre système de numération usuel,
+    les nombres sont représentés dans notre système de numération (d'écriture des nombres) usuel,
     le système <i>décimal</i>.
 </p>
 
@@ -1272,8 +1272,8 @@ $endselfcheck$
 .binary-addition > .result {
     margin: 0 0.2em;
     display: flex;
-    justify-content: center;
-    align-items: right;
+    justify-content: flex-end;
+    align-items: flex-end;
     font-size: 1.2em;
 }
 .binary-addition > .number2 {
@@ -1475,6 +1475,78 @@ function setupAddition(containerId, n1, n2) {
     number2.prepend(div);
 }
 setupAddition("binary-addition-2", "101110", "1011");
+</script>
+
+$tryout$
+<p>
+    Entrez deux nombres binaires ci-dessous pour calculer leur somme.
+</p>
+
+<div class="expr-inter-input">
+    <input type="text" id="tryout-sum-n1" placeholder="101110" autocomplete="off" autocorrect="off" autocapitalize="off" />
+    <input type="text" id="tryout-sum-n2" placeholder="1011" autocomplete="off" autocorrect="off" autocapitalize="off" />
+    <button id="tryout-sum-button">Additionner</button>
+</div>
+
+<div class="scroll-x" id="tryout-sum-output">
+    <div class="binary-addition" style="margin: 20px auto; display: none;" id="tryout-sum-result">
+        <div class="carry"></div>
+        <div class="number1"></div>
+        <div class="number2"></div>
+        <div class="result"></div>
+    </div>
+    <p id="tryout-sum-error">
+
+    </p>
+</div>
+$endtryout$
+
+<script type="text/javascript">
+(function() {
+    const n1 = document.getElementById("tryout-sum-n1");
+    const n2 = document.getElementById("tryout-sum-n2");
+    const button = document.getElementById("tryout-sum-button");
+    const output = document.getElementById("tryout-sum-output");
+    const result = document.getElementById("tryout-sum-result");
+    const error = document.getElementById("tryout-sum-error");
+
+    function update() {
+        result.style.display = "block";
+        error.innerHTML = "";
+        error.style.display = "none";
+        const divs = result.querySelectorAll("div");
+        for (let i = 0; i < divs.length; i++) {
+            divs[i].innerHTML = "";
+        }
+        const s1 = n1.value.trim();
+        const s2 = n2.value.trim();
+        try {
+            setupAddition("tryout-sum-result", s1, s2);
+        } catch (e) {
+            result.style.display = "none";
+            error.style.display = "block";
+            error.innerHTML = "Erreur : " + e.message;
+            console.error(e);
+        }
+    }
+
+    button.addEventListener("click", update);
+    n1.addEventListener('keyup', function() {
+        if (event.key === "Enter") {
+            if (n2.value === '') {
+                n2.focus();
+            } else {
+                update();
+            }
+        }
+    });
+
+    n2.addEventListener('keyup', function() {
+        if (event.key === "Enter") {
+            update();
+        }
+    });
+})();
 </script>
 
 $selfcheck$
