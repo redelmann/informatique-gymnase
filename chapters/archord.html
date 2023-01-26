@@ -8,15 +8,23 @@ order: 1
 </div>
 
 <p>
-    Dans ce chapitre, nous allons étudier le fonctionnement des ordinateurs.
-    Les ordinateurs sont des systèmes complexes constitués d'un grand nombre de composants.
-    De nous jours, les ordinateurs sont constitués de milliards et des milliards de composants basiques.
-    Il est donc impossible de comprendre leur fonctionnement en étudiant
-    l'ensemble des composants en même temps.
+    De nos jours, les ordinateurs sont omniprésents.
+    Qu'il s'agisse de votre téléphone portable, de votre ordinateur de bureau ou de votre console de jeux,
+    les ordinateurs sont partout.
+    Les ordinateurs nous permettent de communiquer, de nous informer, de nous divertir, de travailler, etc.
+    Ils sont devenus un outil indispensable de notre vie.
 </p>
 
 <p>
-    Dans ce chapitre, nous allons suivre une approche <i>bottom-up</i>:
+    Dans ce chapitre, nous allons étudier le fonctionnement des ordinateurs.
+    Les ordinateurs sont des systèmes complexes constitués d'un très grand nombre de composants électroniques de base (des milliards !) reliés par des fils
+    selon un arrangement bien précis.
+    Au vu de cette complexité, il est impossible de comprendre le fonctionnement des ordinateurs en étudiant
+    l'ensemble de leurs composants basiques en même temps.
+</p>
+
+<p>
+    Dans ce chapitre, nous allons suivre une approche <i>bottom-up</i> :
     nous allons partir de l'étude des composants électriques élémentaires
     pour ensuite étudier des systèmes de plus en plus complexes,
     jusqu'à arriver à l'étude de ce qu'on appelle les ordinateurs.
@@ -26,5 +34,147 @@ order: 1
     La clé pour gérer cette grande complexité sera l'<i>abstraction</i>.
     L'abstraction est un outil de pensée qui permet de
     simplifier l'utilisation et la compréhension de systèmes complexes.
+    En abstrayant un système, on se concentre sur son <i>interface</i> (ses entrées et ses sorties, sa fonction)
+    et on ignore les détails de sa réalisation.
+    Cette approche permet de se concentrer sur les aspects essentiels
+    et de construire des systèmes à la complexité croissante tout en
+    gardant une bonne compréhension du système dans son ensemble.
     Nous aurons l'occasion de discuter de cette notion tout au long du chapitre.    
 </p>
+
+<h3>L'ordinateur, d'hier à aujourd'hui</h3>
+
+<p>
+    Une des caractéristiques principales de l'être humain
+    est sa capacité à créer et à utiliser des outils
+    pour faciliter la réalisation de très nombreuses tâches.
+    Parmi les outils utilisés par les humains à travers les âges,
+    on peut penser entre autres à la pierre taillée, à la roue, au feu,
+    au moulin à eau, à la machine à vapeur, à l'automobile, etc.
+</p>
+
+<p>
+    En plus d'aider à la réalisation de tâches manuelles,
+    certains outils permettent également de réaliser des tâches intellectuelles.
+    De l'utilisation de simples galets pour compter du bétail
+    jusqu'à l'utilisation
+    de calculatrices pour effectuer des calculs complexes,
+    l'humain a toujours cherché à utiliser des outils pour
+    augmenter ses capacités cognitives.
+    L'ordinateur tel que nous le connaissons aujourd'hui est un tel outil.
+    Les ordinateurs ne sont cependant pas apparus du jour au lendemain.
+</p>
+
+<p>
+    En 1837, l'anglais Charles Babbage
+    conçoit les plans d'un appareil qu'il appelle <q lang="en"> analytical engine </q>,
+    litéralement <q lang="fr"> machine analytique </q>.
+    Bien que cette machine n'ait pas été construite à l'époque,
+    elle est considérée comme le précurseur de ce qu'on appelle aujourd'hui 
+    les ordinateurs.
+    Inspiré par les métiers à tisser, Charles Babbage conçoit une machine
+    qui est configurable à l'aide de cartes perforées.
+    La même année, la comptesse Ada Lovelace, elle aussi anglaise,
+    décrit comment utiliser cette machine pour résoudre des problèmes
+    à l'aide d'un <i>programme</i>, une suite d'instructions.
+    La programmation était née.
+</p>
+
+<p>
+    De nos jours, les ordinateurs utilisent des composants 
+    bien différents des mécanismes et des engrenages de la machine de Charles Babbage.
+    Nos ordinateurs actuels fonctionnent grâce à l'électricité :
+    Ils sont constitués de composant électroniques, tels que les <i>transistors</i>,
+    reliés entre eux par des fils. Ces composants interconnectés forment ce qu'on appelle
+    un <i>circuit électronique</i>. De façon plus générale, on parle aussi de <i>système</i>.
+</p>
+
+<h3>Le transistor</h3>
+
+<p>
+    Les transistors sont des composants électroniques qui permettent de
+    laisser passer ou de bloquer un courant électrique, tel un interrupteur.
+    À la différence d'un interrupteur, le transistor est actioné
+    non pas par un humain, mais par un autre courant électrique.
+</p>
+<p>
+    Les transistors sont constitués à partir de matériaux <i>semi-conducteurs</i>,
+    comme le silicium.
+    Comme nous allons le voir au travers de ce chapitre,
+    grâce à ces composants, il est possible de construire des circuits
+    électroniques qui peuvent être utilisés pour réaliser des opérations logiques,
+    effectuer des calculs comme des additions,
+    stocker des données en mémoire et
+    même exécuter des programmes.
+</p>
+
+$remark$
+<p>
+    Les premiers transistors ont été inventés en 1947 par John Bardeen, Walter Brattain et William Shockley,
+    chercheurs aux <i>Bell Labs</i>.
+    À l'époque, les transistors avaient une taille de l'ordre du centimètre. 
+    De nos jours, grâce à des efforts de miniaturisation,
+    l'être humain est capable de construire des transistors d'une taille
+    de l'ordre du nanomètre. Pour vous donner une idée de la taille de ces composants,
+    un nanomètre est un milliardième de mètre.
+    En comparaison, un cheveu humain a une épaisseur d'environ 100 micromètres, soit 100'000 nanomètres.
+    Un cheveu est donc environ 100'000 fois plus épais qu'un transistor.
+</p>
+<p>
+    Grâce notamment à ces efforts de miniaturisation, les ordinateurs ont pu au fil des ans
+    utiliser de plus en plus de transistors pour ainsi augmenter leur puissance de calcul.
+    Dans les années 1970, les premiers ordinateurs étaient constitués de quelques milliers de transistors.
+    Une loi empirique, appelée la <i>Loi de Moore</i>, a prédit que le nombre de transistors
+    dans un ordinateur doublerait tous les deux ans.
+    Cette loi, établie en 1965 par Gordon Moore, co-fondateur de la société Intel,
+    a été vérifiée jusqu'à présent,
+    bien que ses limites soient largement considérées comme atteintes
+    de nos jours.
+</p>
+
+$endremark$
+
+<p>
+    Étudier comment fonctionnent les ordinateurs
+    en restant au niveau des transistors est une approche
+    qui s'avère bien trop complexe.
+    En effet, un ordinateur moderne est constitué de centaines de milliards
+    de transistors. Il est donc vain de vouloir comprendre
+    le fonctionnement d'un ordinateur à ce niveau de lecture là.
+    À la place, tout au long de ce chapitre, nous allons faire usage de l'<i>abstraction</i> et
+    concevoir étape par étape des systèmes de plus en plus complexes,
+    jusqu'à arriver à l'ordinateur.
+</p>
+<p>
+    La première abstraction que nous allons utiliser est celle des <i>portes logiques</i>.
+    Les portes logiques sont les composants qui serviront de base à la conception
+    de systèmes plus complexes.
+    À noter que les portes logiques sont construites à partir de transistors.
+    Il s'agit donc d'une abstraction de plus haut niveau.
+    Les détails d'implémentation des portes logiques à l'aide de transistors
+    et de résistances électriques dépassent malheureusement le cadre de ce cours.
+</p>
+
+$objectives$
+<p>
+    À la fin de ce chapitre, vous serez capable :
+    <ul>
+        <li>De décrire le fonctionnement des différentes portes logiques.</li>
+        <li>De concevoir et d'analyser des circuits simples.</li>
+        <li>De maîtriser le système binaire, c'est-à-dire :</li>
+        <ul>
+            <li>De lire des nombres naturels exprimés en binaire.</li>
+            <li>De compter en binaire.</li>
+            <li>D'écrire les nombres naturels en binaire.</li>
+            <li>D'effectuer des additions en binaire.</li>
+        </ul>
+        <li>De comprendre le fonctionnement d'un <i>additionneur</i>.</li>
+        <li>De représenter les nombres relatifs grâce à la méthode du <i>complément à deux</i>.</li>
+        <li>De comprendre le fonctionnement d'une <i>ALU</i>.</li>
+        <li>De comprendre le fonctionnement d'un <i>verrou</i> et d'une <i>bascule</i>.</li>
+        <li>De comprendre le fonctionnement de la mémoire <i>RAM</i>.</li>
+        <li>D'utiliser correctement les différentes unités de mesure de l'information.</li>
+        <li>De lister et d'expliquer les différents composants d'un ordinateur dans l'<i>architecture de von Neumann</i>.</li>
+    </ul>
+</p>
+$endobjectives$

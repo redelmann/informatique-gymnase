@@ -20,8 +20,11 @@ order: 1
     Dans cette section, nous allons
     découvrir comment concevoir l'<i>interface</i> d'un circuit à l'aide
     d'entrées et de sorties.
-    Une interface est la partie d'un circuit qui est destinée à être utilisée
-    par les personnes qui font usage du circuit.
+    Les entrées et les sorties sont la partie visible d'un circuit.
+    Elles permettent de communiquer avec le circuit.
+    Cette interface est la partie du circuit qui est destinée à être utilisée
+    par les personnes qui font usage du circuit,
+    voire par d'autres circuits.
     C'est par le biais de l'interface que l'on interagit avec le circuit.
 </p>
 
@@ -32,24 +35,28 @@ order: 1
 </div>
 
 <p>
-    Les entrées d'un circuit sont des composants que
-    l'on peut allumer ou éteindre.
-    Elles sont destinées à être utilisées par
+    Pour communiquer avec un circuit, il faut pouvoir lui envoyer des données.
+    Lorsque l'on souhaite qu'un humain puisse communiquer avec un circuit,
+    il faut lui fournir un moyen de le faire.
+    On utilise pour cela généralement des composants comme des boutons ou des interrupteurs
+    qui peuvent être allumés ou éteints.
+    Ces composants sont destinées à être utilisées par
     les personnes qui utilisent le circuit et permettent d'entrer des données ou de configurer
     le circuit.
 </p>
 
 <p>
-    Lorsqu'on réalise un véritable circuit,
-    on utilise généralement des boutons ou des interrupteurs comme entrées.
+    Dans le cas où un circuit est destiné à être utilisé par d'autres circuits,
+    on se passe généralement d'une interface humaine et on utilise
+    simplement des fils électriques comme entrées.
 </p>
 
 $tryout$
 <p>
-    Ci-dessous est un exemple d'entrée.
-    L'entrée peut être allumée ou éteinte.
-    Dans le cas où elle est allumée, l'entrée fournit un <i>signal</i> de valeur 1.
-    Lorsque elle est éteinte, l'entrée fournit un signal de valeur 0.
+    Ci-dessous est un exemple schématique d'entrée.
+    L'entrée est représentée par un bouton qui peut être allumé ou éteint.
+    Dans le cas où il est allumé, l'entrée fournit un <i>signal</i> de valeur 1.
+    Lorsque il est éteint, l'entrée fournit un signal de valeur 0.
     <i>Dans le schéma de circuit ci-dessous, vous pouvez allumer ou éteindre l'entrée en cliquant dessus, essayez !</i>
 </p>
 
@@ -73,7 +80,7 @@ $tryout$
 </p>
 
 <p>
-    À noter que pour l'instant, l'entrée n'est pas reliée à d'autres composants.
+    À noter que pour l'instant, l'entrée n'est pas reliée à des composants.
     À part l'allumer ou l'éteindre, cliquer dessus ne fait rien.
 </p>
 $endtryout$

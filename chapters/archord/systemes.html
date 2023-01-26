@@ -1,0 +1,318 @@
+---
+title: Systèmes et signaux
+order: 0
+---
+
+<p>
+    Comme mentioné en introduction à ce chapitre,
+    les ordinateurs sont des exemples de circuits électroniques.
+    Ces circuits sont formés de composants reliés entre eux par des fils.
+    On parle de <i>système</i> pour désigner un tel ensemble de composants interconnectés.
+    Ci-dessous est présenté un schéma d'un système,
+    qui est composé de trois composants reliés entre eux par des fils.
+</p>
+
+
+<style>
+.system {
+    display: block;
+    margin: 40px auto;
+}
+</style>
+
+<!-- SVG diagram of a system -->
+<div class="scroll-x">
+<svg width="400" height="250" class="system">
+    <defs>
+        <marker id="arrow" markerWidth="4" markerHeight="3" 
+        refX="0" refY="1.5" orient="auto">
+            <polygon points="0 0, 4 1.5, 0 3" />
+        </marker>
+    </defs>
+
+    <!-- Top-Left -->
+    <rect x="80" y="70" width="70" height="50" fill="#777" stroke="black" stroke-width="2" />
+
+    <!-- Top-Right -->
+    <rect x="260" y="40" width="50" height="70" fill="#777" stroke="black" stroke-width="2" />
+
+    <!-- Bottom -->
+    <rect x="160" y="150" width="60" height="60" fill="#777" stroke="black" stroke-width="2" />
+
+    <!-- Left to top-left -->
+    <line x1="0" y1="95" x2="65" y2="95" stroke="#000" 
+        stroke-width="4" marker-end="url(#arrow)" />
+
+    <!-- Left to bottom -->
+    <line x1="0" y1="180" x2="145" y2="180" stroke="#000" 
+        stroke-width="4" marker-end="url(#arrow)" />
+
+    <!-- Bottom to right -->
+    <line x1="220" y1="195" x2="380" y2="195" stroke="#000" 
+        stroke-width="4" marker-end="url(#arrow)" />
+    
+    <!-- Bottom to top-right -->
+    <path d="M 220 165 h 45 q 20 0 20 -20 v -20"
+        stroke="#000" stroke-width="4" fill="none" marker-end="url(#arrow)" />
+
+    <!-- Top-right to right 1 -->
+    <line x1="310" y1="60" x2="380" y2="60" stroke="#000" 
+        stroke-width="4" marker-end="url(#arrow)" />
+
+    <!-- Top-right to right 2 -->
+    <line x1="310" y1="90" x2="380" y2="90" stroke="#000" 
+        stroke-width="4" marker-end="url(#arrow)" />
+
+    <!-- Top-left to bottom -->
+    <path d="M 150 105 h 20 q 20 0 20 20 v 10"
+        stroke="#000" stroke-width="4" fill="none" marker-end="url(#arrow)" />
+
+    <!-- Top-left to top-right -->
+    <line x1="150" y1="85" x2="245" y2="85" stroke="#000" 
+        stroke-width="4" marker-end="url(#arrow)" />
+</svg>
+</div>
+
+<p>
+    Les composants d'un système opèrent généralement
+    de concert dans le but de réaliser une tâche bien précise.
+    La tâche en question peut être très simple, comme par exemple
+    allumer une ampoule, ou plus complexe, comme par exemple
+    calculer la racine carrée d'un nombre.
+</p>
+
+<p>
+    De manière intéressante, certains composants peuvent lire et
+    transmettre des informations
+    hors du système, depuis ou vers des entités extérieures, comme par exemple
+    des utilisateurs humains ou encore d'autres systèmes.
+    Les fils qui entrent et sortent du système sont appelés
+    ses <i>entrées</i> et ses <i>sorties</i>.
+    Les entrées et les sorties forment ce qu'on appelle
+    l'<i>interface</i> du système.
+</p>
+
+<!-- SVG diagram of a system -->
+<div class="scroll-x">
+<svg width="600" height="250" class="system">
+    <defs>
+        <marker id="arrow" markerWidth="4" markerHeight="3" 
+        refX="0" refY="1.5" orient="auto">
+            <polygon points="0 0, 4 1.5, 0 3" fill="black" />
+        </marker>
+
+        <marker id="arrow-red" markerWidth="4" markerHeight="3" 
+        refX="0" refY="1.5" orient="auto">
+            <polygon points="0 0, 4 1.5, 0 3" fill="red" />
+        </marker>
+
+        <marker id="arrow-blue" markerWidth="4" markerHeight="3" 
+        refX="0" refY="1.5" orient="auto">
+            <polygon points="0 0, 4 1.5, 0 3" fill="blue" />
+        </marker>
+    </defs>
+    <!-- Vertical text -->
+    <text x="50" y="125" transform="rotate(-15 50 125)" fill="red" text-anchor="middle">Entrées</text>
+    <text x="550" y="125" transform="rotate(15 550 125)" fill="blue" text-anchor="middle">Sorties</text>
+
+    <g transform="translate(100 0)">
+        <!-- Top-Left -->
+        <rect x="80" y="70" width="70" height="50" fill="#777" stroke="black" stroke-width="2" />
+
+        <!-- Top-Right -->
+        <rect x="260" y="40" width="50" height="70" fill="#777" stroke="black" stroke-width="2" />
+
+        <!-- Bottom -->
+        <rect x="160" y="150" width="60" height="60" fill="#777" stroke="black" stroke-width="2" />
+
+        <!-- Left to top-left -->
+        <line x1="0" y1="95" x2="65" y2="95" stroke="red" 
+            stroke-width="4" marker-end="url(#arrow-red)" />
+
+        <!-- Left to bottom -->
+        <line x1="0" y1="180" x2="145" y2="180" stroke="red" 
+            stroke-width="4" marker-end="url(#arrow-red)" />
+
+        <!-- Bottom to right -->
+        <line x1="220" y1="195" x2="380" y2="195" stroke="blue" 
+            stroke-width="4" marker-end="url(#arrow-blue)" />
+        
+        <!-- Bottom to top-right -->
+        <path d="M 220 165 h 45 q 20 0 20 -20 v -20"
+            stroke="#000" stroke-width="4" fill="none" marker-end="url(#arrow)" />
+
+        <!-- Top-right to right 1 -->
+        <line x1="310" y1="60" x2="380" y2="60" stroke="blue" 
+            stroke-width="4" marker-end="url(#arrow-blue)" />
+
+        <!-- Top-right to right 2 -->
+        <line x1="310" y1="90" x2="380" y2="90" stroke="blue" 
+            stroke-width="4" marker-end="url(#arrow-blue)" />
+
+        <!-- Top-left to bottom -->
+        <path d="M 150 105 h 20 q 20 0 20 20 v 10"
+            stroke="#000" stroke-width="4" fill="none" marker-end="url(#arrow)" />
+
+        <!-- Top-left to top-right -->
+        <line x1="150" y1="85" x2="245" y2="85" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+    </g>
+</svg>
+</div>
+
+<p>
+    Certains composants peuvent également lire et transmettre des informations
+    à l'extérieur du système par d'autres biais que des fils.
+    On peut penser par exemple à des boutons que l'on peut appuyer ou à des ampoules qui peuvent émettre de la lumière.
+    Ces composants sont aussi considérés comme des entrées ou des sorties du système.
+    Nous en parlerons plus en détails dans la section suivante.
+</p>
+
+<h3>Abstraction</h3>
+
+<p>
+    Il est intéressant de noter que les composants sont généralement eux-mêmes des systèmes,
+    constitués à leur tour de composants.
+    En opérant un mouvement d'abstraction, on peut considérer
+    un système comme une <i>boîte noire</i> dont on ne
+    considère pas le fonctionnement interne, mais seulement
+    son comportement en terme d'entrées et de sorties.
+    Suivant le niveau de détail auquel on s'intéresse,
+    on ira ou pas regarder à l'intérieur de ces boites noires.
+    Ainsi, une fois qu'on a construit un système, on peut
+    le considérer comme un composant et l'intégrer à un autre système,
+    voire plusieurs.
+</p>
+
+<!-- SVG diagram of a system -->
+<div class="scroll-x">
+<svg width="400" height="250" class="system">
+    <defs>
+        <marker id="arrow" markerWidth="4" markerHeight="3" 
+        refX="0" refY="1.5" orient="auto">
+            <polygon points="0 0, 4 1.5, 0 3" />
+        </marker>
+    </defs>
+
+    <!-- System -->
+    <rect x="40" y="10" width="320" height="230" fill="#ccc" stroke="black" stroke-width="3" />
+
+    <!-- Top-Left -->
+    <rect x="80" y="70" width="70" height="50" fill="#777" stroke="black" stroke-width="2" />
+
+    <!-- Top-Right -->
+    <rect x="260" y="40" width="50" height="70" fill="#777" stroke="black" stroke-width="2" />
+
+    <!-- Bottom -->
+    <rect x="160" y="150" width="60" height="60" fill="#777" stroke="black" stroke-width="2" />
+
+    <!-- Left to top-left -->
+    <line x1="0" y1="95" x2="65" y2="95" stroke="#000" 
+        stroke-width="4" marker-end="url(#arrow)" />
+
+    <!-- Left to bottom -->
+    <line x1="0" y1="180" x2="145" y2="180" stroke="#000" 
+        stroke-width="4" marker-end="url(#arrow)" />
+
+    <!-- Bottom to right -->
+    <line x1="220" y1="195" x2="380" y2="195" stroke="#000" 
+        stroke-width="4" marker-end="url(#arrow)" />
+    
+    <!-- Bottom to top-right -->
+    <path d="M 220 165 h 45 q 20 0 20 -20 v -20"
+        stroke="#000" stroke-width="4" fill="none" marker-end="url(#arrow)" />
+
+    <!-- Top-right to right 1 -->
+    <line x1="310" y1="60" x2="380" y2="60" stroke="#000" 
+        stroke-width="4" marker-end="url(#arrow)" />
+
+    <!-- Top-right to right 2 -->
+    <line x1="310" y1="90" x2="380" y2="90" stroke="#000" 
+        stroke-width="4" marker-end="url(#arrow)" />
+
+    <!-- Top-left to bottom -->
+    <path d="M 150 105 h 20 q 20 0 20 20 v 10"
+        stroke="#000" stroke-width="4" fill="none" marker-end="url(#arrow)" />
+
+    <!-- Top-left to top-right -->
+    <line x1="150" y1="85" x2="245" y2="85" stroke="#000" 
+        stroke-width="4" marker-end="url(#arrow)" />
+</svg>
+</div>
+
+<h3>Signaux électriques</h3>
+
+<p>
+    Les différents composants d'un système sont reliés entre eux
+    par des fils par lesquels circulent des signaux électriques.
+</p>
+<p>
+    Dans un système numérique, comme un ordinateur,
+    de tels signaux électriques véhiculent
+    des informations numériques sous la forme de 0 et 1.
+    Suivant la tension appliquée sur un fil, on considère que le fil
+    transmet un signal de valeur 0 ou de valeur 1.
+    Bien entendu, la valeur transmise sur un fil peut changer
+    au cours du temps.
+    Par exemple, le signal émit par un bouton peut changer
+    de valeur lorsque l'on appuie sur le bouton.
+    La valeur du signal transmit à une diode sur votre écran
+    peut changer en fonction de ce qui doit être affiché à l'écran.
+</p>
+
+<style>
+    .logic-frame {
+        width: 350px;
+        border: 0;
+        margin: auto;
+        margin-bottom: 40px;
+        margin-top: 40px;
+    }
+</style>
+
+$tryout$
+<p>
+    Dans ce chapitre, nous allons nous intéresser à de nombreux systèmes,
+    de plus en plus complexes.
+    Très souvent, nous allons représenter des systèmes par des schémas.
+    Ces schémas, grâce au travail de <a href="https://github.com/jppellet/Logic-Circuit-Simulator">Jean-Philippe Pellet</a>, sont interactifs.
+    Par exemple, dans le schéma ci-dessous, il est possible de cliquer sur les entrées du système pour observer son comportement.
+</p>
+
+<script src="/js/logic-simulator.js"></script>
+
+
+<div class="logic-frame" style="height: 160px;">
+    <logic-editor mode="tryout" hidereset>
+      <script type="application/json">
+        {
+          "v": 4,
+          "in": [
+            {"pos": [20, 20], "id": 0, "val": 0},
+            {"pos": [20, 60], "id": 1, "val": 0},
+            {"pos": [20, 100], "id": 2, "val": 0},
+            {"pos": [20, 140], "id": 3, "val": 0}
+          ],
+          "out": [
+            {"type": "7seg", "pos": [280, 90], "id": [26, 27, 28, 29, 30, 31, 32, 33]}
+          ],
+          "components": [
+            {"type": "decoder-7seg", "pos": [150, 80], "in": [4, 5, 6, 7], "out": [8, 9, 10, 11, 12, 13, 14]}
+          ],
+          "wires": [[2, 6], [3, 7], [1, 5], [0, 4], [8, 26], [9, 27], [10, 28], [11, 29], [12, 30], [13, 31], [14, 32]]
+        }
+      </script>
+    </logic-editor>
+  </div>
+
+  <p>
+    Ici, le système a quatre entrées et aucune sortie filaire visible.
+    En guise de sortie, nous avons un afficheur, appelé <i>afficheur à 7 segments</i>.
+    En fonction des entrées, l'afficheur affiche un chiffre entre 0 et 9 ou une lettre entre A et F.
+  </p>
+
+  <p>
+    Dans le reste de ce chapitre, nous allons voir comment construire de tels systèmes.
+  </p>
+
+  $endtryout$
