@@ -1,0 +1,269 @@
+---
+title: Boucles
+order: 4
+---
+
+<script type="text/javascript" src="/js/codeplay.min.js"></script>
+
+<p>
+    Dans cette section, nous allons apprendre à écrire des programmes qui peuvent
+    répéter plusieurs fois un bloc de code.
+</p>
+
+<p>
+    Pour cela, nous allons utiliser des <i>boucles</i>. Une boucle est une
+    <i>structure de contrôle</i> qui permet de répéter un bloc de code à 
+    plusieurs reprises.
+</p>
+
+<p>
+    En Python, il existe deux types de boucles :
+    <ul>
+        <li>La boucle <code>while</code> qui répète un bloc de code tant qu'une condition est vraie.</li>
+        <li>La boucle <code>for</code> qui répète un bloc de code pour toutes les valeurs dans une collection de valeurs,
+        comme par exemple un interval.</li>
+    </ul>
+</p>
+
+<h2>La boucle <code>while</code></h2>
+
+<p>
+    La boucle <code>while</code> permet de répéter un bloc de code tant qu'une condition est vraie.
+    Voici un exemple de code qui utilise une boucle <code>while</code> :
+</p>
+
+$codeplay$
+compteur = 0
+
+while compteur < 10:
+    print(compteur)
+    compteur = compteur + 1
+
+print("Fin du programme.")
+$endcodeplay$
+
+$tryout$
+<p>
+    Essayez d'exécuter le programme ci-dessus.
+    Qu'arrive-t-il ?
+</p>
+$endtryout$
+
+<p>
+    Le programme commence par définir une variable <code>compteur</code> qui vaut 0.
+    Ensuite, on utilise la structure de contrôle <code>while</code> pour répéter un bloc de code
+    tant que la condition <code>compteur < 10</code> est vraie.
+    Dans ce bloc de code, on affiche la valeur de la variable <code>compteur</code> et on incrémente
+    la variable <code>compteur</code> de 1.
+    Une fois que la condition n'est plus vraie, on sort de la boucle et on affiche un message pour
+    indiquer que le programme est terminé.
+</p>
+
+<p>
+    Notez que le bloc de code qui est répété doit être indenté, suivant les mêmes règles que pour les
+    instructions conditionnelles vues dans la section précédente.
+</p>
+
+<p>
+    Lorsque Python exécute une boucle <code>while</code>, il commence par évaluer la condition.
+    Si la condition est vraie, alors le bloc de code est exécuté.
+    Ensuite, Python évalue à nouveau la condition.
+    Si la condition est toujours vraie, alors le bloc de code est exécuté à nouveau.
+    Et ainsi de suite, jusqu'à ce que la condition devienne fausse.
+    Une fois que le calcul de la condition donne <code>False</code>, Python sort de la boucle et
+    continue l'exécution du programme.
+</p>
+
+$remark$
+<p>
+    Il est possible que la condition d'une boucle <code>while</code> ne soit jamais fausse.
+    Dans ce cas, le programme ne s'arrêtera jamais, sauf si on interrompt son exécution.
+    On appelle ce genre de boucles des <i>boucles infinies</i>.
+    Le plus souvent, ce genre de boucle est une erreur de programmation,
+    mais il peut arriver que ce soit voulu.
+</p>
+$endremark$
+
+$remark$
+<p>
+    On appelle une <i>itération</i> le fait de répéter une fois le bloc de code d'une boucle.
+    Dans l'exemple ci-dessus, la boucle <code>while</code> est répétée 10 fois.
+    Lors de la première itération, la valeur <code>0</code> est affichée.
+    Lors de la deuxième itération, la valeur <code>1</code> est affichée.
+    Et ainsi de suite jusqu'à ce que la valeur <code>9</code> soit affichée,
+    lors de la dernière itération.
+</p>
+$endremark$
+
+<p>
+    La condition d'une boucle <code>while</code> est calculée lorsque
+    Python rencontre la boucle lors de l'exécution, puis est recalculée après chaque itération.
+    Si le calcul de la condition a des effets de bord, alors ces effets de bord seront
+    répétés à chaque itération.
+    Voici un exemple de code qui illustre ce point :
+</p>
+
+$codeplay$
+while input("Entrez 0, s'il vous plaît : ") != "0":
+    print("Vous n'avez pas entré 0, non mais...")
+
+print("Vous avez fini par entrer 0.")
+print("Merci !")
+$endcodeplay$
+
+$tryout$
+<p>
+    Essayez d'exécuter le programme ci-dessus.
+    Qu'arrive-t-il lorsque vous entrez 0 ?
+    Et si vous entrez autre chose ?
+</p>
+$endtryout$
+
+<p>
+    Le programme utilise une boucle <code>while</code> pour répéter un bloc de code tant que
+    l'utilisateur n'a pas entré un <code>0</code>.
+    La condition de la boucle est <code>input("Entrez 0, s'il vous plaît : ") != "0"</code>.
+    Notez que cette condition est calculée avant chaque éventuelle itération,
+    c'est pourquoi l'utilisateur est invité à entrer une valeur à chaque fois.
+</p>
+
+<h2>La boucle <code>for</code></h2>
+
+<p>
+    La boucle <code>for</code> permet de répéter un bloc de code pour toutes les valeurs
+    dans une <i>collection</i> de valeurs.
+    Voici un exemple de code qui utilise une boucle <code>for</code> :
+</p>
+
+$codeplay$
+print("Début du programme.")
+
+for i in range(10):
+    print(i)
+
+print("Fin du programme.")
+$endcodeplay$
+
+<p>
+    La syntaxe de la boucle <code>for</code> est la suivante :
+    <ul>
+        <li>Tout d'abord, on utilise le mot-clé <code>for</code> pour indiquer que l'on va utiliser une boucle <code>for</code>.</li>
+        <li>Ensuite, après un espace, on donne un nom de variable qui va successivement contenir les différentes valeurs de la collection de valeurs.
+            En général, on utilise la lettre <code>i</code> pour ce nom de variable.
+        </li>
+        <li>Ensuite, après un nouvel espace, on entre le mot-clé <code>in</code>.</li>
+        <li>Après un nouvel espace, on donne la collection de valeurs.</li>
+        <li>On termine la ligne par un deux-points <code>:</code>.</li>
+        <li>Après cela, on donne le bloc de code qui sera répété pour chaque valeur de la collection de valeurs.
+            Ce bloc de code doit être indenté.</li>
+    </ul>
+</p>
+
+<h3>La fonction <code>range</code></h3>
+
+<p>
+    Dans l'exemple plus haut, la collection de valeurs est <code>range(10)</code>.
+    La fonction <code>range</code> permet de créer une collection de valeurs comprises dans un interval.
+    Lorsqu'on ne lui fournit qu'un seul argument, l'interval est de 0 à l'argument non-compris.
+    Il est aussi possible de donner deux arguments à la fonction <code>range</code>.
+    Dans ce cas, le premier argument est la valeur de départ de l'interval et le second argument est la valeur de fin, à nouveau non-comprise.
+</p>
+
+$codeplay$
+for i in range(5, 10):
+    print(i)
+$endcodeplay$
+
+<p>
+    La fonction <code>range</code> peut aussi prendre un troisième argument.
+    Dans ce cas, cet argument est le <i>pas</i> de l'interval : la distance qui sépare
+    deux valeurs consécutives dans l'interval.
+    Par exemple :
+</p>
+
+$codeplay$
+for i in range(3, 10, 2):
+    print(i)
+$endcodeplay$
+
+<p>
+    Notez que le calcul qui donne la collection de valeurs est effectué une seule fois.
+    Observez par exemple le code suivant :
+</p>
+
+$codeplay$
+for i in range(int(input("Jusqu'à combien voulez-vous compter ? "))):
+    print(i)
+$endcodeplay$
+
+<p>
+    Lorsque le code ci-dessus est exécuté,
+    Python demande à une unique reprise à l'utilisateur de saisir un nombre.
+    En effet, le calcul <code>range(int(input("Jusqu'à combien voulez-vous compter ? ")))</code>
+    n'est effectué qu'une seule fois, avant l'exécution des itérations de la boucle.
+</p>
+
+<h3>Autres collections de valeurs</h3>
+
+<p>
+    Il existe d'autres collections de valeurs que la fonction <code>range</code>.
+    Nous verrons d'autres exemples de collections de valeurs dans les prochains chapitres.
+</p>
+
+<h2>Combiner les boucles</h2>
+
+<p>
+    Il est possible d'imbriquer des boucles, comme on a imbriqué 
+    des instructions conditionnelles dans le chapitre précédent.
+    On parle dans ce cas de <i>boucles imbriquées</i>.
+    Cela signifie que l'on peut mettre une boucle à l'intérieur d'une autre boucle.
+    Voici un exemple de code qui utilise des boucles imbriquées :
+</p>
+
+$codeplay$
+for i in range(10):
+    for j in range(10):
+        print(i, j)
+$endcodeplay$
+
+<p>
+    Lorsque le code ci-dessus est exécuté,
+    la première boucle est exécutée 10 fois.
+    Pour chaque itération de la première boucle, la deuxième boucle est exécutée 10 fois.
+    Ainsi, le code <code>print(i, j)</code> est exécuté 100 fois.
+</p>
+
+$remark$
+<p>
+    On utilise souvent la lettre <code>j</code> pour le nom de variable de la boucle
+    imbriquée. Si l'on a besoin d'une troisième boucle imbriquée, on utilise la lettre
+    <code>k</code>, et ainsi de suite.
+</p> 
+$endremark$
+
+<p>
+    De même, il est possible de combiner les boucles <code>while</code> et les boucles <code>for</code>.
+    Tout comme il est possible de combiner les instructions conditionnelles et les boucles.
+    Considérez l'exemple de code suivant :
+</p>
+
+$codeplay$
+n = int(input("Entrez un nombre : "))
+
+while n &gt; 0:
+    for i in range(n):
+        if i % 2 == 0:
+            print(i, "est pair.")
+        else:
+            print(i, "est impair.")
+    
+    n = int(input("Entrez à nouveau un nombre : "))
+
+
+if n == 0:
+    print("Vous avez entré 0.")
+else:
+    print("Vous avez entré un nombre négatif.")
+
+print("Fin du programme.")
+$endcodeplay$

@@ -128,6 +128,7 @@ baseContext base =
     markupField "remark" <>
     markupField "tryout" <>
     markupField "objectives" <>
+    markupField "codeplay" <>
     field "indexUrl" indexUrlField <>
     field "id" (return . toFilePath . itemIdentifier) <>
     functionField "youtube" youtubeFun <>

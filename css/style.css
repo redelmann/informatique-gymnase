@@ -61,7 +61,7 @@ ul, ol {
 }
 
 code, .truth-table th, .code {
-    font-family: "Courier New", Courier, monospace !important;
+    font-family: "Consolas", "Courier New", Courier, monospace !important;
     font-size: 1.2em;
 }
 
@@ -346,7 +346,7 @@ select.self-pick {
 
 .expr {
     font-size: inherit;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Consolas", 'Courier New', Courier, monospace;
 }
 
 .expr-input, .expr-inter-input {
@@ -358,7 +358,7 @@ select.self-pick {
 .expr-input input, .expr-inter-input input {
     font-size: inherit;
     flex-grow: 1;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Consolas", 'Courier New', Courier, monospace;
 }
 
 .expr-input input::placeholder, .expr-inter-input input::placeholder {
@@ -429,7 +429,7 @@ table.truth-table tr.correct {
     margin-bottom: 40px;
     overflow-x: auto;
     white-space: nowrap;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Consolas", 'Courier New', Courier, monospace;
     font-size: 1.2em;
 }
 
@@ -513,7 +513,7 @@ table.truth-table tr.correct {
     font-size: 0.8em;
     margin-right: 10px;
     text-transform: uppercase;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Consolas", 'Courier New', Courier, monospace;
 }
 
 .bernays .bar {
@@ -580,7 +580,7 @@ table.truth-table tr.correct {
     text-anchor: middle;
     dominant-baseline: middle;
     font-size: 1.2em;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Consolas", 'Courier New', Courier, monospace;
 }
 
 .expr-tree text.label.active {
@@ -609,6 +609,25 @@ table.truth-table tr.correct {
     margin: 40px auto;
 }
 
+table.operators {
+    margin: 20px auto;
+    border-collapse: separate !important;
+    border: 1px solid rgb(199, 199, 199);
+    border-radius: 5px;
+}
+
+table.operators tr:nth-child(odd) {
+    background-color: rgb(250, 250, 250);
+}
+
+table.operators td, table.operators th {
+    padding: 5px 10px;
+}
+
+table.operators td:first-child {
+    text-align: center;
+}
+
 @media print {
     p + p {
         text-indent: 2em;
@@ -625,7 +644,7 @@ table.truth-table tr.correct {
 }
 
 @media (min-width: 768px) {
-    html {
+    body {
         font-size: 14pt;
     }
 

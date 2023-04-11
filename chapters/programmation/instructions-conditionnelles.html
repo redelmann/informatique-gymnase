@@ -1,0 +1,254 @@
+---
+title: Instructions conditionnelles
+order: 3
+---
+
+<script type="text/javascript" src="/js/codeplay.min.js"></script>
+
+<p>
+    Dans cette section, nous allons apprendre à écrire des programmes qui peuvent
+    décider ou non d'exécuter certaines parties de leur code en fonction du résultat
+    de calculs.
+</p>
+
+<p>
+    Pour cela, nous allons utiliser des <i>instructions conditionnelles</i>. Une
+    instruction conditionnelle est une <i>structure de contrôle</i> qui permet de décider si un
+    bloc de code doit être exécuté ou non en fonction d'une <i>condition</i>.
+</p>
+
+<h2>Si: le mot-clé <code>if</code></h2>
+
+<p>
+    En Python, on utilise le mot-clé <code>if</code> pour créer une instruction
+    conditionnelle. Voici un exemple de code qui utilise une instruction conditionnelle :
+</p>
+
+$codeplay$
+mot_de_passe = input("Entrez le mot de passe : ")
+
+if mot_de_passe == "1234":
+    print("Mot de passe correct.")
+    print("Bienvenue !")
+
+print("Fin du programme.")
+$endcodeplay$
+
+$tryout$
+<p>
+    Essayez d'exécuter le programme ci-dessus.
+    Qu'arrive-t-il si vous entrez le mot de passe <code>1234</code> ?
+    Qu'arrive-t-il si vous entrez un autre mot de passe ?
+</p>
+$endtryout$
+
+<p>
+    Le programme commence par demander à l'utilisateur de saisir un mot de passe.
+    Le mot de passe est ensuite stocké dans la variable <code>mot_de_passe</code>.
+    Ensuite, on utilise la structure de contrôle <code>if</code> pour vérifier si le mot de passe
+    est bien égal à <code>1234</code>. Si c'est le cas, on affiche un message de bienvenue.
+    Autrement, on ne fait rien.
+    Ensuite, dans tous les cas, on affiche un message pour signifier la fin du programme.
+</p>
+
+<p>
+    La syntaxe d'une instruction conditionnelle est la suivante :
+    <ul>
+        <li>En premier, on inscrit le mot-clé <code>if</code>.</li>
+        <li>Ensuite, après un espace, on écrit un calcul : la <i>condition</i>.
+            Ce calcul doit résulter en un booléen (<code>True</code> ou <code>False</code>).</li>
+        <li>Après la condition, on inscrit le symbole <code>:</code> (deux-points).</li>
+        <li>Ensuite, en dessous de cette ligne, viennent les lignes de code conditionnées.
+            Ces lignes de code doivent être <i>indentées</i> (décalées vers la droite) par rapport à la ligne
+            qui contient le mot-clé <code>if</code>.
+            Toutes les lignes de code indentées de la même manière sont considérées comme faisant
+            partie du bloc de code conditionné.
+        </li>
+    </ul>
+</p>
+
+<p>
+    Lorsque le programme exécute une instruction conditionnelle, il commence par calculer la condition.
+    Si le résultat est <code>True</code>, alors le programme exécute toutes les lignes du bloc
+    de code indenté directement en dessous. Sinon, le programme ne fait rien de ces lignes de code indentées.
+    Dans tous les cas, le programme continue son exécution après le bloc de code conditionné.
+</p>
+
+$remark$
+<p>
+    L'indentation est très importante en Python, plus que dans d'autres langages de programmation.
+    En effet, c'est grâce à l'indentation que Python comprend la structure de votre code.
+    Si vous ne respectez pas les règles d'indentation,
+    vous obtiendrez une erreur de syntaxe.
+</p>
+<p>
+    En Python, on utilise généralement quatre espaces pour indenter les lignes de code.
+    Dans la plupart des éditeurs de texte pour Python,
+    lorsque vous appuyez sur la touche <code>Tab</code>,
+    quatre espaces sont insérés.
+</p>
+$endremark$
+
+<h2>Autrement: le mot-clé <code>else</code></h2>
+
+<p>
+    À l'aide du mot-clé <code>else</code>, on peut ajouter à une instruction conditionnelle
+    <code>if</code> un bloc de code qui sera exécuté uniquement si la condition est fausse.
+    Voici un exemple de code qui utilise une instruction conditionnelle avec un bloc
+    <code>else</code> :
+</p>
+
+$codeplay$
+age = int(input("Entrez votre âge : "))
+
+if age >= 18:
+    print("Vous êtes majeur.")
+    print("Vous pouvez voter.")
+else:
+    print("Vous êtes mineur.")
+    print("Vous ne pouvez pas encore voter.")
+
+print("Fin du programme.")
+$endcodeplay$
+
+$tryout$
+<p>
+    Essayez d'exécuter ce programme avec différents âges et observez l'affichage obtenu.
+    Qu'obtenez-vous lorsque l'âge entré est supérieur ou égal à 18 ?
+    Qu'obtenez-vous lorsque l'âge entré est inférieur à 18 ?
+</p>
+$endtryout$
+
+<p>
+    Dans une structure conditionnelle avec un bloc <code>else</code>,
+    la condition est toujours calculée en premier.
+    Si le résultat est <code>True</code>, alors le programme exécute toutes les lignes du bloc
+    de code indenté directement en dessous du <code>if</code>.
+    Sinon, le programme exécute toutes les lignes du bloc de code indenté directement en dessous du
+    <code>else</code>.
+    Ensuite, dans tous les cas, le programme continue son exécution après cette structure conditionnelle.
+</p>
+
+<h2>Autrement-si: le mot-clé <code>elif</code></h2>
+
+<p>
+    Le mot-clé <code>elif</code> permet d'ajouter à une instruction conditionnelle
+    <code>if</code> un bloc de code qui sera exécuté uniquement si la condition associée au <code>if</code>
+    est fausse et qu'une condition associée au <code>elif</code> est vraie.
+    Voici un exemple de code qui utilise une instruction conditionnelle avec un bloc
+    <code>elif</code> :
+</p>
+
+$codeplay$
+n = int(input("Entrez un nombre entier : "))
+
+if n &gt; 0:
+    print("Le nombre est positif.")
+elif n &lt; 0:
+    print("Le nombre est négatif.")
+else:
+    print("Le nombre est nul.")
+$endcodeplay$
+
+$tryout$
+<p>
+    Essayez d'exécuter ce programme avec différents nombres et observez l'affichage obtenu.
+</p>
+$endtryout$
+
+<p>
+    Il est même possible d'ajouter plusieurs blocs <code>elif</code> à une instruction conditionnelle.
+    Dans ce cas, le programme exécute le bloc associé au premier <code>if</code> ou <code>elif</code> dont la condition est vraie.
+    Si aucune condition n'est vraie, alors le programme exécute le bloc <code>else</code>,
+    si un tel bloc existe.
+    Voici un exemple :
+</p>
+
+$codeplay$
+age = int(input("Entrez votre âge : "))
+
+if age >= 18:
+    print("Vous pouvez conduire une voiture.")
+    print("Super !")
+elif age >= 16:
+    print("Vous pouvez conduire un scooter.")
+    print("Bien !")
+elif age >= 14:
+    print("Vous pouvez conduire un vélo-moteur.")
+    print("Pas mal !")
+else:
+    print("Vous ne pouvez pas encore conduire.")
+    print("Dommage !")
+
+print("Au revoir !")
+$endcodeplay$
+
+$tryout$
+<p>
+    Essayez d'exécuter ce programme avec différents âges et observez l'affichage obtenu.
+</p>
+$endtryout$
+
+<h2>Combiner les structures conditionnelles</h2>
+
+<p>
+    Il est possible d'<i>imbriquer</i> plusieurs structures conditionnelles les unes dans les autres.
+    Pour cela, il suffit d'augmenter l'indentation des lignes de code qui sont dans le bloc de code
+    imbriqué.
+    Cela permet de créer des structures conditionnelles plus complexes. Par exemple:
+</p>
+
+$codeplay$
+n = int(input("Entrez un nombre : "))
+
+if n > 0:
+    print("Le nombre est positif.")
+
+    if n % 2 == 0:
+        print("De plus, le nombre est pair.")
+    else:
+        print("De plus, le nombre est impair.")
+elif n == 0:
+    print("Le nombre est exactement 0.")
+else:
+    print("Le nombre est négatif.")
+$endcodeplay$
+
+$tryout$
+<p>
+    Essayez d'exécuter ce programme avec différents nombres et observez l'affichage obtenu.
+    Qu'obtenez-vous lorsque le nombre est positif ?
+    Qu'obtenez-vous lorsque le nombre est négatif ?
+    Qu'obtenez-vous lorsque le nombre est exactement 0 ?
+    Est-ce que vous obtenez toujours le même affichage si le nombre est pair ou impair ?
+    Si ce n'est pas le cas, pour quelles nombres obtenez-vous des affichages différents ?
+</p>
+$endtryout$
+
+<p>
+    De même, il est possible de suivre une structure conditionnelle par une autre structure conditionnelle (ou tout autre code),
+    comme dans l'exemple suivant :
+</p>
+
+$codeplay$
+n = int(input("Entrez un nombre : "))
+
+if n > 0:
+    print("Le nombre est positif.")
+elif n < 0:
+    print("Le nombre est négatif.")
+
+if n % 2 == 0:
+    print("Le nombre est pair.")
+else:
+    print("Le nombre est impair.")
+
+# Le programme pourrait même continuer ici.
+$endcodeplay$
+
+$tryout$
+<p>
+    Essayez d'exécuter ce programme avec différents nombres et observez les différents affichages obtenus.
+    Combien d'affichage différents pouvez-vous obtenir ?
+</p>
+$endtryout$

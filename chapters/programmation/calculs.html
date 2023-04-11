@@ -1,0 +1,311 @@
+---
+title: Calculer avec Python
+order: 0
+---
+
+<script type="text/javascript" src="/js/codeplay.min.js"></script>
+
+<p>
+    Au cœur des langages de programmation se trouve la notion de <i>calcul</i>.
+    Exécuter un programme, c'est effectuer des calculs.
+    C'est via l'exécution de ces calculs que l'ordinateur réalise des tâches.
+</p>
+
+<p>
+    Considérons ensemble un premier exemple de programme.
+    Examinez le programme suivant puis exécutez-le :
+</p>
+
+$codeplay$
+print(1 + 2)
+$endcodeplay$
+
+<p>
+    Ce programme consiste en:
+    <ul>
+        <li>Une addition entre le nombre 1 et le nombre 2,</li>
+        <li>Un appel à la <i>fonction</i> <code>print</code> pour afficher le résultat à l'écran.</li>
+    </ul>
+    Lorsqu'il est exécuté, le programme commence par effectuer l'addition,
+    ce qui donne le résultat de 3. Ce résultat de 3 est ensuite passé à la fonction <code>print</code>
+    qui l'affiche (ici dans le zone de sortie en dessous du code).
+</p>
+
+<p>
+    En plus des opérations usuelles comme l'addition ou la multiplication,
+    que l'on représente par des symboles comme <code>+</code> ou <code>*</code>,
+    Python permet d'appeler des <i>fonctions</i> dans les calculs.
+    Pour appeler une fonction, on écrit le nom de la fonction suivi d'une séries d'<i>arguments</i> entre parenthèses et séparés par des virgules.
+    Dans l'exemple plus haut, <code>print</code> est une fonction que l'on appelle avec un seul argument.
+    Cet argument est le (résultat du) calcul <code>1 + 2</code>.
+    Dans l'exemple ci-dessous, il y a deux fonction différentes, <code>max</code> et <code>print</code>.
+    Notez que <code>max</code> est appelée avec deux arguments, qui sont séparés par une virgule.
+</p>
+
+$codeplay$
+print(max(6, 2))
+$endcodeplay$
+
+<p>
+    Il existe de nombreuses fonctions dans Python, et vous en découvrirez de nouvelles au fur et à mesure de votre apprentissage.
+    Vous apprendrez également à écrire vos propres fonctions.
+</p>
+
+<p>
+    Avant de se plonger dans les détails des différentes fonctions et opérations à votre disposition
+    quand vous programmez en Python, il est important de comprendre comment
+    Python effectue les calculs. Pour cela il nous faut comprendre
+    la notion de <i>priorité des opérateurs</i>, d'<i>effets de bord</i> et <i>d'ordre de calcul</i>.
+    Nous examinerons aussi brièvement la notion de <i>commentaires</i>.
+</p>
+
+<h3>Priorité des opérateurs</h3>
+
+<p>
+    Pour les calculs avec plusieurs opérations, Python
+    applique les règles habituelles que vous avez apprises en mathématiques
+    pour déterminer comment lire le calcul.
+    Tout comme en mathématiques, il est possible d'utiliser des paranthèses
+    pour préciser la structure d'un calcul.
+</p>
+
+<p>
+    Par exemple, considérez le programme suivant :
+</p>
+
+$codeplay$
+print(2 * 3 + 1 * 4)
+$endcodeplay$
+
+<p>
+    Le programme affiche le résultat du calcul <code>2 * 3 + 1 * 4</code> soit <code>10</code>.
+    En effet, en l'absence de parenthèse, Python considère que les opérations
+    de multiplication ont une priorité plus élevée que celles d'addition.
+    C'est pourquoi le calcul ici est lu comme <code>(2 * 3) + (1 * 4)</code>.
+</p>
+
+<p>
+    Notez que l'on peut utiliser des parenthèses pour préciser comment grouper
+    les opérations.
+    Par exemple, le programme suivant utilise des parenthèses pour
+    clarifier la structure du calcul.
+    Il affiche le même résultat que le précédent :
+</p>
+
+$codeplay$
+print((2 * 3) + (1 * 4))
+$endcodeplay$
+
+<p>
+    En regroupant différemment les opérations, on peut obtenir un résultat différent.
+    Par exemple, dans le programme suivant les parenthèses sont utilisées pour
+    donner une autre structure au calcul :
+</p>
+
+$codeplay$
+print(2 * (3 + 1) * 4)
+$endcodeplay$
+
+<p>
+    On utilisera des parenthèses pour préciser le groupement
+    des opérations quand la structure d'un calcul sera complexe,
+    même si ces parenthèses ne sont pas toujours strictement nécessaires.
+</p>
+
+<h2>Effets de bord</h2>
+
+<p>
+    Certaines opérations ont des <i>effets de bord</i> : elles font plus que simplement calculer une valeur.
+    Par exemple, la fonction <code>print</code> affiche son <i>argument</i> à l'écran comme effet de bord.
+</p>
+<p>
+    Notez ici que la fonction <code>print</code> ne donne elle-même aucun <i>résultat</i> intéressant.
+    En Python, on utilise la valeur <code>None</code> pour représenter cette absence de valeur intéressante.
+    La valeur obtenue lorsque l'on appelle la fonction <code>print</code> est donc <code>None</code>,
+    ce que l'on peut vérifier en exécutant le programme suivant :
+</p>
+
+$codeplay$
+print(print(1 + 2))
+$endcodeplay$
+
+<p>
+    La première ligne affichée en sortie correspond au résultat du calcul <code>1 + 2</code>,
+    alors que la deuxième ligne correspond au résultat du calcul <code>print(1 + 2)</code>.
+</p>
+
+<p>
+    La fonction <code>print</code> n'est donc en général pas utilisée
+    pour calculer quoi que ce soit d'intéressant mais uniquement
+    pour son effet de bord, à savoir afficher son argument à l'écran.
+</p>
+
+<p>
+    Au contraire, certaines opérations n'ont pas d'effets de bord, comme l'addition.
+    Si on exécute le programme suivant, on remarque qu'il n'affiche rien :
+</p>
+
+$codeplay$
+1 + 2
+$endcodeplay$
+
+<p>
+    Lorsque l'on exécute ce programme, Python effectue bien l'addition, mais ne fait rien de ce résultat.
+    Il est important de se souvenir que, lorsque l'on désire afficher le résultat d'un calcul, il faut
+    faire appel à la fonction <code>print</code>.
+</p>
+
+<h2>Ordre de calcul</h2>
+
+<p>
+    Python effectue les calculs en suivant un ordre bien précis.
+    Pour calculer le résultat d'une opération comme un addition ou
+    un appel de fonction, Python commence par calculer les valeurs des arguments,
+    de gauche à droite. Une fois que tous les arguments ont été calculés,
+    Python effectue l'opération. Lorsque les arguments sont eux-mêmes des opérations,
+    alors le même procédé est appliqué: Python commence par calculer les arguments
+    de l'opération, de gauche à droite, puis il effectue l'opération.
+</p>
+
+$codeplay$
+print(print(1), print(2))
+print(print(4), print(5))
+$endcodeplay$
+
+<p>
+    Lorsqu'il y a plusieurs lignes de codes, Python effectue les calculs dans l'ordre des lignes.
+</p>
+
+<p>
+    En présence d'opérations avec des effets de bord,
+    notez que l'ordre de calcul prend toute son importance.
+</p>
+
+<h2>Les commentaires</h2>
+
+<p>
+    Les programmes Python peuvent contenir des commentaires,
+    qui sont des lignes de texte qui ne sont pas exécutées par Python
+    mais qui permettent d'expliquer le code à un éventuel lecteur.
+    Parmi les lecteurs potentiels de votre code, on peut citer vous-même
+    (lorsque vous reviendrez sur votre code après un certain temps),
+    ou un autre programmeur qui voudrait comprendre votre code.
+</p>
+
+<p>
+    Pour écrire un commentaire, on utilise le symbole <code>#</code>.
+    Tout ce qui suit le symbole <code>#</code> sur la même ligne est ignoré par Python.
+</p>
+
+$codeplay$
+# Ceci est un commentaire.
+print(1 + 2)  # Ceci est aussi un commentaire.
+
+# print(3 + 4)
+# La ligne précédente est un commentaire, elle ne sera pas exécutée.
+$endcodeplay$
+
+<p>
+    Savoir quand et comment bien commenter du code est une compétence importante
+    mais qui ne peut être apprise qu'avec l'expérience.
+    Souvent, les programmeurs débutants paraphrasent le code en commentaire,
+    ce qui n'est pas très utile. À la place, on essayera de donner des informations
+    qui ne sont pas évidentes à partir du code lui-même.
+</p>
+
+$selfcheck$
+<p>
+    La valeur du calcul <code>5 + 2 * 7</code> en Python est
+    <select class="self-pick code">
+        <option>5</option>
+        <option>14</option>
+        <option data-correct>19</option>
+        <option>21</option>
+        <option>49</option>
+        <option>527</option>
+    </select>, alors que la valeur du calcul <code>(5 + 2) * 7</code> est
+    <select class="self-pick code">
+        <option>5</option>
+        <option>14</option>
+        <option>19</option>
+        <option>21</option>
+        <option data-correct>49</option>
+        <option>527</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Pour afficher quelque chose à l'écran, on utilise la fonction
+    <code>print</code>. La fonction a pour
+    <select class="self-pick">
+        <option>résultat</option>
+        <option data-correct>effet de bord</option>
+        <option>argument</option>
+    </select> d'afficher son
+    <select class="self-pick">
+        <option data-correct>argument</option>
+        <option>résultat</option>
+        <option>effet de bord</option>
+    </select> à l'écran.
+    Le résultat du calcul de la fonction <code>print</code> est toujours la valeur
+    <select class="self-pick code">
+        <option>0</option>
+        <option data-correct>None</option>
+        <option>True</option>
+        <option>False</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Lorsqu'un programme est exécuté,
+    Python effectue les calculs dans un ordre
+    <select class="self-pick">
+        <option>aléatoire</option>
+        <option data-correct>précis</option>
+        <option>indéterminé</option>
+    </select>.
+    Lorsque le programme contient plusieurs lignes de code,
+    Python effectue les calculs de
+    <select class="self-pick">
+        <option>bas en haut</option>
+        <option data-correct>haut en bas</option>
+    </select>.
+    Lors du calcul d'une opération, Python commence par calculer les valeurs des arguments,
+    en commençant par ceux de
+    <select class="self-pick">
+        <option data-correct>gauche</option>
+        <option>droite</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Pour entrer un commentaire en Python, on utilise le symbole
+    <select class="self-pick code">
+        <option>?</option>
+        <option data-correct>#</option>
+        <option>/</option>
+        <option>%</option>
+        <option>!</option>
+    </select>.
+    Tout ce qui suit le symbole sur la même ligne sera
+    <select class="self-pick">
+        <option>exécuté</option>
+        <option data-correct>ignoré</option>
+        <option>affiché</option>
+        <option>calculé</option>
+    </select> par Python.
+</p>
+$endselfcheck$
+
+<p>
+    Dans la prochaine section,
+    nous allons voir différents types de données que
+    l'on peut manipuler en Python, ainsi que certaines opérations
+    que l'on peut effectuer sur ces données.
+</p>

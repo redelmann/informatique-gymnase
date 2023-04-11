@@ -3,4 +3,151 @@ title: Programmation avec Python
 order: 3
 ---
 
-<p><i>À venir !</i></p>
+<p>
+    Ce chapitre est consacré à une introduction à la programmation.
+    Nous allons apprendre à écrire exécuter, lire, analyser et écrire des programmes simples.
+    Nous allons étudier les concepts de base de la programmation, tels que les variables, les boucles et les fonctions.
+</p>
+
+<h2>Pourquoi apprendre à programmer ?</h2>
+
+<p>
+    Savoir programmer est une compétence qui pourrait vous être très utile dans votre vie professionnelle future.
+    Les metiers ayant besoin de compétences en programmation sont nombreux, et ils sont en constante évolution et
+    sont généralement très bien rémunérés.
+    Programmer est même l'activité principale de certains métiers.
+</p>
+
+$remark$
+<p>
+    On appelle <i>développeur</i> ou <i>développeuse</i> une personne dont
+    la tâche principale est d'écrire des programmes.
+    Les développeurs sont souvent employés par des entreprises, mais ils peuvent aussi travailler en tant qu'indépendant.
+    Ils sont trés recherchés sur le marché du travail, et les salaires sont généralement très élevés.
+</p>
+$endremark$
+
+<p>
+    En plus de cet aspect pragmatique, la programmation est un excellent moyen de développer
+    votre esprit logique et votre capacité à résoudre des problèmes.
+    Apprendre à programmer, c'est apprendre à être méthodique, à structurer son raisonnement,
+    à penser de manière abstraite.
+    Ces compétences vous seront utiles même si vous ne devenez pas développeur ou développeuse par la suite.
+</p>
+
+<h2>Le langage Python</h2>
+
+<p>
+    Pour programmer, c'est-à-dire écrire des programmes, il nous faudra ce qu'on appelle un <i>langage de programmation</i>.
+    Un langage de programmation est un langage qui permet de décrire des programmes de façon  précise,
+    de telle manière à ce qu'un ordinateur puisse les comprendre.
+    Il existe de nombres langages de programmation, chacun avec ses domaines d'application de prédilection
+    et ses spécificités. Dans le cadre de ce cours, nous allons utiliser le langage Python.
+</p>
+
+<p>
+    Python est un langage de programmation populaire et est considéré comme facile à apprendre et à utiliser.
+    Il est utilisé dans de nombreux domaines, de la recherche scientifique à la programmation d'applications web.
+    De par sa simplicité, il est un bon langage pour apprendre les bases de la programmation.
+</p>
+
+$remark$
+<p>
+    Le langage Python a été créé par le développeur <a href="https://fr.wikipedia.org/wiki/Guido_van_Rossum">Guido van Rossum</a> en 1991.
+    Le nom Python vient de la troupe de comiques britaniques <a href="https://fr.wikipedia.org/wiki/Monty_Python">les Monty Python</a>.
+    Depuis sa création, le langage Python a connu de nombreuses évolutions, et est maintenant maintenu par une
+    <a href="https://www.python.org/psf/">association</a> de développeurs.
+</p>
+$endremark$
+
+<h2>Outils</h2>
+
+<p>
+    Pour programmer, nous aurons besoin d'un éditeur de texte (un programme qui permet d'écrire du texte)
+    et d'un interpréteur Python (un programme qui permet d'exécuter du code Python).
+    Dans le cadre des séances d'exercices, nous allons utiliser <a href="https://thonny.org">Thonny</a>, un programme qui
+    combine ces deux outils en un seul.
+    Je vous invite fortement à l'installer sur votre propre ordinateur à la maison
+    si vous en avez la possibilité.
+</p>
+
+<p>
+    Sur le site ici présent, lorsque du code Python sera présenté, il sera affiché dans des boîtes comme celle-ci :
+
+<script type="text/javascript" src="/js/codeplay.min.js"></script>
+
+$codeplay$
+print("Hello, world!")
+$endcodeplay$
+</p>
+
+<p>
+    Le bouton <i>Exécuter</i> en haut à droite de la boîte permet d'exécuter le code Python présent dans la boîte directement
+    dans votre navigateur sans avoir à installer un éditeur comme Thonny, et ce même depuis votre
+    smartphone ou une tablette.
+    De plus, il est possible de modifier le code et de l'exécuter à nouveau directement sur le site.
+    Cet environnement est idéal pour tester des bouts de code Python lors de la lecture de ce chapitre,
+    mais il est moins pratique pour écrire des programmes plus longs ou pour les sauvegarder.
+</p>
+
+<h2>Erreurs</h2>
+
+<p>
+    Lorsqu'on écrit un programme, il est très fréquent de faire des erreurs.
+    Il est donc important de savoir comment les détecter et les corriger.
+    Lorsqu'on exécute un programme et que Python rencontre une erreur, il s'arrête et
+    affiche un message d'erreur qui nous indique l'erreur en question et
+    où se trouve l'opération qui a causé l'erreur dans le code.
+</p>
+
+<p>
+    Un type d'erreur très fréquent est l'<i>erreur de syntaxe</i>.
+    Une erreur de syntaxe est une erreur qui se produit lorsqu'on écrit un programme
+    qui ne respecte pas les règles du langage.
+    Par exemple, il y a une erreur de syntaxe dans le programme suivant :
+</p>
+
+$codeplay$
+print("Hello, world!"
+$endcodeplay$
+
+<p>
+    L'erreur de syntaxe est qu'il manque une parenthèse fermante.
+    Python s'attend à ce qu'il y ait une parenthèse fermante à la fin de la ligne,
+    mais il n'en trouve pas.
+    À la place, il trouve la fin du programme (<code>EOF</code>, pour <i>End Of File</i>).
+    Lorsqu'on exécute ce programme, Python affiche donc un message d'erreur.
+</p>
+
+<p>
+    Python est un langage <i>formel</i> qui demande une grande précision
+    dans la façon dont on écrit le code.
+    Cette précision est nécessaire pour que le programme soit compris par l'ordinateur
+    sans ambiguïté aucune.
+    Mais cette rigueur a un coût : on doit être très attentif lorsqu'on écrit un programme.
+    Il ne sera donc pas rare de faire des erreurs en programmant.
+    C'est tout à fait normal, il est juste important de ne pas se décourager à la vue de ces erreurs.
+    Très souvent, ces erreurs sont faciles et rapides à corriger,
+    pour autant que l'on prenne le temps de bien lire le message qui accompagne ces erreurs.
+</p>
+
+$objectives$
+<p>
+    À la fin de ce chapitre, vous serez capable :
+    <ul>
+        <li>D'effectuer des calculs avec Python.</li>
+        <li>D'expliquer le concept de variables.</li>
+        <li>D'expliquer le fonctionnement de différentes structures de contrôle.</li>
+        <li>D'analyser le fonctionnement de programmes Python simples.</li>
+        <li>De concevoir des programmes Python simples faisant usage :
+            <ul>
+                <li>de variables,</li>
+                <li>d'entrées et de sorties,</li>
+                <li>d'instructions conditionnelles,</li>
+                <li>de boucles,</li>
+                <li>de fonctions.</li>
+            </ul>
+        </li>
+    </ul>
+</p>
+$endobjectives$

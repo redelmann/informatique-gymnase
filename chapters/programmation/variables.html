@@ -1,0 +1,330 @@
+---
+title: Variables
+order: 2
+---
+
+<script type="text/javascript" src="/js/codeplay.min.js"></script>
+
+<p>
+    Dans cette section, nous allons nous intéresser aux <i>variables</i>.
+    Les variables sont un moyen de stocker des données dans la mémoire de travail d'un programme.
+    Chaque variable a un <i>nom</i> et permet de stocker une <i>valeur</i> ; valeur qui peut être modifiée au fil de l'exécution du programme.
+    Nous allons voir comment <i>assigner</i> une valeur à une variable et comment <i>utiliser</i> cette variable
+    dans des calculs.
+</p>
+<p>
+    Avant de plonger des explications plus techniques,
+    considérons ensemble un exemple de programme qui utilise une variable :
+</p>
+
+$codeplay$
+x = 23
+print(x)
+$endcodeplay$
+
+<p>
+    Le programme ci-dessus contient deux lignes de code.
+    La première ligne <i>assigne</i> la valeur <code>23</code> à la variable <code>x</code>.
+    La deuxième ligne <i>utilise</i> la variable <code>x</code> dans un calcul.
+    Ce calcul a pour effet de bord d'afficher la valeur de la variable <code>x</code>, ici <code>23</code>, à l'écran.
+</p>
+
+$remark$
+<p>
+    À noter que le symbole <code>=</code> n'est pas à confondre avec l'opérateur <code>==</code>.
+    Comme nous l'avons vu dans la section précédente,
+    l'opérateur <code>==</code> est utilisé pour calculer si deux valeurs sont égales.
+    L'unique symbole <code>=</code> est utilisé pour assigner une valeur à une variable,
+    comme nous allons le voir dans la suite de cette section.
+</p>
+$endremark$
+
+<h2>Assignation</h2>
+
+<p>
+    Pour assigner une valeur à une variable, on utilise le symbole <code>=</code>.
+    Par exemple, pour assigner la valeur <code>45</code> à la variable <code>n</code>, on écrit:
+</p>
+
+$codeplay$
+n = 45
+$endcodeplay$
+
+<p>
+    Lorsqu'on exécute ce programme, rien ne s'affiche à l'écran.
+    En effet, la ligne <code>x = 45</code> a pour seul effet de bord
+    de mémoriser la valeur <code>45</code> sous le nom <code>x</code>.
+    Ici, aucune opération n'a pour effet de bord d'afficher
+    quoi que ce soit à l'écran.
+</p>
+
+$remark$
+<p>
+    La durée de vie d'une variable est limitée à la durée de vie du programme.
+    Une fois l'exéction du programme terminée, toutes les variables sont effacées de la mémoire de travail.
+    Pour se souvenir d'une valeur entre deux exécutions d'un programme,
+    il faudra utiliser d'autre mécanismes, comme par exemple stocker des valeurs dans un <i>fichier</i>
+    ou dans une <i>base de données</i>.
+    Ces sujets seront abordés ultérieurement.
+</p>
+$endremark$
+
+<p>
+    En Python, la partie de droite d'une assignation (ce qui vient après le <code>=</code>)
+    peut être n'importe quel calcul, comme par exemple:
+</p>
+
+$codeplay$
+n = 2 + 3
+$endcodeplay$
+
+<p>
+    Dans ce cas, le calcul n'est fait qu'une seule fois, au moment de l'assignation.
+</p>
+
+<p>
+    À noter que nous ne sommes pas limités à stocker uniquement des nombres dans une variable.
+    Nous pouvons stocker n'importe quel type de données, comme par exemple des chaînes de caractères:
+</p>
+
+$codeplay$
+message = "Bonjour"
+$endcodeplay$
+
+<p>De plus, nous ne sommes pas limités à une unique variable :</p>
+
+$codeplay$
+notifications = 2 + 3
+est_connecte = True
+message_accueil = "Bonjour"
+$endcodeplay$
+
+$remark$
+<p>
+    Généralement, on essaiera de donner des noms de variables qui ont du sens
+    en rapport avec la valeur qu'elles stockent.
+    Par exemple, on préférera utiliser <code>age</code> plutôt que <code>x</code>
+    pour stocker l'âge d'une personne, ou <code>nom</code> plutôt que <code>y</code>
+    pour stocker le nom d'une personne.
+    Pour des variables qui représentes des choses moins concrètes,
+    on pourra toutefois utiliser des noms plus courts,
+    comme <code>n</code> ou <code>x</code>.
+</p>
+
+<p>
+    En Python, les noms de variables sont sensibles à la casse.
+    Cela signifie que <code>age</code>, <code>Age</code> et <code>AGE</code> sont trois variables différentes.
+</p>
+
+<p>
+    Pour former un nom de variable valide en Python, nous pouvons utiliser toutes les lettres de l'alphabet,
+    les chiffres et le symbole <code>_</code>.
+    Le nom d'une variable ne peut pas commencer par un chiffre.
+    De plus, on préférera écrire les noms de variables en minuscules et sans accents.
+    Comme on ne peut pas utiliser d'espaces, on utilisera le symbole <code>_</code> pour séparer les mots
+    composant le nom d'une variable s'ils sont plusieurs.
+    Par exemple, on pourra utiliser le nom <code>nom_de_famille</code> pour stocker un nom de famille,
+    mais pas <code>nom de famille</code>.
+</p>
+$endremark$
+
+<h2>Utilisation</h2>
+
+<p>
+    Pour utiliser une variable dans un calcul, on écrit simplement son nom.
+    Par exemple, pour calculer le double de la valeur stockée dans la variable <code>n</code>,
+    on écrit simplement <code>2 * n</code>, comme dans l'exemple suivant :
+</p>
+
+$codeplay$
+n = 45  # On assigne la valeur 45 à la variable n
+print(2 * n)  # On utilise la variable n dans un calcul
+$endcodeplay$
+
+<p>
+    Lorsqu'on fait usage d'une variable qui n'a pas encore été assignée,
+    Python nous renvoie une erreur.
+</p>
+
+$codeplay$
+print(n)
+$endcodeplay$
+
+<p>
+    Une fois assignée, une variable peut être utilisée dans n'importe quel calcul
+    et n'importe combien de fois.
+</p>
+
+$codeplay$
+n = 2
+print(n)
+print(n + 1)
+print(n * n)
+$endcodeplay$
+
+<p>
+    Notez qu'utiliser une variable dans un calcul n'a pas pour effet de changer sa valeur.
+    Peut importe l'opération effectuée sur une variable, tant que la variable n'est pas <i>réassignée</i>,
+    sa valeur ne change pas.
+</p>
+
+<p>
+    Comme nous l'avons mentionné précédemment,
+    le calcul qui se trouve à droite du symbole <code>=</code> est effectué une seule fois,
+    au moment de l'assignation.
+    Lorsqu'on utilise une variable, on ne fait que réutiliser la valeur qui a été calculée
+    lors de l'assignation. On ne recalcule pas la valeur.
+    Par exemple, dans le code suivant, bien que la variable <code>n</code> soit utilisée
+    dans deux calculs différents, le calcul qui se trouve à droite du symbole <code>=</code>
+    n'est effectué qu'une seule fois :
+</p>
+
+$codeplay$
+n = 2 + 3
+print(n)
+print(2 * n)
+$endcodeplay$
+
+<p>
+    Pour vérifier ce phénomène, on peut utiliser une fonction avec effet de bord,
+    comme <code>input</code> :
+</p>
+
+$codeplay$
+nom = input("Bonjour, votre nom: ")
+print(nom)
+print(nom)
+$endcodeplay$
+
+<p>
+    Comme il y a un unique affichage de la chaîne de caractères <code>"Bonjour, votre nom: "</code>,
+    on peut conclure que le calcul qui se trouve à droite du symbole <code>=</code>
+    n'est effectué qu'une seule fois, et ce bien que la variable <code>nom</code>
+    soit utilisée à plusieurs reprises dans la suite du programme.
+</p>
+
+<h2>Réassignation</h2>
+
+<p>
+    Une variable peut être réassignée à tout moment dans le programme
+    en utilisant à nouveau le symbole <code>=</code>.
+    Par exemple :
+</p>
+
+$codeplay$
+n = 2
+print(n)
+n = 3
+print(n)
+$endcodeplay$
+
+<p>
+    Lorsqu'on réassigne une variable, la valeur précédente est perdue.
+    En effet, Python ne conserve pas en mémoire toutes les valeurs qui ont été assignées à une variable,
+    mais seulement la dernière valeur assignée.
+</p>
+
+<p>
+    Notez que lors du calcul de la valeur à assigner à une variable,
+    on peut utiliser la valeur de la variable elle-même.
+    Par exemple, pour doubler la valeur d'une variable <code>n</code>,
+    on peut écrire <code>n = n * 2</code>, comme dans le programme suivant :
+</p>
+
+$codeplay$
+n = 8
+print(n)
+n = n * 2
+print(n)
+$endcodeplay$
+
+$remark$
+<p>
+    Les réassignations où une simple opération est appliquée sur une variable sont très courantes en Python,
+    c'est pourquoi Python propose une syntaxe plus concise pour ce type de réassignation.
+    À la place d'écrire <code>n = n * 2</code>, on peut écrire <code>n *= 2</code>.
+    Cela fonctionne aussi pour de nombreux autres opérateurs comme <code>+</code>, <code>-</code> etc.
+</p>
+$endremark$
+
+<h3>Incrémentation</h3>
+
+<p>
+    Une opération de réassignation très courante est l'<i>incrémentation</i>.
+    <i>Incrémenter</i> une variable consiste à lui ajouter une valeur donnée, appelée <i>incrément</i>.
+    Très souvent, l'incrément est égal à <code>1</code>.
+    Pour incrémenter une variable <code>n</code> de <code>1</code>, on peut écrire <code>n = n + 1</code>,
+    ou encore, plus simplement, <code>n += 1</code>.
+</p>
+
+<h3>Échange de variables</h3>
+
+<p>
+    Grâce à la réassignation, il est possible d'échanger les valeurs de deux variables.
+    Cependant, si l'on essaie de le faire sans trop réfléchir, on peut se retrouver
+    avec une solution incorrecte. Essayez le code suivant et essayez de comprendre la sortie :
+</p>
+
+$codeplay$
+a = 1
+b = 2
+print(a, b)
+a = b
+b = a
+print(a, b)
+$endcodeplay$
+
+<p>
+    À la ligne 4, on assigne une nouvelle valeur à la variable <code>a</code>.
+    La nouvelle valeur est la valeur de la variable <code>b</code>, qui est <code>2</code>.
+    Après cette ligne, la variable <code>a</code> contient donc la valeur <code>2</code>.
+    À la ligne 5, on assigne une nouvelle valeur à <code>b</code>.
+    La nouvelle valeur est la valeur de la variable <code>a</code>.
+    Or, la variable <code>a</code> contient maintenant la valeur <code>2</code>,
+    et non plus la valeur <code>1</code>.
+    Après cette ligne, la variable <code>b</code> contient donc la valeur <code>2</code>.
+    C'est pourquoi la sortie du programme est <code>2 2</code>,
+    car les deux variables contiennent la même valeur.
+    Les variables <code>a</code> et <code>b</code> n'ont pas échangé leurs valeurs.
+</p>
+
+<p>
+    Une solution correcte pour échanger les valeurs de deux variables consiste à utiliser
+    une troisième variable, qu'on appelle une variable temporaire.
+    Voyez le code suivant :
+</p>
+
+$codeplay$
+a = 1
+b = 2
+print(a, b)
+temp = a
+a = b
+b = temp
+print(a, b)
+$endcodeplay$
+
+$remark$
+<p>
+    La solution idiomatique en Python consiste à utiliser une <i>assignation multiple</i>.
+    C'est-à-dire à assigner plusieurs variables en même temps, comme dans l'exemple suivant :
+</p>
+
+$codeplay$
+a = 1
+b = 2
+print(a, b)
+a, b = b, a
+print(a, b)
+$endcodeplay$
+
+<p>
+    Dans ce genre d'assignation multiple, on sépare les variables par des virgules,
+    et on sépare les valeurs à leur assigner par des virgules également.
+    Lors d'une assignation multiple, toutes les valeurs de droite sont calculées (de gauche à droite)
+    avant que les assignations ne soient effectuées.
+    L'assignation multiple permet donc de facilement échanger les valeurs de plusieurs variables
+    sans avoir à utiliser de variables temporaires.
+</p>
+
+$endremark$
