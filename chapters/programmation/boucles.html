@@ -21,7 +21,7 @@ order: 4
     <ul>
         <li>La boucle <code>while</code> qui répète un bloc de code tant qu'une condition est vraie.</li>
         <li>La boucle <code>for</code> qui répète un bloc de code pour toutes les valeurs dans une collection de valeurs,
-        comme par exemple un interval.</li>
+        comme par exemple un intervalle.</li>
     </ul>
 </p>
 
@@ -163,10 +163,10 @@ $endcodeplay$
 
 <p>
     Dans l'exemple plus haut, la collection de valeurs est <code>range(10)</code>.
-    La fonction <code>range</code> permet de créer une collection de valeurs comprises dans un interval.
-    Lorsqu'on ne lui fournit qu'un seul argument, l'interval est de 0 à l'argument non-compris.
+    La fonction <code>range</code> permet de créer une collection de valeurs comprises dans un intervalle.
+    Lorsqu'on ne lui fournit qu'un seul argument, l'intervalle est de 0 à l'argument non-compris.
     Il est aussi possible de donner deux arguments à la fonction <code>range</code>.
-    Dans ce cas, le premier argument est la valeur de départ de l'interval et le second argument est la valeur de fin, à nouveau non-comprise.
+    Dans ce cas, le premier argument est la valeur de départ de l'intervalle et le second argument est la valeur de fin, à nouveau non-comprise.
 </p>
 
 $codeplay$
@@ -176,8 +176,8 @@ $endcodeplay$
 
 <p>
     La fonction <code>range</code> peut aussi prendre un troisième argument.
-    Dans ce cas, cet argument est le <i>pas</i> de l'interval : la distance qui sépare
-    deux valeurs consécutives dans l'interval.
+    Dans ce cas, cet argument est le <i>pas</i> de l'intervalle : la distance qui sépare
+    deux valeurs consécutives dans l'intervalle.
     Par exemple :
 </p>
 
@@ -267,3 +267,157 @@ else:
 
 print("Fin du programme.")
 $endcodeplay$
+
+$tryout$
+<p>
+    Inspectez le code ci-dessus et essayez de comprendre ce qu'il fait.
+    Ensuite, exécutez le code et entrez différents nombres 
+    pour vérifier votre compréhension.
+</p>
+$endtryout$
+
+<h2>Sortir d'une boucle avec <code>break</code></h2>
+
+<p>
+    Il est possible de sortir d'une boucle (<code>while</code> ou <code>for</code>) à tout moment en utilisant l'instruction <code>break</code>.
+    Par exemple, considérez le code suivant :
+</p>
+
+$codeplay$
+while True:
+    n = int(input("Entrez un nombre : "))
+    if n == 0:
+        break
+    print("Vous avez entré", n)
+$endcodeplay$
+
+<p>
+    Lorsque Python rencontre le mot-clé <code>break</code> lors de l'exécution d'une boucle,
+    il sort immédiatement de la boucle.
+    Dans le cas de boucles imbriquées, l'instruction <code>break</code> permet de sortir de la boucle la plus imbriquée.
+</p>
+
+$codeplay$
+
+for i in range(5):
+    for j in range(5):
+        if i == j:
+            break
+        print(i, j)
+$endcodeplay$
+
+<p>
+    Dans le code ci-dessus, l'instruction <code>break</code> permet de sortir de la boucle la plus imbriquée
+    lorsque la valeur de <code>i</code> est égale à la valeur de <code>j</code>.
+    Notez que seule la boucle la plus imbriquée est interrompue.
+    La boucle externe continue à s'exécuter normalement.
+</p>
+
+<h2>Passer à l'itération suivante avec <code>continue</code></h2>
+
+<p>
+    Le mot-clé <code>continue</code> permet de passer directement à l'itération suivante d'une boucle
+    (<code>while</code> ou <code>for</code>).
+    Par exemple, considérez le code suivant :
+</p>
+
+$codeplay$
+for i in range(10):
+    if i % 3 == 0:
+        continue
+    print(i)
+$endcodeplay$
+
+<p>
+    Lorsque Python rencontre l'instruction <code>continue</code> dans une boucle,
+    il passe directement à l'itération suivante de la boucle.
+    Ainsi, dans le code ci-dessus, les valeurs <code>0</code>, <code>3</code>,
+    <code>6</code> et <code>9</code> ne sont pas affichées.
+</p>
+
+<p>
+    Dans le cas de boucles imbriques, comme pour l'instruction <code>break</code>,
+    l'instruction <code>break</code> agit sur la boucle la plus imbriquée.
+</p>
+
+$remark$
+<p>
+    En pratique, on tâchera de limiter l'utilisation des instructions <code>break</code> et <code>continue</code>.
+    En effet, leur utilisation peut rendre le code plus difficile à comprendre.
+    Cependant, dans certains cas, elles peuvent être utiles et permettre d'écrire un code plus concis
+    et plus compréhensible.
+</p>
+$endremark$
+
+
+$selfcheck$
+<p>
+    En Python, pour exécuter un bloc de code tant qu'une condition est vraie,
+    on utilise une boucle <select class="self-pick code">
+        <option>if</option>
+        <option data-correct>while</option>
+        <option>for</option>
+    </select>, tandis que pour exécuter un bloc de code pour chaque élément d'une collection,
+    on utilise une boucle <select class="self-pick code">
+        <option>if</option>
+        <option>while</option>
+        <option data-correct>for</option>
+    </select>.
+$endselfcheck$
+
+$selfcheck$
+<p>
+    La fonction <code>range</code> permet de créer une collection de valeurs comprises dans un intervalle.
+    Lorsqu'on ne lui fournit qu'un seul argument, l'intervalle est de <select class="self-pick">
+        <option data-correct>0 (compris)</option>
+        <option>0 (non-compris)</option>
+        <option>l'argument (compris)</option>
+        <option>l'argument (non-compris)</option>
+    </select> à <select class="self-pick">
+        <option>0 (compris)</option>
+        <option>0 (non-compris)</option>
+        <option>l'argument (compris)</option>
+        <option data-correct>l'argument (non-compris)</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Adaptez le code suivant afin qu'il affiche la table de multiplication de 7 de 0 à 10.
+    Utilisez une boucle.
+</p>
+$codeplay$
+
+n = 7
+print("Table de multiplication de", n, " :")
+
+print(1, "fois", n, "égal", 1 * n)
+print(2, "fois", n, "égal", 2 * n)
+$endcodeplay$
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Concevez un programme qui affiche la table de multiplication de tous les nombres entiers de 2 à 10 par les nombres de 2 à 10.
+    Utilisez une boucle imbriquée.
+</p>
+
+$codeplay$
+
+$endcodeplay$
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Concevez un programme qui demande à l'utilisateur de saisir un mot de passe
+    et qui lui redemande tant que le mot de passe n'est pas correct.
+    Vous pouvez choisir le mot de passe que vous voulez.
+    Une fois le mot de passe correct saisi, le programme affiche un message de bienvenue.
+</p>
+
+$codeplay$
+
+$endcodeplay$
+$endselfcheck$
+

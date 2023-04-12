@@ -27,8 +27,8 @@ order: 1
 </p>
 
 $codeplay$
-print(True or False)
 print("Bonjour" + " " + "le monde")
+print(True or False)
 $endcodeplay$
 
 <p>
@@ -41,11 +41,11 @@ $endcodeplay$
 
 <p>
     Comme nous l'avons vu dans la section précédente, Python permet
-    de manipuler des nombres comme 1, 2 ou 3.
+    de manipuler des nombres comme <code>1</code>, <code>2</code>, <code>0</code> ou encore <code>-12</code>.
     Ces nombres sont appelés des <i>entiers</i> (ou <i>integers</i> en anglais);
     ils n'ont pas de virgule.
-    Python permet aussi de manipuler des nombres à virgule comme 1.5 ou 2.3.
-    Ces nombres sont appelés des <i>flottants</i> (ou <i>floats</i> en anglais).
+    Python permet aussi de manipuler des nombres à virgule comme <code>1.5</code> ou <code>-2.3</code>.
+    Ces nombres sont appelés des <i>nombres à virgule flottante</i>, ou plus simplement des <i>flottants</i> (ou <i>floats</i> en anglais).
     En Python, on utilise le point pour séparer la partie entière de la partie
     décimale.
 </p>
@@ -120,12 +120,14 @@ $remark$
 <p>
     L'opération modulo est liée à la division entière. Elle permet de
     calculer le reste de la division entière. Dans l'exemple, <code>7 % 2</code>
-    donne <code>1</code> car la dévision entière de <code>7</code> par <code>2</code>
+    donne <code>1</code> car la division entière de <code>7</code> par <code>2</code>
     (<code>7 // 2</code>) donne <code>3</code>, or
     <code>3 * 2</code> donne <code>6</code>, il y a donc <code>1</code> qui manque
     pour arriver à <code>7</code>.
     L'opération modulo retourne ce <code>1</code>.
-    Le résultat de l'opération modulo est toujours entre zéro et le nombre par lequel on divise.
+    Le résultat de l'opération modulo est toujours entre zéro (compris) et le nombre par lequel on divise (non-compris).
+    Ainsi, par exemple, calculer un nombre entier modulo <code>2</code> donnera toujours un résulat
+    soit de <code>0</code> (pour les nombres pairs) soit de <code>1</code> (pour les nombres impairs).
 </p>
 <p>
     L'opération modulo est très utile pour vérifier si un nombre est un multiple d'un autre.
@@ -147,7 +149,7 @@ $endremark$
 </p>
 
 $codeplay$
-1 / 0
+1 // 0
 $endcodeplay$
 
 <h3>Comparaisons</h3>
@@ -239,6 +241,31 @@ $endcodeplay$
         <td><code>2</code></td>
     </tr>
 </table>
+
+$remark$
+<p>
+    Les nombres à virgule flottante ont une précision limitée,
+    ce qui peut amener à des résultats étranges, surtout lorsqu'on
+    compare des nombres entre eux. Voyez plutôt :
+</p>
+
+$codeplay$
+print(0.1 + 0.2 == 0.3)
+$endcodeplay$
+
+<p>
+    Le résultat est <code>False</code> alors que l'on pourrait penser que
+    <code>0.1 + 0.2</code> est égal à <code>0.3</code>.
+    À cause de ces imprécisions, le résultat de l'addition de <code>0.1</code> et <code>0.2</code> est
+    un nombre très proche de <code>0.3</code>, mais pas tout à fait égal à <code>0.3</code>.
+</p>
+
+<p>
+    Pour cette raison, on préférera utiliser des nombres entiers
+    (ou d'autre représentation des nombres)
+    lorsqu'on aura besoin de précision.
+</p>
+$endremark$
 
 <h2>Les booléens</h2>
 
@@ -507,6 +534,91 @@ $endcodeplay$
 $codeplay$
 print("Dans 10 ans, vous aurez " + str(int(input("Quel âge avez-vous ? ")) + 10) + " ans.")
 $endcodeplay$
+
+$selfcheck$
+<p>
+    En Python, la valeur <code>1</code> est <select class="self-pick">
+        <option data-correct>un nombre entier</option>
+        <option>un nombre à virgule</option>
+        <option>une chaîne de caractères</option>
+        <option>un booléen</option>
+    </select>, alors que la valeur <code>"1"</code> est <select class="self-pick">
+        <option>un nombre entier</option>
+        <option>un nombre à virgule</option>
+        <option data-correct>une chaîne de caractères</option>
+        <option>un booléen</option>
+    </select>.
+</p>
+<p>
+    Pour convertir une chaîne de caractères en nombre entier,
+    on utilise la fonction
+    <select class="self-pick code">
+        <option>float</option>
+        <option data-correct>int</option>
+        <option>str</option>
+    </select>. Au contraire, pour convertir un nombre en chaîne de caractères,
+    on utilise la fonction
+    <select class="self-pick code">
+        <option>float</option>
+        <option>int</option>
+        <option data-correct>str</option>
+    </select>.
+$endselfcheck$
+
+$selfcheck$
+<p>
+    L'opération <code>+</code> sur les nombres correspond à
+    <select class="self-pick">
+        <option data-correct>l'addition</option>
+        <option>la soustraction</option>
+        <option>la multiplication</option>
+        <option>la division</option>
+    </select> alors que l'opération <code>+</code> sur les chaînes de caractères correspond à
+    <select class="self-pick">
+        <option>l'addition</option>
+        <option>la récupération</option>
+        <option data-correct>la concaténation</option>
+        <option>la répétition</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Pour déterminer si un nombre est le multiple d'un autre,
+    on utilise l'opérateur
+    <select class="self-pick code">
+        <option>/</option>
+        <option>//</option>
+        <option data-correct>%</option>
+        <option>*</option>
+        <option>+</option>
+    </select>. En effet, lorsque l'on applique cet opérateur à deux nombres,
+    on obtient <select class="self-pick code">
+        <option>-1</option>
+        <option data-correct>0</option>
+        <option>1</option>
+    </select> lorsque le premier nombre est un multiple du second.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    En Python, il y a deux valeurs possibles pour les booléens :
+    <select class="self-pick code">
+        <option>true, false</option>
+        <option data-correct>True, False</option>
+        <option>1, 0</option>
+        <option>yes, no</option>
+        <option>Yes, No</option>
+    </select>. Les opérations de comparaison renvoient toujours
+    <select class="self-pick">
+        <option>un nombre</option>
+        <option data-correct>un booléen</option>
+        <option>une chaîne de caractères</option>
+    </select>.
+</p>
+$endselfcheck$
 
 <p>
     Dans cette section, nous avons vu différents types de données
