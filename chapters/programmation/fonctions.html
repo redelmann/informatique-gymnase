@@ -2,3 +2,483 @@
 title: Fonctions
 order: 5
 ---
+
+<script type="text/javascript" src="/js/codeplay.min.js"></script>
+
+<p>
+    Dans cette section, nous allons apprendre à définir et à utiliser nos propres fonctions.
+    Une fonction est un morceau de code auquel on donne un nom et des paramètres.
+    Lorsqu'on <i>appelle</i> une fonction, le code qui se trouve dans la fonction est exécuté.
+</p>
+
+<h2>Définir des fonctions</h2>
+
+<p>
+    En Python, on définit une fonction avec le mot-clé <code>def</code>.
+    On donne ensuite un nom à la fonction, puis on écrit une paire de parenthèses.
+    Comme nous le verrons plus tard, c'est entre ces parenthèses que l'on indiquera les
+    <i>paramètres</i> de la fonction.
+    Enfin, on termine la ligne avec un deux-points <code>:</code> et on écrit le <i>corps</i> de la fonction
+    à l'aide d'un bloc indenté en dessous de cette première ligne.
+</p>
+
+<p>
+    Par exemple, voici la définition d'une fonction qui affiche un message de bienvenue :
+</p>
+
+$codeplay$
+def bienvenue():
+    print("Bienvenue dans ce programme !")
+    print("Amusez-vous bien !")
+$endcodeplay$
+
+<p>
+    Si on exécute ce programme, on voit que rien ne se passe.
+    C'est tout à fait normal, car on a uniquement définit la fonction <code>bienvenue</code>,
+    mais on ne l'a pas encore <i>appelée</i>.
+<p>
+
+<h2>Appeler des fonctions</h2>
+
+<p>
+    Pour appeler une fonction, on écrit son nom suivi d'une paire de parenthèses, comme à la ligne 5 du programme suivant :
+</p>
+
+$codeplay$
+def bienvenue():
+    print("Bienvenue dans ce programme !")
+    print("Amusez-vous bien !")
+    # Le corps de la fonction se termine ici.
+    # En effet, la suite du code n'est pas indentée.
+
+# La fonction bienvenue est maintenant définie.
+
+# On appelle la fonction bienvenue.
+# Cela a pour effet d'exécuter le code qui se trouve dans le corps de la fonction.
+bienvenue()
+$endcodeplay$
+
+<p>
+    Lorsque Python calcul la valeur d'un appel de fonction,
+    il exécute le code qui se trouve dans la fonction.
+</p>
+
+<p>
+    Les fonctions peuvent être appelées à plusieurs reprises.
+    Par exemple, dans le programme suivant, on appelle la fonction <code>rires</code> à
+    deux endroits différents du code.
+    Au deuxième endroit dans le code, comme l'appel apparaît dans une boucle, l'appel donne même lieu à trois
+    exécutions consécutives de la fonction lors de l'exécution du programme. Voyez-plutôt :
+</p>
+
+$codeplay$
+def rires():
+    print("HAHAHAHA !")
+
+print("Qu'est-ce qu'un canif ?")
+rires()
+input("Appuyez sur Entrée pour continuer..."")
+
+print("Un petit fien !")
+for i in range(3):
+    rires()
+$endcodeplay$
+
+$remark$
+<p>
+    On utilise le terme d'<i>appel de fonction</i>
+    pour faire référence à deux concepts relativement similaires mais qu'il est intéressant de distinguer :
+    <ul>
+        <li>Au moment de l'écriture du code, on dit qu'on <i>appelle</i> une fonction lorsqu'on écrit son nom suivi d'une paire de parenthèses dans le code d'un programme.</li>
+        <li>Au moment de l'exécution du code, on dit aussi qu'on <i>appelle</i> une fonction lorsqu'on exécute la fonction.</li>
+    </ul>
+    Le premier concept est un concept syntaxique (qui a trait à l'écriture du programme),
+    tandis que le second a trait à l'exécution du programme.
+    Un unique appel de fonction (le premier concept) peut donner lieu à plusieurs appels de la fonction (le second concept)
+    au moment de l'exécution du programme,
+    comme dans l'exemple ci-dessus.
+</p>
+$endremark$
+
+<h2>Paramètres et arguments</h2>
+
+<p>
+    Lorsqu'on définit une fonction, on peut lui donner des <i>paramètres</i>.
+    Ces paramètres sont des variables qui sont créées à l'intérieur de la fonction.
+    On indique les paramètres de la fonction entre les parenthèses de la définition de la fonction,
+    séparés par une virgule.
+    On peut alors utiliser ces paramètres dans le corps de la fonction.
+</p>
+
+$codeplay$
+def dire_bonjour(nom):  # Le paramètre est nom
+    print("Bonjour", nom, "!")  # On peut utiliser nom dans le corps de la fonction
+
+dire_bonjour("Albert")  # L'argument est "Albert"
+dire_bonjour("Berthe")  # L'argument est "Berthe"
+
+nom_utilisateur = input("Quel est votre nom ? ")
+dire_bonjour(nom_utilisateur)  # L'argument est la valeur de la variable nom_utilisateur
+$endcodeplay$
+
+<p>
+    À noter que lorsque l'on définit la fonction, on ne connait pas encore les valeurs de ces paramètres.
+    C'est lorsqu'on appelle la fonction que l'on donne les valeurs de ces paramètres
+    pour l'appel en question via les <i>arguments</i> de l'appel.
+</p>
+
+<p>
+    Lorsque l'on appelle une fonction à plusieurs paramètres,
+    on doit donner autant d'arguments que de paramètres.
+    Les arguments sont donnés dans le même ordre que les paramètres.
+    Par exemple, dans le programme suivant, la fonction <code>dire_bonjour</code> a deux paramètres :
+    <code>nom</code> et <code>vousoyer</code>.
+    Lorsqu'on appelle la fonction, on doit donc donner deux arguments :
+    le nom de la personne et si on doit la vousoyer.
+</p>
+
+$codeplay$
+def dire_bonjour(nom, vousoyer):
+    print("Bonjour", nom, "!")
+
+    if vousoyer:
+        print("Comment allez-vous ?")
+    else:
+        print("Comment vas-tu ?")
+    
+dire_bonjour("Albert", False)
+dire_bonjour("Berthe", True)
+$endcodeplay$
+
+<h2>Retourner une valeur</h2>
+
+<p>
+    Par défaut, une fonction ne retourne aucune valeur.
+    Si on affiche la valeur de l'appel d'une telle fonction, on obtient <code>None</code>.
+</p>
+
+$codeplay$
+def dire_bonjour(nom):
+    print("Bonjour", nom, "!")
+
+print(dire_bonjour("Albert"))
+$endcodeplay$
+
+$remark$
+<p>
+    On parle de <i>procédure</i> lorsqu'une fonction ne retourne aucune valeur utile.
+    Généralement, on utilise les procédures pour leurs effets de bord.
+    Par exemple, la fonction <code>print</code> est une procédure, tout comme la fonction
+    <code>dire_bonjour</code> ci-dessus.
+    On n'utilise pas leur résultat dans des calculs, mais on les appelle juste pour leurs effets de bord.
+</p>
+$endremark$
+
+<p>
+    Il est possible de faire en sorte qu'une fonction retourne une valeur.
+    Cette valeur est alors utilisée comme la valeur de l'appel de la fonction au sein des calculs
+    effectués par le programme.
+    Pour spécifier la valeur de retour d'une fonction, on utilise le mot-clé <code>return</code>,
+    suivi de la valeur de retour, comme dans l'exemple suivant :
+</p>
+
+$codeplay$
+def carre(x):
+    return x * x
+
+print(carre(3))
+print(carre(5) * 2)
+$endcodeplay$
+
+<p>
+    Lorsque Python rencontre le mot-clé <code>return</code> lors de l'exécution d'une fonction,
+    il arrête immédiatement l'exécution du corps de la fonction et utilise la valeur donnée
+    comme valeur de retour de la fonction.
+    Cette valeur de retour est alors utilisée comme la valeur de l'appel de fonction.
+</p>
+
+$codeplay$
+def valeur_absolue(x):
+    if x < 0:
+        return -x
+    
+    return x
+
+print(valeur_absolue(-3) + valeur_absolue(5))
+$endcodeplay$
+
+<p>
+    Dans le programme précédent, on a utilisé une <i>instruction conditionnelle</i> pour vérifier si la valeur de <code>x</code>
+    est négative. Si c'est le cas, on retourne la valeur de <code>-x</code> et on arrête l'exécution de la fonction.
+    Autrement, lorsque <code>x</code> n'est pas négatif, on ne rentre pas dans le bloc de l'instruction conditionnelle.
+    On passe donc directement à l'instruction suivante, où l'on retourne la valeur de <code>x</code>.
+</p>
+
+$remark$
+<p>
+    Lorsqu'une fonction retourne une valeur et n'a aucun effet de bord visible depuis l'extérieur de la fonction,
+    on parle de <i>fonction pure</i>.
+    Par exemple, la fonction <code>valeur_absolue</code> ci-dessus est une fonction pure,
+    tout comme les fonctions <code>max</code> et <code>min</code> définies de base en Python.
+    En revanche, la fonction <code>input</code> n'est pas une fonction pure, car elle a un effet de bord visible depuis l'extérieur
+    (l'affichage à l'écran et la lecture de l'entrée utilisateur).
+$endremark$
+
+<h2>Portée des paramètres et des variables</h2>
+
+<p>
+    Les paramètres et les variables définies dans le corps d'une fonction
+    sont uniquement accessibles dans le corps de la fonction.
+    On dit que ces variables ont une <i>portée locale</i>.
+    Par exemple, dans le programme suivant, le paramètre <code>nom</code> n'est pas accessible en dehors de la fonction
+    <code>dire_bonjour</code>.
+</p>
+
+$codeplay$
+def dire_bonjour(nom):
+    print("Bonjour", nom, "!")
+
+dire_bonjour("Albert")
+print(nom)
+$endcodeplay$
+
+<p>
+    Lorsqu'on exécute le code ci-dessus, Python emet une erreur
+    à l'exécution de la dernière ligne, car la variable <code>nom</code> n'est pas définie.
+    En effet, la variable <code>nom</code> n'est définie que dans le corps de la fonction <code>dire_bonjour</code>
+    (sous forme d'un paramètre).
+    Après l'exécution de la fonction, cette variable <code>nom</code> n'existe plus.
+    L'effet est le même si on définit une variable via une assignation
+    dans le corps de la fonction :
+</p>
+
+$codeplay$
+def dire_bonjour():
+    nom = "Berthe"
+    print("Bonjour", nom, "!")
+
+dire_bonjour()
+print(nom)
+$endcodeplay$
+
+<p>
+    Lorsque l'on définit un paramètre ou une variable dans le corps d'une fonction,
+    il est possible de réutiliser le même nom qu'une variable définie en dehors de la fonction.
+    Dans ce cas, la variable définie dans le corps de la fonction <i>masque</i> la variable définie en dehors de la fonction.
+    Pour le temps de l'appel de la fonction, la variable définie en dehors de la fonction n'est plus accessible.
+</p>
+
+$codeplay$
+# Une variable nom est définie en dehors de la fonction.
+nom = "Albert"
+
+def dire_bonjour(nom):
+    # Le paramètre nom masque la variable nom définie hors de la fonction.
+    print("Bonjour", nom, "!")
+
+dire_bonjour("Berthe")
+
+# La variable nom définie en dehors est de nouveau accessible.
+# Elle n'a pas été modifiée par l'appel de la fonction.
+# En effet, il s'agit de deux variables différentes.
+print(nom)
+$endcodeplay$
+
+<p>
+    Notez qu'il est possible d'utiliser une variable
+    définie en dehors de la fonction dans le corps de la fonction
+    pour autant qu'aucune paramètre ou variable locale n'ait pas le même nom.
+</p>
+
+$codeplay$
+nom_programme = "Super programme 3000"
+
+def dire_bonjour(nom):
+    print("Bonjour", nom, "!")  # nom est un paramètre
+    print("Bienvenue dans", nom_programme)  # nom_programme est définie hors de la fonction
+
+dire_bonjour("Caroline")
+
+nom_programme = "Super programme 3000, v2"
+
+dire_bonjour("Délphine")
+$endcodeplay$
+
+$remark$
+<p>
+    On parle de <i>variables globales</i> pour les variables définies en dehors de toute fonction.
+    Au contraire, on parle de <i>variables locales</i> pour les variables définies dans le corps d'une fonction.
+    Les paramètres d'une fonction sont des variables locales.
+</p>
+$endremark$
+
+<p>
+    Pour déterminer si une variable est locale ou globale, Python se base sur
+    un critère syntaxique : s'il existe une instruction d'assignation de la variable dans le code du corps de la fonction,
+    alors la variable est locale, sinon elle est globale.
+    Cette assignation n'a même pas besoin d'être exécutée pour que la variable soit considérée comme locale.
+</p>
+
+$codeplay$
+nom = "Albert"
+def dire_bonjour(dire_prenom):
+    if not dire_prenom:
+        nom = "inconnu"
+    print("Bonjour", nom, "!")
+
+dire_bonjour(False)
+dire_bonjour(True)
+$endcodeplay$
+
+<p>
+    Dans l'exemple précédent, comme il existe une instruction d'assignation de la variable <code>nom</code> dans le corps de la fonction
+    (à la ligne 4), cette variable est considérée comme locale.
+    À la ligne 5, c'est donc la variable locale qui est utilisée, et non la variable globale, et ce
+    même si l'assignation de la variable locale n'a pas été exécutée.
+    On obtient donc une erreur lors de l'appel de la fonction <code>dire_bonjour</code> à la ligne 8,
+    car la variable <code>nom</code> n'est pas définie pour cet appel.
+</p>
+
+$remark$
+<p>
+    Il est possible, mais souvent déconseillé, de modifier une variable globale depuis une fonction.
+    En Python, on peut le faire en utilisant le mot-clé <code>global</code> comme dans l'exemple suivant :
+</p>
+
+$codeplay$
+nom_programme = "Super programme 3000"
+
+def dire_bonjour(nom):
+    global nom_programme
+    nom_programme = "Super programme 3001"
+    print("Bonjour", nom, "!")
+    print("Bienvenue dans", nom_programme)
+
+dire_bonjour("Caroline")
+print(nom_programme)
+$endcodeplay$
+
+<p>
+    Dans l'exemple précédent, on a modifié la valeur de la variable globale <code>nom_programme</code>
+    depuis le corps de la fonction <code>dire_bonjour</code>.
+</p>
+<p>
+    De manière générale, il est préférable de ne pas modifier les variables globales depuis les fonctions.
+    En effet, cela peut rendre le code difficile à comprendre et à faire évoluer.
+</p>
+$endremark$
+
+<h2>Les fonctions, un outil de conception très puissant</h2>
+
+<p>
+    Les fonctions sont un outil de conception très puissant.
+    Elles permettent de décomposer le problème parfois complexe de la conception d'un programme
+    en sous-problèmes plus simples.
+    Lorsque l'on écrit un programme, on peut ainsi se concentrer sur un sous-problème à la fois,
+    à la conception d'une fonction à la fois.
+    Ensuite, on peut combiner ces fonctions pour obtenir un programme complet.
+</p> 
+
+<p>
+    Les fonctions sont également un moyen de faire <i>abstraction</i> des détails d'implémentation.
+    En effet, lorsqu'on utilise une fonction, on n'a pas besoin de connaître les détails de son implémentation.
+    On peut penser à une fonction de manière très abstraite, en se concentrant sur ce qu'elle fait,
+    et non sur la manière dont elle le fait.
+    Cela permet de rendre le code plus facile à comprendre et à modifier.
+</p>
+
+<p>
+    Finalement, les fonctions permettent de réutiliser du code.
+    En effet, définir une fonction c'est essentiellement donner un nom à un morceau de code
+    que l'on peut ensuite réutiliser à plusieurs endroits dans un programme.
+    Cela permet de réduire la quantité de code à écrire et donc de réduire le risque d'erreurs. 
+</p>
+
+$selfcheck$
+<p>
+    En Python, on utilise le mot-clé <select class="self-pick code">
+        <option>fun</option>
+        <option data-correct>def</option>
+        <option>fonction</option>
+        <option>definition</option>
+        <option>define</option>
+    </select> pour définir une fonction.
+</p>
+
+<p>
+    On utilise <select class="self-pick">
+        <option>les paramètres</option>
+        <option data-correct>l'indentation</option>
+        <option>les accolades</option>
+        <option>les parenthèses</option>
+        <option>les points-virgules</option>
+    </select> pour délimiter syntaxiquement le corps d'une fonction.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Les variables définies dans le corps d'une fonction sont appelées <select class="self-pick">
+        <option>variables fonctionnelles</option>
+        <option data-correct>variables locales</option>
+        <option>variables nationales</option>
+        <option>variables globales</option>
+        <option>variables universelles</option>
+    </select>, tandis que les variables définies en dehors de toute fonction sont appelées <select class="self-pick">
+        <option>variables fonctionnelles</option>
+        <option>variables locales</option>
+        <option>variables nationales</option>
+        <option data-correct>variables globales</option>
+        <option>variables universelles</option>
+    </select>. Les paramètres d'une fonction sont des <select class="self-pick">
+        <option>variables fonctionnelles</option>
+        <option data-correct>variables locales</option>
+        <option>variables nationales</option>
+        <option>variables globales</option>
+        <option>variables universelles</option>
+    </select>.
+</p>
+
+<p>
+    Au sein d'une fonction, on peut utiliser des variables globales ainsi que les modifier en utilisant le mot-clé <select class="self-pick code">
+        <option>local</option>
+        <option>pure</option>
+        <option data-correct>global</option>
+        <option>return</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Pour renvoyer une valeur depuis une fonction, on utilise le mot-clé <select class="self-pick code">
+        <option>local</option>
+        <option>pure</option>
+        <option>global</option>
+        <option data-correct>return</option>
+    </select>.
+    Lors de l'exécution du code d'une fonction, lorsque Python rencontre ce mot-clé,
+    il <select class="self-pick">
+        <option data-correct>arrête l'exécution</option>
+        <option>continue l'exécution</option>
+        <option>recommence l'exécution</option>
+    <select> de la fonction. La valeur renvoyée par la fonction est celle qui suit le mot-clé.
+</p>
+
+<p>
+    Une fonction qui ne renvoie pas de valeur et est uniquement utilisée pour ses effets de bord est appelée <select class="self-pick">
+        <option>une fonction pure</option>
+        <option>une fonction locale</option>
+        <option data-correct>une procédure</option>
+        <option>une fonction silencieuse</option>
+        <option>une fonction muette</option>
+    </select>.
+    Au contraire, une fonction sans effet de bord est appelée <select class="self-pick">
+        <option data-correct>une fonction pure</option>
+        <option>une fonction locale</option>
+        <option>une procédure</option>
+        <option>une fonction muette</option>
+    </select>.
+    Pour une telle fonction, la valeur renvoyée ne dépend que des arguments passés à la fonction.
+</p>
+$endselfcheck$
