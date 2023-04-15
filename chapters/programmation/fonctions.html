@@ -7,7 +7,7 @@ order: 5
 
 <p>
     Dans cette section, nous allons apprendre à définir et à utiliser nos propres fonctions.
-    Une fonction est un morceau de code auquel on donne un nom et des paramètres.
+    Une fonction est un morceau de code auquel on donne un nom et parfois des paramètres.
     Lorsqu'on <i>appelle</i> une fonction, le code qui se trouve dans la fonction est exécuté.
 </p>
 
@@ -41,7 +41,8 @@ $endcodeplay$
 <h2>Appeler des fonctions</h2>
 
 <p>
-    Pour appeler une fonction, on écrit son nom suivi d'une paire de parenthèses, comme à la ligne 5 du programme suivant :
+    Pour appeler une fonction, on écrit son nom suivi d'une paire de parenthèses,
+    comme à la ligne 11 du programme suivant :
 </p>
 
 $codeplay$
@@ -122,9 +123,10 @@ dire_bonjour(nom_utilisateur)  # L'argument est la valeur de la variable nom_uti
 $endcodeplay$
 
 <p>
-    À noter que lorsque l'on définit la fonction, on ne connait pas encore les valeurs de ces paramètres.
+    À noter que lorsque l'on définit la fonction, on ne connait pas les valeurs de ces paramètres.
     C'est lorsqu'on appelle la fonction que l'on donne les valeurs de ces paramètres
     pour l'appel en question via les <i>arguments</i> de l'appel.
+    Chaque appel peut avoir des arguments différents.
 </p>
 
 <p>
@@ -309,14 +311,20 @@ $remark$
     On parle de <i>variables globales</i> pour les variables définies en dehors de toute fonction.
     Au contraire, on parle de <i>variables locales</i> pour les variables définies dans le corps d'une fonction.
     Les paramètres d'une fonction sont des variables locales.
+    Toutes les utilisations d'un nom de variable au sein d'une fonction
+    font référence à la même variable, qu'elle soit locale ou globale.
 </p>
 $endremark$
 
 <p>
-    Pour déterminer si une variable est locale ou globale, Python se base sur
+    Pour déterminer si une variable est locale ou globale au sein d'une fonction, Python se base sur
     un critère syntaxique : s'il existe une instruction d'assignation de la variable dans le code du corps de la fonction,
-    alors la variable est locale, sinon elle est globale.
-    Cette assignation n'a même pas besoin d'être exécutée pour que la variable soit considérée comme locale.
+    alors tous les usages font référence à la variable locale.
+    Notez que cette assignation n'a même pas besoin d'être exécutée,
+    il suffit qu'elle soit écrite quelque part dans le code de la fonction.
+    Dans le cas où il n'y a aucune instruction d'assignation de la variable dans le corps de la fonction,
+    et que la variable n'est pas un paramètre de la fonction,
+    alors les usages de la variable font référence à la variable globale.
 </p>
 
 $codeplay$
