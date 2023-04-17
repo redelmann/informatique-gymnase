@@ -256,7 +256,7 @@ $endcodeplay$
 <p>
     Le résultat est <code>False</code> alors que l'on pourrait penser que
     <code>0.1 + 0.2</code> est égal à <code>0.3</code>.
-    À cause de ces imprécisions, le résultat de l'addition de <code>0.1</code> et <code>0.2</code> est
+    À cause des imprécisions de calcul, le résultat de l'addition de <code>0.1</code> et <code>0.2</code> est
     un nombre très proche de <code>0.3</code>, mais pas tout à fait égal à <code>0.3</code>.
 </p>
 
@@ -272,7 +272,7 @@ $endremark$
 <p>
     Comme mentionné précédemment, Python permet de représenter des valeurs
     de vérité et de les manipuler.
-    Pour réprésenté le vrai on utilise le mot-clé <code>True</code>,
+    Pour réprésenter le vrai on utilise le mot-clé <code>True</code>,
     alors qu'on utilise le mot-clé <code>False</code> pour représenter le faux.
 </p>
 
@@ -348,6 +348,28 @@ $endcodeplay$
     dans la suite du cours lorsque nous aborderons
     les instructions conditionnelles
     et les boucles.
+</p>
+$endremark$
+
+$remark$
+<p>
+    En Python, pour des raisons historiques,
+    les booléens sont aussi considérés comme des nombres entiers.
+    En effet, <code>True</code> est égal à <code>1</code>
+    et <code>False</code> est égal à <code>0</code>,
+    comme on peut le remarquer en exécutant le code ci-dessous.
+</p>
+
+$codeplay$
+print(True == 1)
+print(False == 0)
+$endcodeplay$
+
+<p>
+    Comme Python considére les booléens comme des nombres entiers,
+    peut utiliser tous les opérateurs arithmétiques
+    sur les booléens. Cependant, on évitera de le faire
+    lorsque cela nuira à la clarté du code.
 </p>
 $endremark$
 
