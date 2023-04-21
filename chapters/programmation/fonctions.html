@@ -152,6 +152,39 @@ dire_bonjour("Albert", False)
 dire_bonjour("Berthe", True)
 $endcodeplay$
 
+<h3>Passage par valeur</h3>
+
+<p>
+    Dans Python, les arguments d'un appel de fonction sont passés par <i>valeur</i> à la fonction.
+    Les arguments sont tout d'abord calculés, puis ensuite ils sont passés à la fonction.
+</p>
+<p>
+    Lorsque l'on passe une variable comme argument à une fonction,
+    uniquement la valeur de la variable est passée à la fonction,
+    et non la variable elle-même.
+    Si la fonction modifie la valeur d'un paramètre au sein de son corps,
+    cela n'affecte donc pas la valeur des éventuelles variables passées en argument.
+    Observez l'exemple suivant :
+</p>
+
+$codeplay$
+def doubler(x):
+    x = x * 2  # On modifie la valeur de x, le paramètre
+    print(x)  # On affiche la nouvelle valeur de x
+
+a = 5  # On crée une variable a
+doubler(a) # On appelle la fonction avec a comme argument
+print(a)  # On affiche la valeur de a, qui n'a pas changé
+
+# Même si le nom est le même, c'est une autre variable
+# qui est créée dans la fonction pour le paramètre x
+# Par exemple:
+
+x = 8  # On crée une variable x
+doubler(x)  # On appelle la fonction avec x comme argument
+print(x)  # On affiche la valeur de x, qui n'a pas changé
+$endcodeplay$
+
 <h2>Retourner une valeur</h2>
 
 <p>
