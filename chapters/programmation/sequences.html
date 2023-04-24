@@ -84,6 +84,16 @@ print(chaine[1])
 print(chaine[len(chaine) - 1])
 $endcodeplay$
 
+<p>
+    Les éléments d'une chaîne de caractères
+    sont les caractères individuels de la chaîne.
+    En Python, ces éléments sont représentés par
+    des chaînes de caractères de longueur 1.
+    D'autres langages de programmations utiliserons parfois
+    un type de données particulier pour les caractères individuel,
+    ce qui n'est pas le cas en Python.
+</p>
+
 $remark$
 <p>
     En Python, il est possible de mettre un indice négatif
@@ -165,6 +175,100 @@ $remark$
 </p>
 $endremark$
 
+<h3>Rechercher un caractère</h3>
+
+<p>
+    Il est possible de rechercher un caractère dans une chaîne de caractères
+    à l'aide de la <i>méthode</i> <code>find</code>.
+    Cette méthode renvoie l'indice du premier caractère de la chaîne
+    qui correspond au caractère recherché.
+    Si le caractère n'est pas trouvé, la méthode renvoie -1.
+</p>
+
+$codeplay$
+chaine = "Bonjour le monde !"
+print(chaine.find("o"))
+print(chaine.find("z"))
+$endcodeplay$
+
+$remark$
+<p>
+    On appelle <i>méthode</i> une fonction qui est associée à un <i>objet</i>.
+    Dans le cas présent, la méthode <code>find</code> est associée à l'objet
+    <code>chaine</code>, qui est une chaîne de caractères.
+</p>
+
+<p>
+    Nous aurons l'occasion de revenir sur les objets et les méthodes
+    à l'avenir, mais pour l'instant, il suffit de savoir que
+    pour appeler une méthode, on utilise simplement la notation <code>objet.methode()</code>.
+</p>
+$endremark$
+
+<p>
+    Notez que la méthode <code>find</code> est exlusive aux chaînes de caractères :
+    il n'est pas possible d'utiliser cette méthode sur un tuple ou une liste.
+</p>
+
+<h3>Vérifier l'appartenance d'un caractère</h3>
+
+<p>
+    Il est possible de vérifier si un caractère appartient à une chaîne de caractères
+    à l'aide de l'opérateur <code>in</code>.
+    Cet opérateur renvoie <code>True</code> si le caractère est présent dans la chaîne,
+    et <code>False</code> sinon.
+</p>
+
+$codeplay$
+chaine = "Bonjour le monde !"
+print("o" in chaine)
+print("z" in chaine)
+$endcodeplay$
+
+<p>
+    Contrairement à la méthode <code>find</code>,
+    cet opérateur fonctionne aussi sur les tuples et les listes,
+    comme nous allons le voir dans la suite de cette section.
+</p>
+
+$remark$
+<p>
+    En Python, pour noter la négation de l'opérateur <code>in</code>,
+    on peut utiliser l'opérateur <code>not</code> directement
+    devant l'opérateur <code>in</code>, comme dans l'exemple suivant :
+</p>
+
+$codeplay$
+chaine = "Bonjour le monde !"
+print("o" not in chaine)
+print("z" not in chaine)
+$endcodeplay$
+
+<p>
+    Cette notation est plus lisible que la notation <code>not "o" in chaine</code>,
+    qui est également valide mais moins naturelle.
+</p>
+$endremark$
+
+<h3>Passage en majuscule et minuscule</h3>
+
+<p>
+    Il est possible de passer une chaîne de caractères en majuscule
+    ou en minuscule à l'aide des <i>méthodes</i> <code>upper</code> et <code>lower</code>.
+</p>
+
+$codeplay$
+chaine = "Bonjour le monde !"
+print(chaine.upper())
+print(chaine.lower())
+$endcodeplay$
+
+<p>
+    Les méthodes <code>upper</code> et <code>lower</code>
+    retournent des copies de la chaîne de caractères,
+    avec les caractères en majuscule ou en minuscule.
+</p>
+
 <h2>Les tuples</h2>
 
 <p>
@@ -172,8 +276,8 @@ $endremark$
     Alors que les chaînes de caractères sont des séquences de caractères,
     les tuples sont des séquences de valeurs qui peuvent être de différents types.
     Ils sont définis à l'aide de parenthèses et les valeurs sont séparées par des virgules.
-    Les opérations que nous avons vues sur les chaînes de caractères sont aussi valables
-    pour les tuples.
+    Les opérations que nous avons vues sur les chaînes de caractères sont,
+    à quelques exceptions près, aussi valables pour les tuples.
 </p>
 
 $codeplay$
@@ -211,6 +315,387 @@ tuple_exemple = ((10, 50), (20, 30), (40, 10))
 print("Premier élément du deuxième élément:", tuple_exemple[1][0])
 $endcodeplay$
 
+<h3>Rechercher une valeur</h3>
+
+<p>
+    Il est possible de rechercher une valeur dans un tuple
+    à l'aide de la <i>méthode</i> <code>index</code>.
+    Cette méthode renvoie l'indice de la première valeur du tuple
+    qui correspond à la valeur recherchée.
+    Si la valeur n'est pas trouvée, la méthode renvoie une erreur.
+</p>
+
+<p>
+    Pour éviter cette erreur, il est possible de vérifier si la valeur est présente
+    dans le tuple à l'aide de l'opérateur <code>in</code>
+    avant d'appeler la méthode <code>index</code>.
+</p>
+
+$codeplay$
+tuple_exemple = (10, 20, 30)
+
+valeur_exemple = int(input("Entrez une valeur: "))
+
+if valeur_exemple in tuple_exemple:
+    print("L'indice de", valeur_exemple,
+          "est:", tuple_exemple.index(valeur_exemple))
+else:
+    print("La valeur", valeur_exemple,
+          "n'est pas présente dans le tuple")
+$endcodeplay$
+
 <h2>Les listes</h2>
 
-<p><i>À venir...</i></p>
+<p>
+    Les listes sont des séquences de valeurs qui sont similaires aux tuples.
+    Elles sont définies à l'aide de crochets et les valeurs sont séparées par des virgules.
+    Les opérations que nous avons vues sur les tuples,
+    ainsi que la plupart des opérations que nous avons vues sur les chaînes de caractères,
+    sont aussi valables pour les listes.
+</p>
+
+$codeplay$
+liste_exemple = [10, 20, 30]
+
+print("La liste:", liste_exemple)
+print("Longueur de la liste:", len(liste_exemple))
+print("Premier élément:", liste_exemple[0])
+print("Dernier élément:", liste_exemple[-1])
+print("Deux premiers éléments:", liste_exemple[1:3])
+
+print("Les valeurs de la liste:")
+for valeur in liste_exemple:
+    print(valeur)
+$endcodeplay$
+
+<p>
+    Cependant, contrairement aux chaînes de caractères et aux tuples,
+    les listes sont des séquences <i>mutables</i>.
+    Cela signifie que les éléments d'une liste peuvent être modifiés,
+    et la liste peut être agrandie ou réduite, le tout sans avoir
+    à réaffecter la variable contenant la liste.
+</p>
+
+<h3>Modification d'éléments</h3>
+
+<p>
+    Pour modifier un élément d'une liste <code>liste</code>
+    à un indice <code>indice</code>, on utilise la notation
+    <code>liste[indice] = valeur</code>, où <code>valeur</code> est la nouvelle valeur
+    à affecter à l'élément.
+</p>
+
+$codeplay$
+liste_exemple = [10, 20, 30]
+liste_exemple[1] = 40
+
+print("La liste:", liste_exemple)
+$endcodeplay$
+
+<p>
+    Notez que le code ci-dessus modifie la liste <code>liste_exemple</code>.
+    La variable <code>liste_exemple</code> n'est pas réaffectée
+    (à aucun moment on ne fait <code>liste_exemple = </code>),
+    mais la liste à laquelle elle fait référence a cependant été modifiée.
+</p>
+
+<h3>Ajout d'éléments</h3>
+
+$codeplay$
+liste_exemple = [10, 20, 30]
+liste_exemple.append(40)  # Ajoute 40 à la fin de la liste.
+
+print("La liste:", liste_exemple)
+$endcodeplay$
+
+<p>
+    Notez que la méthode <code>append</code> modifie la liste.
+    La valeur retournée par la méthode est <code>None</code>.
+</p>
+
+<p>
+    Il est également possible d'ajouter un élément à une liste
+    à un indice donné à l'aide de la méthode <code>insert</code>.
+    La méthode prend deux arguments: l'indice à laquelle ajouter l'élément,
+    et la valeur de l'élément.
+</p>
+
+$codeplay$
+liste_exemple = [10, 20, 30]
+liste_exemple.insert(1, 40)  # Ajoute 40 à l'indice 1 de la liste.
+print("La liste:", liste_exemple)
+$endcodeplay$
+
+<p>
+    Finalement, il est possible d'ajouter tous les éléments d'une liste
+    à la fin d'une autre liste à l'aide de la méthode <code>extend</code>,
+    comme dans l'exemple suivant :
+</p>
+
+$codeplay$
+liste_exemple = [10, 20, 30]
+liste_exemple.extend([40, 50, 60])
+print("La liste:", liste_exemple)
+$endcodeplay$
+
+<h3>Aliasing</h3>
+
+<p>
+    Il est important de comprendre que lorsque l'on affecte une liste à une variable,
+    la variable ne contient pas directement la liste,
+    mais une ce qu'on appelle une <i>référence</i> à la liste.
+    Comme les listes sont des séquences mutables, il est donc possible
+    de modifier la liste sans avoir à réaffecter la variable.
+    Techniquement, la variable contient une référence à la liste,
+    et cette référence est n'est pas modifiée lorsqu'on modifie la liste,
+    uniquement la liste elle-même.
+</p>
+
+<p>
+    Dans le cas où deux variables (ou plus) font référence à la même liste en mémoire,
+    on dit que les variables sont <i>aliasées</i>.
+    Dans ce cas, si l'on modifie la liste à l'aide d'une des variables,
+    alors la liste est modifiée pour toutes les variables qui font référence à la liste.
+</p>
+
+$codeplay$
+liste_exemple = [10, 20, 30]
+liste_exemple_alias = liste_exemple
+
+liste_exemple_alias[1] = 40
+print("La liste:", liste_exemple)
+$endcodeplay$
+
+<p>
+    Dans le code ci-dessus, la variable <code>liste_exemple_alias</code>
+    fait référence à la même liste que la variable <code>liste_exemple</code>.
+    Si on modifie la liste à l'aide de <code>liste_exemple_alias</code>,
+    alors la liste est modifiée pour <code>liste_exemple</code> aussi.
+</p>
+
+$remark$
+<p>
+    L'aliasing peut être source de confusion et de <i>bugs</i>.
+    À cause de l'aliasing, il est possible de modifier une liste
+    dans une partie du code sans s'en rendre compte,
+    ce qui peut causer de nombreux problèmes et maux de tête.
+</p>
+$endremark$
+
+<h3>Copie de listes</h3>
+
+<p>
+    Pour copier une liste et non pas faire référence à la même liste,
+    on peut utiliser la méthode <code>copy</code>.
+    Alternativement, on peut aussi noter <code>liste[:]</code>,
+    qui retourne la sous-liste de <code>liste</code> allant du début jusqu'à la fin.
+</p>
+
+$codeplay$
+liste_exemple = [10, 20, 30]
+liste_exemple_copie = liste_exemple.copy()
+
+liste_exemple_copie[1] = 40
+print("La liste originale:", liste_exemple)
+print("La copie de la liste:", liste_exemple_copie)
+$endcodeplay$
+
+<p>
+    Dans le code ci-dessus, la variable <code>liste_exemple_copie</code>
+    fait référence à une copie de la liste originale.
+    Si on modifie la liste à l'aide de <code>liste_exemple_copie</code>,
+    alors la liste originale n'est pas modifiée.
+</p>
+
+<h3>Copie profonde</h3>
+
+<p>
+    Dans le cas où la liste contient des listes,
+    la copie de la liste ne copie pas les listes contenues dans la liste.
+    La copie de la liste ne fait que copier les références aux listes.
+    Cela signifie que si on modifie une liste contenue dans la liste,
+    alors la liste originale est modifiée.
+</p>
+
+$codeplay$
+liste_exemple = [[10, 20], [30, 40]]
+liste_exemple_copie = liste_exemple.copy()
+liste_exemple_copie[0][1] = 50
+
+print("La liste originale:", liste_exemple)
+print("La copie de la liste:", liste_exemple_copie)
+$endcodeplay$
+
+<p>
+    Dans le code ci-dessus, malgré la copie de la liste,
+    la liste originale est modifiée.
+    Cela est dû au fait que la copie de la liste ne copie pas les listes
+    contenues dans la liste, mais seulement les références aux listes.
+</p>
+
+<p>
+    Pour copier une liste et ses listes contenues,
+    on peut utiliser la méthode <code>deepcopy</code> du <i>module</i> <code>copy</code>.
+    Pour cela, il faut <i>importer</i> la fonction avant de pouvoir l'utiliser.
+    Nous parlerons de modules dans la prochaine section.
+</p>
+
+$codeplay$
+from copy import deepcopy
+liste_exemple = [[10, 20], [30, 40]]
+liste_exemple_copie = deepcopy(liste_exemple)
+liste_exemple_copie[0][1] = 50
+
+print("La liste originale:", liste_exemple)
+print("La copie de la liste:", liste_exemple_copie)
+$endcodeplay$
+
+$selfcheck$
+<p>
+    La longueur d'une liste peut être obtenue en utilisant la fonction <select class="self-pick code">
+        <option>cardinality</option>
+        <option data-correct>len</option>
+        <option>length</option>
+        <option>size</option>
+    </select>.
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Pour accéder à un élément d'une sequence <code>sequence</code> en fonction
+    de son indice <code>indice</code>, on utilise la notation <select class="self-pick code">
+        <option data-correct>sequence[indice]</option>
+        <option>sequence{indice}</option>
+        <option>sequence(indice)</option>
+    </select>.
+</p>
+
+<p>
+    L'indice du premier élément d'une sequence est <select class="self-pick">
+        <option data-correct>0</option>
+        <option>1</option>
+        <option>-1</option>
+    </select>, et l'indice du dernier élément est <select class="self-pick">
+        <option>0</option>
+        <option>1</option>
+        <option data-correct>-1</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Pour noter une liste, on utilise les <select class="self-pick">
+        <option>accolades {}</option>
+        <option data-correct>crochets []</option>
+        <option>parenthèses ()</option>
+        <option>guillemets ""</option>
+    </select>, alors que pour noter un tuple,
+    on utilise les <select class="self-pick">
+        <option>accolades {}</option>
+        <option>crochets []</option>
+        <option data-correct>parenthèses ()</option>
+        <option>guillemets ""</option>
+    </select>. Dans les deux cas, les éléments sont séparés par des <select class="self-pick">
+        <option>points</option>
+        <option>points-virgules</option>
+        <option data-correct>virgules</option>
+        <option>espaces</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    L'opérateur <select class="self-pick code">
+        <option>as</option>
+        <option>of</option>
+        <option>is</option>
+        <option data-correct>in</option>
+    </select> permet de vérifier si un élément est présent dans une séquence.
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Contrairement aux chaînes de caractères et aux tuples,
+    les listes sont des séquences <select class="self-pick">
+        <option>remarquables</option>
+        <option data-correct>mutables</option>
+        <option>morphables</option>
+        <option>immuables</option>
+    </select>, ce qui signifie qu'on peut les modifier
+    après leur création.
+</p>
+
+<p>
+    Lorsque deux variables font référence à la même liste,
+    on dit que les variables sont <select class="self-pick">
+        <option>copiées</option>
+        <option>référencées</option>
+        <option data-correct>aliasées</option>
+        <option>mutées</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Pour ajouter un élément à la fin d'une liste,
+    on utilise la méthode <select class="self-pick code">
+        <option>add</option>
+        <option data-correct>append</option>
+        <option>insert</option>
+        <option>extend</option>
+    </select>, qui prend en paramètre l'élément à ajouter.
+</p>
+<p>
+    Pour ajouter plusieurs éléments à la fin d'une liste,
+    on utilise la méthode <select class="self-pick code">
+        <option>add</option>
+        <option>append</option>
+        <option>insert</option>
+        <option data-correct>extend</option>
+    </select>, qui prend en paramètre une liste d'éléments à ajouter.
+</p>
+<p>
+    Finalement, pour ajouter un élément à une position donnée,
+    on utilise la méthode <select class="self-pick code">
+        <option>add</option>
+        <option>append</option>
+        <option data-correct>insert</option>
+        <option>extend</option>
+    </select>, qui prend en paramètre la position et l'élément à ajouter.
+</p>
+<p>
+    La valeur de retour de ces méthodes est toujours
+    <select class="self-pick code">
+        <option data-correct>None</option>
+        <option>True</option>
+        <option>False</option>
+        <option>0</option>
+        <option>1</option>
+    </select>.
+</p>
+$endselfcheck$
+
+<p>
+    Dans cette section, nous avons vu comment créer et manipuler
+    des séquences de valeurs en Python.
+    En particulier, nous avons abordé les chaînes de caractères,
+    les tuples et les listes.
+</p>
+
+<p>
+    Les listes sont les premières valeurs mutables que nous voyons en Python.
+    Ces valeurs peuvent être modifiées après leur création,
+    et ce sans devoir réaffecter une variable.
+    Nous aurons l'occasion à l'avenir de voir d'autres types de valeurs mutables.
+    Cette capacité de modifier des valeurs est très pratique,
+    mais elle peut aussi être source de bugs.
+</p>
+
+<p>
+    Dans la prochaine section,
+    nous allons voir comment
+    utiliser des <i>modules</i> en Python.
+</p>
