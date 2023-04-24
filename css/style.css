@@ -126,7 +126,9 @@ blockquote p:last-child {
 }
 
 .table-of-content a {
-    text-decoration: none;
+    color: var(--color-1);
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
 body {
@@ -174,6 +176,7 @@ main .illustration .legend {
 
 main a {
     color: var(--color-1);
+    text-underline-offset: 2px;
 }
 
 main a:hover {
@@ -196,6 +199,7 @@ footer p {
 
 footer p a {
     color: #777;
+    text-decoration: underline;
 }
 
 .self-check, .example, .tryout, .objectives {
