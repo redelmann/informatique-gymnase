@@ -1,0 +1,216 @@
+---
+title: Séquences
+order: 6
+---
+
+<script type="text/javascript" src="/js/codeplay.min.js"></script>
+
+<p>
+    Dans cette section, nous allons voir comment manipuler en Python des
+    types de données plus complexes que les nombres et les booléens.
+    En particulier, nous allons voir comment manipuler
+    des <i>séquences</i> de données, c'est-à-dire des types de données
+    qui peuvent contenir une suite ordonnée de valeurs.
+</p>
+
+<p>
+    Nous allons voir trois types de séquences : les <i>chaînes de caractères</i>,
+    les <i>listes</i> et les <i>tuples</i>.
+    Ces trois types de données sont très similaires
+    et partagent de nombreuses opérations.
+</p>
+
+<p>
+    Nous allons commencer par voir les
+    chaînes de caractères, que vous avez déjà rencontrées
+    dans les chapitres précédents.
+</p>
+
+<h2>Les chaînes de caractères</h2>
+
+<p>
+    Comme nous l'avons vu précédemment dans ce chapitre,
+    les chaînes de caractères sont des séquences de caractères
+    qui servent à représenter du texte.
+    Nous avons déjà vu comment créer des chaînes de caractères
+    à l'aide de guillemets simples ou doubles.
+    De plus, nous avions vu comment <i>concaténer</i> des chaînes
+    à l'aide de l'opérateur <code>+</code>.
+</p>
+
+$codeplay$
+print("Bonjour" + " " + "le mon" + "de !")
+$endcodeplay$
+
+<p>
+    Dans cette section, nous allons voir différentes manières
+    de manipuler de telles chaînes de caractères.
+</p>
+
+<h3>Longueur</h3>
+
+<p>
+    Comme nous l'avions vu précédemment, la fonction <code>len</code> sert
+    à connaître la longueur d'une chaîne de caractères,
+    c'est-à-dire le nombre de caractères qu'elle contient.
+</p>
+
+$codeplay$
+print(len("Bonjour le monde !"))
+$endcodeplay$
+
+<p>
+    Cette fonction sera la même pour les listes et les tuples
+    que nous aborderons plus tard.
+</p>
+
+<h3>Accéder à un élément</h3>
+
+<p>
+    Pour accéder à un caractère <code>i</code> d'une chaîne <code>chaine</code>,
+    on utilise la notation <code>chaine[i]</code>.
+    On indique entre les crochets l'indice du caractère
+    auquel on veut accéder.
+    Attention, en Python les indices commencent à 0,
+    ce qui signifie que le premier caractère d'une chaîne
+    est à l'indice 0 et que le dernier caractère est à l'indice
+    <code>len(chaine) - 1</code>.
+</p>
+
+$codeplay$
+chaine = "Bonjour le monde !"
+print(chaine[0])
+print(chaine[1])
+print(chaine[len(chaine) - 1])
+$endcodeplay$
+
+$remark$
+<p>
+    En Python, il est possible de mettre un indice négatif
+    entre les crochets. Dans ce cas, l'indice est compté à partir
+    de la fin de la chaîne. Ainsi, <code>chaine[-1]</code>
+    fait référence au dernier caractère de la chaîne,
+    <code>chaine[-2]</code> au caractère avant-dernier, et
+    ainsi de suite.
+</p>
+$endremark$
+
+<h3>Itérer sur les éléments</h3>
+
+<p>
+    Il est possible d'utiliser la boucle <code>for</code>
+    pour itérer sur les caractères d'une chaîne de caractères,
+    et ce sans avoir à utiliser d'indice.
+</p>
+
+$codeplay$
+for caractere in "Bonjour !":
+    # Le corps de la boucle est exécuté une fois pour chaque caractère.
+    # La variable caractere contient le caractère courant.
+    print(caractere)
+$endcodeplay$
+
+<p>
+    À noter qu'il est aussi tout à fait possible d'itérer sur les
+    caractères d'une chaîne en utilisant un indice,
+    que ce soit via une boucle <code>for</code> ou une boucle <code>while</code>
+    comme dans le code suivant.
+</p>
+
+$codeplay$
+chaine = "Bonjour !"
+
+# Version avec la boucle for
+for i in range(len(chaine)):
+    print(chaine[i])
+
+# Version avec la boucle while
+i = 0
+while i < len(chaine):
+    print(chaine[i])
+    i = i + 1
+$endcodeplay$
+
+<h3>Extraire une sous-chaîne</h3>
+
+<p>
+    En Python, il est possible d'extraire une sous-chaîne
+    d'une chaine de caractères <code>chaine</code> à l'aide de la notation
+    <code>chaine[debut:fin]</code>, où <code>debut</code> et <code>fin</code>
+    sont respectivement l'indice de début (compris) et l'indice de fin (non-compris) de la sous-chaîne.
+</p>
+
+$codeplay$
+chaine = "Bonjour le monde !"
+print(chaine[0:7])
+print(chaine[8:10])
+print(chaine[11:18])
+$endcodeplay$
+
+$remark$
+<p>
+    Il est possible d'omettre l'indice de début ou l'indice de fin
+    dans la notation <code>chaine[debut:fin]</code>.
+    Dans ce cas, l'indice de début est considéré comme étant 0 s'il n'est pas précisé,
+    alors que l'indice de fin est considéré comme étant <code>len(chaine)</code>.
+</p>
+
+<p>
+    Si on omet les deux indices, on obtient une copie de la chaîne entière.
+</p>
+
+<p>
+    À noter qu'il est aussi possible d'utiliser des indices négatif,
+    avec le même comportement que pour l'accès à un élément.
+</p>
+$endremark$
+
+<h2>Les tuples</h2>
+
+<p>
+    Intéressons nous maintenant aux <i>tuples</i>.
+    Alors que les chaînes de caractères sont des séquences de caractères,
+    les tuples sont des séquences de valeurs qui peuvent être de différents types.
+    Ils sont définis à l'aide de parenthèses et les valeurs sont séparées par des virgules.
+    Les opérations que nous avons vues sur les chaînes de caractères sont aussi valables
+    pour les tuples.
+</p>
+
+$codeplay$
+tuple_exemple = (10, 20, 30)
+
+print("Le tuple:", tuple_exemple)
+print("Longueur du tuple:", len(tuple_exemple))
+print("Premier élément:", tuple_exemple[0])
+print("Dernier élément:", tuple_exemple[-1])
+print("Deux premiers éléments:", tuple_exemple[1:3])
+
+print("Les valeurs du tuples:")
+for valeur in tuple_exemple:
+    print(valeur)
+$endcodeplay$
+
+<p>
+    Les tuples sont capables de stocker des valeurs de différents types.
+    Par exemple, le tuple suivant contient un entier, une chaîne de caractères
+    et un booléen.
+</p>
+
+$codeplay$
+tuple_exemple = (10, "Bonjour", True)
+print(tuple_exemple)
+$endcodeplay$
+
+<p>
+    À noter que les tuples peuvent même contenir d'autres séquences de valeurs,
+    comme d'autres tuples par exemple.
+</p>
+
+$codeplay$
+tuple_exemple = ((10, 50), (20, 30), (40, 10))
+print("Premier élément du deuxième élément:", tuple_exemple[1][0])
+$endcodeplay$
+
+<h2>Les listes</h2>
+
+<p><i>À venir...</i></p>
