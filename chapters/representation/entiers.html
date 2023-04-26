@@ -1,0 +1,301 @@
+---
+title: Représentation des entiers
+order: 1
+---
+
+<p>
+    La représentation binaire des entiers,
+    comme nous l'avons abordée dans le chapitre
+    précédent, est aussi un code.
+    Les symboles utilisés par les mots de ce code
+    sont les chiffres <code>0</code> et <code>1</code>,
+    c'est-à-dire les bits.
+</p>
+
+<p>
+    La représentation binaire des entiers est un code
+    à <i>longueur variable</i>.
+    En effet, la longueur du mot de code d'un entier
+    dépend de la valeur de l'entier.
+    Par exemple, le mot de code de l'entier 0 est <code>0</code>,
+    celui de l'entier 1 est <code>1</code>, celui de l'entier 2 est <code>10</code>,
+    celui de l'entier 3 est <code>11</code>, etc.
+    Néanmoins, on peut adapter cette représentation
+    pour obtenir un code à longueur fixe.
+</p>
+
+<p>
+    Ce code est pratique pour représenter des entiers
+    sur un nombre illimité de bits.
+    Cependant, il n'est pas adapté pour représenter
+    des séquences d'entiers et n'est pas pratique à
+    manipuler par un ordinateur.
+</p>
+
+<p>
+    Pour cela, on aura généralement recours à
+    d'autres codes, comme présenté ci-dessous.
+</p>
+
+<h2>Nombres binaires à longueur fixe</h2>
+
+<p>
+    Pour représenter des entiers en utilisant un code à longueur fixe,
+    on doit tout d'abord se décider sur la longueur <i>n</i> des mots
+    de code. La longueur choisie détermine quels entiers peuvent être
+    représentés par le code.
+</p>
+
+$remark$
+<p>
+    En pratique, les longueurs les plus courantes sont 8, 16, 32 et 64 bits.
+    Ces longueurs sont des multiples de 8 bits, ce qui n'est
+    pas une coïncidence. En effet, l'octet (groupe de 8 bits)
+    est l'unité de base de stockage de l'information dans
+    les ordinateurs.
+</p>
+$endremark$
+
+<p>
+    Une fois la taille <i>n</i> choisie,
+    pour chaque nombre, on calcule sa représentation binaire
+    et on complète avec des zéros à gauche jusqu'à obtenir
+    un mot de code de longueur <i>n</i>.
+    Ci-dessous est présenté le code à longueur fixe de longueur 4
+    pour représenter les entiers de 0 à 15.
+</p>
+
+<table class="code-table code-fixed">
+    <tr>
+        <th>Nombre</th>
+        <th>Mot de code</th>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>0000</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>0001</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>0010</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>0011</td>
+    </tr>
+    <tr>
+        <td>…</td>
+        <td>…</td>
+    </tr>
+    <tr>
+        <td>14</td>
+        <td>1110</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>1111</td>
+    </tr>
+</table>
+
+<p>
+    Le <i>domaine de représentation</i> d'un tel code est l'ensemble des entiers
+    compris entre 0 et 2<sup>n</sup> - 1. Cela signifie que le code ne peut
+    représenter que les entiers compris dans cet intervalle.
+    Toute valeur en dehors de cet intervalle ne peut pas être représentée
+    par le code.
+</p>
+
+<p>
+    En effet, un code de longueur fixe est forcément
+    limité dans le nombre de valeur qu'il peut représenter.
+    Dans le cas d'un code binaire de longueur fixe <i>n</i>,
+    le nombre de valeurs représentation est au maximum de 2<sup>n</sup>.
+</p>
+
+<h2>Complément à 2</h2>
+
+<p>
+    Comme nous l'avons vu lors du chapitre précédent
+    sur l'architecture des ordinateurs,
+    la méthode du complément à 2
+    permet de représenter des entiers négatifs et positifs
+    en utilisant un code à longueur fixe.
+    Ci-dessous est présenté un extrait du code à longueur fixe de longueur 4
+    sous la forme d'un tableau.
+</p>
+
+<table class="code-table code-fixed">
+    <tr>
+        <th>Nombre</th>
+        <th>Mot de code</th>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>0000</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>0001</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>0010</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>0011</td>
+    </tr>
+    <tr>
+        <td>…</td>
+        <td>…</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>0111</td>
+    </tr>
+    <tr>
+        <td>-8</td>
+        <td>1000</td>
+    </tr>
+    <tr>
+        <td>-7</td>
+        <td>1001</td>
+    </tr>
+    <tr>
+        <td>…</td>
+        <td>…</td>
+    </tr>
+    <tr>
+        <td>-2</td>
+        <td>1110</td>
+    </tr>
+    <tr>
+        <td>-1</td>
+        <td>1111</td>
+    </tr>
+</table>
+
+<p>
+    Le domaine de représentation du complément à 2 sur <i>n</i> bits
+    est l'ensemble des entiers relatifs compris entre -2<sup>n-1</sup> et 2<sup>n-1</sup> - 1,
+    ce qui correspond à 2<sup>n</sup> valeurs différentes.
+    Notez que le code permet de représenter un nombre négatif de plus que de nombre positif.
+    En effet, la valeur 0 est représentée par le mot de code <code>000…0</code>
+    qui commence par un zéro, et
+    qui donc est donc groupé avec les nombres positifs.
+</p>
+
+$remark$
+<p>
+    Comme nous l'avons déjà vu, pour obtenir le mot de code
+    qui correspond à un nombre <i>-k</i>, il suffit de prendre le
+    mot de code de <i>k</i>, d'en inverser tous les bits
+    et d'y additionner 1.
+</p>
+<p>
+    Cette méthode fonctionne pour tous les nombres relatifs représentables
+    par le code, à l'exception de -2<sup>n-1</sup>, où <i>n</i> est la longueur du code.
+    Le mot de code de 2<sup>n-1</sup> est donc <code>100…0</code>.
+    Si on inverse tous les bits du mot de code puis on ajoute 1,
+    on retombe sur le même mot de code.
+    À noter que cela n'est pas surprenant,
+    car 2<sup>n-1</sup> n'est pas représentable dans ce code.
+</p>
+$endremark$
+
+<p>
+    Comme nous l'avons vu dans le chapitre précédent,
+    cette méthode de représentation des nombres relatifs
+    est très pratique pour les ordinateurs.
+    En effet, les opérations arithmétiques sur les nombres relatifs
+    peuvent être réalisées en utilisant les mêmes opérations
+    que pour les nombres positifs.
+</p>
+
+$selfcheck$
+<p>
+    Un code binaire à longueur fixe de longueur 4 peut représenter au maximum
+    <select class="self-pick">
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>7</option>
+        <option>8</option>
+        <option>15</option>
+        <option data-correct>16</option>
+        <option>31</option>
+        <option>32</option>
+    </select> valeurs différentes, alors que pour un code binaire à longueur fixe de longueur 5, le nombre maximum de valeurs différentes est de
+    <select class="self-pick">
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>7</option>
+        <option>8</option>
+        <option>15</option>
+        <option>16</option>
+        <option>31</option>
+        <option data-correct>32</option>
+    </select>.
+</p>
+<p>
+    Lorsque la longueur d'un code binaire de longeur fixe augmente de 1,
+    le nombre de valeurs différentes qu'il peut potentiellement représenter
+    <select class="self-pick">
+        <option>augmente de 1</option>
+        <option>augmente de 2</option>
+        <option data-correct>double</option>
+        <option>triple</option>
+        <option>quadruple</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Étant donné une longueur de code fixée à 4 bits,
+    la méthode du complément à 2 permet de représenter
+    les nombres
+    <select class="self-pick">
+        <option>rationels</option>
+        <option data-correct>relatifs</option>
+        <option>à virgule</option>
+    </select>
+    compris entre <select class="self-pick">
+        <option>-16</option>
+        <option>-15</option>
+        <option data-correct>-8</option>
+        <option>-7</option>
+        <option>-4</option>
+        <option>-3</option>
+        <option>-1</option>
+        <option>0</option>
+        <option>1</option>
+        <option>3</option>
+        <option>4</option>
+        <option>7</option>
+        <option>8</option>
+        <option>15</option>
+        <option>16</option>
+    </select> et <select class="self-pick">
+        <option>-16</option>
+        <option>-15</option>
+        <option>-8</option>
+        <option>-7</option>
+        <option>-4</option>
+        <option>-3</option>
+        <option>-1</option>
+        <option>0</option>
+        <option>1</option>
+        <option>3</option>
+        <option>4</option>
+        <option data-correct>7</option>
+        <option>8</option>
+        <option>15</option>
+        <option>16</option>
+    </select>.
+</p>
+$endselfcheck$

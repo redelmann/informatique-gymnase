@@ -259,6 +259,45 @@ $remark$
     (l'affichage à l'écran et la lecture de l'entrée utilisateur).
 $endremark$
 
+<h3>Pourquoi retourner une valeur ?</h3>
+
+<p>
+    Étant donné l'existence de la fonction <code>print</code>,
+    on pourrait se demander pourquoi on a besoin de retourner une valeur
+    depuis une fonction.
+    En effet, ne serrait-il pas plus simple de faire en sorte que la fonction
+    affiche directement le résultat de son calcul avec <code>print</code> ?
+</p>
+
+<p>
+    Retourner une valeur à la place de l'afficher
+    permet de faire des calculs avec le résultat d'une fonction,
+    ce qu'il n'est pas possible de faire si on affiche directement le résultat.
+</p>
+
+$codeplay$
+def carre(x):
+    return x * x
+
+print(carre(3) + carre(5))
+
+# On ne peut pas faire ça avec print.
+# La fonction print affiche directement le résultat,
+# mais ne permet pas de le récupérer pour l'utiliser
+# dans la suite du programme.
+def carre_2(x):
+    print(x * x)
+
+print(carre_2(3) + carre_2(5))
+$endcodeplay$
+
+<p>
+    De plus, on ne souhaitera pas toujours afficher le résultat d'une fonction.
+    Si un programme venait à afficher tous les résultats de toutes les fonctions
+    qu'il appelle,
+    il serait difficile de distinguer quoi que ce soit dans la sortie.
+</p>
+
 <h2>Portée des paramètres et des variables</h2>
 
 <p>

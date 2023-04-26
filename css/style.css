@@ -691,3 +691,64 @@ table.operators td:first-child {
 
 }
 
+.codewords {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 500px;
+    width: 600px;
+    margin: auto;
+    overflow-x: auto;
+}
+
+.codewords > div {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.codewords > div > div {
+    width: 120px;
+    text-align: center;
+}
+
+.codewords > div > div:first-child {
+    font-weight: bold;
+}
+
+.codewords > div > div:last-child {
+    font-family: monospace;
+}
+
+@media screen and (max-width: 700px) {
+    .codewords {
+        flex-wrap: nowrap;
+        height: fit-content;
+        width: fit-content;
+    }
+}
+
+.code-table {
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.code-table th, .code-table td {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 0.5em;
+}
+
+.code-table td:first-child {
+    font-weight: bold;
+    text-align: center;
+}
+
+.code-fixed td {
+    text-align: center;
+}
+
+.code-table td:last-child {
+    font-family: monospace;
+}

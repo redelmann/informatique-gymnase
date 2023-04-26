@@ -1,0 +1,804 @@
+---
+title: Codes et mots de code
+order: 1
+---
+
+<p>
+    Dans cette première section du chapitre, nous allons
+    aborder la notion de <i>code</i>.
+    Cette notion est centrale dans ce chapitre sur 
+    la représentation de l'information.
+</p>
+
+<p>
+    Un <i>code</i> est une manière de représenter de l'information
+    avec des suites de <i>symboles</i>.
+    Chaque telle suite de symboles est appelée un <i>mot de code</i>.
+    En principe, chaque valeur possible de l'information à représenter
+    est associée à un unique mot de code, et chaque mot de code est associé
+    à une unique valeur.
+</p>
+
+<p>
+    Les symboles que nous utiliserons dans ce chapitre seront généralement
+    les bits (0 et 1), mais d'autres types de symboles peuvent être utilisés
+    par différents codes.
+</p>
+
+$example$
+<p>
+    Le <a href="https://fr.wikipedia.org/wiki/Code_Morse_international">code Morse</a> est un exemple de code qui permet
+    de représenter des lettres et des chiffres avec des
+    suites de points et de tirets.
+    Le code Morse utilise donc deux symboles différents : le point (que l'on note ·) et le tiret (que l'on note —).
+</p>
+
+<div class="codewords">
+    <div>
+        <div>A</div>
+        <div>· —</div>
+    </div>
+    <div>
+        <div>B</div>
+        <div>— · · ·</div>
+    </div>
+    <div>
+        <div>C</div>
+        <div>— · — ·</div>
+    </div>
+    <div>
+        <div>D</div>
+        <div>— · ·</div>
+    </div>
+    <div>
+        <div>E</div>
+        <div>·</div>
+    </div>
+    <div>
+        <div>F</div>
+        <div>· · — ·</div>
+    </div>
+    <div>
+        <div>G</div>
+        <div>— — ·</div>
+    </div>
+    <div>
+        <div>H</div>
+        <div>· · · ·</div>
+    </div>
+    <div>
+        <div>I</div>
+        <div>· ·</div>
+    </div>
+    <div>
+        <div>J</div>
+        <div>· — — —</div>
+    </div>
+    <div>
+        <div>K</div>
+        <div>— · —</div>
+    </div>
+    <div>
+        <div>L</div>
+        <div>· — · ·</div>
+    </div>
+    <div>
+        <div>M</div>
+        <div>— —</div>
+    </div>
+    <div>
+        <div>N</div>
+        <div>— ·</div>
+    </div>
+    <div>
+        <div>O</div>
+        <div>— — —</div>
+    </div>
+    <div>
+        <div>P</div>
+        <div>· — — ·</div>
+    </div>
+    <div>
+        <div>Q</div>
+        <div>— — · —</div>
+    </div>
+    <div>
+        <div>R</div>
+        <div>· — ·</div>
+    </div>
+    <div>
+        <div>S</div>
+        <div>· · ·</div>
+    </div>
+    <div>
+        <div>T</div>
+        <div>—</div>
+    </div>
+    <div>
+        <div>U</div>
+        <div>· · —</div>
+    </div>
+    <div>
+        <div>V</div>
+        <div>· · · —</div>
+    </div>
+    <div>
+        <div>W</div>
+        <div>· — —</div>
+    </div>
+    <div>
+        <div>X</div>
+        <div>— · · —</div>
+    </div>
+    <div>
+        <div>Y</div>
+        <div>— · — —</div>
+    </div>
+    <div>
+        <div>Z</div>
+        <div>— — · ·</div>
+    </div>
+    <div>
+        <div>0</div>
+        <div>— — — — —</div>
+    </div>
+    <div>
+        <div>1</div>
+        <div>· — — — —</div>
+    </div>
+    <div>
+        <div>2</div>
+        <div>· · — — —</div>
+    </div>
+    <div>
+        <div>3</div>
+        <div>· · · — —</div>
+    </div>
+    <div>
+        <div>4</div>
+        <div>· · · · —</div>
+    </div>
+    <div>
+        <div>5</div>
+        <div>· · · · ·</div>
+    </div>
+    <div>
+        <div>6</div>
+        <div>— · · · ·</div>
+    </div>
+    <div>
+        <div>7</div>
+        <div>— — · · ·</div>
+    </div>
+    <div>
+        <div>8</div>
+        <div>— — — · ·</div>
+    </div>
+    <div>
+        <div>9</div>
+        <div>— — — — ·</div>
+    </div>
+</div>
+
+<p>
+    Pour encoder un message en code Morse, il suffit de remplacer chaque lettre par son mot de code.
+    Ensuite, chaque mot de code est séparée des autres par un espace.
+    On utilise un plus grand espace pour dénoter un espace entre les mots dans la phrase
+    à transmettre.
+</p>
+
+<p>
+    Ainsi, le mot <i>HELLO</i> est encodé en code Morse par · · · · &nbsp; · &nbsp; · – · · &nbsp; · – · · &nbsp; – – –
+    et le mot <i>WORLD</i> par · – – &nbsp; – – – &nbsp; · – · &nbsp; · – · · &nbsp; – · ·.
+    Il est important de marquer un espace entre les mots de code pour pouvoir les distinguer.
+    De plus, il faut marquer un plus grand espace entre les mots <i>HELLO</i> et <i>WORLD</i> pour obtenir la phrase
+    <i>HELLO WORLD</i> et non <i>HELLOWORLD</i>.
+</p>
+
+<p>
+    Le code Morse a été conçu pour communiquer des messages via télégraphe.
+    De nos jours, il est encore utilisé par les radioamateurs et
+    par les marins pour communiquer en utilisant des signaux lumineux.
+</p>
+$endexample$
+
+$example$
+<p>
+    L'<a href="https://fr.wikipedia.org/wiki/Alphabet_phon%C3%A9tique_de_l%27OTAN">alphabet phonétique de l'OTAN</a>
+    est un autre exemple de code.
+    Il est utilisé pour représenter les lettres de l'alphabet
+    et les chiffres par des mots aux prononciations très différentes.
+    Ce code a été conçu pour faciliter les communications radio.
+</p>
+
+<table class="code-table" id="nato-table">
+    <tr>
+        <td>A</td>
+        <td>Alpha</td>
+        <td><b>al</b> fah</td>
+    </tr>
+    <tr>
+        <td>B</td>
+        <td>Bravo</td>
+        <td><b>bra</b> vo</td>
+    </tr>
+    <tr>
+        <td>C</td>
+        <td>Charlie</td>
+        <td><b>tchah</b> li</td>
+    </tr>
+    <tr>
+        <td>D</td>
+        <td>Delta</td>
+        <td><b>del</b> tah</td>
+    </tr>
+    <tr>
+        <td>E</td>
+        <td>Echo</td>
+        <td><b>èk</b> o</td>
+    </tr>
+    <tr>
+        <td>F</td>
+        <td>Foxtrot</td>
+        <td><b>fox</b> trot</td>
+    </tr>
+    <tr>
+        <td>G</td>
+        <td>Golf</td>
+        <td><b>golf</b></td>
+    </tr>
+    <tr>
+        <td>H</td>
+        <td>Hotel</td>
+        <td>ho <b>tèll</b></td>
+    </tr>
+    <tr>
+        <td>I</td>
+        <td>India</td>
+        <td><b>in</b> di ah</td>
+    </tr>
+    <tr>
+        <td>J</td>
+        <td>Juliett</td>
+        <td><b>djou</b> li ètt</td>
+    </tr>
+    <tr>
+        <td>K</td>
+        <td>Kilo</td>
+        <td><b>ki</b> lo</td>
+    </tr>
+    <tr>
+        <td>L</td>
+        <td>Lima</td>
+        <td><b>li</b> mah</td>
+    </tr>
+    <tr>
+        <td>M</td>
+        <td>Mike</td>
+        <td><b>ma</b>ïk</td>
+    </tr>
+    <tr>
+        <td>N</td>
+        <td>November</td>
+        <td>no <b>vèmm</b> ber</td>
+    </tr>
+    <tr>
+        <td>O</td>
+        <td>Oscar</td>
+        <td><b>oss</b> car</td>
+    </tr>
+    <tr>
+        <td>P</td>
+        <td>Papa</td>
+        <td>pah <b>pah</b></td>
+    </tr>
+    <tr>
+        <td>Q</td>
+        <td>Quebec</td>
+        <td>ké <b>bèck</b></td>
+    </tr>
+    <tr>
+        <td>R</td>
+        <td>Romeo</td>
+        <td><b>ro</b> mi o</td>
+    </tr>
+    <tr>
+        <td>S</td>
+        <td>Sierra</td>
+        <td>si <b>èr</b> rah</td>
+    </tr>
+    <tr>
+        <td>T</td>
+        <td>Tango</td>
+        <td><b>tang</b> go</td>
+    </tr>
+    <tr>
+        <td>U</td>
+        <td>Uniform</td>
+        <td><b>you</b> ni form</td>
+    </tr>
+    <tr>
+        <td>V</td>
+        <td>Victor</td>
+        <td><b>vik</b> tar</td>
+    </tr>
+    <tr>
+        <td>W</td>
+        <td>Whiskey</td>
+        <td><b>ouiss</b> ki</td>
+    </tr>
+    <tr>
+        <td>X</td>
+        <td>X-ray</td>
+        <td><b>èkss</b> ré</td>
+    </tr>
+    <tr>
+        <td>Y</td>
+        <td>Yankee</td>
+        <td><b>yang</b> ki</td>
+    </tr>
+    <tr>
+        <td>Z</td>
+        <td>Zulu</td>
+        <td><b>zou</b> lou</td>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>Zero</td>
+        <td><b>zi ro</b></td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>One</td>
+        <td><b>ouann</b></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Two</td>
+        <td><b>tou</b></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Tree</td>
+        <td><b>tri</b></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Fower</td>
+        <td><b>fo</b> eur</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Fife</td>
+        <td><b>fa ïf</b></td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Six</td>
+        <td><b>siks</b></td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>Seven</td>
+        <td><b>sèv</b> n</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>Eight</td>
+        <td><b>eït</b></td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>Niner</td>
+        <td><b>naï</b> neu</td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    const table = document.getElementById("nato-table");
+    const rows = table.getElementsByTagName("tr");
+    let counter = 0; 
+    let words = [];
+    let codeword = [5, 20, 2, 10];
+
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].addEventListener("click", function() {
+            if (i === codeword[counter]) {
+                counter++;
+                words.push(rows[i].getElementsByTagName("td")[1].innerText);
+                if (counter === codeword.length) {
+                    counter = 0;
+                    const address = "https://www.google.com/search?q=" +
+                        words.join("%20");
+                    window.open(address, "_blank");
+                    words = [];
+                }
+            } else {
+                counter = 0;
+                words = [];
+            }
+            rows[i].style.cursor = "default";
+            rows[codeword[counter]].style.cursor = "pointer";
+        });
+    }
+    rows[codeword[counter]].style.cursor = "pointer";
+</script>
+
+<p>
+    Dans le cadre de ce code, on peut considérer les symboles
+    comme étant les phonèmes qui composent les mots de code.
+    En gras dans le tableau, on retrouve les phonèmes qui
+    sont accentués dans la prononciation des mots de code.
+</p>
+$endexample$
+
+<h2>Encoder et décoder</h2>
+
+<p>
+    Lorsque l'on passe d'une valeur à un mot de code, on dit
+    que l'on <i>encode</i> la valeur.
+    À l'inverse, lorsque l'on passe d'un mot de code à une valeur,
+    on dit que l'on <i>décode</i> le mot de code.
+</p>
+
+<p>
+    Un système dont le but est d'encoder des valeurs en mots de code
+    est appelé un <i>encodeur</i>, alors qu'un système dont le but
+    est de décoder des mots de code en valeurs est appelé un
+    <i>décodeur</i>.
+</p>
+
+<h2>Séquences de mots de code</h2>
+
+<p>
+    Souvent, étant donné un code, on souhaitera représenter
+    non pas une unique valeur, mais une séquence de valeurs.
+    Par exemple, à l'aide d'un code pour les lettres et chiffre
+    de l'alphabet, on souhaitera représenter des mots tels que
+    <i lang="en">SOS</i> (pour <i lang="en">"Save Our Souls"</i>) ou
+    <i lang="en">CQD</i> (pour <i lang="en">"Come Quick Danger"</i>),
+    voire des phrases comme
+    <i lang="en">What hath God wrought?</i> (premier message transmis par télégraphe)
+    ou
+    <i lang="en">something like QWERTYUIOP</i> (premier message transmis par email).
+</p>
+
+<p>
+    Dans certains codes, il suffit de concaténer (mettre bout à bout)
+    les mots de code des valeurs de la séquence pour obtenir
+    la représentation de la séquence.
+    Ainsi, un code pour des valeurs individuelles donne immédiatement
+    un code pour des séquences de valeurs. Or, ce n'est pas toujours le cas.
+    Dans d'autres codes, il faudra utiliser d'autres techniques
+    pour délimiter les mots de code d'une séquence.
+</p>
+
+$example$
+<p>
+    Dans le code Morse, certains mots de code
+    sont les <i>préfixes</i> d'autres mots de code.
+    Un mot est le préfixe d'un autre mot si le premier mot
+    forme le début du second mot.
+    Par exemple, le mot de code · est le préfixe des mots de code
+    · – – et · · · ·.
+</p>
+    
+<p>
+    Le fait que certains mots de codes soient les préfixes d'autres
+    mots de code
+    peut rendre le décodage compliqué voire ambigu en cas de simple
+    concaténation de mots de code.
+</p>
+
+<p>
+    Dans le cas du code Morse, si on venait à simplement concaténer
+    les mots de codes
+    pour encoder une suite de lettres, on pourrait obtenir
+    un résultat qui donne lieu à plusieurs
+    interprétations. 
+</p>
+
+<p>
+    Par exemple, si on venait à encoder la séquence de lettres
+    EEE en Morse sans séparer les mots de code,
+    on obtiendrait la séquence de symboles · · ·.
+    Or, cette séquence de symboles peut
+    être interprétée comme la lettre S (· · ·), ou alors
+    comme trois fois la lettre E (·), ou comme
+    un I (· ·) suivi d'un E (·), ou encore comme un E (·) suivi d'un I (· ·).
+    Le décodage de la séquence de symboles · · · serait donc ambigu.
+</p>
+
+<p>
+    En Morse, pour séparer les mots de code de deux lettres,
+    on est donc obligé d'ajouter un espace entre les mots de code,
+    on ne peut pas simplement concaténer les mots de code.
+</p>
+$endexample$
+
+<h2>Codes à longueur fixe</h2>
+
+<p>
+    Une famille de code très utilisés en pratique et
+    qui se prêtent bien à l'encodage de séquences de valeurs
+    sont les codes <i>à longueur fixe</i>.
+    On appelle code à longueur fixe un code dans lequel
+    tous les mots de code ont la même longueur.
+</p>
+
+<p>
+    Les codes à longueur fixe sont très pratiques pour
+    représenter des séquences de valeurs.
+    En effet, pour représenter une séquence de valeurs avec un tel code,
+    il suffit de concaténer les mots de code des valeurs
+    de la séquence. Le message obtenu ainsi est totalement inambigu.
+</p>
+
+<p>
+    Pour décoder un message, il suffit de le découper
+    en mots de code de même longueur, et de remplacer
+    chaque mot de code par la valeur correspondante.
+    Aucune ambiguïté n'est possible, car chaque mot de code
+    est clairement identifiable.
+</p>
+
+$example$
+<p>
+    Considérons le code suivant, qui représente les
+    lettres A, B, C et D :
+</p>
+
+<table class="code-table code-fixed">
+    <tr>
+        <th>Lettre</th>
+        <th>Mot de code</th>
+    </tr>
+    <tr>
+        <td>A</td>
+        <td>00</td>
+    </tr>
+    <tr>
+        <td>B</td>
+        <td>01</td>
+    </tr>
+    <tr>
+        <td>C</td>
+        <td>10</td>
+    </tr>
+    <tr>
+        <td>D</td>
+        <td>11</td>
+    </tr>
+</table>
+
+<p>
+    Ce code est un code à longueur fixe.
+    En effet, chaque lettre est représentée par un mot de code
+    de longueur 2.
+</p>
+
+<p>
+    À l'aide de ce code, on peut représenter la séquence de lettres
+    <i>ABBA</i> par le mot de code
+    <code>00010100</code> de façon totalement inambiguë :
+    aucune autre interprétation n'est possible.
+</p>
+$endexample$
+
+<h2>Codes à longueur variable</h2>
+
+<p>
+    On appelle un code qui n'est pas à longueur fixe un code <i>à longueur variable</i>.
+</p>
+
+$example$
+<p>
+    Le code Morse contient des mots de code de longueurs
+    variables. Par exemple, le mot de code de la lettre
+    <i>A</i> est – · (de longueur 2) et le mot de code
+    de la lettre <i>B</i> est – · · · (de longueur 4).
+</p>
+
+<p>
+    On dit que le code Morse est un code à <i>longueur variable</i>
+    car les mots de code ont des longueurs différentes les uns
+    des autres. Le code Morse n'est donc pas un code à longueur fixe.
+</p>
+$endexample$
+
+<p>
+    Les codes à longueur fixe ont une capacité de représentation
+    limitée. En effet, il y a un nombre fini de mots de code
+    de longueur donnée, et donc un nombre fini de valeurs
+    représentables.
+</p>
+
+<p>
+    Pour un code de longueur <i>n</i> qui utilise <i>b</i> symboles différents,
+    il y a au maximum <i>b<sup>n</sup></i> valeurs représentables.
+</p>
+
+<h2>Codes préfixes</h2>
+
+<p>
+    On appelle un code <i>préfixe</i> si aucun mot de code
+    n'est le préfixe d'un autre mot de code.
+</p>
+
+<p>
+    De manière triviale, un code à longueur fixe est un code préfixe.
+    En effet, si tous les mots de code ont la même longueur,
+    aucun mot de code ne peut être le préfixe d'un autre mot de code.
+</p>
+
+<p>
+    Il existe cependant des codes à longeur variable qui sont
+    des codes préfixes, comme nous le verrons plus bas au travers
+    d'un exemple.
+</p>
+
+<p>
+    Les codes préfixes ont la propriété de ne pas nécessiter
+    de délimiteur entre les mots de code lorsqu'on encode une séquence.
+    Même sans délimiteur, on peut toujours déterminer
+    clairement les mots de code dans une séquences de mots de code concaténés.
+    Pour cela, il suffit de lire la séquence de mots de code
+    symbole par symbole, de gauche à droite, et de marquer la fin
+    de chaque mot de code dès qu'un mot de code est reconnu.
+</p>
+
+$example$
+<p>
+    Considérons le code suivant, qui représente les
+    lettres A, B, C:
+</p>
+
+<table class="code-table code-fixed">
+    <tr>
+        <th>Lettre</th>
+        <th>Mot de code</th>
+    </tr>
+    <tr>
+        <td>A</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>B</td>
+        <td>10</td>
+    </tr>
+    <tr>
+        <td>C</td>
+        <td>11</td>
+    </tr>
+</table>
+
+<p>
+    Ce code est un code préfixe.
+    En effet, aucun mot de code n'est le préfixe d'un autre mot de code.
+    De plus, c'est un code à longueur variable
+    car les mots de code ont des longueurs différentes.
+</p>
+
+<p>
+    Dans ce code, on peut représenter la séquence de lettres
+    <i>ABBA</i> par le mot de code
+    <code>0100110</code> sans devoir utiliser de délimiteur.
+    Cette suite de symboles peut être décodée simplement en la lisant
+    de gauche à droite.
+</p>
+
+<p>
+    On commence par lire le premier symbole,
+    qui est un <code>0</code>. On reconnaît alors le mot de code
+    <code>0</code> qui représente la lettre <i>A</i>.
+    On lit ensuite le symbole suivant, qui est un <code>1</code>.
+    Comme le mot de code <code>1</code> n'est pas reconnu,
+    on lit le symbole suivant, qui est un <code>0</code>.
+    On reconnaît alors le mot de code <code>10</code> qui représente
+    la lettre <i>B</i>. Et ainsi de suite, jusqu'à ce que
+    la séquence de symboles soit entièrement lue.
+</p>
+
+$endexample$
+
+$example$
+<p>
+    Comme discuté plus haut, le code Morse n'est <b>pas</b> un code préfixe.
+    En effet, le mot de code de la lettre <i>A</i> est – ·
+    et le mot de code de la lettre <i>B</i> est – · · ·.
+    Le mot de code de la lettre <i>A</i> est donc le préfixe
+    du mot de code de la lettre <i>B</i>.
+</p>
+$endexample$
+
+$example$
+<p>
+    Les codes sont aussi présent dans la nature.
+    Par exemple, le <a href="https://fr.wikipedia.org/wiki/Code_g%C3%A9n%C3%A9tique">code génétique</a>
+    est un exemple de code.
+    Les symboles utilisés sont les quatre bases
+    A, C, G, T ou A, C, G, U selon que l'on considère
+    l'ADN ou l'ARN.
+</p>
+
+<p>
+    Le code des <a href="https://fr.wikipedia.org/wiki/Codon">codons</a> de l'ARNm est un code préfixe,
+    et même un code à longueur fixe.
+    En effet, chaque codon est composé de trois bases, et il y a
+    exactement 64 codons différents.
+</p>
+$endexample$
+
+<p>
+    Nous verrons par la suite d'autres codes préfixes, tel que le code UTF-8.
+    Nous aurons même l'occasion de créer nous-même des codes préfixes
+    grâce à la méthode du codage de Huffman
+    pour <i>compresser</i> des données.
+</p>
+
+<h2>Codes binaires</h2>
+
+<p>
+    Un code est dit <i>binaire</i> si chaque mot de code
+    qui le compose est formé à partir de deux symboles différents.
+    Le code Morse est un exemple de code binaire.
+    En effet, chaque mot de code est composé d'une séquence de
+    points et de tirets.
+    Les deux symboles utilisés par le code sont donc le point (·) et le tiret (–).
+</p>
+
+<p>
+    Dans la suite de ce chapitre,
+    nous allons nous intéresser plus particulièrement aux codes binaires
+    et nos symboles seront les deux bits 0 et 1.
+</p>
+
+$selfcheck$
+<p>
+    On appelle les éléments d'un code ses <select class="self-pick">
+        <option>symboles</option>
+        <option>lettres</option>
+        <option>chiffres</option>
+        <option data-correct>mots</option>
+        <option>valeurs</option>
+    </select>. Chacun de ces éléments est une suite de <select class="self-pick">
+        <option data-correct>symboles</option>
+        <option>lettres</option>
+        <option>chiffres</option>
+        <option>mots</option>
+        <option>valeurs</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Un code est dit <select class="self-pick">
+        <option>à longueur fixe</option>
+        <option>à longueur variable</option>
+        <option>numérique</option>
+        <option data-correct>binaire</option>
+        <option>informatique</option>
+    </select> si chaque mot de code est formé à partir de deux symboles différents.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Le code Morse et l'alphabet phonétique de l'OTAN sont des codes
+    <select class="self-pick">
+        <option>à longueur fixe</option>
+        <option data-correct>à longueur variable</option>
+        <option>binaires</option>
+        <option>ternaires</option>
+    </select>.
+</p>
+$endselfcheck$
+
+<p>
+    Dans la suite de ce chapitre,
+    nous allons tout d'abord revisiter la notation binaire des nombres entiers
+    sous l'angle de la représentation de l'information et des codes.
+    Ensuite, nous allons nous intéresser à la représentation
+    de différents types de données telles que le texte et les images.
+</p>

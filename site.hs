@@ -65,6 +65,10 @@ main = hakyll $ do
         route idRoute
         compile copyFileCompiler
     
+    match "docs/**" $ do
+        route idRoute
+        compile copyFileCompiler
+    
     match "images/**" $ do
         route $ customRoute $ \ ident ->
             let path = toFilePath ident
