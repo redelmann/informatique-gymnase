@@ -4,42 +4,39 @@ order: 1
 ---
 
 <p>
-    La représentation binaire des entiers,
-    comme nous l'avons abordée dans le chapitre
-    précédent, est aussi un code.
-    Les symboles utilisés par les mots de ce code
-    sont les chiffres <code>0</code> et <code>1</code>,
+    Dans le chapitre précédent, nous avons vu comment
+    représenter des entiers en base 2, c'est-à-dire
+    en utilisant uniquement les chiffres <code>0</code> et <code>1</code>,
     c'est-à-dire les bits.
 </p>
 
 <p>
-    La représentation binaire des entiers est un code
-    à <i>longueur variable</i>.
-    En effet, la longueur du mot de code d'un entier
-    dépend de la valeur de l'entier.
-    Par exemple, le mot de code de l'entier 0 est <code>0</code>,
-    celui de l'entier 1 est <code>1</code>, celui de l'entier 2 est <code>10</code>,
-    celui de l'entier 3 est <code>11</code>, etc.
-    Néanmoins, on peut adapter cette représentation
-    pour obtenir un code à longueur fixe.
+    La représentation des entiers en base 2 
+    est à la base de beaucoup de techniques
+    utilisées pour représenter de l'information.
+    Cependant la base 2 n'est pas à proprement parler
+    un code. Comme nous l'avons vu à la section précédente,
+    un code permet de représenter uniquement un ensemble <b>fini</b> de valeurs.
+    Or, la représentation des entiers en base 2
+    permet de représenter un nombre infini de valeurs, à savoir
+    tous les entiers positifs.
 </p>
 
 <p>
-    Ce code est pratique pour représenter des entiers
-    sur un nombre illimité de bits.
-    Cependant, il n'est pas adapté pour représenter
-    des séquences d'entiers et n'est pas pratique à
-    manipuler par un ordinateur.
-</p>
-
-<p>
-    Pour cela, on aura généralement recours à
-    d'autres codes, comme présenté ci-dessous.
+    Dans cette section, nous allons regarder
+    comment représenter des entiers en utilisant
+    des codes, et plus précisément des codes à longueur fixe.
+    Nous allons voir que ces codes sont limités
+    dans le nombre de valeurs qu'ils peuvent représenter.
+    On appelle le <i>domaine de représentation</i> d'un code
+    l'ensemble des valeurs qu'il peut représenter.
 </p>
 
 <h2>Nombres binaires à longueur fixe</h2>
 
 <p>
+    Commençons par regarder comment représenter des entiers
+    positifs ou nuls en utilisant un code à longueur fixe.
     Pour représenter des entiers en utilisant un code à longueur fixe,
     on doit tout d'abord se décider sur la longueur <i>n</i> des mots
     de code. La longueur choisie détermine quels entiers peuvent être
@@ -58,7 +55,7 @@ $endremark$
 
 <p>
     Une fois la taille <i>n</i> choisie,
-    pour chaque nombre, on calcule sa représentation binaire
+    pour chaque nombre, on calcule sa représentation en base 2
     et on complète avec des zéros à gauche jusqu'à obtenir
     un mot de code de longueur <i>n</i>.
     Ci-dessous est présenté le code à longueur fixe de longueur 4
@@ -106,13 +103,16 @@ $endremark$
     représenter que les entiers compris dans cet intervalle.
     Toute valeur en dehors de cet intervalle ne peut pas être représentée
     par le code.
+    En effet, les nombres plus grands ou égaux à 2<sup>n</sup> ne peuvent pas
+    être représentés car ils nécessiteraient un mot de code de longueur supérieure à <i>n</i>
+    selon cette méthode.
 </p>
 
 <p>
-    En effet, un code de longueur fixe est forcément
+    Comme nous l'avons déjà mentionné, un code est forcément
     limité dans le nombre de valeur qu'il peut représenter.
     Dans le cas d'un code binaire de longueur fixe <i>n</i>,
-    le nombre de valeurs représentation est au maximum de 2<sup>n</sup>.
+    le nombre de valeurs représentables est au maximum de 2<sup>n</sup>.
 </p>
 
 <h2>Complément à 2</h2>
@@ -123,7 +123,9 @@ $endremark$
     la méthode du complément à 2
     permet de représenter des entiers négatifs et positifs
     en utilisant un code à longueur fixe.
-    Ci-dessous est présenté un extrait du code à longueur fixe de longueur 4
+    Ci-dessous est présenté le 
+    code à longueur fixe de longueur 4
+    pour le complément à 2
     sous la forme d'un tableau.
 </p>
 
@@ -131,6 +133,38 @@ $endremark$
     <tr>
         <th>Nombre</th>
         <th>Mot de code</th>
+    </tr>
+    <tr>
+        <td>-8</td>
+        <td>1000</td>
+    </tr>
+    <tr>
+        <td>-7</td>
+        <td>1001</td>
+    </tr>
+    <tr>
+        <td>-6</td>
+        <td>1010</td>
+    </tr>
+    <tr>
+        <td>-5</td>
+        <td>1011</td>
+    </tr>
+    <tr>
+        <td>-4</td>
+        <td>1100</td>
+    </tr>
+    <tr>
+        <td>-3</td>
+        <td>1101</td>
+    </tr>
+    <tr>
+        <td>-2</td>
+        <td>1110</td>
+    </tr>
+    <tr>
+        <td>-1</td>
+        <td>1111</td>
     </tr>
     <tr>
         <td>0</td>
@@ -149,32 +183,20 @@ $endremark$
         <td>0011</td>
     </tr>
     <tr>
-        <td>…</td>
-        <td>…</td>
+        <td>4</td>
+        <td>0100</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>0101</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>0110</td>
     </tr>
     <tr>
         <td>7</td>
         <td>0111</td>
-    </tr>
-    <tr>
-        <td>-8</td>
-        <td>1000</td>
-    </tr>
-    <tr>
-        <td>-7</td>
-        <td>1001</td>
-    </tr>
-    <tr>
-        <td>…</td>
-        <td>…</td>
-    </tr>
-    <tr>
-        <td>-2</td>
-        <td>1110</td>
-    </tr>
-    <tr>
-        <td>-1</td>
-        <td>1111</td>
     </tr>
 </table>
 
@@ -299,3 +321,9 @@ $selfcheck$
     </select>.
 </p>
 $endselfcheck$
+
+<p>
+    Dans la section suivante, nous allons voir comment représenter
+    des caractères comme des lettres, chiffres et autres symboles
+    en utilisant des codes binaires.
+</p>

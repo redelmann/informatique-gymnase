@@ -1,0 +1,505 @@
+---
+title: Fichiers
+order: 3
+---
+
+<p>
+    Le moment est opportun pour introduire le concept de <i>fichier</i>.
+    Vous avez certainement déjà tous créé, ouvert, modifié, enregistré,
+    et fermé des fichiers. Mais au fond, qu'est-ce qu'un fichier ?
+</p>
+
+<p>
+    Un fichier est une suite finie de bits auquel on associe un nom et
+    diverses autres informations (date de création, date de dernière modification,
+    taille, etc.) qu'on appelle <i>métadonnées</i>.
+    Cette suite de bits est généralement stockée
+    sur un support de stockage (disque dur, clé USB, CD, DVD, etc.).
+    Un fichier peut contenir n'importe quelle sorte d'information : du texte, des images,
+    des sons, des vidéos, des programmes, etc. selon le type de fichier.
+    L'information contenue dans un fichier
+    est structurée selon le <i>format</i> du fichier.
+</p>
+
+<h2>Formats de fichiers</h2>
+
+<p>
+    On appelle <i>format de fichier</i> la manière dont l'information est
+    structurée dans un fichier.
+    Le format d'un fichier est en principe déterminé par son <i>extension</i>
+    (la partie du nom de fichier qui suit le dernier point).
+</p>
+
+$example$
+<p>
+    Le format JPEG est un format de fichier pour les images.
+    Ce format est associé aux extensions <code>.jpg</code> et <code>.jpeg</code>.
+    Le format PNG est un autre format de fichier pour les images,
+    associé à l'extension <code>.png</code>.
+    Une même image ne sera pas représentée de la même manière
+    selon qu'elle est enregistrée au format JPEG ou au format PNG.
+</p>
+
+<p>
+    Le format HTML est un format de fichier pour les pages web
+    (comme celle que vous êtes entrain de lire).
+    Ce format est associé à l'extension <code>.html</code>.
+</p>
+$endexample$
+
+<p>
+    En pratique, on fait souvent référence à un format de fichier en utilisant
+    l'extension associée au format.
+    On parle par exemple du format <code>.jpg</code> ou du format <code>.png</code>.
+</p>
+
+$remark$
+<p>
+    La notion de format de fichier est en assez essence similaire à celle de code.
+    En effet, les deux concepts ont trait à la représentation
+    sous forme de séquences de symboles, typiquement des bits,
+    d'information.
+    Dans les deux cas, on parle aussi d'encoder et de décoder
+    de l'information.
+</p>
+
+<p>
+    Il y a cependant quelques différences importantes entre les deux notions :
+</p>
+
+<ul>
+    <li>
+        Un code représente un nombre fini de valeurs.
+        Au contraire, les formats permettent
+        le plus souvent de représenter une infinité
+        de différent fichiers.
+    </li>
+    <li>
+        Les formats de fichiers
+        permettent de décrire
+        de l'information de manière <i>structurée</i>.
+        Un format de fichier permettra de décrire
+        les différentes parties d'un fichier
+        et leur signification.
+        Dans un code, cette notion de structure est généralement
+        moins présente.
+    </li>
+</ul>
+
+<p>
+    Généralement, un format de fichier détermine
+    quels codes sont utilisés pour représenter
+    les différentes sortes d'information qu'un fichier
+    peut contenir.
+</p>
+$endremark$
+
+<h3>Le format <code>.txt</code></h3>
+
+<p>
+    Un des formats de fichier les plus simples est le format <code>.txt</code>.
+    Ce format est utilisé pour les fichiers textuels.
+    Le format indique comment représenter
+    du texte sous forme de séquences d'octets.
+    Chaque caractère est représenté par un mot de code tiré
+    d'un certain code, comme par exemple le code ASCII
+    ou le code UTF-8 que l'on a vu dans la section précédente.
+    Les mots de codes des caractères sont ensuite simplement
+    concaténés pour former la séquence d'octets qui représente le texte.
+</p>
+
+<p>
+    À noter que le format <code>.txt</code> ne spécifie pas
+    le code utilisé pour représenter les caractères.
+    Pour lire correctement un fichier <code>.txt</code>,
+    il faut donc savoir quel code a été utilisé pour le créer.
+    Cette information est parfois indiquée dans les métadonnées
+    du fichier, et parfois les logiciels utilisés pour lire
+    le fichier doivent essayer de deviner le code utilisé.
+    Dans ce dernier cas, il peut arriver que le texte
+    ne soit pas affiché correctement.
+</p>
+
+$remark$
+<p>
+    Lorsqu'on décode un texte en utilisant un code qui
+    n'est pas le bon, on obtient un résultat qui, dans le meilleur des cas
+    contient quelques caractères inconnus, et dans le pire des cas
+    est complètement illisible.
+    À cause de la prolifération de différents codes sur le Web,
+    il était courant de rencontrer des fichiers ou des pages Web
+    qui ne s'affichaient pas correctement
+    à cause d'un mauvais décodage.
+    On appelle ce phénomène le <a href="https://fr.wikipedia.org/wiki/Mojibake">mojibake</a>,
+    un nom emprunté au japonais qui signifie littéralement &laquo; changements de caractères &raquo;.
+</p>
+$endremark$
+
+<h3>Formats textuels et formats binaires</h3>
+
+<p>
+    Un format de fichier est dit <i>textuel</i> si 
+    les fichiers qu'il décrit sont représentés
+    sous forme de séquences de caractères encodés.    
+    Le format <code>.txt</code> est un format textuel,
+    tout comme le format <code>.html</code> (le format des pages Web) ou encore
+    <code>.py</code> (le format des fichiers Python).
+</p>
+
+</p>
+    Au contraire, un format de fichier est dit <i>binaire</i> si les séquences
+    de bits qui le composent ne sont pas simplement directement
+    interprétées comme des caractères.
+    Par exemple, le format JPEG est un format binaire,
+    tout comme le format PNG.
+</p>
+
+<p>
+    Nous aurons l'occasion dans la suite de ce chapitre
+    de discuter de différents formats de fichiers.
+</p>
+
+<h2>Tailles de fichiers</h2>
+
+<p>
+    On appelle la <i>taille</i> d'un fichier le nombre de bits
+    qu'il contient.
+    La taille d'un fichier est généralement exprimée en <i>octets</i>.
+    Un octet est un groupe de 8 bits.
+</p>
+
+<p>
+    Les fichiers peuvent être de tailles très différentes.
+    On peut avoir des fichiers de quelques octets comme des fichiers
+    de plusieurs milliards d'octets.
+    Pour cette raison, on utilise de nombreuses unités pour exprimer
+    les tailles de fichiers.
+    Ci-dessous se trouve un tableau récapitulatif des principales unités
+    utilisées.
+</p>
+
+<style>
+#units {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+#units th, #units td {
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left: 1px solid black;
+}
+
+#units th:nth-child(1),
+#units td:nth-child(1),
+#units td:last-child {
+    border-left: none;
+}
+
+#units td:nth-child(2) {
+    text-align: center;
+}
+</style>
+
+<table id="units">
+    <tr>
+        <th>Unité</th>
+        <th>Symbole</th>
+        <th colspan="2">Nombre d'octets</th>
+    </tr>
+    <tr>
+        <td>octet</td>
+        <td>o</td>
+        <td>1</td>
+        <td>10<sup>0</sup></td>
+    </tr>
+    <tr>
+        <td>kilo-octet</td>
+        <td>Ko</td>
+        <td>1'000</td>
+        <td>10<sup>3</sup></td>
+    </tr>
+    <tr>
+        <td>méga-octet</td>
+        <td>Mo</td>
+        <td>1'000'000</td>
+        <td>10<sup>6</sup></td>
+    </tr>
+    <tr>
+        <td>giga-octet</td>
+        <td>Go</td>
+        <td>1'000'000'000</td>
+        <td>10<sup>9</sup></td>
+    </tr>
+    <tr>
+        <td>tera-octet</td>
+        <td>To</td>
+        <td>1'000'000'000'000</td>
+        <td>10<sup>12</sup></td>
+    </tr>
+    <tr>
+        <td>peta-octet</td>
+        <td>Po</td>
+        <td>1'000'000'000'000'000</td>
+        <td>10<sup>15</sup></td>
+    </tr>
+</table>
+
+<p>
+    On utilise les mêmes unités pour exprimer la taille de la mémoire
+    d'un ordinateur, que ce soit la mémoire vive ou la mémoire de masse.
+</p>
+
+$remark$
+<p>
+    Historiquement, ces unités ont été définies en utilisant
+    les puissances de 2 au lieu des puissances de 10 par certaines personnes.
+    Un kilo-octet était alors défini comme 1'024 octets (2<sup>10</sup> octets),
+    un méga-octet comme 1'024 kilo-octets (2<sup>20</sup> octets), etc.
+    Cette définition est aujourd'hui obsolète.
+</p>
+
+<p>
+    Pour le kilo-octet, la différence entre les deux définitions
+    est presque négligeable (environ 2%).
+    Cependant, pour de plus grandes unités la différence devient importante.
+    Par exemple, un giga-octet vaut 1'000'000'000 octets
+    selon la définition actuelle,
+    mais 1'073'741'824 octets selon la définition obsolète,
+    soit un écart d'à peu près 7%.
+</p>
+
+<p>
+    Pour faire la différence entre les deux définitions,
+    on utilise parfois les préfixes <i>kibi</i> (kilo-binaire),
+    <i>mibi</i> (méga-binaire), <i>gibi</i> (giga-binaire), etc.
+    pour désigner les units basées sur les puissances de 2.
+</p>
+
+<p>
+    Certains logiciels, notamment Windows de Microsoft, utilisent encore
+    les anciennes définitions tout en utilisant les symboles
+    des nouvelles définitions.
+    Par exemple, Windows affiche 1 Go pour 1'073'741'824 octets.
+    Cela peut être source de confusion,
+    notamment lorsque son ordinateur affiche une capacité
+    de disque dur inférieure à celle annoncée par le fabricant
+    à cause de cette différence de définition.
+</p>
+$endremark$
+
+<h2>Éditeurs hexadécimaux</h2>
+
+<p>
+    Généralement les fichiers sont créés et lus
+    par des programmes informatiques et les
+    bits qu'ils contiennent ne sont pas directement visibles.
+    Cependant, il existe des programmes qui permettent
+    de visualiser les bits contenus dans un fichier.
+    Parmi ces programmes, on trouve les <i>éditeurs hexadécimaux</i>.
+</p>
+
+$remark$
+<p>
+    Dans le cadre de ce cours,
+    nous utiliserons l'éditeur hexadécimal
+    <a href="https://hexed.it/" target="_blank" rel="noreferrer">HexEd.it</a>
+    qui est disponible en ligne sous la forme d'une application Web.
+</p>
+$endremark$
+
+<p>
+    Ces programmes affichent le contenu d'un fichier
+    sous la forme d'une suite de symboles <i>hexadécimaux</i>.
+    Un symbole hexadécimal est un chiffre entre 0 et 9 ou une lettre
+    entre A et F.
+    Il y a donc en tout 16 symboles hexadécimaux différents.
+    On appelle ce système de numération le système hexadécimal,
+    ou base 16.
+</p>
+
+<p>
+    Ci-dessous sont présentés les représentations en
+    base 10, base 16 et base 2 (sur 4 bits) des nombres de 0 à 15.
+</p>
+
+<style>
+#hex-table {
+    border-collapse: collapse;
+    margin: auto;
+    text-align: center;
+}
+
+#hex-table th, #hex-table td {
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+</style>
+
+<table id="hex-table">
+    <tr>
+        <th>Décimal</th>
+        <th>Hexadécimal</th>
+        <th>Binaire (4 bits)</th>
+    </tr>
+    <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>0000</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>0001</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>2</td>
+        <td>0010</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>3</td>
+        <td>0011</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>4</td>
+        <td>0100</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>5</td>
+        <td>0101</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>6</td>
+        <td>0110</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>7</td>
+        <td>0111</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>8</td>
+        <td>1000</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>9</td>
+        <td>1001</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>A</td>
+        <td>1010</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>B</td>
+        <td>1011</td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>C</td>
+        <td>1100</td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>D</td>
+        <td>1101</td>
+    </tr>
+    <tr>
+        <td>14</td>
+        <td>E</td>
+        <td>1110</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>F</td>
+        <td>1111</td>
+    </tr>
+</table>
+
+<p>
+    Le système hexadécimal est très utilisé en informatique
+    car il est extrêmement pratique pour représenter des bits
+    et plus particulièrement des octets de manière compacte.
+    Chaque symbole hexadécimal représente exactement un groupe de 4 bits,
+    et à chaque groupe de 4 bits correspond exactement un symbole hexadécimal.
+</p>
+
+<p>
+    Par conséquent, chaque octet peut être représenté par
+    une unique paire de symboles hexadécimaux, et
+    chaque paire de symboles hexadécimaux correspond à
+    un unique octet.
+</p>
+
+$example$
+<p>
+    L'octet 10100001 est représenté en hexadécimal par A1.
+    En effet, les 4 premiers bits (1010) correspondent à A
+    et les 4 derniers bits (0001) à 1.
+</p>
+
+<p>
+    L'octet 74, représenté ici en hexadécimal,
+    est représenté en binaire par 01110100.
+</p>
+$endexample$
+
+<p>
+    Les éditeurs hexadécimaux permettent de visualiser
+    le contenu d'un fichier sous la forme d'une suite de symboles hexadécimaux.
+    Ils permettent également de modifier le contenu
+    en modifiant ces symboles.
+</p>
+
+$tryout$
+<p>
+    Téléchargez le fichier <a href="/docs/ascii.txt" download="ascii">ascii.txt</a>
+    puis ouvrez-le avec un éditeur de texte.
+    Vous devriez voir le contenu du fichier,
+    c'est-à-dire <i lang="en">"The quick brown fox jumps over the lazy dog."</i>.
+</p>
+
+<p>
+    Ouvrez ensuite le même fichier à l'aide d'un éditeur hexadécimal
+    tel que <a href="https://hexed.it/" target="_blank" rel="noreferrer">HexEd.it</a>.
+    Vous devriez voir le contenu du fichier, mais cette fois-ci
+    sous forme de nombres hexadécimaux.
+    Chaque octet du fichier est représenté par deux symboles hexadécimaux
+    et correspond à un caractère du fichier.
+</p>
+
+<p>
+    Ce fichier est un fichier texte.
+    L'encodage utilisé pour les caractères de ce fichier est le code ASCII.
+</p>
+$endtryout$
+
+$tryout$
+<p>
+    Le fichier <a href="/docs/latin1.txt" download="latin1.txt">latin1.txt</a> contient 
+    un extrait du livre <i>La Nausée</i> de Jean-Paul Sartre encodé en ISO-8859-1.
+    Ouvrez ce fichier avec un éditeur de texte et observez le contenu.
+    Il est possible que certains caractères ne s'affichent pas correctement,
+    car votre éditeur de texte ne sait pas forcément qu'il doit interpréter le fichier
+    avec le code ISO-8859-1.
+    Il s'agit du problème d'encodage que nous avons évoqué précédemment.
+    Dans certains logiciels, il est possible de manuellement
+    spécifier le code utilisé par les caractères avant d'ouvrir le fichier.
+</p>
+
+<p>
+    Dans un second temps, ouvrez le fichier dans un éditeur hexadécimal
+    tel que <a href="https://hexed.it/" target="_blank" rel="noreferrer">HexEd.it</a>.
+    Pouvez-vous retrouver le code des caractères non-ASCII dans le fichier ?
+</p>
+$endtryout$

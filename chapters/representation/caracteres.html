@@ -1,18 +1,29 @@
 ---
-title: Représentation du texte
-order: 3
+title: Représentation des caractères
+order: 2
 ---
 
 <p>
     Dans les sections précédentes, nous avons vu comment représenter des nombres
     entiers sous forme de codes binaires.
     Dans cette section, nous allons regarder différentes manières de représenter
-    du texte à l'aide de code binaires.
+    des <i>caractères</i>, c'est-à-dire des symboles comme les lettres de
+    l'alphabet, les chiffres, les signes de ponctuation, etc.
     Nous commencerons par regarder le code ASCII, puis nous verrons comment
     représenter des caractères accentués à l'aide du code ISO-8859-1.
     Finalement, nous parlerons de l'Unicode et de l'UTF-8 afin de voir comment
     représenter des caractères de toutes les langues et tous les alphabet du monde.
 </p>
+
+<p>
+    Tous les codes présentés dans cette pages sont des codes
+    pour représenter des caractères individuels.
+    Pour encoder du texte, il suffira dans tous les cas de concaténer les codes
+    des caractères qui composent le texte.
+    C'est ce que le format de fichier <code>.txt</code> fait,
+    comme nous le discuterons par la suite.
+</p>
+
 
 <h2>Code ASCII</h2>
 
@@ -22,7 +33,7 @@ order: 3
     spéciaux.
     Le code ASCII est un code binaire de longueur 7,
     ce qui permet de représenter 128 caractères différents.
-    Ci-dessous est présenté un extrait du code ASCII.
+    Ci-dessous est présenté le code ASCII sous forme de tableau.
 </p>
 
 <style>
@@ -117,7 +128,7 @@ order: 3
 </script>
 
 <p>
-    Dans la table ci-dessus, les entrées dénotée d'un caractère <span class="grayed-out">¶</span> grisé représentent
+    Dans le tableau ci-dessus, les entrées dénotée d'un caractère <span class="grayed-out">¶</span> grisé représentent
     des caractères de contrôle qui ne sont pas affichables.
     La fonction de ces caractères est assez anecdotique et
     dépasse le cadre de ce cours.
@@ -127,8 +138,9 @@ order: 3
 $remark$
 <p>
     ASCII est un acronyme pour <i lang="en">American Standard Code for Information Interchange</i>,
-    ce qui signifie en français &laquo; Code standard américain pour l'échange d'information &raquo;.
+    ce qui signifie en français &laquo; Code standard américain pour l'échange d'information &raquo;.
     Ce code a été créé dans les années 1960 et est toujours utilisé de nos jours.
+    Ce code a eu une grande influence sur les codes qui ont été créés par la suite.
 </p>
 $endremark$
 
@@ -140,10 +152,10 @@ $endremark$
     les chiffres arabes, ainsi que quelques caractères spéciaux.
     Cependant, il existe des caractères qui ne sont pas représentés dans le code ASCII
     et qui sont utilisés dans d'autres langues.
-    Par exemple, le caractère &laquo; é &raquo; n'est pas représenté dans le code ASCII,
+    Par exemple, le caractère &laquo; é &raquo; n'est pas représenté dans le code ASCII,
     alors qu'il est utilisé en français.
-    Le caractère &laquo; € &raquo; n'est pas non plus représenté dans le code ASCII,
-    ni le caractère &laquo; 魅 &raquo;.
+    Le caractère &laquo; € &raquo; n'est pas non plus représenté dans le code ASCII,
+    ni le caractère &laquo; 魅 &raquo;.
     Pour représenter ces caractères, il faudra donc utiliser d'autres codes,
     comme nous le verrons dans la suite de cette page.
 </p>
@@ -153,8 +165,10 @@ $endremark$
     on l'utilise généralement avec des mots de longueur 8.
     En effet, les mots de longueur 8 sont plus faciles à manipuler
     sur un ordinateur que les mots de longueur 7.
-    C'est pourquoi les fichiers texte qui sont encodés en ASCII
-    utilisent un octet par caractère.
+    Pour cela, on préfixe le mot de code de chaque caractère
+    par un bit à 0.
+    Les textes qui sont encodés en ASCII
+    utilisent donc généralement un octet par caractère.
 </p>
 
 <p>
@@ -165,24 +179,6 @@ $endremark$
     du texte à encoder sans avoir à ajouter de séparateur.
     C'est ce qui est fait en pratique.
 </p>
-
-$tryout$
-<p>
-    Téléchargez le fichier <a href="/docs/ascii.txt" download="ascii">ascii.txt</a>
-    puis ouvrez-le avec un éditeur de texte.
-    Vous devriez voir le contenu du fichier,
-    c'est-à-dire <i lang="en">"The quick brown fox jumps over the lazy dog."</i>.
-</p>
-
-<p>
-    Ouvrez ensuite le même fichier à l'aide d'un éditeur hexadécimal
-    tel que <a href="https://hexed.it/">HexEd.it</a>.
-    Vous devriez voir le contenu du fichier, mais cette fois-ci
-    sous forme de nombres hexadécimaux.
-    Chaque octet du fichier est représenté par deux symboles hexadécimaux
-    et correspond à un caractère du fichier.
-</p>
-$endtryout$
 
 <h2>Code ISO-8859-1 (Latin-1)</h2>
 
@@ -298,32 +294,22 @@ $endremark$
 </p>
 
 <p>
-    De plus, il est impossible de savoir quel code est utilisé dans un document
+    De plus, avec la prolifération de différents codes,
+    il est devenu difficile de savoir quel code a été utilisé
+    pour encoder un texte.
+    Il est principe impossible de savoir quel code est utilisé dans un document
     sans avoir recours à des indications explicites.
-    En effet, une fois encodé, un document ne contient plus que des octets,
-    et il est en principe impossible de savoir quel code a été utilisé pour l'encodage.
-    Cela a pour conséquence de mener à des problèmes de décodage.
+    En effet, une fois encodé, un document ne contient plus que des octets ;
+    octets qui peuvent être interprétés de différentes manières.
+    Cela peut mener à des problèmes de décodage.
     Certains logiciels peuvent essayer de déterminer le code utilisé
-    en analysant les caractères présents dans le document,
+    en analysant les octets présents dans le texte encodé,
     mais cela n'est pas garanti de fonctionner.
 </p>
 
-$remark$
 <p>
-    Lorsqu'on décode un document en utilisant un code qui
-    n'est pas le bon, on obtient un résultat qui, dans le meilleur des cas
-    contient quelques caractères inconnus, et dans le pire des cas
-    est complètement illisible.
-    À cause de la prolifération de différents codes sur le Web,
-    il était courant de rencontrer des pages qui ne s'affichaient pas correctement
-    à cause d'un mauvais décodage.
-    On appelle ce phénomène le <a href="https://fr.wikipedia.org/wiki/Mojibake">mojibake</a>,
-    un nom emprunté au japonais qui signifie littéralement &laquo; changements de caractères &raquo;.
-</p>
-$endremark$
-
-<p>
-    Le code ISO-8859-1, bien qu'initialement très utilisé en Europe,
+    À cause des ces problème, le code ISO-8859-1, bien qu'initialement 
+    rès utilisé en Europe occidentale,
     a depuis été largement remplacé par Unicode et le code UTF-8
     que l'on va aborder immédiatement.
 </p>
@@ -333,8 +319,8 @@ $endremark$
 <p>
     Unicode est un standard qui définit un nom et un indice (un nombre entier)
     pour chaque caractère utilisé dans les différentes langues du monde,
-    et même pour certains symboles comme les émoticônes.
-    Comme de nouveaux caractères sont régulièrement ajoutés,
+    et même divers symboles comme les émoticônes.
+    Comme de nouveaux caractères sont ponctuellement ajoutés,
     Unicode est un standard en constante évolution.
     À l'heure de l'écriture de ces notes de cours,
     Unicode contient 149'186 caractères.
@@ -406,13 +392,93 @@ $endexample$
 <p>
     Unicode n'est pas à proprement parler un code de caractères.
     En effet, il ne définit pas comment représenter les caractères,
-    Unicode se contente de leur donner un indice (un numéro).
+    il se contente de leur donner un indice (un numéro).
     Pour pouvoir avoir un véritable code, 
-    il faudra transformer cet indice, qui est un nombre entier,
+    il faudrait transformer cet indice, qui est un nombre entier,
     en une suite de bits (un mot de code).
     Le code UTF-8, que nous allons maintenant aborder, est un exemple de code pour les caractères
     définis en Unicode.
 </p>
+
+$tryout$
+<p>
+    Entrez un caractère ci-dessous pour obtenir son indice en Unicode.
+</p>
+
+<style>
+.unicode-exemple {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 1em;
+    font-size: 1.2em;
+}
+
+.unicode-exemple > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1em;
+}
+
+.unicode-exemple > div > * {
+    display: inline-block;
+}
+
+
+.unicode-output {
+    font-size: 1.2em;
+    width: 100px;
+    text-align: center;
+}
+
+.unicode-input {
+    font-size: 1.2em;
+    text-align: center;
+    width: 2em;
+    padding: 0.2em;
+}
+
+@media (max-width: 600px) {
+    .unicode-exemple > div {
+        flex-direction: column;
+    }
+
+    .unicode-exemple > div > * {
+        height: 1.3em;
+    }
+}
+</style>
+
+<div class="unicode-exemple">
+    <div>
+        <label for="unicode-input-1">Caractère : </label>
+        <input type="text" id="unicode-input-1" class="unicode-input" pattern="." />
+    </div>
+    <div>
+        <label for="unicode-output-1">Indice : </label>
+        <span id="unicode-output-1" class="unicode-output"></span>
+    </div>
+</div>
+
+<script type="text/javascript">
+(function() {
+    const input = document.getElementById("unicode-input-1");
+    const output = document.getElementById("unicode-output-1");
+    input.addEventListener("input", function() {
+        if (input.value.length === 0) {
+            output.textContent = "";
+            return;
+        }
+        codepoint = input.value.codePointAt(0);
+        output.textContent = codepoint;
+        input.value = String.fromCodePoint(codepoint)
+        input.select();
+    });
+})();
+</script>
+$endtryout$
 
 <h2>UTF-8</h2>
 
@@ -428,5 +494,274 @@ $endexample$
     UTF-8 est un code qui est très largement utilisé sur le Web,
     La grande majorité des pages Web étant encodées en UTF-8
     (comme celle que vous êtes entrain de lire).
-    Aujourd'hui, UTF-8 est devenu le standard de facto pour représenter le texte sur le Web.
+    Aujourd'hui, UTF-8 est devenu le standard de facto pour
+    représenter le texte sur le Web.
+</p>
+
+<p>
+    Pour les 128 premières positions d'Unicode,
+    UTF-8 encode le caractère sur un seul octet.
+    Pour ces premiers mots de code,
+    le premier bit est toujours de zéro.
+    Les 7 autres bits permettent d'encoder les 128 valeurs.
+</p>
+
+<style>
+.utf8-codeword {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    margin: 1em;
+}
+
+.utf8-codeword > span {
+    display: inline-block;
+    width: 2em;
+    text-align: center;
+    font-style: italic;
+}
+
+.utf8-codeword > span.fixed-bit {
+    font-family: monospace;
+    font-style: normal;
+}
+</style>
+
+<div class="utf8-codeword">
+    <span class="fixed-bit">0</span>
+    <span>B<sub>1</span>
+    <span>B<sub>2</span>
+    <span>B<sub>3</span>
+    <span>B<sub>4</span>
+    <span>B<sub>5</span>
+    <span>B<sub>6</span>
+    <span>B<sub>7</span>
+</div>
+
+<p>
+    Les bits B<sub>1</sub> à B<sub>7</sub>
+    représentent les 7 bits de l'indice du caractère
+    encodé en binaire.
+</p>
+
+$remark$
+<p>
+    Ces 128 premiers mots de code correspondent exactement au code ASCII.
+    Cela signifie que tout texte ASCII (version sur 8 bits)
+    est aussi un texte UTF-8 valide.
+</p>
+$endremark$
+
+<p>
+    Pour encoder les caractères suivants jusqu'à l'indice 2047,
+    UTF-8 utilise deux octets, selon le schéma suivant :
+</p>
+
+<div class="utf8-codeword">
+    <span class="fixed-bit">1</span>
+    <span class="fixed-bit">1</span>
+    <span class="fixed-bit">0</span>
+    <span>B<sub>1</span>
+    <span>B<sub>2</span>
+    <span>B<sub>3</span>
+    <span>B<sub>4</span>
+    <span>B<sub>5</span>
+</div>
+
+<div class="utf8-codeword">
+    <span class="fixed-bit">1</span>
+    <span class="fixed-bit">0</span>
+    <span>B<sub>6</span>
+    <span>B<sub>7</span>
+    <span>B<sub>8</span>
+    <span>B<sub>9</span>
+    <span>B<sub>10</span>
+    <span>B<sub>11</span>
+</div>
+
+<p>
+    Les bits B<sub>1</sub> à B<sub>11</sub>
+    représentent les bits de l'indice du caractère,
+    encodé en binaire sur 11 bits.
+</p>
+
+<p>
+    UTF-8 continue ainsi à utiliser des mots de code de plus en plus longs
+    pour représenter les caractères suivants.
+    Jusqu'à la position 65535, UTF-8 utilise trois octets,
+    selon le schéma suivant :
+</p>
+
+<div class="utf8-codeword">
+    <span class="fixed-bit">1</span>
+    <span class="fixed-bit">1</span>
+    <span class="fixed-bit">1</span>
+    <span class="fixed-bit">0</span>
+    <span>B<sub>1</span>
+    <span>B<sub>2</span>
+    <span>B<sub>3</span>
+    <span>B<sub>4</span>
+</div>
+
+<div class="utf8-codeword">
+    <span class="fixed-bit">1</span>
+    <span class="fixed-bit">0</span>
+    <span>B<sub>5</span>
+    <span>B<sub>6</span>
+    <span>B<sub>7</span>
+    <span>B<sub>8</span>
+    <span>B<sub>9</span>
+    <span>B<sub>10</span>
+</div>
+
+<div class="utf8-codeword">
+    <span class="fixed-bit">1</span>
+    <span class="fixed-bit">0</span>
+    <span>B<sub>11</span>
+    <span>B<sub>12</span>
+    <span>B<sub>13</span>
+    <span>B<sub>14</span>
+    <span>B<sub>15</span>
+    <span>B<sub>16</span>
+</div>
+
+<p>
+    Pour le reste des caractères, UTF-8 utilise quatre octets,
+    ce qui est suffisant pour représenter tous les caractères Unicode
+    restants au jour d'aujourd'hui.
+</p>
+
+<p>
+    Il est intéressant de constater que le code UTF-8 est un code préfixe.
+    En effet, le code est conçu de manière à ce qu'aucun mot de code
+    ne soit le préfixe d'un autre mot de code.
+    Cette propriété permet de décoder un texte UTF-8
+    simplement en lisant les octets un par un depuis la gauche,
+    sans jamais avoir besoin de regarder en arrière.
+</p>
+
+<p>
+    De plus, le code UTF-8 a la propriété que les octets
+    qui démarrent un mot de code sont facilement différentiables
+    des octets qui se trouvent au milieu ou à la fin d'un mot de code.
+    En effet, ces derniers débutent toujours par la séquence de bits <code>10</code>.
+    Cette séquence de bits ne permet pas de démarrer un mot de code UTF-8.
+    Cette propriété permet de facilement détecter les mots de code
+    dans un texte encoder en UTF-8, et ce même si on ne commence
+    pas à lire le texte depuis le début.
+</p>
+
+$tryout$
+<p>
+    Entrez un caractère dans le champ ci-dessous
+    pour voir son indice dans Unicode et son encodage en UTF-8.
+    Vous pouvez même entrez des caractères spéciaux
+    comme des caractères accentués, des caractères d'alphabets non latins,
+    des émojis, etc.
+</p>
+
+<div class="unicode-exemple">
+    <div>
+        <label for="unicode-input-2">Caractère : </label>
+        <input type="text" id="unicode-input-2" class="unicode-input" pattern="." />
+    </div>
+    <div>
+        <label for="unicode-output-2">Indice : </label>
+        <span id="unicode-output-2" class="unicode-output"></span>
+    </div>
+</div>
+
+<div id="codewords-example-2">
+
+</div>
+
+<script type="text/javascript">
+(function() {
+    const input = document.getElementById("unicode-input-2");
+    const output = document.getElementById("unicode-output-2");
+    const codewords = document.getElementById("codewords-example-2");
+
+    function toUTF8bytes(codepoint) {
+        if (codepoint < 128) {
+            return [codepoint];
+        } else if (codepoint < 2048) {
+            return [
+                192 + (codepoint >> 6),
+                128 + (codepoint & 63)
+            ];
+        } else if (codepoint < 65536) {
+            return [
+                224 + (codepoint >> 12),
+                128 + ((codepoint >> 6) & 63),
+                128 + (codepoint & 63)
+            ];
+        } else {
+            return [
+                240 + (codepoint >> 18),
+                128 + ((codepoint >> 12) & 63),
+                128 + ((codepoint >> 6) & 63),
+                128 + (codepoint & 63)
+            ];
+        }
+    }
+
+    function toBits(byte, container, fixed) {
+        for (let i = 0; i < 8; i++) {
+            const bit = (byte >> (7 - i)) & 1;
+            const span = document.createElement("span");
+            span.textContent = bit;
+            if (i < fixed) {
+                span.classList.add("fixed-bit");
+            }
+            container.appendChild(span);
+        }
+    }
+
+    input.addEventListener("input", function() {
+        if (input.value.length === 0) {
+            output.textContent = "";
+            codewords.innerHTML = "";
+            return;
+        }
+        codepoint = input.value.codePointAt(0);
+        output.textContent = codepoint;
+        input.value = String.fromCodePoint(codepoint)
+        input.select();
+
+        codewords.innerHTML = "";
+        const bytes = toUTF8bytes(codepoint);
+        for (let i = 0; i < bytes.length; i++) {
+            const div = document.createElement("div");
+            div.classList.add("utf8-codeword");
+            let n = 1;
+            if (i > 0) {
+                n = 2;
+            }
+            else if (bytes.length > 1) {
+                n = bytes.length + 1;
+            }
+            toBits(bytes[i], div, n);
+            codewords.appendChild(div);
+        }
+    });
+})();
+</script>
+
+
+$endtryout$
+
+<p>
+    UTF-8 est un code aujourd'hui très répandu.
+    Il a l'avantage de représenter les caractères ASCII
+    avec un seul octet, ce qui permet de représenter
+    beaucoup de textes avec un nombre d'octets raisonnable,
+    en particulier les textes basés sur l'alphabet latin.
+</p>
+
+<p>
+    De plus, il permet de représenter tous les caractères Unicode
+    au sein d'un même texte, ce qui est très pratique
+    pour représenter des textes multilingues.
 </p>

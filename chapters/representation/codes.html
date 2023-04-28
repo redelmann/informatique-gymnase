@@ -11,7 +11,7 @@ order: 1
 </p>
 
 <p>
-    Un <i>code</i> est une manière de représenter de l'information
+    Un <i>code</i> est une manière de représenter un ensemble fini de valeurs
     avec des suites de <i>symboles</i>.
     Chaque telle suite de symboles est appelée un <i>mot de code</i>.
     En principe, chaque valeur possible de l'information à représenter
@@ -453,14 +453,14 @@ $endexample$
 <p>
     Souvent, étant donné un code, on souhaitera représenter
     non pas une unique valeur, mais une séquence de valeurs.
-    Par exemple, à l'aide d'un code pour les lettres et chiffre
-    de l'alphabet, on souhaitera représenter des mots tels que
+    Par exemple, à l'aide d'un code pour les caractères de texte,
+    on souhaitera représenter des mots tels que
     <i lang="en">SOS</i> (pour <i lang="en">"Save Our Souls"</i>) ou
     <i lang="en">CQD</i> (pour <i lang="en">"Come Quick Danger"</i>),
     voire des phrases comme
-    <i lang="en">What hath God wrought?</i> (premier message transmis par télégraphe)
+    <i lang="en">"What hath God wrought?"</i> (premier message transmis par télégraphe)
     ou
-    <i lang="en">something like QWERTYUIOP</i> (premier message transmis par email).
+    <i lang="en">"something like QWERTYUIOP"</i> (premier message transmis par email).
 </p>
 
 <p>
@@ -468,8 +468,9 @@ $endexample$
     les mots de code des valeurs de la séquence pour obtenir
     la représentation de la séquence.
     Ainsi, un code pour des valeurs individuelles donne immédiatement
-    un code pour des séquences de valeurs. Or, ce n'est pas toujours le cas.
-    Dans d'autres codes, il faudra utiliser d'autres techniques
+    un moyen de représenter des séquences de valeurs.
+    Or, ce n'est pas toujours le cas.
+    Dans d'autres codes, il faudra utiliser diverses techniques
     pour délimiter les mots de code d'une séquence.
 </p>
 
@@ -495,7 +496,8 @@ $example$
     les mots de codes
     pour encoder une suite de lettres, on pourrait obtenir
     un résultat qui donne lieu à plusieurs
-    interprétations. 
+    interprétations.
+    On parle alors d'<i>ambiguïté</i> du décodage.
 </p>
 
 <p>
@@ -519,7 +521,7 @@ $endexample$
 <h2>Codes à longueur fixe</h2>
 
 <p>
-    Une famille de code très utilisés en pratique et
+    Une famille de codes très utilisés en pratique et
     qui se prêtent bien à l'encodage de séquences de valeurs
     sont les codes <i>à longueur fixe</i>.
     On appelle code à longueur fixe un code dans lequel
@@ -539,7 +541,7 @@ $endexample$
     en mots de code de même longueur, et de remplacer
     chaque mot de code par la valeur correspondante.
     Aucune ambiguïté n'est possible, car chaque mot de code
-    est clairement identifiable.
+    est clairement identifiable dans le message.
 </p>
 
 $example$
@@ -579,16 +581,27 @@ $example$
 
 <p>
     À l'aide de ce code, on peut représenter la séquence de lettres
-    <i>ABBA</i> par le mot de code
+    <i>ABBA</i> par la séquence 
     <code>00010100</code> de façon totalement inambiguë :
-    aucune autre interprétation n'est possible.
+    aucune autre interprétation que <i>ABBA</i> n'est possible.
 </p>
 $endexample$
+
+$remark$
+<p>
+    Le nombre maximum de valeur qu'un code à longueur fixe
+    peut représenter est très facilement calculable.
+    Pour un code de longueur fixe <i>n</i> qui utilise <i>b</i> symboles différents,
+    il y a au maximum <i>b<sup>n</sup></i> valeurs représentables.
+</p>
+$endremark$
 
 <h2>Codes à longueur variable</h2>
 
 <p>
     On appelle un code qui n'est pas à longueur fixe un code <i>à longueur variable</i>.
+    Dans un code à longueur variable, les mots de code n'ont pas tous la même longueur.
+    Certains mots de code peuvent être plus longs et d'autres plus courts.
 </p>
 
 $example$
@@ -600,22 +613,32 @@ $example$
 </p>
 
 <p>
-    On dit que le code Morse est un code à <i>longueur variable</i>
-    car les mots de code ont des longueurs différentes les uns
-    des autres. Le code Morse n'est donc pas un code à longueur fixe.
+    Le code Morse est donc un code à longueur variable.
+    En effet les mots de code ont des longueurs 
+    qui peuvent différer les unes des autres.
+    Le code Morse n'est donc pas un code à longueur fixe.
 </p>
 $endexample$
 
 <p>
-    Les codes à longueur fixe ont une capacité de représentation
-    limitée. En effet, il y a un nombre fini de mots de code
-    de longueur donnée, et donc un nombre fini de valeurs
-    représentables.
+    Contrairement aux codes à longueur fixe,
+    qui utilisent toujours le même nombre
+    de symboles pour représenter une valeur,
+    les codes à longueur variable permettent de varier
+    la longueur des mots de code en fonction de la valeur à représenter.
 </p>
 
 <p>
-    Pour un code de longueur <i>n</i> qui utilise <i>b</i> symboles différents,
-    il y a au maximum <i>b<sup>n</sup></i> valeurs représentables.
+    Les codes à longueur variable sont particulièrement
+    utiles lorsque les valeurs
+    à représenter varient en fréquence.
+    En effet, il est intéressant de pouvoir utiliser
+    un mot de code plus court
+    pour les valeurs les plus fréquemment utilisées.
+    Ainsi les messages encodés seront généralement plus courts.
+    C'est le cas par exemple pour le code Morse, qui utilise
+    des mots de code plus courts pour les lettres les plus fréquemmment
+    utilisées en anglais.
 </p>
 
 <h2>Codes préfixes</h2>
@@ -751,6 +774,14 @@ $endexample$
     Dans la suite de ce chapitre,
     nous allons nous intéresser plus particulièrement aux codes binaires
     et nos symboles seront les deux bits 0 et 1.
+</p>
+
+<h3>L'octet</h3>
+
+<p>
+    Dans le cadre des codes binaires (et de la représentation
+    de l'information en général), nous parlerons souvent d'<i>octets</i>.
+    Un octet est simplement une séquence de 8 bits.
 </p>
 
 $selfcheck$
