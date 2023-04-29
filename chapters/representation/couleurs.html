@@ -1,0 +1,552 @@
+---
+title: Représentation des couleurs
+order: 4
+---
+
+<p>
+    Dans la section suivante, nous allons nous intéresser à la représentation
+    des images. Nous allons voir différents formats de fichiers 
+    pour représenter des images.
+    Avant cela, nous allons nous intéresser à la question des couleurs.
+</p>
+
+<p>
+    La couleur est un phénomène sensoriel qui est provoqué par la lumière
+    captée par nos yeux par l'intermédiaire de cellules appelées
+    <a href="https://fr.wikipedia.org/wiki/C%C3%B4ne_(photor%C3%A9cepteur)"><i>cônes</i></a>
+    et <a href="https://fr.wikipedia.org/wiki/B%C3%A2tonnet"><i>bâtonnets</i></a>.
+    Les cônes sont responsables de la vision des couleurs de jour,
+    tandis que les bâtonnets sont responsables de la vision
+    dans la presque obscurité et de la vision périphérique.
+</p>
+
+<div class="illustration right">
+    <img src="images/cones-batonnets.png" alt="Des cônes et des batonnets.">
+</div>
+
+<p>
+    Il existe trois types de cônes, chacun étant sensible à une certaine
+    longueur d'onde de la lumière.
+    La perception de couleur vient de la combinaison des signaux envoyés
+    par les différents types de cônes.
+</p>
+
+<p>
+    Pour stimuler ces cônes et donc provoquer une sensation de couleur,
+    les écrans d'ordinateur projettent de la lumière de trois couleurs
+    différentes : le rouge, le vert et le bleu.
+    C'est là la base de ce qu'on appelle le <i>modèle RVB</i> (pour <i>rouge, vert, bleu</i>)
+    ou <i>RGB</i> (pour <i lang="en">red, green, blue</i> en anglais).
+</p>
+
+$tryout$
+<p>
+    Utilisez les trois curseurs ci-dessous pour modifier
+    l'intensité de rouge, vert et bleu projetée par votre écran
+    dans la zone noire ci-dessous.
+</p>
+
+<style>
+#color-zone {
+    width: 600px;
+    aspect-ratio: 3/2;
+    background-color: black;
+    margin: auto;
+    max-width: 80%;
+    display: block;
+    border-radius: 5px;
+}
+
+#color-sliders {
+    display: flex;
+    flex-direction: row;
+    align-items: space-around;
+    justify-content: center;
+}
+
+#color-sliders > div {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+}
+
+@media screen and (max-width: 700px) {
+    #color-sliders {
+        flex-direction: column;
+    }
+
+    #color-sliders > div {
+        justify-content: center;
+    }
+}
+</style>
+
+<div id="color-sliders">
+    <div>
+        <label for="red">Rouge</label>
+        <input type="range" id="color-red" min="0" max="255" value="0">
+    </div>
+    <div>
+        <label for="green">Vert</label>
+        <input type="range" id="color-green" min="0" max="255" value="0">
+    </div>
+    <div>
+        <label for="blue">Bleu</label>
+        <input type="range" id="color-blue" min="0" max="255" value="0">
+    </div>
+</div>
+
+<canvas id="color-zone" width="600" height="400"></canvas>
+
+<script type="text/javascript">
+(function() {
+    const colorZone = document.getElementById("color-zone");
+    const colorRed = document.getElementById("color-red");
+    const colorGreen = document.getElementById("color-green");
+    const colorBlue = document.getElementById("color-blue");
+
+    var ctx = colorZone.getContext('2d');
+    ctx.globalCompositeOperation = 'lighter';
+
+    function hex(value) {
+        var str = Number(value).toString(16);
+        if (str.length == 1) {
+        str = '0' + str;
+        }
+        return str;
+    }
+
+    function update() {
+        const red = colorRed.value;
+        const green = colorGreen.value;
+        const blue = colorBlue.value;
+
+        const hexred = hex(red);
+        const hexgreen = hex(green);
+        const hexblue = hex(blue);
+
+        ctx.clearRect(0, 0, colorZone.width, colorZone.height);
+
+        const d = 45;
+        const c = 100;
+        const cx = colorZone.width / 2;
+        const cy = (colorZone.height + Math.sqrt(3) * d) / 2;
+
+        ctx.beginPath();
+        ctx.fillStyle = '#' + hexred + '0000';
+        ctx.arc(cx - d, cy, c, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = '#00' + hexgreen + '00';
+        ctx.arc(cx + d, cy, c, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = '#0000' + hexblue;
+        ctx.arc(cx, cy - Math.sqrt(3) * d, c, 0, 2*Math.PI);
+        ctx.fill();
+    }
+
+    colorRed.addEventListener("input", update);
+    colorGreen.addEventListener("input", update);
+    colorBlue.addEventListener("input", update);
+
+    update();
+})();
+</script>
+
+<p>
+    À l'intersection des trois cercles de couleurs, on obtient
+    une couleur qui est l'addition des trois couleurs primaires.
+    Lorsque les trois couleurs sont à leur intensité maximale,
+    on obtient du blanc.
+    Au contraire, lorsque les trois couleurs sont à leur intensité minimale,
+    on obtient du noir.
+</p>
+$endtryout$
+
+<p>
+    Le modèle RVB est un modèle de couleur qui
+    permet de décrire des couleurs de par leur décomposition
+    en rouge, vert et bleu.
+</p>
+
+<p>
+    Le modèle RVB est un modèle <i>additif</i> :
+    les couleurs sont obtenues en additionnant les couleurs primaires.
+    Plus une couleur est intense, plus la lumière projetée est intense.
+    Dans ce modèle, le noir est l'absence de lumière et le blanc
+    est la lumière la plus intense possible.
+</p>
+
+<p>
+    Généralement, on encode l'intensité de chaque couleur primaire un octet.
+    De cette manière, on peut coder 256 niveaux d'intensité pour chaque couleur,
+    allant de 0 (intensité minimale) à 255 (intensité maximale).
+    En combinant les trois couleurs primaires, on peut donc coder
+    256<sup>3</sup> = 16'777'216 couleurs différentes,
+    et ce avec seulement trois octets.
+</p>
+
+<p>
+    Ci-dessous sont présentées quelques couleurs codées en RVB.
+    Pour chaque couleur, on donne les valeurs d'intensité de rouge, vert et bleu.
+</p>
+
+<style>
+
+#color-table {
+    margin: auto;
+    width: fit-content;
+    border-spacing: 5px;
+}
+
+#color-table td {
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+</style>
+
+<table id="color-table">
+    <tr>
+        <th>Couleur</th>
+        <th>Rouge</th>
+        <th>Vert</th>
+        <th>Bleu</th>
+    </tr>
+    <tr>
+        <td style="background-color: rgb(255, 0, 0); color:rgb(255, 255, 255);">Rouge</td>
+        <td>255</td>
+        <td>0</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td style="background-color: rgb(0, 255, 0);">Vert</td>
+        <td>0</td>
+        <td>255</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td style="background-color: rgb(0, 0, 255); color:rgb(255, 255, 255);">Bleu</td>
+        <td>0</td>
+        <td>0</td>
+        <td>255</td>
+    </tr>
+    <tr>
+        <td style="background-color: rgb(255, 255, 0);">Jaune</td>
+        <td>255</td>
+        <td>255</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td style="background-color: rgb(255, 0, 255); color:rgb(255, 255, 255);">Magenta</td>
+        <td>255</td>
+        <td>0</td>
+        <td>255</td>
+    </tr>
+    <tr>
+        <td style="background-color: rgb(0, 255, 255);">Cyan</td>
+        <td>0</td>
+        <td>255</td>
+        <td>255</td>
+    </tr>
+    <tr>
+        <td style="background-color: rgb(255, 255, 255);">Blanc</td>
+        <td>255</td>
+        <td>255</td>
+        <td>255</td>
+    </tr>
+    <tr>
+        <td style="background-color: rgb(0, 0, 0); color:rgb(255, 255, 255)">Noir</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td style="background-color: rgb(128, 128, 128); color:rgb(255, 255, 255)">Gris</td>
+        <td>128</td>
+        <td>128</td>
+        <td>128</td>
+    </tr>
+</table>
+
+<script src="/js/vanilla-picker.min.js" type="text/javascript"></script>
+
+$tryout$
+<p>
+    Ci-dessous est un <i>sélecteur de couleur</i>.
+    Cet outil permet de choisir une couleur sur une palette de couleurs
+    et d'en récupérer les valeurs d'intensité de rouge, vert et bleu.
+    De plus, il est possible de modifier la valeur de la couleur
+    en entrant directement les valeurs de rouge, vert et bleu.
+</p>
+
+<div id="color-selector">
+    <div class="color-picker"></div>
+    <div class="color-components">
+        <div>
+            <label for="red">R</label>
+            <input type="number" id="red" min="0" max="255" value="0">
+        </div>
+        <div>
+            <label for="green">G</label>
+            <input type="number" id="green" min="0" max="255" value="0">
+        </div>
+        <div>
+            <label for="blue">B</label>
+            <input type="number" id="blue" min="0" max="255" value="0">
+        </div>
+    </div>
+</div>
+
+<p>
+    Dans cet outil, la barre du haut permet de choisir la <i>teinte</i> de la couleur.
+    Dans la zone principale, on peut choisir la <i>saturation</i> et la <i>luminosité</i>
+    de la couleur. L'axe horizontal correspond à la saturation et l'axe vertical à la luminosité.
+</p>
+
+<p>
+    Ce genre d'outil est très utilisé par les graphistes et les développeurs Web
+    pour choisir les couleurs à utiliser dans leurs projets.
+</p>
+$endtryout$
+
+<script type="text/javascript">
+(function() {
+    var parent = document.querySelector('#color-selector .color-picker');
+
+    var picker = new Picker({
+        parent,
+        popup: false,
+        editorFormat: 'rgb',
+        color: 'rgb(64, 191, 191)'
+    });
+
+    parent.querySelector('.picker_alpha').style.display = 'none';
+    parent.querySelector('.picker_editor').style.display = 'none';
+    //parent.querySelector('.picker_sample').style.display = 'none';
+    parent.querySelector('.picker_done').style.display = 'none';
+
+    const red = document.getElementById('red');
+    const green = document.getElementById('green');
+    const blue = document.getElementById('blue');
+
+    red.value = 64;
+    green.value = 191;
+    blue.value = 191;
+
+    function updateColor(color) {
+        red.value = color.rgba[0];
+        green.value = color.rgba[1];
+        blue.value = color.rgba[2];
+    }
+
+    picker.onChange = updateColor;
+
+    function updatePicker() {
+        picker.setColor('rgb(' + red.value + ',' + green.value + ',' + blue.value + ')');
+    }
+
+    red.addEventListener('change', updatePicker);
+    green.addEventListener('change', updatePicker);
+    blue.addEventListener('change', updatePicker);
+})();
+</script>
+
+<style>
+    #color-selector {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #color-selector .color-picker {
+        width: 400px;
+        max-width: 100%;
+    }
+
+    #color-selector .color-picker .picker_wrapper {
+        width: 400px;
+        max-width: 100%;
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+
+    #color-selector .color-picker .picker_sample {
+        height: 20px;
+    }
+
+    #color-selector .color-components {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 400px;
+        max-width: 100%;
+        font-size: 1.4em;
+    }
+
+    #color-selector .color-components input {
+        font-size: 1.2em;
+    }
+</style>
+
+$remark$
+<p>
+    On appelle le <a href="https://fr.wikipedia.org/wiki/Gamut">gamut</a>
+    l'ensemble des couleurs qu'un écran peut afficher.
+    Certaines couleurs sont parfois hors du gamut d'un écran,
+    c'est-à-dire qu'elles ne peuvent pas être affichées telles quelles
+    par l'écran. Dans ce cas, l'écran tente d'afficher la couleur la plus proche
+    possible de la couleur demandée.
+</p>
+
+<p>
+    Avoir des couleurs hors du gamut d'un écran peut être problématique
+    pour les graphistes et les photographes qui souhaitent que leurs
+    images soient affichées de la même manière sur tous les écrans
+    et autres moyens de visualisation.
+    C'est pourquoi dans ces domaines, on utilise généralement des écrans
+    dont le gamut est le plus large possible.
+</p>
+$endremark$
+
+$remark$
+<p>
+    Le modèle RVB n'est pas le seul modèle de couleurs utilisé
+    de nos jours.
+    Parmi les autres modèles de couleurs largement utilisés,
+    on peut citer le modèle CMJN.
+    Le modèle CMJN (pour <i>cyan, magenta, jaune et noir</i>)
+    est un modèle de couleurs utilisé principalement en imprimerie.
+    Il est basé sur les trois couleurs primaires cyan, magenta et jaune
+    complémenté par le noir.
+</p>
+
+<p>
+    Dans ce modèle, les couleurs sont codées par quatre valeurs
+    correspondant à l'intensité de chaque couleur primaire et du noir.
+    Le mélange des couleurs primaires est basé sur le principe
+    de la <i>soustraction</i> de la lumière contrairement au modèle RVB
+    qui est basé sur le principe de l'<i>addition</i> de la lumière.
+    Ce modèle représente fidèlement les couleurs qui peuvent être imprimées
+    en mélangant de l'encre de ces quatre couleurs sur du papier blanc.
+</p>
+
+<p>
+    On dit que le modèle CMJN est un modèle <i>soustractif</i>
+    car plus l'intensité d'une couleur augmente, plus la quantité
+    d'encre de cette couleur sur le papier augmente et plus la quantité
+    de lumière réfléchie par le papier diminue.
+    En résumé, plus la couleur est intense, plus elle absorbe de lumière.
+</p>
+$endremark$
+
+$selfcheck$
+<p>
+    Le rouge, le vert et le bleu sont les trois couleurs primaires
+    du modèle <select class="self-pick">
+        <option data-correct>RVB</option>
+        <option>CMJN</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Normalement, en RVB, l'intensité maximale de
+    chaque couleur primaire est de <select class="self-pick">
+        <option>1</option>
+        <option>100</option>
+        <option data-correct>255</option>
+        <option>360</option>
+    </select>.
+    Ainsi, l'intensité de chaque couleur primaire peut être codée
+    sur <select class="self-pick">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option data-correct>8</option>
+        <option>16</option>
+    </select> bits. Au total, une couleur en RVB est ainsi codée
+    sur <select class="self-pick">
+        <option>1</option>
+        <option>2</option>
+        <option data-correct>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+    </select> octets, ce qui permet de représenter des
+    <select class="self-pick">
+        <option>centaines</option>
+        <option>milliers</option>
+        <option data-correct>millions</option>
+        <option>milliards</option>
+    </select> de couleurs différentes.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    En RVB, le noir a pour représentation
+    <select class="self-pick">
+        <option data-correct>0, 0, 0</option>
+        <option>255, 0, 0</option>
+        <option>0, 255, 0</option>
+        <option>0, 0, 255</option>
+        <option>255, 255, 0</option>
+        <option>255, 0, 255</option>
+        <option>0, 255, 255</option>
+        <option>255, 255, 255</option>
+    </select> alors que le blanc a pour représentation
+    <select class="self-pick">
+        <option>0, 0, 0</option>
+        <option>255, 0, 0</option>
+        <option>0, 255, 0</option>
+        <option>0, 0, 255</option>
+        <option>255, 255, 0</option>
+        <option>255, 0, 255</option>
+        <option>0, 255, 255</option>
+        <option data-correct>255, 255, 255</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Le modèle RVB est un modèle <select class="self-pick">
+        <option>soustractif</option>
+        <option data-correct>additif</option>
+        <option>multiplicatif</option>
+    </select>.
+    Plus la valeur d'une couleur primaire est élevée,
+    <select class="self-pick">
+        <option>moins</option>
+        <option data-correct>plus</option>    
+    </select> la lumière émise est intense.
+</p>
+<p>
+    Le modèle CMJN est un modèle <select class="self-pick">
+        <option data-correct>soustractif</option>
+        <option>additif</option>
+        <option>multiplicatif</option>
+    </select>.
+    Plus la valeur d'une couleur primaire est élevée,
+    <select class="self-pick">
+        <option data-correct>moins</option>
+        <option>plus</option>    
+    </select> la lumière réfléchie est intense.
+</p>
+$endselfcheck$
+
+<p>
+    Dans la section suivante, nous allons
+    voir comment décrire des images
+    à l'aide de divers formats.
+</p>

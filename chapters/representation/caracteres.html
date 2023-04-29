@@ -765,3 +765,33 @@ $endtryout$
     au sein d'un même texte, ce qui est très pratique
     pour représenter des textes multilingues.
 </p>
+
+$remark$
+<p>
+    Il est intéressant de noter que UTF-8 n'est pas le
+    seul code qui permet de représenter
+    les caractères Unicode.
+    Il existe aussi notamment le code UTF-16 et le code UTF-32.
+</p>
+
+<p>
+    UTF-16 est un code à longeur variable qui utilise
+    entre 2 et 4 octets pour représenter les caractères Unicode.
+    Quant à UTF-32, c'est un code à longueur fixe qui utilise
+    toujours 4 octets, quel que soit le caractère à représenter.
+</p>
+
+<p>
+    Ces deux codes ont le désavantage de nécessiter plus d'octets
+    que UTF-8 pour représenter les caractères ASCII, relativement
+    fréquents dans les textes basés sur l'alphabet latin.
+</p>
+$endremark$
+
+<p>
+    Dans cette section, nous avons vu comment représenter
+    des caractères sous forme de séquences de bits
+    à l'aide de différents codes.
+    Équipé de cet outil, nous allons maintenant pouvoir
+    nous intéresser à la notion de <i>fichier</i>.
+</p>

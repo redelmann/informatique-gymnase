@@ -3,14 +3,496 @@ title: Additionneurs
 order: 5
 ---
 
+<script src="/js/truth-tables.js"></script>
+
 <p>
-    À venir !
+    Dans cette section, nous allons voir comment concevoir
+    des circuits qui effectuent des opérations arithmétiques,
+    et plus particulièrement des additions.
 </p>
 
-<h3>Représenter les nombres naturels</h3>
+<p>
+    Pour cela, nous allons nous baser sur
+    la notation binaire des nombres entiers,
+    un sujet que nous avons abordé dans la section
+    précédente.
+    Nous utiliserons aussi la technique de l'addition
+    en colonne vue lors de cette même section.
+</p>
 
-<h3>Demi-additionneur</h3>
+<p>
+    Nous allons commencer par un circuit capable de réaliser
+    l'opération d'additionner
+    deux nombres binaires de 1 bit chacun.
+    Concrétement, nous allons concevoir un circuit
+    qui permet de calculer 0 + 0, 0 + 1, 1 + 0 et 1 + 1.
+    Nous appelerons ce circuit un <i>demi-additionneur</i>.
+</p>
 
-<h3>Additionneur complet</h3>
+<h2>Demi-additionneur</h2>
 
-<h3>Additionneur sur 4 bits</h3>
+<p>
+    Le demi-additionneur est un circuit à deux entrées
+    et deux sorties.
+    Les deux entrées sont les deux bits à additionner,
+    et les deux sorties sont le résultat de l'addition.
+    On est en effet obligé d'avoir deux sorties
+    car le résultat de l'addition peut valoir deux (1 + 1),
+    qui est représenté en base 2 par deux bits, à savoir 10.
+</p>
+
+<p>
+    Avant tout chose, regardons la table de vérité
+    que l'on souhaite obtenir pour ce circuit.
+</p>
+
+<table class="truth-table" id="truth-table-half-adder"></table>
+    
+<script type="text/javascript">
+populateTable('truth-table-half-adder', 'A et B, A ou-x B', ['C', 'S']);
+</script>
+
+<p>
+    Les deux colonnes de gauche correspondent aux deux entrées
+    du circuit. Ensemble, elles représentent les deux bits
+    à additionner.
+    Les deux colonnes de droite correspondent aux deux sorties
+    du circuit. Ensemble, elles forment le résultat de l'addition.
+    La colonne C correspond au bit de poids 2 et la colonne S
+    correspond au bit de poids 1.
+</p>
+
+$remark$
+<p>
+    On appelle la première colonne C car elle correspond
+    à la <i>retenue</i> (<i lang="en">carry</i> en anglais)
+    pour la colonne suivante
+    dans le contexte d'une addition en colonne.
+    Quant au nom S, il fait référence à <i>somme</i>.
+</p>
+$endremark$
+
+<p>
+    En observant suffisamment longtemps cette table de vérité,
+    on peut remarquer que la colonne C correspond à l'opération
+    ET entre les deux entrées A et B,
+    et que la colonne S correspond à l'opération
+    OU-X (ou exclusif) entre ces deux même entrées A et B.
+</p>
+
+<p>
+    Nous pouvons donc concevoir le circuit suivant
+    qui correspond à cette table de vérité.
+</p>
+
+<style>
+    .logic-frame {
+        border: 0;
+        margin: auto;
+        margin-bottom: 40px;
+        margin-top: 40px;
+    }
+</style>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 350px; height: 150px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                {
+                    "v": 4,
+                    "in": [
+                      {"pos": [50, 30], "id": 0, "name": "A", "val": 0},
+                      {"pos": [50, 110], "id": 1, "name": "B", "val": 0}
+                    ],
+                    "out": [
+                      {"pos": [300, 40], "id": 5, "name": "S"},
+                      {"pos": [300, 100], "id": 9, "name": "C"}
+                    ],
+                    "gates": [
+                      {"type": "XOR", "pos": [180, 40], "in": [2, 3], "out": 4},
+                      {"type": "AND", "pos": [180, 100], "in": [6, 7], "out": 8}
+                    ],
+                    "wires": [[0, 2], [4, 5], [1, 3], [0, 6], [1, 7], [8, 9]]
+                  }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+
+$tryout$
+<p>
+    Essayez de changer les valeurs des entrées A et B
+    et vérifiez que les valeurs aux sorties C et S correspondent
+    bien à celles indiquées dans la table de vérité.
+</p>
+$endtryout$
+
+<p>
+    Ce circuit implémente une fonctionnalité intéressante
+    et présente déjà une certaine complexité.
+    Pour gérer cette complexité, nous allons faire un
+    mouvement d'abstraction et créer un nouveau composant
+    qui encapsule ce circuit. Ce composant sera appelé
+    un <i>demi-additionneur</i> et pourra être réutilisé
+    très facilement dans d'autres circuits.
+    On réprésente schématiquement un demi-additionneur
+    de la façon suivante :
+</p>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 100px; height: 75px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                {
+                    "v": 4,
+                    "opts": {"showDisconnectedPins": true, "hideWireColors": true, "hideTooltips": true},
+                    "components": [
+                      {"type": "halfadder", "pos": [50, 40], "in": [25, 26], "out": [27, 28]}
+                    ]
+                }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+
+$tryout$
+<p>
+    Essayez de changer les valeurs des entrées A et B
+    dans le circuit ci-dessous et vérifiez que les valeurs
+    correspondent bien à celles attendues.
+</p>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 280px; height: 75px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                {
+                    "v": 4,
+                    "in": [
+                      {"pos": [40, 20], "id": 29, "name": "A", "val": 0},
+                      {"pos": [40, 60], "id": 30, "name": "B", "val": 0}
+                    ],
+                    "out": [
+                      {"pos": [240, 20], "id": 31, "name": "S"},
+                      {"pos": [240, 60], "id": 32, "name": "C"}
+                    ],
+                    "components": [
+                      {"type": "halfadder", "pos": [140, 40], "in": [25, 26], "out": [27, 28]}
+                    ],
+                    "wires": [[29, 25], [30, 26], [27, 31], [28, 32]]
+                  }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+$endtryout$
+
+<p>
+    Le demi-additionneur, bien que très utile, ne permet pas de faire l'addition
+    de nombres binaires plus grands que 1 bit.
+    Pour réaliser cela, il nous faudra considérer un circuit plus complexe,
+    qui sera basé sur la méthode de l'addition en colonne.
+    En vue de concevoir ce circuit, nous allons d'abord
+    nous intéresser à la façon dont on peut additionner
+    non pas deux bits, mais trois bits.
+    Ce troisième bit permettra de prendre en compte
+    la retenue de l'addition précédente dans le processus
+    d'addition en colonne.
+    On appelle ce circuit un <i>additionneur complet</i>.
+</p>
+
+<h2>Additionneur complet</h2>
+
+<p>
+    L'additionneur complet est un circuit à trois entrées
+    et deux sorties.
+    Les trois entrées sont les trois bits à additionner,
+    et les deux sorties sont le résultat de l'addition.
+    Le maximum que l'on peut obtenir en additionnant
+    trois bits est trois, qui est représenté sur deux bits.
+</p>
+
+<p>
+    Voici la table de vérité que l'on souhaite obtenir
+    pour ce circuit.
+    Pour chaque ligne, les deux colonnes de droite
+    correspondent au résultat de l'addition des trois bits
+    des colonnes de gauche.
+</p>
+
+<table class="truth-table" id="truth-table-full-adder"></table>
+
+<script type="text/javascript">
+populateTable('truth-table-full-adder', '(A ou B) et Cin ou A et B, A ou-x B ou-x Cin', ['Cout', 'S']);
+</script>
+
+<p>
+    Le nom Cin est l'abréviation de <i lang="en">carry in</i>,
+    qui signifie <i>retenue d'entrée</i> en anglais.
+    En effet, ce troisième bit d'entrée correspond
+    souvent à l'usage à la retenue de l'addition précédente.
+    De la même façon, le nom Cout est l'abréviation de
+    <i lang="en">carry out</i>, qui signifie <i>retenue de sortie</i>.
+    Ce bit correspond à la retenue pour la colonne suivante
+    lors de l'addition en colonne.
+</p>
+
+<p>
+    Le circuit suivant correspond à la table de vérité ci-dessus.
+    Le circuit est un peu plus complexe que le demi-additionneur.
+    On compte ici un total de cinq portes logiques.
+</p>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 590px; height: 200px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                {
+                    "v": 4,
+                    "in": [
+                      {"pos": [60, 20], "id": 0, "name": "A", "val": 0},
+                      {"pos": [60, 100], "id": 1, "name": "B", "val": 0},
+                      {"pos": [60, 180], "id": 2, "name": "Cin", "val": 0}
+                    ],
+                    "out": [
+                      {"pos": [530, 40], "id": 18, "name": "S"},
+                      {"pos": [530, 100], "id": 19, "name": "Cout"}
+                    ],
+                    "gates": [
+                      {"type": "XOR", "pos": [180, 30], "in": [3, 4], "out": 5},
+                      {"type": "XOR", "pos": [310, 40], "in": [6, 7], "out": 8},
+                      {"type": "AND", "pos": [180, 90], "in": [9, 10], "out": 11},
+                      {"type": "OR", "pos": [420, 100], "in": [12, 13], "out": 14},
+                      {"type": "AND", "pos": [310, 170], "in": [15, 16], "out": 17}
+                    ],
+                    "wires": [[0, 3], [1, 4], [5, 6], [2, 7, {"via": [[180, 180]]}], [0, 9], [1, 10], [8, 18], [14, 19], [2, 16], [5, 15], [11, 12], [17, 13]]
+                  }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+
+$tryout$
+<p>
+    Essayez de changer les valeurs des entrées A, B et Cin
+    et vérifiez que les valeurs aux sorties Cout et S correspondent
+    bien à celles indiquées dans la table de vérité.
+</p>
+$endtryout$
+
+<p>
+    À nouveau, comme ce circuit est très utile mais un peu complexe,
+    nous allons en faire un composant que nous pourrons réutiliser
+    à guise dans d'autres circuits.
+    On appelle ce nouveau composant l'<i>additionneur complet</i>
+    et on le représente par le symbole suivant :
+</p>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 120px; height: 100px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                {
+                    "v": 4,
+                    "opts": {"showDisconnectedPins": true, "hideWireColors": true, "hideTooltips": true},
+                    "components": [
+                      {"type": "adder", "pos": [60, 50], "in": [38, 39, 40], "out": [41, 42]}
+                    ]
+                }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+
+$tryout$
+<p>
+    Essayez de changer les valeurs des entrées A, B et Cin
+    et vérifiez que les valeurs aux sorties Cout et S correspondent
+    bien à celles attendues dans le circuit ci-dessous.
+</p>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 270px; height: 220px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                {
+                    "v": 4,
+                    "in": [
+                      {"pos": [120, 40], "orient": "s", "id": 43, "name": "A", "val": 0},
+                      {"pos": [160, 40], "orient": "s", "id": 44, "name": "B", "val": 0},
+                      {"pos": [220, 110], "orient": "w", "id": 45, "name": "Cin", "val": 0}
+                    ],
+                    "out": [
+                      {"pos": [60, 110], "orient": "w", "id": 46, "name": "Cout"},
+                      {"pos": [140, 180], "orient": "s", "id": 47, "name": "S"}
+                    ],
+                    "components": [
+                      {"type": "adder", "pos": [140, 110], "in": [38, 39, 40], "out": [41, 42]}
+                    ],
+                    "wires": [[43, 38], [44, 39], [45, 40], [42, 46], [41, 47]]
+                }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+$endtryout$
+
+<p>
+    La disposition un peu particulière des entrées et sorties
+    de ce composant est due au fait que nous allons l'utiliser,
+    en plusieurs exemplaires, dans un circuit plus complexe.
+    Cette disposition permettra de mieux visualiser les connexions
+    entre les différents composants.
+</p>
+
+<h2>Additionneur 4 bits</h2>
+
+<p>
+    Équipés de l'additionneur complet, nous pouvons maintenant
+    nous attaquer à un circuit plus complexe : un circuit qui réalise
+    l'addition entre deux nombres représentés chacun sur 4 bits.
+    On parle dans ce cas d'un additionneur 4 bits.
+</p>
+
+$remark$
+<p>
+    Bien que nous allons regarder le cas particulier d'un additionneur
+    4 bits, il est possible de généraliser la méthode à n'importe
+    quel nombre de bits.
+</p>
+$endremark$
+
+<p>
+    Pour réaliser l'addition entre deux nombres sur 4 bits,
+    nous allons réaliser un circuit qui réalise une addition
+    en colonne. Pour chaque colonne, nous allons utiliser
+    un additionneur complet pour réaliser l'addition.
+    Le circuit complet est représenté ci-dessous :
+</p>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 480px; height: 300px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                {
+                    "v": 4,
+                    "opts": {"showDisconnectedPins": true, "hideTooltips": true},
+                    "in": [
+                      {"type": "nibble", "pos": [70, 40], "orient": "s", "id": [0, 1, 2, 3], "val": [0, 0, 0, 0], "name": "A"},
+                      {"type": "nibble", "pos": [410, 40], "orient": "s", "id": [4, 5, 6, 7], "val": [0, 0, 0, 0], "name": "B"}
+                    ],
+                    "out": [
+                      {"type": "nibble", "pos": [240, 260], "orient": "s", "id": [28, 29, 30, 31], "name": "S"}
+                    ],
+                    "components": [
+                      {"type": "adder", "pos": [60, 150], "in": [8, 9, 10], "out": [11, 12]},
+                      {"type": "adder", "pos": [300, 150], "in": [13, 14, 15], "out": [16, 17]},
+                      {"type": "adder", "pos": [420, 150], "in": [18, 19, 20], "out": [21, 22]},
+                      {"type": "adder", "pos": [180, 150], "in": [23, 24, 25], "out": [26, 27]}
+                    ],
+                    "wires": [[0, 18], [1, 13], [2, 23], [3, 8], [4, 19], [5, 14], [6, 24], [7, 9], [11, 31], [26, 30], [16, 29], [21, 28], [22, 15], [17, 25], [27, 10]]
+                }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+
+<p>
+    L'addition procède colonne par colonne,
+    depuis la droite. Pour chaque colonne, un composant
+    additionneur complet est utilisé pour réaliser l'addition
+    entre les deux bits de même poids de chaque nombre et
+    le bit de retenue issu de la colonne précédente.
+</p>
+
+$tryout$
+<p>
+    Essayez de modifier les valeurs des entrées A et B
+    afin de vérifier que les valeurs aux sorties S correspondent
+    bien à l'addition de A et B.
+</p>
+
+<p>
+    Que constatez-vous si vous essayez de faire une addition
+    dont le résultat dépasse la plus grande valeur possible
+    représentable sur 4 bits (c'est-à-dire 15) ?
+    Essayez par exemple d'additionner 15 (<code>1111</code>)
+    et 15 (<code>1111</code>), 10 (<code>1010</code>) et 7 (<code>0111</code>),
+    ou encore 15 (<code>1111</code>) et 1 (<code>0001</code>). Que se passe-t-il ?
+</p>
+$endtryout$
+
+<h3>Dépassement de capacité</h3>
+
+<p>
+    Dans le circuit ci-dessus, le résultat de l'addition
+    est représenté sur 4 bits, tout comme les deux nombres
+    d'entrée. Or, il est possible que le résultat de l'addition
+    dépasse la plus grande valeur représentable
+    sur 4 bits, c'est-à-dire 15.
+    Dans ce cas, le résultat est un petit peu surprenant.
+    Ce phénomène est appelé <i>dépassement de capacité</i>.
+    Essayons d'en comprendre la raison.
+</p>
+
+<p>
+    La raison pour laquelle le résultat de l'addition est parfois
+    éronné est que la valeur de la retenue de sortie pour la colonne
+    tout à gauche n'est pas prise en compte dans le résultat.
+    La valeur de la retenue de sortie pour la colonne tout à
+    gauche est donc perdue. Lorsque cette retenue est égale à 1,
+    la valeur qu'elle représente (16) n'est pas prise en compte
+    dans le résultat.
+    On obtient donc un résultat 16 de moins que le résultat
+    attendu.
+</p>
+
+$remark$
+<p>
+    L'opération effectuée par l'additionneur 4 bits
+    peut être interprétée comme l'addition <i>modulo 16</i>.
+    L'opération <i>modulo 16</i> consiste à prendre
+    le reste de la <a href="https://fr.wikipedia.org/wiki/Division_euclidienne">division entière</a> par 16.
+    Le résultat est donc toujours compris entre 0 et 15.
+</p>
+$endremark$
+
+<p>
+    Il est légitime de se poser la question 
+    <i>&laquo; Pourquoi ne pas simplement utiliser un
+    bit de plus pour le résultat ? &raquo;</i>.
+    En effet, si nous utilisions 5 bits pour représenter
+    le résultat, nous pourrions représenter fidèlement
+    le résultat de l'addition de deux nombres sur 4 bits.
+</p>
+
+<p>
+    La réponse à cette question est assez subtile.
+    Dans un ordinateur, le résultat d'une addition
+    pour être stocké et utilisé par la suite dans d'autres
+    opérations, comme par exemple d'autres additions.
+    Si nous utilisions 5 bits pour représenter le résultat,
+    il faudrait également utiliser 5 bits pour représenter
+    les nombres d'entrée.
+    Dans ce cas là, il faudrait 6 bits de sortie pour représenter
+    le résultat de l'addition
+    de deux nombres sur 5 bits. Et ainsi de suite.
+</p>
+
+<p>
+    Il se trouve que dans l'architecture d'un ordinateur,
+    on travaillera généralement avec des nombres entiers
+    encodés sur un nombre fixe de bits, par exemple 32 bits
+    ou 64 bits.
+    Ce grand nombre de bits permet de représenter des nombres
+    très grands généralement sans risquer de dépassement de capacité.
+</p>
+
+<p>
+    Le dépassement de capacité, bien que parfois problématique,
+    peut aussi être utilisé de manière astucieuse pour réaliser
+    des opérations arithmétiques plus complexes,
+    comme nous allons le voir dans la section suivante.
+</p>
+
+<script src="/js/logic-simulator.js" type="text/javascript"></script>
