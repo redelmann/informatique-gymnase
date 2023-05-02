@@ -3,4 +3,217 @@ title: Compression
 order: 6
 ---
 
+<h3>Construction d'un arbre de Huffman</h3>
+
+<p>
+    La méthode de compression de Huffman est basée sur la construction d'un arbre binaire
+    dont les feuilles sont les caractères du texte à compresser. Les caractères les plus fréquents
+    sont placés le plus près possible de la racine de l'arbre tandis que les caractères les moins fréquents
+    sont placés le plus loin possible.
+</p>
+
+<p>
+    Pour construire cet arbre binaire, on procède de la manière suivante :
+    <ol>
+        <li>
+            On crée un nœud pour chaque caractère à encoder.
+            À chaque nœud, on attribue un poids
+            proportionnel à la fréquence d'apparition du caractère.
+        </li>
+        <li>
+            On ordonne les nœuds par ordre croissant de poids
+            dans une liste de nœuds à traiter.
+        </li>
+        <li>
+            On forme un nouvel arbre binaire en prenant les deux nœuds 
+            premiers nœuds de la liste (ceux de poids les plus faibles)
+            et en les regroupant sous un nouveau nœud.
+            Le poids de ce nouveau nœud
+            est la somme des poids des deux nœuds regroupés.
+        </li>
+        <li>
+            On déplace ce nouveau nœud à sa place dans la liste ordonnée
+            des nœuds à traiter en fonction de son poids.
+        </li>
+        <li>
+            On répète les étapes 3 et 4 jusqu'à ce que tous les nœuds soient regroupés
+            dans un seul arbre.
+        </li>
+    </ol>
+</p>
+
+<p>
+    Une fois l'arbre construit, on peut déterminer le mot de code
+    associé à un caractère en parcourant l'arbre de la racine
+    jusqu'à la feuille correspondante.
+    À chaque étape, on ajoute un bit au mot de code :
+    <ul>
+        <li>
+            Si on descend à gauche, on ajoute un 0 à la fin du mot de code.
+        </li>
+        <li>
+            Si on descend à droite, on ajoute un 1 à la fin du mot de code.
+        </li>
+    </ul>
+</p>
+
+<script type="text/javascript" src="/js/d3.min.js"></script>
+<script type="text/javascript" src="/js/huffman-tree.js"></script>
+
+<style type="text/css">
+    #huffman-control {
+        display: flex;
+        flex-direction: row;
+        align-items: space-between;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    #huffman-control button {
+        flex-grow: 0;
+        padding: 3px;
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: 1.1em;
+    }
+
+    #huffman-control .spacer {
+        flex-grow: 1;
+    }
+
+    #huffman-control input {
+        flex-grow: 1;
+        padding: 3px;
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: 1.1em;
+    }
+
+    #huffman-example {
+        width: fit-content;
+        height: fit-content;
+        margin: 0 auto;
+        min-height: 50px;
+    }
+    
+    #huffman-example line.link {
+        stroke: #999;
+        stroke-width: 3px;
+    }
+</style>
+
+$tryout$
+<p>
+    Entrez un texte dans la zone ci-dessous et cliquez sur le bouton
+    <i>Construire</i> pour démarrer la construction de l'arbre de Huffman correspondant.
+    Utilisez les boutons <i>Précédent</i> et <i>Suivant</i> pour naviguer
+    dans les étapes de la construction de l'arbre.
+</p>
+
+<div id="huffman-control">
+    <input type="text" id="huffman-input" value="HELLO WORLD">
+    <button id="huffman-exec">Construire</button>
+    <div class="spacer"></div>
+    <button id="huffman-prev">Précédent</button>
+    <button id="huffman-next">Suivant</button>
+</div>
+<div class="scroll-x" style="margin-bottom: 10px;">
+    <div id="huffman-example"></div>
+</div>
+
+<p style="font-style: italic; color: #999;">
+    Dans la visualisation ci-dessus, les nœuds de couleur rouge
+    représentent les nœuds qui n'ont pas encore été traités.
+    Au milieu des cercles sont indiqués les poids des différents nœuds.
+    Les arrêtes sont étiquetées avec les bits à ajouter au mot de code.
+</p>
+$endtryout$
+
+<script type="text/javascript">
+(function() {
+    const prev_button = document.getElementById("huffman-prev");
+    const next_button = document.getElementById("huffman-next");
+    prev_button.disabled = true;
+    next_button.disabled = true;
+
+    function g_for_id(id) {
+        return d3.select(`#huffman-example g[data-id="$${id}"]`);
+    }
+
+    function setup(text) {
+
+        const elems = get_counts(text);
+        const steps = all_steps(elems);
+        const last_tree = steps[steps.length - 1][0];
+        const last_height = last_tree.height;
+        const last_width = last_tree.size;
+
+        const svg = d3.select("#huffman-example")
+            .html("")
+            .append("svg")
+            .attr("width", last_width * 80 + 80)
+            .attr("height", last_height * 80 + 120);
+
+        svg.append("g")
+            .classed("links", true);
+
+        svg.append("g")
+            .classed("nodes", true);
+
+        svg.append("g")
+            .classed("bits", true);
+
+        display_elems(svg, steps[0], 0);
+
+        let current = 0;
+
+        function enable_buttons() {
+            prev_button.disabled = current == 0;
+            next_button.disabled = current == steps.length - 1;
+        }
+
+        prev_button.addEventListener("click", () => {
+            prev_button.disabled = true;
+            next_button.disabled = true;
+            if (current > 0) {
+                current--;
+                display_elems(svg, steps[current], current);
+            }
+            enable_buttons();
+        });
+
+        next_button.addEventListener("click", () => {
+            prev_button.disabled = true;
+            next_button.disabled = true;
+            if (current < steps.length - 1) {
+                current++;
+                display_elems(svg, steps[current], current);
+            }
+            enable_buttons();
+        });
+
+        enable_buttons();
+    }
+
+    const input = document.getElementById("huffman-input");
+    const button = document.getElementById("huffman-exec");
+
+    input.addEventListener("keyup", (event) => {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            button.click();
+        }
+    });
+
+    button.addEventListener('click', () => {
+        const text = input.value;
+        if (text.length == 0) {
+            d3.select("#huffman-example").html("");
+            return;
+        }
+        setup(text);
+    });
+})();
+</script>
+
 <p><i>À venir !</i></p>
