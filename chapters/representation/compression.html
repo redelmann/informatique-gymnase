@@ -3,13 +3,144 @@ title: Compression
 order: 6
 ---
 
+<p>
+    Dans cette section, nous allons nous intéresser à la <i>compression</i> des données.
+    La compression consiste à réduire la taille d'un message ou d'un fichier
+    de manière à occuper moins d'espace de stockage ou à réduire le temps
+    de transmission.
+</p>
+
+$remark$
+<div class="illustration right">
+    <img src="images/natel.png" style="margin-right: 20px; margin-left: 20px;" alt="Un SMS affiché sur un téléphone portable.">
+</div>
+
+<p>
+    Lorsqu'on écrit des messages sur une messagerie instantanée
+    telle que WhatsApp ou Telegram, il n'est pas rare d'utiliser
+    un langage abrégé pour gagner du temps à l'écriture.
+    On écrit par exemple <i>slt</i> au lieu de <i>salut</i> ou
+    <i>cc</i> au lieu de <i>coucou</i>.
+</p>
+
+<p>
+    Ce qu'on appelle le <a href="https://fr.wikipedia.org/wiki/Langage_SMS">langage SMS</a> est une forme de compression des données
+    par l'adoption d'un langage abrégé.
+    À la base, cette technique était en partie motivée par les limites de caractères
+    par SMS sur les téléphones portables.
+</p>
+$endremark$
+
+<p>
+    Il existe deux grandes familles de techniques de compression :
+    <ul>
+        <li>
+            La <i>compression avec pertes</i>, qui consiste
+            à supprimer de l'information du message original
+            pour réduire sa taille.
+            Cette technique est souvent utilisée pour compresser
+            des images, des vidéos ou des fichiers audio.
+            Un fichier ainsi compressé perd en qualité,
+            mais le gain de place est souvent très important
+            et la perte de qualité est souvent imperceptible.
+        </li>
+        <li>
+            La <i>compression sans pertes</i>,
+            une technique de compression générale qui permet
+            de compresser n'importe quel type de fichier
+            sans perte d'information.
+            Quand on créé une archive ZIP, on utilise une technique
+            de compression sans pertes pour réduire la taille
+            des fichiers contenus dans l'archive.
+        </li>
+    </ul>
+</p>
+
+<p>
+    Dans cette section, nous allons commencer par nous intéresser
+    à la compression sans pertes et à l'algorithme de Huffman.
+</p>
+
+<h2>Compression sans pertes</h2>
+
+<p>
+    Les techniques de compression sans pertes
+    cherchent à réduire la taille d'un fichier
+    sans perdre d'information.
+    Nous allons maintenant voir une technique
+    de compression sans pertes très utilisée : la compression
+    par <i>codage de Huffman</i>.
+    Dans cette section, nous l'étudierons dans le contexte de la compression
+    de données textuelles.
+</p>
+
+<h3>L'algorithme de codage de Huffman</h3>
+
+<p>
+    Le codage de Huffman se base sur le fait que certains
+    caractères sont plus généralement plus fréquents que d'autres
+    dans un texte.
+    Par exemple, dans un texte en français, la lettre <i>e</i>
+    est généralement beaucoup plus fréquente que la lettre <i>k</i>.
+    Or, avec un encodage traditionnel, tel que ASCII, on utilise généralement
+    le même nombre de bits
+    pour coder chaque caractère, qu'il soit fréquent ou non.
+    Idéalement, il faudrait utiliser moins de bits pour coder les caractères
+    les plus fréquents et plus de bits pour coder les caractères les moins fréquents.
+</p>
+
+$example$
+<p>
+    Le code Morse est un exemple de codage de caractères
+    qui utilise des mots de codes de longueurs variables.
+    De plus, en Morse, les lettres les plus fréquement utilisées en anglais
+    sont codées par des mots de codes plus courts que les autres.
+    Par exemple, le mot de code de la lettre <i>e</i> est ·,
+    alors que le mot de code de la lettre <i>x</i> est — · · —.
+    Cette propriété permet ainsi de transmettre plus rapidement les messages
+    en anglais.
+</p>
+$endexample$
+
+<p>
+    Le codage de Huffman est une technique de compression
+    qui se base sur la construction d'un code binaire à longueur variable.
+    Dans ce code, les caractères les plus fréquents sont représentés
+    par des mots de code courts tandis que les caractères
+    les moins fréquents sont représentés par des mots de code plus longs.
+</p>
+
+<p>
+    Nous avons vu que certains codes à longueurs variables,
+    comme le code Morse,
+    peuvent être ambigus si on ne met pas de séparateur entre les mots.
+    Pour garantir qu'une suite de mots de codes puisse être décodée
+    sans ambiguïté et ce même en l'absence de séparateur entre les mots,
+    le code construit par la technique de Huffman est un <i>code préfixe</i>.
+</p>
+
+<p>
+    Pour rappel, un code est un code préfixe si aucun mot de code
+    n'est le préfixe d'un autre mot de code.
+    En d'autres termes, aucun mot de code ne peut être obtenu
+    en ajoutant des symboles à la fin d'un autre mot de code.
+    Cette propriété garanti qu'une suite de mots de code peut être décodée
+    sans ambiguïtés.
+</p>
+
 <h3>Construction d'un arbre de Huffman</h3>
 
 <p>
-    La méthode de compression de Huffman est basée sur la construction d'un arbre binaire
-    dont les feuilles sont les caractères du texte à compresser. Les caractères les plus fréquents
+    Observons maintenant comment construire un code de Huffman.
+    Le but est de trouver quel mot de code (suite de bits) attribuer à chaque caractère
+    possible.
+    La méthode est basée sur la construction d'un arbre binaire
+    dont les feuilles sont les caractères à représenter.
+    Les caractères les plus fréquents
     sont placés le plus près possible de la racine de l'arbre tandis que les caractères les moins fréquents
     sont placés le plus loin possible.
+    Le chemin de la racine à une feuille donne le mot de code du caractère.
+    Plus le chemin est long, plus le mot de code est long.
 </p>
 
 <p>
@@ -100,12 +231,32 @@ order: 6
         stroke: #999;
         stroke-width: 3px;
     }
+
+    @media screen and (max-width: 700px) {
+        #huffman-control {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #huffman-control button {
+            width: 100%;
+        }
+
+        #huffman-control .spacer {
+            height: 10px;
+        }
+
+        #huffman-control input {
+            width: 100%;
+        }
+    }
 </style>
 
 $tryout$
 <p>
     Entrez un texte dans la zone ci-dessous et cliquez sur le bouton
-    <i>Construire</i> pour démarrer la construction de l'arbre de Huffman correspondant.
+    <i>Construire</i> pour démarrer la construction de l'arbre de Huffman 
+    se basant sur la fréquence d'apparition des caractères dans le texte.
     Utilisez les boutons <i>Précédent</i> et <i>Suivant</i> pour naviguer
     dans les étapes de la construction de l'arbre.
 </p>
@@ -216,4 +367,812 @@ $endtryout$
 })();
 </script>
 
-<p><i>À venir !</i></p>
+<h3>Encodage et décodage</h3>
+
+<p>
+    Une fois un code de Huffman construit, on peut l'utiliser pour
+    encoder un texte. Pour cela, on remplace chaque caractère du texte
+    par son mot de code. Pour décoder un texte, on parcourt le texte
+    de gauche à droite en suivant le chemin dans l'arbre de Huffman
+    correspondant au mot de code.
+</p>
+
+<p>
+    À noter que pour décoder un message, il faut avoir accès
+    au code de Huffman, sans quoi il est impossible de retrouver
+    le message original.
+    Généralement, ce code est donc envoyé en même temps que le
+    message encodé. La taille occupée par la description du code
+    est souvent négligeable par rapport à la taille du message
+    encodé.
+</p>
+
+$selfcheck$
+<p>
+    La technique de compression de Huffman
+    est une technique de compression <select class="self-pick">
+        <option data-correct>sans perte</option>
+        <option>avec pertes</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Les codes de Huffman sont des codes à longueur <select class="self-pick">
+        <option data-correct>variable</option>
+        <option>fixe</option>
+    </select>.
+    La longueur d'un mot de code est liée à
+    <select class="self-pick">
+        <option>l'intonation</option>
+        <option data-correct>la fréquence d'apparition</option>
+        <option>la position</option>
+    </select> du caractère correspondant dans un texte ou une langue.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Considérez le code binaire suivant pour les lettres A, B et C :
+</p>
+<table class="code-table">
+    <tr>
+        <td>A</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>B</td>
+        <td>10</td>
+    </tr>
+    <tr>
+        <td>C</td>
+        <td>100</td>
+    </tr>
+</table>
+<p>
+    Le code ci-dessus <select class="self-pick">
+        <option>est</option>
+        <option data-correct>n'est pas</option>
+    </select> un code préfixe.
+</p>
+<p>
+    Le code <select class="self-pick">
+        <option>pourrait</option>
+        <option data-correct>ne peut pas</option>
+    </select> être obtenu par l'algorithme de Huffman.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Considérez le code binaire suivant pour les lettres A, B et C :
+</p>
+<table class="code-table">
+    <tr>
+        <td>A</td>
+        <td>10</td>
+    </tr>
+    <tr>
+        <td>B</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>C</td>
+        <td>11</td>
+    </tr>
+</table>
+<p>
+    Le code ci-dessus <select class="self-pick">
+        <option data-correct>est</option>
+        <option>n'est pas</option>
+    </select> un code préfixe.
+</p>
+<p>
+    Le code <select class="self-pick">
+        <option data-correct>pourrait</option>
+        <option>ne peut pas</option>
+    </select> être obtenu par l'algorithme de Huffman.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Considérez le code binaire suivant pour les lettres A, B et C :
+</p>
+<table class="code-table">
+    <tr>
+        <td>A</td>
+        <td>1001</td>
+    </tr>
+    <tr>
+        <td>B</td>
+        <td>101</td>
+    </tr>
+    <tr>
+        <td>C</td>
+        <td>0</td>
+    </tr>
+</table>
+<p>
+    Le code ci-dessus <select class="self-pick">
+        <option data-correct>est</option>
+        <option>n'est pas</option>
+    </select> un code préfixe.
+</p>
+<p>
+    Le code <select class="self-pick">
+        <option>pourrait</option>
+        <option data-correct>ne peut pas</option>
+    </select> être obtenu par l'algorithme de Huffman.
+</p>
+$endselfcheck$
+
+<h2>Compression avec pertes</h2>
+
+<p>
+    Avant de conclure cette section,
+    attardons-nous un instant sur les techniques de
+    compression <i>avec pertes</i>.
+    Contrairement aux techniques de compression
+    <i>sans pertes</i> (dont fait partie l'algorithme de Huffman),
+    les techniques de compression avec pertes ne permettent pas
+    de retrouver exactement les données originales.
+    Elles sont donc utilisées dans des domaines où une perte
+    d'information est acceptable, comme par exemple pour
+    la compression d'images ou de sons.
+    En effet, dans ce genre de domaines, une perte d'information
+    n'est pas forcément génante voire même perceptible par nos sens.
+</p>
+
+<h3>Compression d'images</h3>
+
+<p>
+    Les techniques de compression avec pertes sont
+    nombreuses et variées. Elles varient aussi
+    beaucoup en terme de complexité.
+    Dans cette section, nous allons commencer par nous intéresser à
+    un exemple de compression avec perte très simple :
+    la diminution du nombre de couleurs d'une image.
+    Cette technique est utilisable dans de nombreux
+    formats d'images, comme par exemple le format PNG, le format GIF
+    ou encore le format BMP.
+</p>
+
+<p>
+    L'idée est très simple : si l'on réduit le nombre de couleurs
+    utilisées par une image, il est possible d'utiliser moins de bits
+    pour représenter la couleur de chaque pixel, et donc de réduire
+    la taille du fichier.
+    Dans la section précédente sur les couleurs,
+    nous avons vu que l'on représente généralement les couleurs
+    en RGB avec 8 bits par composante, soit 24 bits par pixel.
+    Ces 24 bits permettent de représenter des millions de couleurs
+    différentes.
+    Or, en réduisant le nombre de couleurs utilisables,
+    on peut réduire le nombre de bits nécessaires pour les représenter.
+    Par exemple. si l'on réduit le nombre de couleurs à 256, on peut
+    représenter chaque couleur avec seulement 8 bits au lieu de 24,
+    soit 3 fois moins de bits par pixel.
+    En effet, 8 bits permettent de représenter exactement
+    2<sup>8</sup> = 256 valeurs différentes.
+</p>
+
+<div class="illustration right">
+    <img src="images/palette.png" alt="Une palette de couleurs.">
+</div>
+
+<p>
+    Reste ensuite à déterminer à quelles couleurs
+    correspondent les différentes suites de bits.
+    Pour cela, on utilise généralement une <i>palette</i> de couleurs,
+    surtout lorsque le nombre de couleurs utilisables est relativement
+    faible.
+    La palette est une table qui indique pour chacune des
+    couleurs utilisables, la valeur RGB de la couleur à utiliser
+    et son mot de code.
+    Cette table est ensuite stockée dans le fichier image 
+    en plus des pixels.
+</p>
+
+<style>
+.image-container {
+    width: 302px;
+    margin: auto;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-controls {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex-direction: column;
+    width: 100%;
+}
+
+.image-slider {
+    width: 100%;
+}
+
+.image-slideshow img {
+    border: 1px solid black;
+}
+</style>
+
+$tryout$
+<p>
+    Utilisez le curseur ci-dessous pour réduire le nombre de couleurs
+    utilisées par l'image et ainsi réduire la taille du fichier.
+    Les fichiers sont au format PNG ; un format d'images
+    qui permet l'utilisation de palettes de couleurs.
+</p>
+<div class="image-container" id="png-image-container">
+    <div class="image-slideshow" id="png-image-slideshow">
+    </div>
+    <div class="image-controls">
+        <input type="range" min="1" max="5" value="5" class="image-slider" id="png-image-slider">
+        <span id="png-bits-used"></span>
+        <span id="png-colors-used"></span>
+        <span id="png-file-size"></span>
+    </div>
+</div>
+$endtryout$
+
+<script type="text/javascript">
+(function() {
+    const container = document.getElementById("png-image-slideshow");
+    const bits = [1, 2, 4, 8, 24];
+    const sizes = ["10 ko", "16 ko", "33 ko", "87 ko", "261 ko"];
+    const bitsSpan = document.getElementById("png-bits-used");
+    const colorsSpan = document.getElementById("png-colors-used");
+    const fileSpan = document.getElementById("png-file-size");
+    const images = [];
+    for (let i = 0; i < bits.length; i++) {
+        const image = document.createElement("img");
+        image.src = "../docs/png/image-" + bits[i] + ".png";
+        image.alt = "Image compressée avec " + bits[i] + " bits par pixel";
+        image.title = "Image compressée avec " + bits[i] + " bits par pixel";
+        image.style.display = "none";
+        images.push(image);
+        container.appendChild(image);
+    }
+
+    function showImage(value) {
+        for (let i = 0; i < images.length; i++) {
+            images[i].style.display = "none";
+        }
+        images[value].style.display = "block";
+        const s = bits[value] > 1 ? "s" : "";
+        bitsSpan.textContent = bits[value] + " bit" + s + " par pixel";
+        const nColors = Math.pow(2, bits[value]);
+        const nColorsWithSeparator = nColors.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+        colorsSpan.textContent = nColorsWithSeparator + " couleurs";
+        fileSpan.textContent = sizes[value];
+    }
+
+    const slider = document.getElementById("png-image-slider");
+    slider.addEventListener("input", function() {
+        showImage(slider.value - 1);
+    });
+    
+    showImage(slider.value - 1);
+})();
+</script>
+
+<p>
+    La technique de réduction du nombre de couleurs
+    est très efficace sur les images qui ne contiennent
+    pas beaucoup de couleurs différentes.
+    Par contre, elle est beaucoup moins efficace sur
+    les images qui contiennent beaucoup de couleurs différentes,
+    comme les photographies.
+</p>
+
+<p>
+    Certains formats d'images
+    permettent de réduire la taille du fichier
+    en utilisant d'autres techniques de compression avec pertes.
+    Le format JPEF par exemple, permet de compresser une image en réduisant
+    sa <i>qualité</i> selon le principe suivant :
+    L'image est découpée en blocs de 8x8 pixels,
+    chacun de ces blocs est décrit plus ou moins précisément
+    en fonction de la qualité choisie par une superposition
+    de motifs.
+    Les motifs ayant le moins d'impact sur le résultat
+    final peuvent être supprimés.
+    Cette technique est très efficace sur les photographies,
+    c'est pourquoi le format JPEG est très utilisé pour
+    de telles images.
+    Les détails techniques de cette méthode de compression
+    sont malheureusement assez complexes et ne sont pas abordés dans ce cours.
+</p>
+
+$tryout$
+<p>
+    Utilisez le curseur ci-dessous pour réduire la
+    qualité de l'image et ainsi réduire la taille du fichier.
+    Les fichiers sont au format JPEG ; un format d'images
+    qui permet de réduire la qualité de l'image.
+    En diminuant la qualité, vous pouvez voir apparaître
+    des <i>artefacts</i> sur l'image et déviner les blocs
+    de 8x8 pixels qui la composent.
+</p>
+<div class="image-container" id="jpg-image-container">
+    <div class="image-slideshow" id="jpg-image-slideshow">
+    </div>
+    <div class="image-controls">
+        <input type="range" min="1" max="13" value="13" class="image-slider" id="jpg-image-slider">
+        <span id="jpg-quality"></span>
+        <span id="jpg-file-size"></span>
+    </div>
+</div>
+$endtryout$
+
+<script type="text/javascript">
+(function() {
+    const container = document.getElementById("jpg-image-slideshow");
+    const quality = [1, 2, 3, 4, 5, 10, 15, 25, 40, 55, 70, 85, 100];
+    const sizes = ["6 ko", "6 ko", "7 ko", "7 ko", "8 ko", "11 ko", "14 ko", "19 ko", "25 ko", "31 ko", "39 ko", "57 ko", "222 ko"];
+    const qualitySpan = document.getElementById("jpg-quality");
+    const fileSpan = document.getElementById("jpg-file-size");
+    const images = [];
+    for (let i = 0; i < quality.length; i++) {
+        const image = document.createElement("img");
+        image.src = "../docs/jpg/image-" + quality[i] + ".jpg";
+        image.alt = "Image compressée avec une qualité de " + quality[i] + "%";
+        image.title = "Image compressée avec une qualité de " + quality[i] + "%";
+        image.style.display = "none";
+        images.push(image);
+        container.appendChild(image);
+    }
+
+    function showImage(value) {
+        for (let i = 0; i < images.length; i++) {
+            images[i].style.display = "none";
+        }
+        images[value].style.display = "block";
+        qualitySpan.textContent = "Qualité  de " + quality[value] + "%";
+        fileSpan.textContent = sizes[value];
+    }
+
+    const slider = document.getElementById("jpg-image-slider");
+    slider.addEventListener("input", function() {
+        showImage(slider.value - 1);
+    });
+    
+    showImage(slider.value - 1);
+})();
+</script>
+
+<p>
+    Si vouhaitez en apprendre plus sur la méthode
+    de compression JPEG, vous pouvez consulter
+    <a href="https://www.jezzamon.com/fourier/fr.html">cette page truffée d'animations</a>
+    qui explique le principe de la <i>transformée de Fourier</i>
+    et de la compression JPEG dans plus de détails.
+</p>
+
+<h3>Compression audio</h3>
+
+<p>
+    Il existe également des méthodes de compression
+    avec pertes pour les fichiers audio.
+    Par exemple, dans le format MP3, il est possible
+    de compresser un fichier en supprimant les fréquences
+    sonores élevées, parfois moins perceptibles par l'oreille humaine
+    (surtout avec l'âge).
+</p>
+
+<p>
+    Dans le format MP3, la compression est paramétrable.
+    En règlant le <i>débit binaire</i> (en anglais <i lang="en">bitrate</i>,
+    le nombre de bits par seconde de son),
+    il est possible de choisir le niveau de compression
+    et donc la qualité du fichier audio.
+    Suivant le débit binaire choisi, le fichier audio
+    décrira plus ou moins précisément le signal sonore,
+    incluant plus ou moins de fréquences sonores.
+</p>
+
+<p>
+    Le débit binaire est généralement exprimé en kilobits par seconde (kb/s).
+    Pour rappel, un kilobit est égal à 1000 bits.
+    Plus le débit binaire est élevé, plus le fichier audio
+    sera de bonne qualité. En contrepartie, le fichier sera plus lourd.
+    Le débit binaire le plus élevé supporté par le format MP3
+    est de 320 kbps, alors que le débit binaire le plus faible
+    est de 32 kbps. Constatez la différence de qualité
+    dans l'exemple ci-dessous.
+</p>
+
+<style>
+#load-all {
+    display: block;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#loading-bar {
+    width: 100%;
+    height: 30px;
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#loading-bar-inner {
+    width: 0%;
+    height: 100%;
+    background-color: rgb(100, 160, 250);
+    transition: width 0.5s;
+}
+
+#audios-controls {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#bitrate-slider {
+    display: inline-block;
+    flex-grow: 1;
+}
+
+#bitrate {
+    display: inline-block;
+    width: 120px;
+    text-align: left;
+}
+
+#audios-controls button {
+    display: inline-block;
+    width: 100px;
+}
+
+#audios-attribution {
+    font-size: 0.8em;
+    text-align: left;
+    margin-top: 10px;
+    color: #999;
+}
+</style>
+
+$tryout$
+<p>
+    Chargez l'extrait en cliquant sur le bouton ci-dessous.
+    Vous pouvez ensuite cliquer sur <i>Lecture</i> pour écouter
+    le fichier audio.
+    Le curseur sur la gauche permet de régler le débit binaire.
+</p>
+<p>
+    Essayez de changer le débit binaire pendant la lecture
+    et écoutez le résultat. Aussi, observez l'effet
+    du débit binaire sur le signal sonore (ligne noire)
+    et sur les fréquences qui le composent (barres bleues).
+    Mettez sur pause au besoin.
+</p>
+
+<button id="load-all">Charger la musique</button>
+
+<div id="loading-bar">
+    <div id="loading-bar-inner"></div>
+</div>
+
+<div id="audios-canva-wrapper">
+    <canvas id="audios-canva"></canvas>
+</div>
+
+<div id="audios-controls">
+    <input type="range" min="0" step="1" id="bitrate-slider">
+    <span id="bitrate"></span>
+    <button id="play-all">Lecture</button>
+    <button id="pause-all">Pause</button>
+</div>
+
+<p id="audios-attribution">
+    Endless Summer by Surf House Productions | https://surf-house-productions.bandcamp.com<br />
+    Music promoted by https://www.free-stock-music.com<br />
+    Creative Commons / Attribution 4.0 International (CC BY 4.0)<br />
+    https://creativecommons.org/licenses/by/4.0/
+</p>
+
+$endtryout$
+
+<script type="text/javascript">
+(function() {
+    const canvasWrapper = document.getElementById("audios-canva-wrapper");
+    const canvas = document.getElementById("audios-canva");
+    const canvasCtx = canvas.getContext("2d");
+    
+    let canvasWidth = canvasWrapper.clientWidth;
+    const CANVAS_HEIGHT = 300;
+    canvas.width = canvasWidth;
+    canvas.height = CANVAS_HEIGHT;
+    canvasWrapper.style.display = "none";
+
+    window.addEventListener("resize", function() {
+        canvasWidth = canvasWrapper.clientWidth;
+        canvas.width = canvasWidth;
+    });
+
+    const bitrates = [32, 64, 128, 320];
+    const files = [];
+    const gains = [];
+    const sources = [];
+
+    for (let i = 0; i < bitrates.length; i++) {
+        files.push("../docs/mp3/" + bitrates[i] + "k.mp3");
+    }
+    let context;
+    let buffers;
+    let analyser;
+
+    const loadAll = document.getElementById("load-all");
+    const audiosControls = document.getElementById("audios-controls");
+    const playAll = document.getElementById("play-all");
+    const pauseAll = document.getElementById("pause-all");
+    const bitrateSpan = document.getElementById("bitrate");
+    const slider = document.getElementById("bitrate-slider");
+    const loadingBar = document.getElementById("loading-bar");
+    const loadingBarInner = document.getElementById("loading-bar-inner");
+    const attribution = document.getElementById("audios-attribution");
+
+    slider.setAttribute("max", bitrates.length - 1);
+    slider.setAttribute("value", bitrates.length - 1);
+
+    audiosControls.style.display = "none";
+    loadingBar.style.display = "none";
+    attribution.style.display = "none";
+
+    function init() {
+        loadingBar.style.display = "block";
+        loadAll.style.display = "none";
+        context = new AudioContext();
+        buffers = new Array(files.length);
+        let waiting = files.length;
+        for (let i = 0; i < files.length; i++) {
+            const request = new XMLHttpRequest();
+            request.open("GET", files[i], true);
+            request.responseType = "arraybuffer";
+            request.onload = function() {
+                context.decodeAudioData(request.response, function(buffer) {
+                    console.log("Loaded " + files[i])
+                    buffers[i] = buffer;
+                    waiting--;
+                    const percent = Math.round(100 * (1 - waiting / files.length));
+                    loadingBarInner.style.width = percent + "%";
+                    if (waiting === 0) {
+                        setTimeout(finishedLoading, 500);
+                    }
+                });
+            };
+            request.send();
+        }
+    }
+
+    loadAll.addEventListener("click", function() {
+        if (context) {
+            return;
+        }
+        init();
+    });
+
+    function finishedLoading() {
+        console.log("Finished loading");
+        loadingBar.style.display = "none";
+        audiosControls.style.display = "flex";
+        canvasWrapper.style.display = "block";
+        attribution.style.display = "block";
+        pauseAll.style.display = "none";
+        waveAnalysers = [];
+        freqAnalysers = [];
+        for (let i = 0; i < files.length; i++) {
+            const source = context.createBufferSource();
+            source.buffer = buffers[i];
+            source.loop = true;
+            const gainNode = context.createGain();
+            gainNode.gain.value = 1;
+            source.connect(gainNode);
+            gainNode.connect(context.destination);
+            sources.push(source);
+            gains.push(gainNode);
+            const waveAnalyser = context.createAnalyser();
+            waveAnalyser.fftSize = 2048;
+            source.connect(waveAnalyser);
+            waveAnalysers.push(waveAnalyser);
+            const freqAnalyser = context.createAnalyser();
+            freqAnalyser.fftSize = 256;
+            source.connect(freqAnalyser);
+            freqAnalysers.push(freqAnalyser);
+        }
+
+        // Analyser stuff
+        const waveBufferLength = waveAnalysers[0].frequencyBinCount;
+        const waveDataArray = new Uint8Array(waveBufferLength);
+        const freqBufferLength = freqAnalysers[0].frequencyBinCount;
+        const freqDataArray = new Uint8Array(freqBufferLength);
+
+
+        canvasCtx.clearRect(0, 0, canvasWidth, CANVAS_HEIGHT);
+        function draw() {
+            requestAnimationFrame(draw)
+            
+            // Clear the canvas
+            canvasCtx.fillStyle = "rgb(230, 230, 230)";
+            canvasCtx.fillRect(0, 0, canvasWidth, CANVAS_HEIGHT);
+
+            // Draw the frequency domain chart
+            freqAnalysers[slider.value].getByteFrequencyData(freqDataArray);
+            const barWidth = (canvasWidth / freqBufferLength);
+            
+            for (let i = 0; i < freqBufferLength; i++) {
+                let barHeight = freqDataArray[i] / 2;
+                canvasCtx.fillStyle = "rgb(50, 50, " + (barHeight + 128) + ")";
+                canvasCtx.fillRect(i * barWidth, CANVAS_HEIGHT - barHeight / 2, barWidth, barHeight);
+            }
+
+            // Draw the waveform chart
+            waveAnalysers[slider.value].getByteTimeDomainData(waveDataArray);
+            canvasCtx.lineWidth = 2;
+            canvasCtx.strokeStyle = "rgb(0, 0, 0)";
+            canvasCtx.beginPath();
+            const sliceWidth = canvasWidth * 1.0 / waveBufferLength;
+            let x = 0;
+            for (let i = 0; i < waveBufferLength; i++) {
+                const v = waveDataArray[i] / 128.0;
+                const y = v * (CANVAS_HEIGHT - 100) / 2;
+                if (i === 0) {
+                    canvasCtx.moveTo(x, y);
+                } else {
+                    canvasCtx.lineTo(x, y);
+                }
+                x += sliceWidth;
+            }
+            canvasCtx.lineTo(canvas.width, (canvas.height - 100) / 2);
+            canvasCtx.stroke();
+        }
+        draw();
+
+        for (let i = 0; i < sources.length; i++) {
+            sources[i].start(0);
+        }
+        pause();
+        
+        function play() {
+            context.resume();
+            playAll.style.display = "none";
+            pauseAll.style.display = "inline-block";
+        }
+
+        function pause() {
+            context.suspend();
+            playAll.style.display = "inline-block";
+            pauseAll.style.display = "none";
+        }
+
+        function switchBitrate(value) {
+            for (let i = 0; i < files.length; i++) {
+                gains[i].gain.value = 0;
+            }
+            gains[value].gain.value = 1;
+            bitrateSpan.textContent = bitrates[value] + " kb/s";
+        }
+
+        playAll.addEventListener("click", play);
+        pauseAll.addEventListener("click", pause);
+        slider.addEventListener("input", function() {
+            switchBitrate(slider.value);
+        });
+
+        switchBitrate(slider.value);
+    }
+})();
+</script>
+
+<p>
+    En éliminant les hautes fréquences d'un signal audio,
+    on peut ainsi réduire la quantité d'information à
+    stocker. Parfois, à cause des limites de l'audition
+    humaine, cette perte de qualité ne sera pas perceptible.
+</p>
+    
+
+$remark$
+<p>
+    Les techniques de compression peuvent parfois être
+    combinées pour obtenir une meilleure efficacité.
+    Les fichiers JPEG par exemple, tout comme les MP3,
+    combinent à la fois
+    des techniques de compression avec pertes et des
+    techniques de compression sans pertes, notamment
+    la méthode de Huffman.
+</p>
+$endremark$
+
+$selfcheck$
+<p>
+    Avec la compression avec pertes, 
+    on obtient des fichiers plus petits
+    au détriment de <select class="self-pick">
+            <option>la taille</option>
+            <option data-correct>la qualité</option>
+            <option>la vitesse</option>
+            <option>la sécurité</option>
+        </select> de l'information représentée.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Le format PNG permet l'utilisation d'une <select class="self-pick">
+            <option data-correct>palette de couleurs</option>
+            <option>plage de teintes</option>
+            <option>gamme de nuances</option>
+        </select> pour réduire la taille des images.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Lorsqu'on encode un fichier audio en utilisant
+    le format MP3, il est possible de choisir
+    <select class="self-pick">
+        <option>le style musical</option>
+        <option>le volume</option>
+        <option data-correct>le débit binaire</option>
+    </select> du fichier.
+    Suivant ce choix, plus ou moins de fréquences sonores
+    seront éliminées. Les fréquences les plus <select class="self-pick">
+        <option>faibles</option>
+        <option data-correct>élevées</option>
+    </select> seront les premières à être éliminées.
+</p>
+$endselfcheck$
+
+
+<p>
+    Dans cette section, nous avons vu le principe de la
+    compression de données et les deux grandes familles
+    de techniques de compression : la compression avec
+    pertes et la compression sans pertes.
+</p>
+    
+<p>
+    Pour la compression sans pertes, nous avons
+    étudier l'algorithme de Huffman.
+    Cet algorithme permet de concevoir un
+    code adapté à la représentation de textes où
+    les caractères n'ont pas tous la même fréquence
+    d'apparition.
+    En attribuant des mots de code courts aux caractères
+    les plus fréquents, on peut obtenir un code plus
+    efficace qu'un code binaire à longueur fixe.
+</p>
+
+<p>
+    Pour la compression avec pertes, nous avons
+    vu diverses techniques, dont la réduction du
+    nombre de couleurs.
+    Dans ce genre de technique,
+    on altère l'information originale pour
+    réduire le nombre de bits nécessaires à sa
+    représentation.
+</p>
+
+<p>
+    Dans la section suivante, nous allons nous intéresser
+    à un sujet orthogonal : la <i>détection</i> et <i>la correction
+    d'erreurs</i>.
+</p>
