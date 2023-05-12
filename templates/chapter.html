@@ -9,7 +9,7 @@ $body$
 <ul class="table-of-content">
 $for(sections)$
     <li>
-        <a href="$url$">$chapterNumber$.$sectionNumber$. $title$</a>
+        <a href="$url$">$chapterNumber$.$sectionNumber$.  $title$$if(unfinished)$ 🚧$endif$</a>
     </li>
 $endfor$
 </ul>

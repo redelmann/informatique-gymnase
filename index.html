@@ -20,11 +20,11 @@ title: Informatique - École de Maturité
   <ul class="table-of-content">
   $for(chapters)$
     <li>
-      <a href="$url$">$chapterNumber$. $title$</a>
+      <a href="$url$">$chapterNumber$. $title$$if(unfinished)$ 🚧$endif$</a>
       <ul>
       $for(sections)$
         <li>
-          <a href="$url$">$chapterNumber$.$sectionNumber$. $title$</a>
+          <a href="$url$">$chapterNumber$.$sectionNumber$. $title$$if(unfinished)$ 🚧$endif$</a>
         </li>
       $endfor$
       </ul>
