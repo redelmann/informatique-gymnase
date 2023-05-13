@@ -7,6 +7,12 @@ $partial("templates/chapter-nav.html")-$
     <h1>$title$</h1>
 </header>
 
+$if(unfinished)$
+$remark$
+<p>Ce chapitre est en cours de rédaction.</p>
+$endremark$
+$endif$
+
 $body$
 
 <h2>Table des matières</h2>

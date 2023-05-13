@@ -6,6 +6,12 @@ $partial("templates/section-nav.html")-$
     <h2>$title$</h2>
 </header>
 
+$if(unfinished)$
+$remark$
+<p>Cette section est en cours de rédaction.</p>
+$endremark$
+$endif$
+
 $-body$
 </section>
 
