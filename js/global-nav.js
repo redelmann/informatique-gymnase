@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         header.id = id;
         anchor.href = "#" + id;
         anchor.classList.add("anchor-link");
-        anchor.innerHTML = "<i class='fa fa-link'></i>";
+        anchor.innerHTML = "<i class='fa'>⚓︎</i>";
         header.appendChild(anchor);
 
         // Highjack the click event to scroll to the header.

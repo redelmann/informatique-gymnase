@@ -2,7 +2,7 @@
     <div class="prev">
 $if(prevSectionUrl)$
         <a class="prev" href="$prevSectionUrl$">
-            <i class="fa fa-angle-left" />
+            <i class="fa">≺</i>
             <div>
                 <span class="label">Retour</span>
                 <span class="title">$prevSectionTitle$</span>
@@ -11,7 +11,7 @@ $if(prevSectionUrl)$
 $else$
     $if(prevChapterUrl)$
         <a class="prev" href="$prevChapterUrl$">
-            <i class="fa fa-angles-left" />
+            <i class="fa">≺</i>
             <div>
                 <span class="label">Chapitre précédent</span>
                 <span class="title">$prevChapterTitle$</span>
@@ -19,7 +19,7 @@ $else$
         </a>
     $else$
         <a class="prev" href="$indexUrl$">
-            <i class="fa fa-angles-up" />
+            <i class="fa">⋏</i>
             <div>
                 <span class="label">Retour</span>
                 <span class="title">Accueil</span>
@@ -36,7 +36,7 @@ $if(nextSectionUrl)$
                 <span class="label">Première section</span>
                 <span class="title">$nextSectionTitle$</span>
             </div>
-            <i class="fa fa-angle-right" />
+            <i class="fa">≻</i>
         </a>
 $else$
     $if(nextChapterUrl)$
@@ -45,7 +45,7 @@ $else$
                 <span class="label">Chapitre suivant</span>
                 <span class="title">$nextChapterTitle$</span>
             </div>
-            <i class="fa fa-angles-right" />
+            <i class="fa">≻</i>
         </a>
     $else$
         <a class="next" href="$indexUrl$">
@@ -53,7 +53,7 @@ $else$
                 <span class="label">Retour</span>
                 <span class="title">Accueil</span>
             </div>
-            <i class="fa fa-angles-up" />
+            <i class="fa">⋏</i>
         </a>
     $endif$
 $endif$

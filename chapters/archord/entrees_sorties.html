@@ -5,7 +5,7 @@ order: 1
 
 <style>
     .logic-frame {
-        width: 290px;
+        width: 250px;
         border: 0;
         margin: auto;
         margin-bottom: 40px;
@@ -59,18 +59,20 @@ $tryout$
     <i>Dans le schéma de circuit ci-dessous, vous pouvez allumer ou éteindre l'entrée en cliquant dessus, essayez !</i>
 </p>
 
-<div class="logic-frame" style="height: 40px;">
-    <logic-editor mode="tryout" hidereset>
-        <script type="application/json">
-            {
-                "v": 4,
-                "opts": {"hideTooltips": true},
-                "in": [
-                    {"pos": [140, 20], "id": 3, "val": 0, "name": "A"}
-                ]
-            }
-        </script>
-    </logic-editor>
+<div class="scroll-x">
+    <div class="logic-frame" style="height: 40px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                {
+                    "v": 4,
+                    "opts": {"hideTooltips": true},
+                    "in": [
+                        {"pos": [120, 20], "id": 3, "val": 0, "name": "A"}
+                    ]
+                }
+            </script>
+        </logic-editor>
+    </div>
 </div>
 
 <p>
@@ -119,7 +121,7 @@ $endremark$
                 "v": 4,
                 "opts": {"hideTooltips": true},
                 "out": [
-                    {"pos": [140, 20], "id": 3, "name": "S"}
+                    {"pos": [120, 20], "id": 3, "name": "S"}
                 ]
             }
         </script>
@@ -149,22 +151,24 @@ $tryout$
 </p>
 
 
-<div class="logic-frame" style="height: 40px;">
-    <logic-editor mode="tryout" hidereset>
-        <script type="application/json">
-        {
-          "v": 4,
-          "opts": {"hideTooltips": true},
-          "in": [
-            {"pos": [40, 20], "id": 3, "val": 0, "name": "A"}
-          ],
-          "out": [
-            {"pos": [240, 20], "id": 4, "name": "S"}
-          ],
-          "wires": [[3, 4]]
-        }
-        </script>
-    </logic-editor>
+<div class="scroll-x">
+    <div class="logic-frame" style="height: 40px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+            {
+            "v": 4,
+            "opts": {"hideTooltips": true},
+            "in": [
+                {"pos": [40, 20], "id": 3, "val": 0, "name": "A"}
+            ],
+            "out": [
+                {"pos": [200, 20], "id": 4, "name": "S"}
+            ],
+            "wires": [[3, 4]]
+            }
+            </script>
+        </logic-editor>
+    </div>
 </div>
 $endtryout$
 

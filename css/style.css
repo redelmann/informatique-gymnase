@@ -92,6 +92,23 @@ p {
     line-height: 1.7em;
 }
 
+i.fa {
+    display: inline-block;
+    font-style: normal;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+i.fa.round {
+    border-radius: 50%;
+    background: black;
+    color: white;
+    font-size: 1em;
+    width: 1.4em;
+    height: 1.4em;
+    text-align: center;
+    line-height: 1.4em;
+}
+
 ul, ol {
     line-height: 1.7em;
 }
@@ -328,10 +345,12 @@ select.self-pick {
 
 .chapter-nav > div {
     flex: 1 1 0px;
+    overflow: hidden;
 }
 
 .chapter-nav div.middle {
     text-align: center;
+    flex: 0 0 auto;
 }
 
 
@@ -346,8 +365,31 @@ select.self-pick {
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 1.1em;
-    text-align: center;
+    text-align: left;
     cursor: pointer;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 35px;
+}
+
+.chapter-nav .middle {
+    position: relative;
+}
+
+.chapter-nav .middle .select-decorator {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #ccc;
+    padding-left: 8px;
+    border-left: 1px solid #ccc;
+}
+
+.chapter-nav .middle .select-decorator i {
+    padding-bottom: 4px;
 }
 
 .chapter-nav a {
@@ -360,15 +402,19 @@ select.self-pick {
     align-items: center;
     gap: 10px;
     color: var(--color-1);
+    width: 100%;
+    overflow: hidden;
 }
 
 .chapter-nav a i.fa {
-    width: 20px;
+    flex: 0 0 20px;
 }
 
 .chapter-nav a > div {
-    display: flex;
+    display: none;
     flex-direction: column;
+    flex: 1 1 0px;
+    overflow: hidden;
 }
 
 .chapter-nav div.next {
@@ -382,6 +428,16 @@ select.self-pick {
 .chapter-nav a div span {
     display: block;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chapter-nav a.prev {
+    justify-content: flex-start;
+}
+
+.chapter-nav a.next {
+    justify-content: flex-end;
 }
 
 .chapter-nav a:hover {
@@ -395,8 +451,6 @@ select.self-pick {
 
 .chapter-nav div.next, .chapter-nav div.prev {
     padding-top: 20px;
-    flex-grow: 0;
-    display: none;
 }
 
 .chapter-nav a > div {
@@ -781,6 +835,7 @@ table.operators td:first-child {
 }
 
 @media (min-width: 576px) {
+
 }
 
 @media (min-width: 768px) {
@@ -798,8 +853,12 @@ table.operators td:first-child {
         grid-gap: 50px;
     }
 
+    .chapter-nav a > div {
+        display: inline-block;
+    }
+
     .chapter-nav div.next, .chapter-nav div.prev {
-        display: block;
+        padding-top: 0;
     }
 }
 
@@ -820,15 +879,6 @@ table.operators td:first-child {
         margin-bottom: 20px;
         max-width: 40%;
         float: left;
-    }
-
-    .chapter-nav a > div {
-        display: inline-block;
-    }
-
-    .chapter-nav div.next, .chapter-nav div.prev {
-        padding-top: 0;
-        flex-grow: 1;
     }
 }
 

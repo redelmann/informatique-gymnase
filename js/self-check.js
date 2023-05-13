@@ -10,14 +10,14 @@ function setupSelfCheck(select) {
     select.selectedIndex = 0;
 
     const icon = document.createElement('i');
-    icon.classList.add('fa', 'fa-question-circle');
+    icon.classList.add('fa');
+    icon.textContent = '?';
     div.appendChild(icon);
 
     select.addEventListener('focus', function() {
         select.selectedIndex = 0;
         div.classList.remove('correct', 'incorrect');
-        icon.classList.remove('fa-check-circle', 'fa-times-circle');
-        icon.classList.add('fa-question-circle');
+        icon.textContent = '?';
     });
 
     select.addEventListener('change', function() {
@@ -25,13 +25,12 @@ function setupSelfCheck(select) {
             return;
         }
         const selected = select.options[select.selectedIndex];
-        icon.classList.remove('fa-question-circle');
         if (selected.hasAttribute('data-correct')) {
-            icon.classList.add('fa-check-circle');
+            icon.textContent = '✓';
             div.classList.add('correct');
         }
         else {
-            icon.classList.add('fa-times-circle');
+            icon.textContent = '✗';
             div.classList.add('incorrect');
         }
         select.blur();

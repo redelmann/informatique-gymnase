@@ -64,7 +64,7 @@ function displayExprTree(container, expr, interpretation) {
     if (interpretation) {
 
         const evalButton = document.createElement('button');
-        evalButton.innerHTML = '<i class="fa fa-play"></i> Tout calculer';
+        evalButton.innerHTML = '<i class="fa">▶︎</i> Tout calculer';
 
         function go(d, elems) {
             if (d.children) {
@@ -97,7 +97,7 @@ function displayExprTree(container, expr, interpretation) {
         });
         
         const resetButton = document.createElement('button');
-        resetButton.innerHTML = '<i class="fa fa-arrows-rotate"></i> Réinitialiser';
+        resetButton.innerHTML = '<i class="fa">↻</i> Réinitialiser';
         resetButton.addEventListener('click', function(e) {
             e.preventDefault();
             displayExprTree(container, expr, interpretation);

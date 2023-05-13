@@ -72,6 +72,16 @@ $tryout$
     margin: 10px;
 }
 
+#color-sliders > div > label {
+    width: 80px;
+    text-align: right;
+    flex-grow: 0;
+}
+
+#color-sliders > div > input {
+    flex-grow: 1;
+}
+
 @media screen and (max-width: 700px) {
     #color-sliders {
         flex-direction: column;
@@ -445,6 +455,20 @@ $remark$
     d'encre de cette couleur sur le papier augmente et plus la quantité
     de lumière réfléchie par le papier diminue.
     En résumé, plus la couleur est intense, plus elle absorbe de lumière.
+</p>
+
+<p>
+    Une surface peinte en cyan absordera la lumière rouge,
+    et donc réfléchira la lumière verte et la lumière bleue,
+    ce qui donnera une couleur cyan.
+    De la même manière, une surface peinte en magenta absorbera
+    la lumière verte et réfléchira la lumière rouge et la lumière bleue,
+    ce qui donnera une couleur magenta.
+    Enfin, une surface peinte en jaune absorbera la lumière bleue
+    et réfléchira la lumière rouge et la lumière verte,
+    ce qui donnera une couleur jaune.
+    Quant au noir, il absorde toutes les couleurs et ne réfléchit donc
+    aucune lumière.
 </p>
 $endremark$
 
