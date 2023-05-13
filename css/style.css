@@ -396,6 +396,7 @@ select.self-pick {
 .chapter-nav div.next, .chapter-nav div.prev {
     padding-top: 20px;
     flex-grow: 0;
+    display: none;
 }
 
 .chapter-nav a > div {
@@ -795,6 +796,10 @@ table.operators td:first-child {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 50px;
+    }
+
+    .chapter-nav div.next, .chapter-nav div.prev {
+        display: block;
     }
 }
 
