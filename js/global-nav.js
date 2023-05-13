@@ -15,17 +15,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
             .replace(/[^\w-]+/g, "");
     }
 
-    // Select all h1, h2 and h3 headers in the main content area
+    // Select all headers in the sections of the page
     // and add an anchor link to each one.
-    const headers = document.querySelectorAll("main h1, main h2, main h3");
+    let selector = "section > h1";
+    for (let i = 2; i <= 6; i++) {
+        selector += ", section > h" + i;
+    }
+    const headers = document.querySelectorAll(selector);
+    const usedIds = {};
     for (let i = 0; i < headers.length; i++) {
         const header = headers[i];
         const anchor = document.createElement("a");
         let id = header.id;
         if (!id) {
             id = slug(header.textContent);
-            header.id = id;
         }
+        while (usedIds[id]) {
+            id = id + "-";
+        }
+        usedIds[id] = true;
+        header.id = id;
         anchor.href = "#" + id;
         anchor.classList.add("anchor-link");
         anchor.innerHTML = "<i class='fa fa-link'></i>";
