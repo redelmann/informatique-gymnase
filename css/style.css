@@ -42,6 +42,25 @@ h3 {
     margin-bottom: 0.8em;
 }
 
+.anchor-link {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 0.8em;
+    margin-left: 10px;
+    visibility: hidden;
+}
+
+.anchor-link:hover {
+    color: #aaa;
+}
+
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link {
+    visibility: visible;
+}
+
+
 h4, h5 {
     font-size: 1.1em;
     margin-top: 1.5em;
@@ -312,13 +331,20 @@ select.self-pick {
     text-align: center;
 }
 
+
 .chapter-nav select.global-nav {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    margin-top: 15px;
+    margin-bottom: 15px;
     color: black;
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
-    font-size: 1em;
+    border: 1px solid #ccc;
+    font-size: 1.1em;
+    text-align: center;
+    cursor: pointer;
 }
 
 .chapter-nav a {
@@ -333,7 +359,11 @@ select.self-pick {
     color: var(--color-1);
 }
 
-.chapter-nav a div {
+.chapter-nav a i.fa {
+    width: 20px;
+}
+
+.chapter-nav a > div {
     display: flex;
     flex-direction: column;
 }
@@ -348,6 +378,7 @@ select.self-pick {
 
 .chapter-nav a div span {
     display: block;
+    white-space: nowrap;
 }
 
 .chapter-nav a:hover {
@@ -356,10 +387,97 @@ select.self-pick {
 
 .chapter-nav a .label {
     color: #999;
+    font-variant: all-small-caps;
 }
 
 .chapter-nav div.next, .chapter-nav div.prev {
+    padding-top: 20px;
+    flex-grow: 0;
+}
+
+.chapter-nav a > div {
     display: none;  /* hide on mobile */
+}
+
+/*********** Baseline, reset styles ***********/
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+    outline: none;
+}
+
+/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+/* slider track */
+    input[type="range"]::-webkit-slider-runnable-track {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    height: 1rem;
+    border: 1px solid #aaaaaa;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    margin-top: -8px; /* Centers thumb on the track */
+    background-color: #999999;
+    border-radius: 0.5rem;
+    height: 2rem;
+    width: 1.5rem;
+    border: 1px outset #808080;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+    outline: 2px solid #808080;
+    outline-offset: 0.125rem;
+}
+
+/*********** Firefox styles ***********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    height: 1rem;
+    border: 1px solid #aaaaaa;
+}
+
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+    background-color: #999999;
+    border: none; /*Removes extra border that FF applies*/
+    border-radius: 0.5rem;
+    height: 2rem;
+    width: 1.5rem;
+    border: 1px outset #808080;
+}
+
+input[type="range"]:focus::-moz-range-thumb{
+    outline: 2px solid #808080;
+    outline-offset: 0.125rem;
+}
+
+button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border: 1px outset #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #ddd;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:active {
+    border: 1px inset #ccc;
+    /* Move the text down a bit */
+    transform: translateY(1px);
 }
 
 .expr {
@@ -670,10 +788,6 @@ table.operators td:first-child {
         flex-direction: row;
     }
 
-    .chapter-nav div.next, .chapter-nav div.prev {
-        display: inline-block;
-    }
-
     .cols-2 {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -698,6 +812,15 @@ table.operators td:first-child {
         margin-bottom: 20px;
         max-width: 40%;
         float: left;
+    }
+
+    .chapter-nav a > div {
+        display: inline-block;
+    }
+
+    .chapter-nav div.next, .chapter-nav div.prev {
+        padding-top: 0;
+        flex-grow: 1;
     }
 }
 
