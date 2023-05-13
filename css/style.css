@@ -338,7 +338,7 @@ select.self-pick {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
     border-bottom: 2px solid #ccc;
 }
@@ -353,6 +353,9 @@ select.self-pick {
     flex: 0 0 auto;
 }
 
+.chapter-nav div.next i.fa, .chapter-nav div.prev i.fa {
+    font-size: 1.5em;
+}
 
 .chapter-nav select.global-nav {
     appearance: none;
@@ -447,10 +450,6 @@ select.self-pick {
 .chapter-nav a .label {
     color: #999;
     font-variant: all-small-caps;
-}
-
-.chapter-nav div.next, .chapter-nav div.prev {
-    padding-top: 20px;
 }
 
 .chapter-nav a > div {
@@ -855,10 +854,6 @@ table.operators td:first-child {
 
     .chapter-nav a > div {
         display: inline-block;
-    }
-
-    .chapter-nav div.next, .chapter-nav div.prev {
-        padding-top: 0;
     }
 }
 
