@@ -120,12 +120,28 @@ $tryout$
         <div class="image-zoomable">
             <div class="image-wrapper">
                 <svg width="250" height="250">
-
-                    <!-- Sun -->
-                    <circle cx="85" cy="125" r="80" fill="#ff0" stroke="#000" stroke-width="1" />
-
-                    <!-- Moon -->
-                    <circle cx="165" cy="125" r="80" fill="#f00" stroke="#000" stroke-width="1" />
+                    <defs>
+                        <linearGradient spreadMethod="pad" y2="0" x2="0" y1="0.68439" x1="0.41797" id="svg_3">
+                            <stop offset="0" stop-opacity="0.99609" stop-color="#e81212"/>
+                            <stop offset="1" stop-opacity="0.99609" stop-color="#ff7f00"/>
+                        </linearGradient>
+                        <linearGradient spreadMethod="pad" y2="0" x2="0" y1="0.68439" x1="0.41797" id="svg_4">
+                            <stop offset="0" stop-opacity="0.99219" stop-color="#0e822f"/>
+                            <stop offset="1" stop-opacity="0.99219" stop-color="#40c456"/>
+                        </linearGradient>
+                        <linearGradient y2="0" x2="1" y1="0" x1="0" id="svg_11">
+                            <stop offset="0" stop-opacity="0.99609" stop-color="#f2cc0e"/>
+                            <stop offset="1" stop-opacity="0.99609" stop-color="#d1c11b"/>
+                        </linearGradient>
+                    </defs>
+                    <g>
+                        <polygon transform="rotate(-8.43362 117.507 88.5455)" id="svg_20" points="45,72 100,72 118,20 135,72 190,72 145,105 162,158 118,125 73,158 90,105 45,72" stroke-width="2" stroke="#8c7c04" fill="url(#svg_11)"/>
+                        <ellipse stroke-width="2" stroke="#7f0000" ry="42.5" rx="43" id="svg_1" cy="146.49865" cx="141.50149" fill="url(#svg_3)"/>
+                        <polygon transform="rotate(15.4538 138 106.499)" stroke-width="2" stroke="#054927" id="svg_5" points="137,81 125,123 136,132 151,115 137,81" opacity="1" fill="url(#svg_4)"/>
+                        <path stroke="#492605" id="svg_6" d="m128.76698,133.33239l-18.76685,-34.36765c-2.33333,-4.39706 11.4233,-6.63235 11.4233,-6.63235c10.5,37.16667 8.1595,30.14706 8.1595,29.54412c3.5,9.60294 16.319,-9.64706 -0.81595,11.45588z" opacity="1" stroke-width="2" fill="#7f3f00"/>
+                        <text transform="rotate(-17.6739 157.385 198.004)" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="'Helvetica'" font-size="24" id="svg_21" y="206.50364" x="72.00257" stroke-width="0" stroke="#8c7c04" fill="#000000">sur les pommes</text>
+                        <text transform="rotate(-17.8376 55.502 201.837)" xml:space="preserve" text-anchor="start" font-family="'Helvetica'" font-size="36" id="svg_26" y="214.58887" x="9.99581" stroke="#f72e2e" fill="#e80000">-20%</text>
+                    </g>
                 </svg>
             </div>
         </div>
@@ -137,7 +153,7 @@ $tryout$
     <div class="image-container">
         <div class="image-zoomable">
             <div class="image-wrapper">
-                <img src="/docs/png/test.png" draggable="false" />
+                <img src="/docs/png/pommes.png" draggable="false" />
             </div>
         </div>
         <div class="image-controls">
@@ -150,16 +166,26 @@ $tryout$
 <script type="text/javascript">
 (function() {
     const containers = document.querySelectorAll('.image-container');
+    const zoomables = [];
+    const images = [];
+    const wrappers = [];
+    const ranges = [];
+    const labels = [];
     for (let container of containers) {
         const zoomable = container.querySelector('.image-zoomable');
+        zoomables.push(zoomable);
         const image = zoomable.querySelector('svg, img');
+        images.push(image);
         const wrapper = zoomable.querySelector('.image-wrapper');
+        wrappers.push(wrapper);
         const startWidth = 250;
         const startHeight = 250;
 
         const controls = container.querySelector('.image-controls');
         const range = controls.querySelector('.zoom-range');
+        ranges.push(range);
         const label = controls.querySelector('label');
+        labels.push(label);
         let zoom = 1;
         range.addEventListener('input', function() {
             const value = range.value;
@@ -172,17 +198,27 @@ $tryout$
 
             console.log(focusLeft, focusTop);
 
-            image.style.transform = `scale($${value})`;
-            wrapper.style.width = `$${startWidth * value}px`;
-            wrapper.style.height = `$${startHeight * value}px`;
-
-            label.textContent = `$${value * 100}%`;
+            for (i of images) {
+                i.style.transform = `scale($${value})`;
+            }
+            for (w of wrappers) {
+                w.style.width = `$${startWidth * value}px`;
+                w.style.height = `$${startHeight * value}px`;
+            }
+            for (l of labels) {
+                l.textContent = `$${value * 100}%`;
+            }
+            for (r of ranges) {
+                r.value = value;
+            }
 
             focusLeft *= value / zoom;
             focusTop *= value / zoom;
 
-            zoomable.scrollLeft = focusLeft - zoomable.clientWidth / 2;
-            zoomable.scrollTop = focusTop - zoomable.clientHeight / 2;
+            for (z of zoomables) {
+                z.scrollLeft = focusLeft - z.clientWidth / 2;
+                z.scrollTop = focusTop - z.clientHeight / 2;
+            }
 
             zoom = value;
         });
@@ -191,6 +227,21 @@ $tryout$
         let mouseDown = false;
         let lastX = 0;
         let lastY = 0;
+
+        zoomable.addEventListener("scroll", function(event) {
+            console.log('scroll', event);
+            if (mouseDown) {
+                event.preventDefault();
+            }
+            else {
+                const scrollLeft = zoomable.scrollLeft;
+                const scrollTop = zoomable.scrollTop;
+                for (z of zoomables) {
+                    z.scrollLeft = scrollLeft;
+                    z.scrollTop = scrollTop;
+                }
+            }
+        }, false);
 
         zoomable.addEventListener('mousedown', function(event) {
             mouseDown = true;
@@ -208,8 +259,10 @@ $tryout$
             if (document.hasFocus() && mouseDown) {
                 const deltaX = event.clientX - lastX;
                 const deltaY = event.clientY - lastY;
-                zoomable.scrollLeft -= deltaX;
-                zoomable.scrollTop -= deltaY;
+                for (z of zoomables) {
+                    z.scrollLeft -= deltaX;
+                    z.scrollTop -= deltaY;
+                }
                 lastX = event.clientX;
                 lastY = event.clientY;
             }
