@@ -43,3 +43,195 @@ $endremark$
 
 <h2>Images vectorielles</h2>
 
+<p>
+    Une autre façon de représenter des images
+    consiste à décrire les formes géométriques
+    qui composent l'image.
+    On parle dans ce cas d'<i>images vectorielles</i>.
+</p>
+
+$tryout$
+<p>
+    Ci-dessous vous trouverez la même image représentée
+    dans deux formats différents : un format matriciel
+    et un format vectoriel.
+    Utilisez la barre de zoom pour voir ce qui se passe
+    lorsque vous zoomez sur l'image en version vectorielle
+    et comparez avec ce qui se passe lorsque vous zoomez
+    sur l'image en version matricielle.
+</p>
+
+<style>
+
+.image-container {
+    position: relative;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+}
+
+.image-zoomable {
+    overflow: scroll;
+    overscroll-behavior-x: none;
+    width: fit-content;
+    max-width: 100%;
+    height: 260px;
+    margin: auto;
+    flex: 1 1 auto;
+}
+
+.image-zoomable svg, .image-zoomable img {
+    transform-origin: 0 0;
+    image-rendering: pixelated;
+    user-select: none;
+    cursor: grab;
+    margin: auto;
+
+}
+
+.image-controls {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1em;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.image-controls label {
+    flex-grow: 0;
+}
+
+.image-controls input {
+    flex-grow: 1;
+}
+
+.image-wrapper {
+    width: 250px;
+    height: 250px;
+}
+</style>
+
+<div class="cols-2">
+    <div class="image-container">
+        <div class="image-zoomable">
+            <div class="image-wrapper">
+                <svg width="250" height="250">
+
+                    <!-- Sun -->
+                    <circle cx="85" cy="125" r="80" fill="#ff0" stroke="#000" stroke-width="1" />
+
+                    <!-- Moon -->
+                    <circle cx="165" cy="125" r="80" fill="#f00" stroke="#000" stroke-width="1" />
+                </svg>
+            </div>
+        </div>
+        <div class="image-controls">
+            <input type="range" min="1" max="20" step="0.5" value="1" class="zoom-range" id="zoom-range-1" />
+            <label for="zoom-range-1">100%</label>
+        </div>
+    </div>
+    <div class="image-container">
+        <div class="image-zoomable">
+            <div class="image-wrapper">
+                <img src="/docs/png/test.png" draggable="false" />
+            </div>
+        </div>
+        <div class="image-controls">
+            <input type="range" min="1" max="20" step="0.5" value="1" class="zoom-range" id="zoom-range-2" />
+            <label for="zoom-range-2">100%</label>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+(function() {
+    const containers = document.querySelectorAll('.image-container');
+    for (let container of containers) {
+        const zoomable = container.querySelector('.image-zoomable');
+        const image = zoomable.querySelector('svg, img');
+        const wrapper = zoomable.querySelector('.image-wrapper');
+        const startWidth = 250;
+        const startHeight = 250;
+
+        const controls = container.querySelector('.image-controls');
+        const range = controls.querySelector('.zoom-range');
+        const label = controls.querySelector('label');
+        let zoom = 1;
+        range.addEventListener('input', function() {
+            const value = range.value;
+
+            const scrollLeft = zoomable.scrollLeft;
+            const scrollTop = zoomable.scrollTop;
+
+            let focusLeft = scrollLeft + zoomable.clientWidth / 2;
+            let focusTop = scrollTop + zoomable.clientHeight / 2;
+
+            console.log(focusLeft, focusTop);
+
+            image.style.transform = `scale($${value})`;
+            wrapper.style.width = `$${startWidth * value}px`;
+            wrapper.style.height = `$${startHeight * value}px`;
+
+            label.textContent = `$${value * 100}%`;
+
+            focusLeft *= value / zoom;
+            focusTop *= value / zoom;
+
+            zoomable.scrollLeft = focusLeft - zoomable.clientWidth / 2;
+            zoomable.scrollTop = focusTop - zoomable.clientHeight / 2;
+
+            zoom = value;
+        });
+
+        // Moving around with the mouse
+        let mouseDown = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        zoomable.addEventListener('mousedown', function(event) {
+            mouseDown = true;
+            lastX = event.clientX;
+            lastY = event.clientY;
+            document.body.classList.add('grabbing');
+        });
+
+        document.addEventListener('mouseup', function(event) {
+            mouseDown = false;
+            document.body.classList.remove('grabbing');
+        });
+
+        document.addEventListener('mousemove', function(event) {
+            if (document.hasFocus() && mouseDown) {
+                const deltaX = event.clientX - lastX;
+                const deltaY = event.clientY - lastY;
+                zoomable.scrollLeft -= deltaX;
+                zoomable.scrollTop -= deltaY;
+                lastX = event.clientX;
+                lastY = event.clientY;
+            }
+        });
+
+        // Ungrab when the document loses focus
+        document.addEventListener('blur', function(event) {
+            mouseDown = false;
+            document.body.classList.remove('grabbing');
+        });
+    }
+})();
+</script>
+
+$endtryout$
+
+<p>
+    Un avantage des images vectorielles
+    est qu'elles sont redimensionnables
+    sans perte de qualité.
+    En effet, les formes géométriques
+    qui composent l'image peuvent être
+    mises à différentes échelles sans perdre
+    de détails ou de précision.
+</p>

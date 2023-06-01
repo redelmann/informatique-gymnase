@@ -1,9 +1,189 @@
 ---
 title: Modules
 order: 7
-unfinished: true
 ---
 
 <p>
-    <i>À venir !</i>
+    Dans cette section, nous allons nous intéresser à la notion de <i>module</i> en Python.
+    Un module est un ensemble de définitions (comme par exemple des fonctions)
+    assemblées en une seule entité (le module).
+    Ces définitions peuvent ensuite être utilisées dans un ou plusieurs programmes
+    en important le module.
+    Nous verrons dans cette section comment importer un module et comment utiliser les définitions qu'il contient.
+    Ensuite, nous verrons comment créer nos propres modules.
+</p>
+
+<p>
+    Les modules sont très importants car ils permettent de <i>réutiliser du code</i>.
+    Il est souvent utile de pouvoir réutiliser des fonctions
+    que l'on a déjà écrites dans le contexte d'un nouveau programme.
+    De plus, ils permettent aussi d'utiliser du code écrit par d'autres personnes.
+</p>
+
+$remark$
+<p>
+    Certains modules sont dits <i>standards</i>, c'est-à-dire qu'ils sont fournis avec Python.
+    C'est le cas par exemple du module <code>math</code> qui contient des fonctions et constantes mathématiques.
+</p>
+<p>
+    D'autres modules peuvent être installés
+    grâce à ce que l'on appelle un <i>gestionnaire de paquets</i>.
+    Le gestionnaire de paquets le plus utilisé en Python est <code>pip</code>.
+</p>
+<p>
+    Finalement, comme nous le verrons plus bas,
+    il est aussi possible de créer ses propres modules.
+</p>
+$endremark$
+
+<h2>Utiliser un module</h2>
+
+<p>
+    Pour utiliser les définitions d'un module, il faut d'abord l'importer.
+    Pour cela, on utilise l'instruction <code>import</code>.
+    Pour importer un module, on utilise la syntaxe <code>import nom_module</code>.
+</p>
+
+<p>
+    Par exemple, pour pouvoir utiliser les fonctions mathématiques du module <code>math</code>,
+    comme par exemple la fonction <i>racine carrée</i> <code>sqrt</code>,
+    on importe le module <code>math</code>
+    puis l'on peut utiliser les fonctions qu'il contient
+    en utilisant la notation <code>nom_module.nom_fonction</code>.
+</p>
+
+$codeplay$
+import math
+
+print(math.sqrt(2))
+print(math.pi)
+$endcodeplay$
+
+$remark$
+<p>
+    Bien qu'il soit possible d'importer un module n'importe où dans le programme,
+    les instructions d'import de modules
+    sont généralement placées au début du programme,
+    tout en haut du fichier.
+</p>
+$endremark$
+    
+
+<h3>Importation sélective</h3>
+
+<p>
+    Il est aussi possible d'importer uniquement certaines définitions d'un module.
+    Pour cela, on utilise la syntaxe <code>from nom_module import nom_fonction1, nom_fonction2, ...</code>.
+    De cette manière, on peut utiliser les fonctions importées sans
+    devoir les préfixer par le nom du module.
+</p>
+
+<p>
+    Par exemple, pour importer uniquement la fonction <code>sqrt</code> du module <code>math</code>,
+    on peut utiliser la syntaxe <code>from math import sqrt</code>.
+    On peut alors utiliser la fonction <code>sqrt</code> sans préfixer par <code>math</code>.
+</p>
+
+$codeplay$
+from math import sqrt, pi
+
+print(sqrt(2))
+print(pi)
+$endcodeplay$
+
+<h3>Importer toutes les définitions d'un module</h3>
+
+<p>
+    Il est aussi possible d'importer toutes les définitions d'un module.
+    Pour cela, on utilise la syntaxe <code>from nom_module import *</code>.
+</p>
+
+$codeplay$
+from math import *
+
+print(sqrt(2))
+print(factorial(10))
+print(pi)
+$endcodeplay$
+
+<p>
+    En général, il est déconseillé d'utiliser cette syntaxe
+    car elle peut porter à confusion.
+    En effet, il devient difficile de savoir d'où proviennent les définitions utilisées
+    dans le programme, spécialement si plusieurs modules sont importés de cette manière.
+</p>
+
+<h2>Créer un module</h2>
+
+<p>
+    Maintenant que nous avons vu comment importer un module,
+    nous allons voir comment créer nos propres modules.
+</p>
+
+<p>
+    Pour créer un module, il suffit simplement de créer un fichier Python
+    contenant les définitions que l'on souhaite mettre dans le module.
+    Ensuite, pour utiliser les définitions du module,
+    il suffit d'importer le module comme nous l'avons vu précédemment.
+    Le nom du module est le nom du fichier sans l'extension <code>.py</code>.
+    Le fichier doit être placé dans le même dossier que le programme qui l'utilise.
+</p>
+
+$remark$
+<p>
+    Il est possible dans un module de non seulement définir des fonctions,
+    mais aussi d'exécuter des instructions arbritraires.
+    Cependant, il faut savoir que lorsqu'un module est importé, le code qu'il contient est exécuté.
+    Lorsque ce n'est pas souhaité, il est possible de vérifier si le module est importé
+    ou exécuté directement en se référant à la variable <code>__name__</code>.
+</p>
+
+<p>
+    Lorsque l'on exécute directement un module,
+    la variable <code>__name__</code> vaut <code>"__main__"</code>,
+    alors que lorsqu'un module est importé,
+    la variable <code>__name__</code> vaut le nom du module.
+</p>
+
+<p>
+    Cela permet de spécifier des instructions qui ne doivent être exécutées
+    que lorsque le module est exécuté directement,
+    et ce de la manière suivante :
+</p>
+
+$codeplay$
+if __name__ == "__main__":
+    print("Le module est exécuté directement.")
+$endcodeplay$
+
+$endremark$
+
+$selfcheck$
+<p>
+    En Python, la syntaxe <select class="self-pick code">
+            <option>import nom_module.nom_fonction</option>
+            <option data-correct>from nom_module import nom_fonction</option>
+            <option>import nom_fonction from nom_module</option>
+        </select>
+        permet d'importer la fonction <code>nom_fonction</code> du module <code>nom_module</code>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Le nom d'un module est déterminé par
+    <select class="self-pick">
+        <option>le nom des fonctions qu'il contient</option>
+        <option data-correct>le nom du fichier contenant le module</option>
+        <option>le nom du dossier contenant le module</option>
+        <option>le nom du programmeur qui a créé le module</option>
+    </select> en Python.
+</p>
+$endselfcheck$
+
+<p>
+    Dans cette section, nous avons vu comment
+    utiliser et créer des modules en Python.
+    Dans la prochaine section, nous allons
+    conclure ce chapitre sur la programmation en Python.
 </p>

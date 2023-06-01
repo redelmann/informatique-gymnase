@@ -18,6 +18,10 @@ html {
     --color-6: #438945;
 }
 
+body.grabbing * {
+    cursor: grabbing !important;
+}
+
 h1, h2, h3, h4, h5 {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: normal;
