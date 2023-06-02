@@ -46,6 +46,13 @@ h3 {
     margin-bottom: 0.8em;
 }
 
+figure > figcaption {
+    font-size: 0.8em;
+    color: #888;
+    text-align: center;
+    margin-top: 0.5em;
+}
+
 .anchor-link {
     color: #ddd;
     text-decoration: none;

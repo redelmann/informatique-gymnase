@@ -1,21 +1,107 @@
 ---
 title: Représentation des images
 order: 5
-unfinished: true
 ---
 
 <p>
     Dans cette section, nous allons
-    étudier différents formats de fichier
-    pour représenter des images.
+    nous intéresser à la question de la
+    représentation des images.
+    Comment décrire une image à l'aide
+    de séquences de bits ?
+    Dans la section précédente, nous avons
+    comment représenter des couleurs en utilisant
+    des codes binaires, notamment le code RVB.
+    Dans cette section, nous allons voir comment
+    représenter des images en utilisant
+    différents formats de fichiers.
 </p>
 
 <p>
     Les formats de représentation des images
     sont nombreux et variés.
-    Ils se classent en deux grandes catégories :
+    Ils se classent cependant en deux grandes catégories :
     les formats d'images <i>matricielles</i> et
     les formats d'images <i>vectorielles</i>.
+</p>
+
+<style>
+.img-ex {
+    margin: 0 auto;
+    display: block;
+    border: 1px solid #000;
+    image-rendering: pixelated;
+}
+</style>
+
+<div class="cols-2">
+
+    <div>
+        <figure>
+            <img src="/docs/png/arbre.png" alt="Photographie d'un arbre." class="img-ex" />
+            <figcaption>Une image matricielle.</figcaption>
+        </figure>
+
+        <p>
+            Les images matricielles sont les plus couramment utilisées.
+            Dans une image matricielle, l'image est représentée
+            par une matrice (une grille) de cellules colorées que l'on appelle
+            des <i>pixels</i>.
+            Ce type d'image est très utilisé pour les photographies
+            par exemple.
+        </p>
+    </div>
+
+    <div>
+        <figure>
+            <svg width="250" height="250" class="img-ex" xmlns="http://www.w3.org/2000/svg">
+                <g id="Layer_1">
+                    <ellipse stroke="#7f0000" ry="77.5" rx="77.5" id="svg_2_1" cy="94" cx="95" fill="url(#svg_2_2)"/>
+                    <ellipse ry="55.5" rx="55.5" id="svg_2_8" cy="174.5" cx="167" stroke="#204cbc" fill="url(#svg_2_10)"/>
+                    <ellipse id="svg_2_11" cy="273" cx="172.5" stroke="#204cbc" fill="url(#svg_2_10)"/>
+                    <ellipse id="svg_2_13" cy="265" cx="273.5" stroke="#204cbc" fill="url(#svg_2_10)"/>
+                    <path transform="rotate(17.8063 165.434 171.385)" stroke="#bf5f00" stroke-width="0" id="svg_2_3" d="m138.51143,165.34737l20.56739,0l6.35548,-19.53893l6.35549,19.53893l20.56739,0l-16.63934,12.07559l6.35581,19.53893l-16.63935,-12.07592l-16.63934,12.07592l6.35581,-19.53893l-16.63934,-12.07559z" fill="url(#svg_2_5)"/>
+                    <path transform="rotate(-62.8554 90.2375 92.75)" id="svg_2_15" d="m59.2375,76.78184l15.03184,-15.03184l15.96809,15.96796l15.96809,-15.96796l15.03198,15.03184l-15.96809,15.96809l15.96809,15.96809l-15.03198,15.03198l-15.96809,-15.96809l-15.96809,15.96809l-15.03184,-15.03198l15.96796,-15.96809l-15.96796,-15.96809z" stroke-width="0" stroke="#bf5f00" fill="url(#svg_2_16)"/>
+                </g>
+                <defs>
+                    <radialGradient cy="0.37579" cx="0.37109" spreadMethod="pad" id="svg_2_2">
+                        <stop offset="0" stop-opacity="0.99609" stop-color="#ff5656"/>
+                        <stop offset="1" stop-opacity="0.99609" stop-color="#bf0000"/>
+                    </radialGradient>
+                    <radialGradient r="0.5" cy="0.37579" cx="0.37109" spreadMethod="pad" id="svg_2_5">
+                        <stop offset="0" stop-opacity="0.99609" stop-color="#ffaa56"/>
+                        <stop offset="1" stop-opacity="0.99609" stop-color="#ff7f00"/>
+                    </radialGradient>
+                    <radialGradient r="0.5" cy="0.26642" cx="0.28125" spreadMethod="pad" id="svg_2_10">
+                        <stop offset="0" stop-opacity="0.99609" stop-color="#56aaff"/>
+                        <stop offset="1" stop-opacity="0.99609" stop-color="#005fbf"/>
+                    </radialGradient>
+                    <radialGradient r="0.63394" cy="0.37579" cx="0.37109" spreadMethod="pad" id="svg_2_16">
+                        <stop offset="0" stop-opacity="0.98828" stop-color="#ffffff"/>
+                        <stop offset="1" stop-opacity="0.99219" stop-color="#cccccc"/>
+                    </radialGradient>
+                </defs>
+            </svg>
+            <figcaption>Une image vectorielle.</figcaption>
+        </figure>
+
+        <p>
+            Les images vectorielles quant à elles
+            sont représentées par des formes géométriques
+            (cercles, rectangles, courbes, etc.)
+            décrites par des équations mathématiques.
+            On utilise souvent ce type d'image pour les logos par exemple,
+            qui sont généralement composés de formes simples
+            et déclinés dans plusieurs tailles.
+        </p>
+    </div>
+</div>
+
+<p>
+    En première partie de cette section,
+    nous allons nous intéresser aux images matricielles.
+    Nous aborderons ensuite les images vectorielles
+    dans la deuxième partie de la section.
 </p>
 
 <h2>Images matricielles</h2>
@@ -23,10 +109,22 @@ unfinished: true
 <p>
     Une image matricielle est une image
     qui est représentée par une <i>matrice</i> de <i>pixels</i>.
-    Une matrice est simplement un tableau à deux dimensions.
-    Chaque case du tableau contient un pixel,
-    et chaque pixel est représenté par une couleur.
+    Une matrice est simplement un tableau à deux dimensions, une grille.
+    Chaque cellule du tableau contient ce qu'on appelle un <i>pixel</i>.
+    Chaque pixel contient une couleur, généralement représentée par
+    un code couleur comme le code RVB que nous avons vu
+    dans la section précédente.
 </p>
+
+<p>
+    Ces pixels ne sont pas toujours visibles à l'œil nu,
+    il faut parfois zoomer sur l'image pour les voir.
+</p>
+
+<figure>
+    <img src="/docs/png/matrice.png" alt="Une image matricielle" width="320" height="320" class="img-ex" />
+    <figcaption>Zoom sur les pixels d'une image matricielle.</figcaption>
+</figure>
 
 $remark$
 <p>
@@ -36,9 +134,139 @@ $remark$
 $endremark$
 
 <p>
-    Dans cette section, nous allons regarder un format
-    en particulier : le format BMP.
+    Les images matricielles ont des dimensions
+    définies par un nombre de colonnes et un nombre de lignes.
+    On parle de la <i>largeur</i> et de la <i>hauteur</i> de l'image.
+    De manière formelle, on parle aussi de la <i>définition</i> de l'image
+    pour désigner le nombre de pixels de l'image.
 </p>
+
+$example$
+<p>
+    Une image de 100 pixels de large
+    et de 50 pixels de haut a une définition de 5000 pixels,
+    parfois notée <i>100 par 50 pixels</i> ou encore <i>100×50 pixels</i>.
+</p>
+<p>
+    De nos jours, les images obtenues avec les appareils photo
+    tels que ceux intégrés à nos téléphones portables
+    ont une définition de plusieurs millions de pixels.
+</p>
+$endexample$
+
+$remark$
+<p>
+    La définition d'une image n'est pas à confondre
+    avec sa <i>résolution</i>.
+    La résolution est le nombre de pixels
+    par unité de longueur d'une image représentée sur un support physique
+    (comme une feuille de papier ou un écran).
+    On mesure généralement la résolution en <i>points par pouce</i>
+    ou en <i>points par centimètre</i>.
+    Au contraire de la définition, 
+    la résolution dépend du support physique de l'image, pas de l'image en soit.
+</p>
+
+<p>
+    À noter qu'on parle aussi de pixel pour désigner
+    les points lumineux d'un écran.
+    Un écran a donc une résolution que l'on pourrait mesurer.
+    La résolution d'un écran relativement récent est généralement
+    comprise entre quelques dizaines de points par centimètre
+    (pour des écrans de télévision par exemple)
+    à plus d'une centaine de points par centimètre
+    (pour des écrans de téléphones portables par exemple).
+</p>
+
+<p>
+    Pour afficher une image matricielle sur un écran,
+    il n'est pas rare que les pixels de l'image ne correspondent pas
+    directement aux pixels de l'écran.
+    Plusieurs pixels de l'image peuvent être regroupés
+    pour former un seul pixel de l'écran, ou au contraire,
+    un seul pixel de l'image peut être étalé sur plusieurs pixels de l'écran.
+</p>
+$endremark$
+
+<p>
+    Une image représentée sous forme de fichier a aussi une taille
+    en terme d'octets. Cette taille dépend de la définition de l'image,
+    mais aussi du format de fichier utilisé.
+    On utilise généralement le terme <i>poids</i> pour désigner la taille
+    en octets d'une image ou plus généralement d'un fichier.
+</p>
+
+<p>
+    Dans cette section, afin de nous intéresser dans plus de détails
+    et de praticité aux images matricielles, nous allons aborder un format
+    d'image matricielle en particulier : le format BMP.
+</p>
+
+<h3>Le format BMP</h3>
+
+<p>
+    Le format BMP (aussi appelé <i lang="en">bitmap</i>)
+    est un format d'image matricielle
+    relativement simple.
+    Il s'agit d'un format de fichier binaire,
+    c'est-à-dire que les données sont représentées
+    directement par des bits.
+</p>
+
+<p>
+    Ci-dessous est presentée une image
+    de définition 8 par 8 pixels
+    au format BMP
+    ainsi que les octets qui la représentent.
+    Les octets sont indiqués en hexadécimal,
+    une notation que nous avons abordée dans la
+    section sur les fichiers.
+</p>
+
+<p>
+    L'image représente un magnifique pot de fleurs en <a href="https://fr.wikipedia.org/wiki/Pixel_art">pixel art</a>.
+</p>
+
+<div class="cols-2" id="bmp-example"></div>
+
+<p>
+    Le fichier se compose de deux parties distinctes :
+    l'<i>entête</i> et les pixels.
+    La zone d'entête, représentée avec un fond gris
+    ci-dessus, contient des informations sur l'image comme,
+    par exemple,
+    sa largeur et sa hauteur.
+    Après l'entête arrivent les pixels.
+    La zone de pixels, représentée avec un fond blanc,
+    contient le code couleur de chaque pixel de l'image.
+</p>
+
+<p>
+    Dans le format BMP, les pixels sont stockés
+    dans l'ordre <i>de gauche à droite</i> et
+    <i>de bas en haut</i>.
+    Cela signifie que le premier pixel est celui
+    en bas à gauche de l'image, le deuxième est
+    celui à droite du premier, et ainsi de suite.
+    Lorsque l'on arrive à la fin d'une ligne,
+    on passe à la gauche de la ligne suivante, au dessus.
+</p>
+
+<p>
+    Chaque pixel est représenté par trois octets.
+    Dans le format BMP, on commence par un octet pour l'intensité du bleu,
+    puis un octet pour l'intensité du vert, et enfin un octet pour l'intensité du rouge.
+    L'ordre est inversé par rapport au code RVB que nous avons vu
+    dans la section précédente, mais le principe reste le même.
+</p>
+
+$tryout$
+<p>
+    Dans l'éditeur hexadécimal ci-dessus,
+    la zone des pixels de l'image est éditable.
+    Essayez de modifier les octets pour changer les couleurs de l'image.
+</p>
+$endtryout$
 
 <style>
 .bmp-editor {
@@ -94,146 +322,48 @@ $endremark$
 
 <h3>Image 4 par 4 pixels</h3>
 
+<p>
+    La définition d'une image a généralement une grande influence
+    sur le poids du fichier.
+    Ci-dessous est représentée une image de définition 4 par 4 pixels.
+    Constatez que le poids du fichier est moindre par rapport à l'image
+    de définition 8 par 8 pixels montrée plus haut.
+</p>
+
 <div class="cols-2" id="bmp-4-4"></div>
 
 $tryout$
 <p>
-    Dans l'éditeur hexadécimal ci-dessous,
+    Dans l'éditeur hexadécimal ci-dessus,
     modifiez les octets de l'image pour compléter le damier.
-    Les octets d'en-tête ne sont pas modifiables.
+    Pour l'exemple, les octets d'en-tête ne sont pas modifiables,
+    uniquement les octets de pixels.
 </p>
 $endtryout$
 
-<h3>Image 8 par 8 pixels</h3>
-
-<div class="cols-2" id="bmp-8-8"></div>
-
-$tryout$
-<p>
-    L'image ci-dessus est une image 8 par 8 pixels.
-    Modifiez les octets de l'image pour
-    dessinez un motif de votre choix.
-</p>
-$endtryout$
+<script type="text/javascript" src="/js/bmp-editor.js"></script>
 
 <script type="text/javascript">
-let next_bmp_id = 0;
-function setup_bmp_editor(container, header_bytes, pixels_bytes) {
-    const id = next_bmp_id++;
-    // If pixel_bytes is a number, create an array of that size
-    if (typeof pixels_bytes === "number") {
-        pixels_bytes = new Array(pixels_bytes * 3).fill(0xff);
-    }
-    const saved_pixels = sessionStorage.getItem("bmp-" + id + "-pixels");
-    if (saved_pixels) {
-        pixels_bytes = saved_pixels.split(",").map(function(number) {
-            return parseInt(number);
-        });
-    }
-    const pixels = pixels_bytes.length / 3;
-    const editor = document.createElement("div");
-    editor.classList.add("bmp-editor");
-    const preview = document.createElement("div");
-    preview.classList.add("bmp-preview");
-    const image = document.createElement("img");
-    const link = document.createElement("a");
-    link.textContent = "Télécharger";
-    preview.appendChild(image);
-    preview.appendChild(link);
-    container.appendChild(editor);
-    container.appendChild(preview);
-
-    const bytes = new Uint8Array(header_bytes.length + pixels_bytes.length);
-
-    link.addEventListener("click", function() {
-        const blob = new Blob([bytes], {type: "image/bmp"});
-        const url = URL.createObjectURL(blob);
-        link.href = url;
-        link.download = "image.bmp";
-    });
-
-    for (let i = 0; i < header_bytes.length; i++) {
-        bytes[i] = header_bytes[i];
-    }
-
-    for (let i = 0; i < pixels_bytes.length; i++) {
-        const j = header_bytes.length + i;
-    
-        bytes[j] = pixels_bytes[i];
-    }
-
-    for (let i = 0; i < bytes.length; i++) {
-        const input = document.createElement("input");
-        input.type = "text";
-        input.size = 2;
-        input.maxLength = 2;
-        input.value = byte_to_hex(bytes[i]);
-        input.pattern = "[0-9a-fA-F]{2}";
-        input.addEventListener("focus", function() {
-            input.select();
-        })
-        input.addEventListener("input", function() {
-            bytes[i] = byte_from_hex(input.value);
-            update_preview();
-            if (input.value.length == 2) {
-                const next = input.nextElementSibling;
-                if (next) {
-                    next.focus();
-                }
-            }
-        });
-        input.addEventListener("blur", function() {
-            input.value = byte_to_hex(bytes[i]);
-            sessionStorage.setItem("bmp-" + id + "-pixels", bytes.slice(header_bytes.length).join(","));
-        });
-        input.addEventListener("keydown", function(event) {
-            if (input.selectionStart == 0 && event.key == "ArrowLeft") {
-                const previous = input.previousElementSibling;
-                if (previous) {
-                    console.log("previous");
-                    previous.focus();
-                }
-                event.preventDefault();
-                return false;
-            }
-            if (input.selectionEnd == 2 && event.key == "ArrowRight") {
-                const next = input.nextElementSibling;
-                if (next) {
-                    console.log("next");
-                    next.focus();
-                }
-                event.preventDefault();
-                return false;
-            }
-        });
-        if (i < header_bytes.length) {
-            input.disabled = true;
-        }
-        editor.appendChild(input);
-    }
-
-    function byte_to_hex(byte) {
-        const hex = byte.toString(16);
-        return hex.length == 1 ? "0" + hex : hex;
-    }
-
-    function byte_from_hex(hex) {
-        return parseInt(hex, 16) & 0xff;
-    }
-
-    function base64_data() {
-        const base64 = btoa(String.fromCharCode.apply(null, bytes));
-        return "data:image/bmp;base64," + base64;
-    }
-
-    function update_preview() {
-        image.src = base64_data();
-    }
-
-    update_preview();
-}
-
 (function(){
+
+    const header_bytes_example = [
+        0x42, 0x4D, 0xF6, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x36, 0x00,
+        0x00, 0x00, 0x28, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x08, 0x00,
+        0x00, 0x00, 0x01, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0x00,
+        0x00, 0x00, 0x13, 0x0B, 0x00, 0x00, 0x13, 0x0B, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+    ];
+
+    const pixels_bytes_example = [
+        0x33, 0xA0, 0x00, 0x03, 0xC1, 0x00, 0x33, 0xA0, 0x00, 0x2B, 0x66, 0xBC, 0x24, 0x5B, 0xA8, 0x24, 0x5B, 0xA8, 0x0A, 0x87, 0x00, 0x33, 0xA0, 0x00, 
+        0x03, 0xC1, 0x00, 0x00, 0xED, 0x00, 0x00, 0xD8, 0x00, 0x2B, 0x66, 0xBC, 0x24, 0x5B, 0xA8, 0x24, 0x5B, 0xA8, 0x00, 0xD8, 0x00, 0x00, 0xED, 0x00, 
+        0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0x3B, 0x8C, 0xFF, 0x37, 0x83, 0xF3, 0x37, 0x83, 0xF3, 0x37, 0x83, 0xF3, 0x30, 0x71, 0xD0, 0xFF, 0xF4, 0x62, 
+        0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0x02, 0xC3, 0x00, 0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 
+        0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0x00, 0x01, 0xD6, 0x11, 0xA0, 0x24, 0x11, 0xA0, 0x24, 0x41, 0xCE, 0x25, 0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 
+        0xFF, 0xF4, 0x62, 0x00, 0x00, 0xF6, 0x43, 0xDF, 0xFF, 0x00, 0x00, 0xD6, 0xFF, 0xF4, 0x62, 0x33, 0xA1, 0x20, 0xF3, 0x7F, 0x2B, 0xFF, 0xF4, 0x62, 
+        0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0x01, 0x00, 0xF6, 0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0xFF, 0x8A, 0x2F, 0x43, 0xDF, 0xFF, 0xF3, 0x7F, 0x2B, 
+        0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0xFF, 0xF4, 0x62, 0xFF, 0x8A, 0x2F, 0xFF, 0xF4, 0x62
+    ];
 
     const header_bytes_4_4 = [
         0x42, 0x4d, 0x66, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -256,21 +386,73 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes) {
         0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
     ];
 
-    const header_bytes_8_8 = [
-        0x42, 0x4d, 0xf6, 0x00, 0x0c, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x36, 0x00, 0x00, 0x00, 0x28, 0x00,
-        0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x08, 0x00,
-        0x00, 0x00, 0x01, 0x00, 0x18, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0xC0, 0x00, 0x0c, 0x00, 0x13, 0x0b,
-        0x00, 0x00, 0x13, 0x0b, 0x00, 0x00, 0x00, 0x00,
-        0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-    ];
-
-    setup_bmp_editor(document.getElementById("bmp-4-4"), header_bytes_4_4, pixels_bytes_4_4);
-    setup_bmp_editor(document.getElementById("bmp-8-8"), header_bytes_8_8, 64);
+    setup_bmp_editor(document.getElementById("bmp-example"), header_bytes_example, pixels_bytes_example, false);
+    setup_bmp_editor(document.getElementById("bmp-4-4"), header_bytes_4_4, pixels_bytes_4_4, false);
 })();
 </script>
 
+<h3>Logiciels de manipulation d'images matricielles</h3>
+
+<p>
+    En général, on n'écrira ou on ne modifiera pas directement des images matricielles
+    dans un éditeur hexadécimal.
+    La tâche serait bien trop fastidieuse.
+    À la place, on utilisera un logiciel, un programme, pour réaliser cette tâche.
+</p>
+
+<p>
+    Parmi les logiciels de manipulation d'images matricielles les plus connus, on peut citer :
+</p>
+
+<ul>
+    <li>
+        <a href="https://www.gimp.org/">GIMP</a> (GNU Image Manipulation Program), 
+        un logiciel libre et gratuit, disponible sur Windows, Mac OS et Linux.
+    </li>
+    <li>
+        <a href="https://www.adobe.com/fr/products/photoshop.html">Adobe Photoshop</a>, 
+        un logiciel propriétaire, payant, disponible sur Windows et Mac OS.
+    </li>
+</ul>
+
+<p>
+    Dans le cadre de ce cours, nous verrons aussi comment manipuler des images matricielles
+    avec le langage de programmation Python et la bibliothèque <a href="https://pillow.readthedocs.io/en/stable/">Pillow</a>.
+</p>
+
+$selfcheck$
+<p>
+    Les images matricielles sont représentées par
+    <select class="self-pick">
+        <option>des formes géométriques</option>
+        <option data-correct>un matrice de pixels</option>
+        <option>un ensemble de vecteurs</option>
+        <option>un texte</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Pour désigner la taille en pixels d'une image matricielle,
+    on utilise le terme de
+    <select class="self-pick">
+        <option>largeur</option>
+        <option>hauteur</option>
+        <option>poids</option>
+        <option>résolution</option>
+        <option data-correct>définition</option>
+    </select>, alors que pour désigner la taille en octets d'une image matricielle
+    on utilise le terme de
+    <select class="self-pick">
+        <option>largeur</option>
+        <option>hauteur</option>
+        <option data-correct>poids</option>
+        <option>résolution</option>
+        <option>définition</option>
+    </select>.
+</p>
+$endselfcheck$
 
 
 <h2>Images vectorielles</h2>
@@ -280,6 +462,30 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes) {
     consiste à décrire les formes géométriques
     qui composent l'image.
     On parle dans ce cas d'<i>images vectorielles</i>.
+</p>
+
+<p>
+    Nous allons peu nous attarder sur les images vectorielles,
+    mais le sujet est suffisamment important pour que nous
+    en parlions au moins un petit peu !
+</p>
+
+<p>
+    À la différence des images matricielles,
+    le contenu d'une image vectorielle n'est pas
+    décrit par une matrice de pixels, mais par
+    un ensemble de formes géométriques.
+</p>
+
+<p>
+    Un des principaux avantages des images vectorielles
+    est qu'elles sont redimensionnables
+    sans perte de qualité.
+    En effet, les formes géométriques
+    qui composent l'image peuvent être
+    mises à différentes échelles sans perdre
+    de détails ou de précision,
+    <a href="https://www.youtube.com/watch?v=I_8ZH1Ggjk0" target="_blank">ce qui n'est pas le cas des images matricielles</a>.
 </p>
 
 $tryout$
@@ -512,11 +718,105 @@ $tryout$
 $endtryout$
 
 <p>
-    Un avantage des images vectorielles
-    est qu'elles sont redimensionnables
-    sans perte de qualité.
-    En effet, les formes géométriques
-    qui composent l'image peuvent être
-    mises à différentes échelles sans perdre
-    de détails ou de précision.
+    Par contre, certaines images ne sont pas facilement
+    représentables en utilisant des images vectorielles.
+    Par exemple, il est difficile de représenter des
+    photographies avec de telles images.
+    En effet, il est très difficile de décomposer une photographie
+    en formes géométriques simples sans
+    retomber sur une description matricielle de l'image.
 </p>
+
+<p>
+    Comme pour les images matricielles,
+    il existe plusieurs formats de fichiers
+    pour représenter des images vectorielles.
+    Le format le plus connu est le format SVG,
+    que nous allons brièvement aborder ici.
+</p>
+
+<h3>Le format SVG</h3>
+
+<p>
+    Le format SVG (<i lang="en">Scalable Vector Graphics</i>) est un format de fichier
+    qui permet de représenter des images vectorielles.
+    Il s'agit d'un format de fichier texte :
+    le contenu du fichier est écrit en utilisant
+    du texte.
+    Ce texte est ensuite encodé selon un encodage de caractères
+    tel que UTF-8 pour obtenir le contenu du fichier.
+</p>
+
+<p>
+    Le contenu du fichier est décrit en utilisant
+    des balises, comme en HTML (le langage utilisé pour décrire les pages web).
+    Par exemple, voici un fichier SVG qui décrit un cercle rouge :
+</p>
+
+<pre class="code">&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;svg width="300" height="300" xmlns="http://www.w3.org/2000/svg"&gt;
+    &lt;circle cx="150" cy="150" r="145" fill="red" /&gt;
+&lt;/svg&gt;</pre>
+
+<p>
+    Et voici le résultat de ce fichier SVG :
+</p>
+
+<figure>
+    <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" class="img-ex">
+        <circle cx="150" cy="150" r="145" fill="red" />
+    </svg>
+    <figcaption>
+        Un cercle rouge, représenté en SVG.
+    </figcaption>
+</figure>
+
+<p>
+    Il est possible d'ajouter des éléments
+    additionnels, comme par exemple du texte :
+</p>
+
+<pre class="code">&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;svg width="300" height="300" xmlns="http://www.w3.org/2000/svg"&gt;
+    &lt;circle cx="150" cy="150" r="145" fill="red" /&gt;
+    &lt;text x="110" y="150" fill="yellow"&gt;Trop bien!&lt;/text&gt;
+&lt;/svg&gt;</pre>
+
+<figure>
+    <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" class="img-ex">
+        <circle cx="150" cy="150" r="145" fill="red" />
+        <text x="110" y="150" fill="yellow">Trop bien!</text>
+    </svg>
+    <figcaption>
+        Un cercle rouge et un texte, représentés en SVG.
+    </figcaption>
+</figure>
+
+<h3>Logiciels de dessin vectoriel</h3>
+
+<p>
+    Bien qu'il soit techniquement possible de
+    créer des images vectorielles en écrivant
+    directement le code SVG,
+    il est plus courant d'utiliser un ce qu'on
+    appelle un logiciel de dessin vectoriel
+    pour créer ou modifier des images vectorielles.
+</p>
+
+<p>
+    Parmi les logiciels de dessin vectoriel les plus connus,
+    on peut citer :
+</p>
+
+<ul>
+    <li>
+        <a href="https://inkscape.org/">Inkscape</a>,
+        un logiciel libre et gratuit, disponible sur Windows, Mac et Linux.
+    </li>
+    <li>
+        <a href="https://www.adobe.com/fr/products/illustrator.html">Adobe Illustrator</a>,
+        un logiciel propriétaire, disponible sur Windows et Mac.
+    </li>
+</ul>
+
+
