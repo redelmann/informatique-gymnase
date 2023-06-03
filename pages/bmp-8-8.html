@@ -1,4 +1,8 @@
-<h1>Éditeur BMP hexadécimal</h1>
+<section>
+<header>
+    <p>Éditeur héxadécimal</p>
+    <h2>Image BMP 8&times;8</h2>
+</header>
 
 <div class="cols-2" id="bmp-container"></div>
 
@@ -16,6 +20,9 @@
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     ];
 
-    setup_bmp_editor(container, header_bytes, 64, "8-8-standalone");
+    setup_bmp_editor(container, header_bytes, 64, {
+        save_key: "8-8-standalone"
+    });
 })();
 </script>
+</section>

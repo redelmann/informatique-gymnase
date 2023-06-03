@@ -1,6 +1,13 @@
 
-function setup_bmp_editor(container, header_bytes, pixels_bytes, save_key) {
-    let save_pixels = save_key !== undefined;
+function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
+    options = options || {};
+    const save_key = options.save_key;
+    const save_pixels = save_key !== undefined;
+
+    let palette_bytes = options.palette_bytes || 0;
+    if (typeof palette_bytes === "number") {
+        palette_bytes = new Array(palette_bytes * 4).fill(0xff);
+    }
 
     if (typeof pixels_bytes === "number") {
         pixels_bytes = new Array(pixels_bytes * 3).fill(0xff);
@@ -9,6 +16,12 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, save_key) {
         const saved_pixels = sessionStorage.getItem("bmp-" + save_key + "-pixels");
         if (saved_pixels) {
             pixels_bytes = saved_pixels.split(",").map(function(number) {
+                return parseInt(number);
+            });
+        }
+        const saved_palette = sessionStorage.getItem("bmp-" + save_key + "-palette");
+        if (saved_palette) {
+            palette_bytes = saved_palette.split(",").map(function(number) {
                 return parseInt(number);
             });
         }
@@ -25,7 +38,7 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, save_key) {
     container.appendChild(editor);
     container.appendChild(preview);
 
-    const bytes = new Uint8Array(header_bytes.length + pixels_bytes.length);
+    const bytes = new Uint8Array(header_bytes.length + palette_bytes.length + pixels_bytes.length);
 
     link.addEventListener("click", function() {
         const blob = new Blob([bytes], {type: "image/bmp"});
@@ -38,8 +51,14 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, save_key) {
         bytes[i] = header_bytes[i];
     }
 
-    for (let i = 0; i < pixels_bytes.length; i++) {
+    for (let i = 0; i < palette_bytes.length; i++) {
         const j = header_bytes.length + i;
+    
+        bytes[j] = palette_bytes[i];
+    }
+
+    for (let i = 0; i < pixels_bytes.length; i++) {
+        const j = header_bytes.length + palette_bytes.length + i;
     
         bytes[j] = pixels_bytes[i];
     }
@@ -55,10 +74,17 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, save_key) {
             input.select();
         })
         input.addEventListener("input", function() {
-            bytes[i] = byte_from_hex(input.value);
+            let value = input.value;
+            while (value.length < 2) {
+                value = value + "0";
+            }
+            bytes[i] = byte_from_hex(value);
             update_preview();
             if (input.value.length == 2) {
-                const next = input.nextElementSibling;
+                let next = input.nextElementSibling;
+                while (next && next.disabled) {
+                    next = next.nextElementSibling;
+                }
                 if (next) {
                     next.focus();
                 }
@@ -67,24 +93,113 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, save_key) {
         input.addEventListener("blur", function() {
             input.value = byte_to_hex(bytes[i]);
             if (save_pixels) {
-                sessionStorage.setItem("bmp-" + save_key + "-pixels", bytes.slice(header_bytes.length).join(","));
+                sessionStorage.setItem(
+                    "bmp-" + save_key + "-pixels",
+                    bytes.slice(header_bytes.length + palette_bytes.length).join(","));
+                sessionStorage.setItem(
+                    "bmp-" + save_key + "-palette",
+                    bytes.slice(header_bytes.length, header_bytes.length + palette_bytes.length).join(","));
             }
         });
         input.addEventListener("keydown", function(event) {
             if (input.selectionStart == 0 && event.key == "ArrowLeft") {
-                const previous = input.previousElementSibling;
+                let previous = input.previousElementSibling;
+                while (previous && previous.disabled) {
+                    previous = previous.previousElementSibling;
+                }
                 if (previous) {
-                    console.log("previous");
                     previous.focus();
                 }
                 event.preventDefault();
                 return false;
             }
             if (input.selectionEnd == 2 && event.key == "ArrowRight") {
-                const next = input.nextElementSibling;
+                let next = input.nextElementSibling;
+                while (next && next.disabled) {
+                    next = next.nextElementSibling;
+                }
                 if (next) {
-                    console.log("next");
                     next.focus();
+                }
+                event.preventDefault();
+                return false;
+            }
+            if (event.key == "ArrowUp" && event.altKey) {
+                const value = byte_from_hex(input.value);
+                let increment = event.shiftKey ? 16 : 1;
+                input.value = byte_to_hex((value + increment) % 256);
+                bytes[i] = byte_from_hex(input.value);
+                update_preview();
+                event.preventDefault();
+                return false;
+            }
+            if (event.key == "ArrowDown" && event.altKey) {
+                const value = byte_from_hex(input.value);
+                let decrement = event.shiftKey ? 16 : 1;
+                input.value = byte_to_hex((value + 256 - decrement) % 256);
+                bytes[i] = byte_from_hex(input.value);
+                update_preview();
+                event.preventDefault();
+                return false;
+            }
+            if (event.key == "ArrowUp") {
+                const left = input.offsetLeft;
+                let top = input.offsetTop;
+                let previous = input.previousElementSibling;
+                let keep_going = true;
+                while (keep_going) {
+                    keep_going = false;
+                    while (previous && previous.offsetTop == top) {
+                        previous = previous.previousElementSibling;
+                    }
+                    while (previous && previous.offsetLeft > left) {
+                        previous = previous.previousElementSibling;
+                    }
+                    if (previous && previous.disabled) {
+                        top = previous.offsetTop;
+                        keep_going = true;
+                    }
+                }
+                if (previous) {
+                    previous.focus();
+                }
+                event.preventDefault();
+                return false;
+            }
+            if (event.key == "ArrowDown") {
+                const left = input.offsetLeft;
+                let top = input.offsetTop;
+                let next = input.nextElementSibling;
+                let keep_going = true;
+                while (keep_going) {
+                    keep_going = false;
+                    while (next && next.offsetTop == top) {
+                        next = next.nextElementSibling;
+                    }
+                    while (next && next.offsetLeft < left) {
+                        next = next.nextElementSibling;
+                    }
+                    if (next && next.disabled) {
+                        top = next.offsetTop;
+                        keep_going = true;
+                    }
+                }
+                if (next) {
+                    next.focus();
+                }
+                event.preventDefault();
+                return false;
+            }
+            if (input.value == "" && event.key == "Backspace") {
+                let previous = input.previousElementSibling;
+                while (previous && previous.disabled) {
+                    previous = previous.previousElementSibling;
+                }
+                if (previous) {
+                    previous.focus();
+                }
+                else {
+                    input.blur();
                 }
                 event.preventDefault();
                 return false;
@@ -92,6 +207,12 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, save_key) {
         });
         if (i < header_bytes.length) {
             input.disabled = true;
+        }
+        if (i < header_bytes.length + palette_bytes.length) {
+            const j = i - header_bytes.length;
+            if (j % 4 == 3) {
+                input.disabled = true;
+            }
         }
         editor.appendChild(input);
     }
