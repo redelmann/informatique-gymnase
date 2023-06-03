@@ -1,15 +1,12 @@
-let next_bmp_id = 0;
-function setup_bmp_editor(container, header_bytes, pixels_bytes, save_pixels) {
-    if (save_pixels === undefined) {
-        save_pixels = false;
-    }
 
-    const id = next_bmp_id++;
+function setup_bmp_editor(container, header_bytes, pixels_bytes, save_key) {
+    let save_pixels = save_key !== undefined;
+
     if (typeof pixels_bytes === "number") {
         pixels_bytes = new Array(pixels_bytes * 3).fill(0xff);
     }
     if (save_pixels) {
-        const saved_pixels = sessionStorage.getItem("bmp-" + id + "-pixels");
+        const saved_pixels = sessionStorage.getItem("bmp-" + save_key + "-pixels");
         if (saved_pixels) {
             pixels_bytes = saved_pixels.split(",").map(function(number) {
                 return parseInt(number);
@@ -70,7 +67,7 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, save_pixels) {
         input.addEventListener("blur", function() {
             input.value = byte_to_hex(bytes[i]);
             if (save_pixels) {
-                sessionStorage.setItem("bmp-" + id + "-pixels", bytes.slice(header_bytes.length).join(","));
+                sessionStorage.setItem("bmp-" + save_key + "-pixels", bytes.slice(header_bytes.length).join(","));
             }
         });
         input.addEventListener("keydown", function(event) {

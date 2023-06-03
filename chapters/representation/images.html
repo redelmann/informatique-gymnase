@@ -148,7 +148,7 @@ $example$
     parfois notée <i>100 par 50 pixels</i> ou encore <i>100×50 pixels</i>.
 </p>
 <p>
-    De nos jours, les images obtenues avec les appareils photo
+    De nos jours, les images obtenues avec les appareils photo numériques
     tels que ceux intégrés à nos téléphones portables
     ont une définition de plusieurs millions de pixels.
 </p>
@@ -268,57 +268,7 @@ $tryout$
 </p>
 $endtryout$
 
-<style>
-.bmp-editor {
-    width: 100%;
-    padding-bottom: 20px;
-}
-
-.bmp-editor input {
-    width: 2em;
-    height: 1em;
-    border: none;
-    background-color: white;
-    text-align: center;
-    font-size: 1em;
-    font-family: monospace;
-    text-transform: uppercase;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-.bmp-editor input:focus {
-    outline: none;
-}
-
-.bmp-editor input:disabled {
-    background-color: #eee;
-}
-
-.bmp-preview {
-    width: 100%;
-}
-
-.bmp-preview a {
-    display: block;
-    text-align: center;
-    font-size: 1em;
-    text-decoration: underline;
-    color: blue;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-.bmp-preview img {
-    display: block;
-    margin: auto;
-    width: 80%;
-    height: auto;
-    image-rendering: pixelated;
-    border: 1px solid black;
-}
-</style>
+<link rel="stylesheet" href="/css/bmp-editor.css" />
 
 <h3>Image 4 par 4 pixels</h3>
 
@@ -484,8 +434,7 @@ $endselfcheck$
     En effet, les formes géométriques
     qui composent l'image peuvent être
     mises à différentes échelles sans perdre
-    de détails ou de précision,
-    <a href="https://www.youtube.com/watch?v=I_8ZH1Ggjk0" target="_blank">ce qui n'est pas le cas des images matricielles</a>.
+    de détails ou de précision, ce qui n'est pas le cas des images matricielles.
 </p>
 
 $tryout$
@@ -714,17 +663,71 @@ $tryout$
     }
 })();
 </script>
-
 $endtryout$
 
+$remark$
 <p>
-    Par contre, certaines images ne sont pas facilement
-    représentables en utilisant des images vectorielles.
+    Il n'est pas rare dans des séries télévisées ou des films
+    de voir des policiers zoomer sur une image
+    pour y révéler des détails cachés, comme dans l'extrait
+    suivant du film <i>Blade Runner</i>, un film de science-fiction de 1982 :
+</p>
+
+<iframe class="video" src="https://www.youtube.com/embed/qHepKd38pr0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>    
+
+<p>
+    Dans l'extrait, on voit le personnage de Rick Deckard, joué par Harrison Ford,
+    zoomer sur une image pour y découvrir un détail caché qui lui permet de résoudre
+    une enquête.
+    Des techniques similaires sont aussi utilisées dans des séries
+    qui se veulent réalistes, comme par la série <i>Les Experts</i> :
+</p>
+
+<iframe class="video" src="https://www.youtube.com/embed/I_8ZH1Ggjk0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<p>
+    Le genre de zoom que l'on voit dans ces extraits est complètement fantaisiste.
+    En effet, les images capturées par les appareils photos ou les dispositifs de surveillance
+    ont une définition fixe, et il donc est impossible d'y révéler
+    des détails qui n'y sont pas.
+</p>
+
+<p>
+    Ce genre de scènes a d'ailleurs inspiré de nombreuses parodies,
+    comme celle-ci :
+</p>
+
+<iframe class="video" src="https://www.youtube.com/embed/JMIHNiR3CP8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+$endremark$
+
+<h3>Applicabilité des images vectorielles</h3>
+
+<p>
+    Comme nous l'avons vu, les images vectorielles
+    sont très facilement redimensionnables
+    sans perte de qualité.
+    Nous pourrions donc être tentés de n'utiliser
+    que des images vectorielles.
+    Cependant, certaines images se prêtent mal
+    à une représentation vectorielle.
+    Aussi, les dispositifs de capture d'images
+    produisent généralement des images matricielles.
+</p>
+
+<p>
     Par exemple, il est difficile de représenter des
-    photographies avec de telles images.
+    photographies avec des images matricielles.
     En effet, il est très difficile de décomposer une photographie
     en formes géométriques simples sans
     retomber sur une description matricielle de l'image.
+</p>
+
+<p>
+    En revanche, les images vectorielles sont très adaptées
+    à la représentation de dessins, de schémas, de logos par exemple.
+    En effet, ces images sont souvent descriptibles
+    à l'aide de formes géométriques.
 </p>
 
 <p>
@@ -753,10 +756,12 @@ $endtryout$
     Par exemple, voici un fichier SVG qui décrit un cercle rouge :
 </p>
 
+<div class="scroll-x">
 <pre class="code">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
 &lt;svg width="300" height="300" xmlns="http://www.w3.org/2000/svg"&gt;
     &lt;circle cx="150" cy="150" r="145" fill="red" /&gt;
 &lt;/svg&gt;</pre>
+</div>
 
 <p>
     Et voici le résultat de ce fichier SVG :
@@ -776,11 +781,13 @@ $endtryout$
     additionnels, comme par exemple du texte :
 </p>
 
+<div class="scroll-x">
 <pre class="code">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
 &lt;svg width="300" height="300" xmlns="http://www.w3.org/2000/svg"&gt;
     &lt;circle cx="150" cy="150" r="145" fill="red" /&gt;
     &lt;text x="110" y="150" fill="yellow"&gt;Trop bien!&lt;/text&gt;
 &lt;/svg&gt;</pre>
+</div>
 
 <figure>
     <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" class="img-ex">
@@ -819,4 +826,53 @@ $endtryout$
     </li>
 </ul>
 
+$selfcheck$
+<p>
+    Les images <select class="self-pick">
+        <option data-correct>vectorielles</option>
+        <option>matricielles</option>
+    </select> peuvent être redimensionnées sans perte de qualité.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Un appareil photo numérique produit des images
+    <select class="self-pick">
+        <option>vectorielles</option>
+        <option data-correct>matricielles</option>
+    </select>.
+    Les images produite par un tel appareil ont une définition
+    <select class="self-pick">
+        <option>infinie</option>
+        <option data-correct>finie</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Les images matricielles sont plus adaptées que les images vectoriel à la représentation de
+    <select class="self-pick">
+        <option data-correct>photographies</option>
+        <option>schéma</option>
+        <option>logos</option>
+    </select>.
+</p>
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Le format de fichier SVG est un format de fichier
+    <select class="self-pick">
+        <option>binaire</option>
+        <option data-correct>textuel</option>
+    </select>.
+    Les éléments du fichier sont décrits à l'aide de
+    <select class="self-pick">
+        <option>jalons</option>
+        <option data-correct>balises</option>
+        <option>perches</option>
+    </select>.
+</p>
 

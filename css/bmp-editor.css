@@ -1,0 +1,49 @@
+.bmp-editor {
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.bmp-editor input {
+    width: 2em;
+    height: 1em;
+    border: none;
+    background-color: white;
+    text-align: center;
+    font-size: 1em;
+    font-family: monospace;
+    text-transform: uppercase;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.bmp-editor input:focus {
+    outline: none;
+}
+
+.bmp-editor input:disabled {
+    background-color: #eee;
+}
+
+.bmp-preview {
+    width: 100%;
+}
+
+.bmp-preview a {
+    display: block;
+    text-align: center;
+    font-size: 1em;
+    text-decoration: underline;
+    color: blue;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.bmp-preview img {
+    display: block;
+    margin: auto;
+    width: 80%;
+    height: auto;
+    image-rendering: pixelated;
+    border: 1px solid black;
+}
