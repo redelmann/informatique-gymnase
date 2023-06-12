@@ -4,11 +4,602 @@ order: 6
 unfinished: true
 ---
 
+<style>
+    .number {
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    .logic-frame {
+        border: 0;
+        margin: auto;
+        margin-bottom: 40px;
+        margin-top: 40px;
+    }
+</style>
+
+<p>
+    Dans cette section, nous allons nous intéresser à une façon de représenter des
+    nombres relatifs (positifs et négatifs) en binaire.
+    Les nombres relatifs sont très utilisés dans de nombreux domaines,
+    que ce soit en finance, en physique, en géographie, etc.
+    il est donc important de pouvoir les représenter et les manipuler efficacement
+    dans un ordinateur.
+</p>
+
+<p>
+    Comme nous l'avons vu dans le chapitre précédent, les circuits logiques
+    d'un ordinateur manipulent toujours un nombre fixe de bits, c'est pourquoi
+    nous nous limitons à des nombres représentés sur un nombre fixe de bits.
+    Dans les circuits que nous avons vus jusqu'à présent, 
+    nous avons utilisé une taille de 4 bits, mais les concepts
+    sont les mêmes pour n'importe quelle taille.
+    Les ordinateurs de nos jours utilisent généralement des nombres représentés
+    sur 32 ou 64 bits.
+</p>
+
+<p>
+    Il est important de comprendre que cette limite de taille
+    affecte le domaine de représentation des nombres.
+    Ainsi, si nous utilisons 4 bits pour représenter un nombre,
+    nous ne pouvons représenter que 16 nombres différents.
+    Selon la méthode classique, ces 16 nombres sont les nombres de 0 à 15.
+    Dans cette section, nous allons remettre en question cette façon de représenter
+    les nombres afin de pouvoir représenter des nombres à la fois positifs et négatifs.
+</p>
+
+<p>
+    De manière intéressante, la façon de représenter les nombres que nous allons aborder
+    nous permettra aussi de concevoir un
+    circuit capable de réaliser des soustractions à
+    partir d'un circuit capable d'additionner.
+</p>
+
+<h2>Approche naïve</h2>
+
+<p>
+    Une approche naïve pour représenter les nombres relatifs en binaire
+    serait de réserver un bit pour indiquer le signe du nombre.
+    On pourrait, par exemple, utiliser le bit le plus à gauche pour uniquement indiquer
+    le signe du nombre. Le reste des bits serait utilisé pour représenter la valeur
+    absolue du nombre.
+</p>
+
+<p>
+    Selon cette méthode de représentation sur 4 bits, nous pourrions représenter
+    les nombres de -7 à 7, comme l'indique le tableau suivant :
+</p>
+
+<style>
+.binary-enum {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    column-gap: 50px;
+}
+
+.binary-enum > div {
+    height: 50px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+.binary-enum > div > div {
+    text-align: right;
+}
+
+.binary-enum > div > .base2 {
+    font-size: 1.5em;
+    width: 150px;
+}
+
+.binary-enum > div > .base10 {
+    font-size: 1.5em;
+    color: #666;
+    width: 80px;
+}
+
+</style>
+
+<div id="naive-enum" class="binary-enum">
+</div>
+
+<script type="text/javascript">
+(function() {
+    const container = document.getElementById("naive-enum");
+    for (let i = 0; i < 16; i++) {
+        const div = document.createElement("div");
+        const base2 = document.createElement("div");
+        base2.classList.add("base2");
+        base2.textContent = i.toString(2);
+        while (base2.textContent.length < 4) {
+            base2.textContent = "0" + base2.textContent;
+        }
+        const base10 = document.createElement("div");
+        base10.classList.add("base10");
+        const sign = i < 8 ? "" : "-";
+        base10.textContent = sign + (i % 8).toString(10);
+        div.appendChild(base10);
+        div.appendChild(base2);
+        container.appendChild(div);
+    }
+})();
+</script>
+
+<p>
+    Cette approche, bien que conceptuellement simple, présente plusieurs inconvénients.
+    Premièrement, il y a dans ce cas deux représentations différentes pour le nombre 0,
+    une positive (0 0 0 0) et une négative (1 0 0 0).
+    Deuxièmement, tous les circuits que nous avons vus jusqu'à présent ne sont pas
+    capables de manipuler des nombres représentés de cette façon.
+    Par exemple, l'additionneur que nous avons vu dans ce chapitre ne donne pas
+    le bon résultat en cas d'addition de deux nombres négatifs
+    représentés de cette façon.
+    Il faudrait donc concevoir des circuits spécifiques pour manipuler les nombres
+    représentés de cette façon.
+</p>
+
+<p>
+    À cause de ces inconvénients, cette approche naïve n'est pas utilisée en pratique.
+    Une autre approche, appelée la méthode du <i>complément à deux</i>, est utilisée à la place.
+    Comme nous le verrons, cette approche n'a pas les inconvénients de l'approche naïve.
+</p>
+
+<h2>Complément à deux</h2>
+
 <div class="illustration right">
     <img src="images/complement.png" alt="9 qui voit -7 dans le miroir.">
 </div>
 
 <p>
-    À venir !
+    L'approche que nous allons voir dans cette section est appelée la méthode du
+    <i>complément à deux</i>.
+    Cette méthode est utilisée en pratique pour représenter les nombres relatifs
+    dans les ordinateurs.
+    Elle a l'avantage d'être simple à comprendre et de ne pas nécessiter de circuits
+    spécifiques pour manipuler les nombres représentés de cette façon.
 </p>
 
+<p>
+    La méthode du complément est une variante simple de la méthode
+    classique de représentation des nombres en binaire que nous avons vue
+    dans le cadre de ce chapitre.
+    La seule différence se situe au niveau du poids du bit le plus à gauche.
+</p>
+
+<h2>Poids des bits</h2>
+
+<p>
+    Lorsque nous avons abordé la représentation des nombres en binaire,
+    nous avons vu que chaque bit d'un nombre représenté en base 2 a un poids.
+    Le poids du bit le plus à droite est 1, celui du bit suivant est 2,
+    puis 4, 8, 16, etc.
+    Pour déterminer la valeur d'un nombre représenté en binaire,
+    il suffit de faire la somme des poids des bits valant 1.
+</p>
+
+<p>
+    Selon la méthode du complément à deux,
+    chaque bit a exactement le même poids qu'en base 2,
+    à l'exception du bit le plus à gauche.
+    <b>Le bit le plus à gauche a le poids opposé du poids qu'il aurait en base 2.</b>
+</p>
+
+<p>
+    Ainsi, sur 4 bits, le poids de chaque bit est le suivant :
+    1 pour le bit le plus à droite, 2 pour le bit suivant, 4 pour le bit suivant,
+    et finalement -8 pour le bit le plus à gauche.
+</p>
+
+$example$
+<p>
+    Prenons l'exemple de la séquence de bits suivante :
+</p>
+
+<p class="number">
+    1 1 0 1
+</p>
+
+<p>
+    Selon la méthode du complément à deux, le bit le plus à gauche a un poids de -8,
+    le bit à sa droite un poids de 4, le suivant un poids de 2, et le dernier un poids de 1.
+    Pour déterminer la valeur de cette séquence de bits, il suffit de faire
+    l'addition des poids des bits valant 1.
+    Dans ce cas précis, on obtient donc :
+</p>
+
+<p class="number">
+    -8 + 4 + 1 = -3
+</p>
+
+<p>
+    La séquence de bits 1101 représente donc le nombre -3
+    selon la méthode du complément à deux.
+</p>
+$endexample$
+
+$remark$
+<p>
+    Pour toutes les séquences de bits commençant par 0,
+    la valeur associée est la même selon la méthode du complément à deux
+    et selon la méthode classique.
+    Par exemple, la séquence de bits 0101 représente le nombre 5 selon la méthode
+    du complément à deux, mais aussi en base 2.
+</p>
+$endremark$
+
+<h2>Domaine de représentation</h2>
+
+<p>
+    Grâce aux poids des bits, nous pouvons déterminer
+    la valeur associée à n'importe quelle séquence de bits selon la méthode du
+    complément à deux.
+    Ainsi, ci-dessous se trouve un tableau récapitulatif des nombres représentables
+    sur 4 bits selon la méthode du complément à deux.
+</p>
+
+<div id="twos-complement-enum" class="binary-enum">
+</div>
+
+<script type="text/javascript">
+(function() {
+    const container = document.getElementById("twos-complement-enum");
+    for (let i = 0; i < 16; i++) {
+        const div = document.createElement("div");
+        const base2 = document.createElement("div");
+        base2.classList.add("base2");
+        base2.textContent = i.toString(2);
+        while (base2.textContent.length < 4) {
+            base2.textContent = "0" + base2.textContent;
+        }
+        const base10 = document.createElement("div");
+        base10.classList.add("base10");
+        if (i >= 8) {
+            base10.textContent = (i - 16).toString();
+        } else {
+            base10.textContent = i.toString();
+        }
+        div.appendChild(base10);
+        div.appendChild(base2);
+        container.appendChild(div);
+    }
+})();
+</script>
+
+<p>
+    Comme vous pouvez le constater à la lecture du tableau ci-dessus,
+    les nombres représentables sur 4 bits
+    selon la méthode du complément à deux vont de -8 à 7,
+    soit un total de 16 nombres.
+    Il est possible de représenter des nombres plus grands en utilisant plus de bits.
+    Par exemple, sur 8 bits, il est possible de représenter des nombres allant de -128 à 127,
+    soit 256 nombres.
+</p>
+
+<p>
+    De manière générale, sur <i>n</i> bits, il est possible de représenter les
+    nombres allant de -2<sup><i>n</i> - 1</sup> à 2<sup><i>n</i> - 1</sup> - 1.
+    La valeur absolue de la borne supérieure est plus petite de 1 que
+    celle de la borne inférieure car le 0 est compté dans les nombres positifs.
+</p>
+
+<h3>Signe d'un nombre</h3>
+
+<p>
+    Selon la méthode du complément à deux, le bit le plus à gauche d'un nombre
+    indique son signe.
+    Si ce bit vaut 0, le nombre est positif (ou nul), alors que s'il vaut 1, le nombre
+    est négatif.
+</p>
+
+<h3>Incrémentation</h3>
+
+<p>
+    La procédure d'incrémentation d'un nombre en complément à deux
+    est identique à celle d'un nombre en base 2 sur un nombre fixe de bits.
+    Ainsi, il suffit de trouver le 0 le plus à droite de la séquence de bits,
+    et de le remplacer par un 1. Tous les bits à sa droite sont alors remplacés
+    par des 0.
+</p>
+
+<p>
+    Cette méthode fonctionne aussi bien pour les nombres positifs que pour les
+    nombres négatifs.
+</p>
+
+<p>
+    À noter que l'on passe arrive à -8 lorsqu'on incrémente à partir de 7 sur 4 bits.
+    En effet, 7 est représenté par 0111.
+    En incrémentant on obtient donc 1000,
+    qui vaut -8 en complément à deux.
+    On parle alors d'un <i>dépassement de capacité</i>.
+</p>
+
+<h3>Addition</h3>
+
+<p>
+    De même que pour l'incrémentation, l'addition de deux nombres en complément à deux
+    est identique à celle de deux nombres en base 2 sur un nombre fixe de bits.
+    Ainsi, il suffit de procéder à l'addition bit à bit, en notant la retenue
+    à chaque étape. L'éventuelle retenue de la dernière addition est ignorée.
+</p>
+
+<p>
+    Ainsi, le circuit que nous avons vu pour l'addition de deux nombres en base 2
+    peut être utilisé pour l'addition de deux nombres en complément à deux.
+    Ci-dessous se trouve le circuit de l'additionneur 4 bits
+    que nous avons vu précédemment.
+    Sur les nombres en entrée et en sortie, 
+    un <i>afficheur</i> est utilisé pour afficher la valeur du nombre en base 10
+    selon la méthode du complément à deux.
+</p>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 515px; height: 440px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                  {
+                    opts: {"hideTooltips": true, "showDisconnectedPins": true},
+                    v: 6,
+                    components: {
+                        disp0: {type: 'display', pos: [80, 100], orient: 's', id: '18-21', radix: -10},
+                        in0: {type: 'in', pos: [80, 30], orient: 's', id: '24-27', bits: 4},
+                        in1: {type: 'in', pos: [450, 30], orient: 's', id: '28-31', bits: 4},
+                        disp1: {type: 'display', pos: [450, 100], orient: 's', id: '32-35', radix: -10},
+                        adder0: {type: 'adder', pos: [70, 200], in: '36-38', out: [39, 40]},
+                        adder1: {type: 'adder', pos: [200, 200], in: '41-43', out: [44, 45]},
+                        adder2: {type: 'adder', pos: [330, 200], in: '46-48', out: [49, 50]},
+                        adder3: {type: 'adder', pos: [460, 200], in: '51-53', out: [54, 55]},
+                        pass0: {type: 'pass', pos: [270, 310], orient: 's', in: '60-63', out: '64-67', bits: 4},
+                        out0: {type: 'out', pos: [270, 425], orient: 's', id: '68-71', bits: 4},
+                        disp2: {type: 'display', pos: [270, 365], orient: 's', id: '72-75', radix: -10},
+                    },
+                    wires: [[24, 18], [25, 19], [26, 20], [27, 21], [31, 35], [30, 34], [29, 33], [28, 32], [27, 36], [45, 38], [26, 41], [50, 43], [25, 46], [55, 48], [28, 52], [29, 47], [30, 42], [31, 37], [24, 51], [39, 63], [44, 62], [49, 61], [54, 60], [64, 68], [65, 69], [66, 70], [67, 71], [64, 72], [65, 73], [66, 74], [67, 75]]
+                    }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+
+$tryout$
+<p>
+    Utilisez le circuit ci-dessus pour calculer des additions de nombres en complément à deux.
+</p>
+$endtryout$
+
+$remark$
+<p>
+    Il est possible d'obtenir un nombre négatif en additionnant deux nombres positifs
+    en utilisant le circuit ci-dessus.
+    Par exemple, pour l'addition de 7 et 7, on obtient un résultat de -2 en complément à deux sur 4 bits.
+    On parle alors de <i>dépassement de capacité</i>.
+</p>
+
+<p>
+    De même, il est possible d'obtenir un nombre positif en additionnant deux nombres négatifs.
+    Par exemple, en effectuant -7 + (-4), on obtient un résultat de 5 en complément à deux sur 4 bits,
+    car -11 n'est pas représentable sur 4 bits.
+    On parle aussi dans ce cas de <i>dépassement de capacité</i>, voire de <i>soupassement</i>.
+</p>
+$endremark$
+<h3>Calcul de l'opposé</h3>
+
+<p>
+    L'opposé d'un nombre est le nombre qui, ajouté au premier, donne 0.
+    Par exemple, l'opposé de 5 est -5, car 5 + (-5) = 0.
+    Pour les nombres exprimés selon la technique du complément à deux, il est
+    très facile de calculer la représentation de l'opposé d'un nombre.
+    Pour cela, il suffit de réaliser une série de deux opérations sur la représentation
+    du nombre :
+</p>
+
+<ol>
+    <li>Inverser tous les bits du nombre</li>
+    <li>Ajouter 1 au résultat</li>
+</ol>
+
+<p>
+    Le résultat de ces deux opérations est la représentation en complément à deux
+    de l'opposé du nombre.
+</p>
+
+$example$
+<p>
+    Par exemple, pour calculer l'opposé de 5, on prend la représentation
+    en complément à deux de 5 (ici sur 4 bits) :
+</p>
+
+<p class="number">
+    0 1 0 1
+</p>
+
+<p>
+    On commence par inverser tous les bits, ce qui donne :
+</p>
+
+<p class="number">
+    1 0 1 0
+</p>
+
+<p>
+    Pour finir, on ajoute 1 au résultat, ce qui donne le résultat final :
+</p>
+
+<p class="number">
+    1 0 1 1
+</p>
+
+<p>
+    Cette séquence de bits représente ainsi l'opposé de 5, c'est-à-dire -5.
+</p>
+$endexample$
+
+$example$
+
+<p>
+    Pour calculer l'opposé de 0, on prend la représentation en complément à deux
+    de 0 (ici sur 4 bits) :
+</p>
+
+<p class="number">
+    0 0 0 0
+</p>
+
+<p>
+    On commence par inverser tous les bits, ce qui donne :
+</p>
+
+<p class="number">
+    1 1 1 1
+</p>
+
+<p>
+    Pour finir, on ajoute 1 au résultat, ce qui donne le résultat final :
+</p>
+
+<p class="number">
+    0 0 0 0
+</p>
+
+<p>
+    Ici, l'addition donne lieu à une retenue, qui est simplement ignorée.
+    Cette séquence de bits représente ainsi l'opposé de 0, c'est-à-dire -0.
+    La représentation en complément à deux de -0 est identique à celle de 0,
+    ce qui est pratique car 0 et -0 sont égaux.
+</p>
+$endexample$
+
+$remark$
+<p>
+    Cette technique fonctionne pour tous les nombres représentables en complément
+    à deux, à l'exception de -2<sup>n-1</sup>, où <i>n</i> est le nombre de bits
+    utilisés pour représenter le nombre.
+    En effet, le nombre 2<sup>n-1</sup> n'est pas représentable en complément à deux.
+    Lorsque l'on applique la procédure de calcul de l'opposé à ce nombre, on obtient
+    le nombre lui-même.
+</p>
+
+<p>
+    Prenons l'exemple d'un nombre représenté sur 4 bits.
+    Le nombre -2<sup>3</sup> = -8, qui est représenté selon la technique du complément
+    à deux par la séquence de bits 1 0 0 0 n'a pas d'opposé
+    (car 8 n'est pas représentable sur 4 bits selon la technique du complément à deux).
+    Lorsque l'on applique la procédure de calcul de l'opposé à ce nombre, on obtient
+    le nombre lui-même. En effet, on commence par la représentation en complément
+    à deux de -8, qui est 1 0 0 0. On inverse tous les bits, ce qui donne 0 1 1 1,
+    puis on ajoute 1, ce qui donne 1 0 0 0, soit le nombre de départ.
+</p>
+$endremark$
+
+<p>
+    On remarque aussi qu'appliquer deux fois la procédure de calcul de l'opposé
+    d'un nombre donne le nombre de départ.
+    Pour votre culture, on dit que le calcul de l'opposé est <i>involutif</i>.
+</p>
+
+$example$
+<p>
+    Pour calculer l'opposé de -5, on prend la représentation en complément à deux
+    de -5 (ici sur 4 bits) :
+</p>
+
+<p class="number">
+    1 0 1 1
+</p>
+
+<p>
+    On commence par inverser tous les bits, ce qui donne :
+</p>
+
+<p class="number">
+    0 1 0 0
+</p>
+
+<p>
+    Pour finir, on ajoute 1 au résultat, ce qui donne le résultat final :
+</p>
+
+<p class="number">
+    0 1 0 1
+</p>
+
+<p>
+    Cette séquence de bits représente ainsi l'opposé de -5, c'est-à-dire 5.
+</p>
+$endexample$
+
+<h2>Soustracteur</h2>
+
+<p>
+    Grâce au calcul de l'opposé, et en se basant se le circuit de
+    l'additionneur vu à la section précédente, 
+    il est possible de construire un circuit qui
+    effectue une soustraction.
+    On appelle ce circuit un <b>soustracteur</b>.
+</p>
+
+<p>
+    Pour effectuer une soustraction entre deux nombres,
+    il suffit de calculer l'addition entre le premier opérande et l'opposé du deuxième opérande.
+    Le circuit peut être implémenté de la manière suivante :
+</p>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 575px; height: 400px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                  {
+                    "v": 4,
+                    "opts": {"hideTooltips": true, "showDisconnectedPins": true},
+                    "in": [
+                        {"type": "nibble", "pos": [80, 40], "orient": "s", "id": [79, 80, 81, 82], "val": [0, 0, 0, 0], "name": "A"},
+                        {"type": "nibble", "pos": [420, 40], "orient": "s", "id": [83, 84, 85, 86], "val": [0, 0, 0, 0], "name": "B"},
+                        {"pos": [570, 260], "orient": "w", "id": 111, "val": 1, "isConstant": true}
+                    ],
+                    "out": [
+                        {"type": "nibble", "pos": [280, 370], "orient": "s", "id": [107, 108, 109, 110], "name": "S"}
+                    ],
+                    "gates": [
+                        {"type": "NOT", "pos": [390, 130], "orient": "s", "in": 71, "out": 72},
+                        {"type": "NOT", "pos": [450, 130], "orient": "s", "in": 73, "out": 74},
+                        {"type": "NOT", "pos": [510, 130], "orient": "s", "in": 75, "out": 76},
+                        {"type": "NOT", "pos": [330, 130], "orient": "s", "in": 77, "out": 78}
+                    ],
+                    "components": [
+                        {"type": "adder", "pos": [210, 260], "in": [87, 88, 89], "out": [90, 91]},
+                        {"type": "adder", "pos": [70, 260], "in": [92, 93, 94], "out": [95, 96]},
+                        {"type": "adder", "pos": [350, 260], "in": [97, 98, 99], "out": [100, 101]},
+                        {"type": "adder", "pos": [490, 260], "in": [102, 103, 104], "out": [105, 106]}
+                    ],
+                    "wires": [[85, 71], [86, 77], [84, 73], [83, 75], [76, 103], [74, 98], [72, 88], [82, 92], [81, 87], [80, 97], [79, 102], [78, 93], [91, 94], [101, 89], [106, 99], [95, 110], [90, 109], [100, 108], [105, 107], [111, 104]]
+                    }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+
+<p>
+    Dans le circuit, on profite de la retenue d'entrée du premier additionneur
+    complet pour effectuer l'addition de 1 nécessaire au calcul de l'opposé
+    du deuxième opérande.
+</p>
+
+$tryout$
+<p>
+    Essayez de changer les nombres en entrée pour vérifier que le circuit
+    calcule bien une soustraction.
+</p>
+$endtryout$
+
+$remark$
+<p>
+    Le circuit fonctionne aussi bien
+    pour les nombres relatifs représentés en complément à deux que pour les nombres
+    positifs représentés en binaire selon la méthode habituelle.
+</p>
+$endremark$
+
+<script src="/js/logic-simulator.js" type="text/javascript"></script>
