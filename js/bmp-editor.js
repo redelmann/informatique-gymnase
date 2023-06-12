@@ -70,6 +70,7 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
         input.maxLength = 2;
         input.value = byte_to_hex(bytes[i]);
         input.pattern = "[0-9a-fA-F]{2}";
+        input.title = "Position " + i.toString(16).toUpperCase() + " hex (" + i + " dec)";
         input.addEventListener("focus", function() {
             input.select();
         })
