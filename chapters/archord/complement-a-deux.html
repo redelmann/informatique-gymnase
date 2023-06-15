@@ -22,8 +22,8 @@ unfinished: true
     Dans cette section, nous allons nous intéresser à une façon de représenter des
     nombres relatifs (positifs et négatifs) en binaire.
     Les nombres relatifs sont très utilisés dans de nombreux domaines,
-    que ce soit en finance, en physique, en géographie, etc.
-    il est donc important de pouvoir les représenter et les manipuler efficacement
+    que ce soit en finance, en physique, en géographie, pour ne citer que quelques exemples.
+    Il est donc important de pouvoir les représenter et les manipuler efficacement
     dans un ordinateur.
 </p>
 
@@ -42,7 +42,7 @@ unfinished: true
     Il est important de comprendre que cette limite de taille
     affecte le domaine de représentation des nombres.
     Ainsi, si nous utilisons 4 bits pour représenter un nombre,
-    nous ne pouvons représenter que 16 nombres différents.
+    nous ne pouvons représenter que 2<sup>4</sup>, soit 16, nombres différents.
     Selon la méthode classique, ces 16 nombres sont les nombres de 0 à 15.
     Dans cette section, nous allons remettre en question cette façon de représenter
     les nombres afin de pouvoir représenter des nombres à la fois positifs et négatifs.
@@ -130,6 +130,18 @@ unfinished: true
 </script>
 
 <p>
+    Pour les 8 premiers nombres, le bit de signe est à 0, ce qui indique que le nombre
+    est positif. Pour ces nombres, la représentation est la même que celle que nous avons
+    utilisée jusqu'à présent.
+</p>
+
+<p>
+    Cependant, pour les 8 derniers nombres, le bit de signe est à 1, ce qui indique que
+    le nombre est négatif. Pour ces nombres, la représentation est différente.
+    Il suffit cependant d'ignorer le bit de signe pour obtenir la valeur absolue du nombre.
+</p>
+
+<p>
     Cette approche, bien que conceptuellement simple, présente plusieurs inconvénients.
     Premièrement, il y a dans ce cas deux représentations différentes pour le nombre 0,
     une positive (0 0 0 0) et une négative (1 0 0 0).
@@ -169,6 +181,15 @@ unfinished: true
     dans le cadre de ce chapitre.
     La seule différence se situe au niveau du poids du bit le plus à gauche.
 </p>
+
+$remark$
+<p>
+    Le nom de la méthode du complément à deux fait référence à la
+    notion de <a href="https://fr.wikipedia.org/wiki/Compl%C3%A9ment_(arithm%C3%A9tique)">complément en mathématiques</a>
+    et à <a href="https://fr.vikidia.org/wiki/M%C3%A9thode_des_compl%C3%A9ments">une technique de calcul des soustractions</a>,
+    aussi utilisable en base 10.
+</p>
+$endremark$
 
 <h2>Poids des bits</h2>
 
@@ -538,7 +559,7 @@ $endexample$
     l'additionneur vu à la section précédente, 
     il est possible de construire un circuit qui
     effectue une soustraction.
-    On appelle ce circuit un <b>soustracteur</b>.
+    On appelle ce circuit un <i>soustracteur</i>.
 </p>
 
 <p>
