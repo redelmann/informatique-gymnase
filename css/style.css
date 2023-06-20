@@ -279,7 +279,7 @@ footer p a {
     text-decoration: underline;
 }
 
-.self-check, .example, .tryout, .objectives {
+.self-check, .example, .tryout, .objectives, .master {
     margin-top: 60px;
     margin-bottom: 40px;
     padding: 20px;

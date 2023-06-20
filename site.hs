@@ -133,6 +133,7 @@ baseContext base =
     markupField "tryout" <>
     markupField "objectives" <>
     markupField "codeplay" <>
+    markupField "master" <>
     field "indexUrl" indexUrlField <>
     field "id" (return . toFilePath . itemIdentifier) <>
     functionField "youtube" youtubeFun <>
