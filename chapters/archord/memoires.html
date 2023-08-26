@@ -4,7 +4,295 @@ order: 8
 unfinished: true
 ---
 
+<style>
+    .logic-frame {
+        border: 0;
+        margin: auto;
+        margin-bottom: 40px;
+        margin-top: 40px;
+    }
+</style>
+
 <p>
-    À venir !
+    Dans ce chapitre, nous avons vu comment des circuits
+    peuvent effectuer des opérations logiques
+    et même des calculs.
+    Dans cette section, nous allons voir que ces circuits
+    peuvent <i>mémoriser</i> des données, 
+    et ce uniquement à l'aide de portes logiques.
 </p>
 
+<p>
+    Pour exemplifier cela, considérons le circuit suivant
+    composé d'une unique porte logique <code>OU</code>.
+    Notez que la sortie de cette porte est reliée à une de ses entrées.
+</p>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 315px; height: 85px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                  {
+                    opts: {"hideTooltips": true, "showDisconnectedPins": true},
+                    v: 6,
+                    components: {
+                        in0: {type: 'in', pos: [45, 20], id: 171, name: 'S'},
+                        out0: {type: 'out', pos: [280, 30], id: 175, name: 'Q'},
+                        or0: {type: 'or', pos: [150, 30], in: [0, 1], out: 2},
+                        pass0: {type: 'pass', pos: [200, 30], in: 3, out: 4},
+                    },
+                    wires: [[2, 3], [4, 175], [4, 1, {via: [[215, 75, 'w'], [105, 75, 'w']]}], [171, 0]]
+                }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+
+$tryout$
+<p>
+    Que vaut initiallement la sortie <code>Q</code> ?
+    Et une fois que l'entrée <code>S</code> reçoit un signal à 1 ?
+    Et si le signal est ensuite remis à 0 ?
+</p>
+$endtryout$
+
+<p>
+    Dans le circuit ci-dessus, la sortie <code>Q</code> est
+    initialement à 0. Dès que l'entrée <code>S</code> reçoit un signal à 1,
+    la sortie <code>Q</code> passe à 1.
+    La sortie <code>Q</code> reste ensuite indéfiniment à 1,
+    même si l'entrée <code>S</code> est remise à 0.
+    Le circuit <i>mémorise</i> qu'il a reçu un signal à 1 sur l'entrée <code>S</code>
+    à un moment donné.
+</p>
+
+<p>
+    Le circuit ci-dessus est particulier dans le sens où il comporte
+    une boucle : la sortie de la porte est reliée à une de ses entrées.
+    Le comportement du circuit est donc plus complexe que ce que nous avons vu
+    jusqu'à présent.
+    La sortie du circuit ne dépend plus uniquement de ses entrées,
+    mais aussi de son <i>état</i>.
+</p>
+
+$remark$
+<p>
+    Alors que les circuits que nous avons vus jusqu'à présent
+    sont appelés <i>combinatoires</i>,
+    on parle de circuits <i>séquentiels</i> pour les circuits
+    qui ont un état interne comme celui ci-dessus.
+</p>
+$endremark$
+
+<p>
+    Dans la suite de cette section, nous allons concevoir des circuits
+    séquentiels afin de mémoriser des données.
+</p>
+
+<h2>Verrous</h2>
+
+<p>
+    Le circuit que nous avons vu en introduction
+    à cette section permet certes de mémoiriser un bit,
+    mais il n'est pas très pratique.
+    En effet, une fois que la sortie est à 1,
+    il n'est plus possible de la remettre à 0.
+    À présent, nous allons voir un circuit qui permet
+    de mémoriser un bit et de le remettre à 0.
+</p>
+
+<p>
+    Considérons ensemble le circuit ci-dessous,
+    composé de deux entrées, une sortie et deux portes logiques
+    <code>NON-OU</code>.
+    L'entrée <code>S</code> permet, grâce à une impulsion,
+    de changer la sortie du circuit en 1, et l'entrée <code>R</code>
+    permet de la remettre à 0.
+    Il est intéressant de noter qu'il suffit d'un bref signal
+    à 1 pour changer la sortie du circuit par le biais de
+    ces deux entrées.
+</p>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 300px; height: 145px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                {
+                    opts: {"hideTooltips": true},
+                    v: 6,
+                    components: {
+                        in0: {type: 'in', pos: [45, 25], id: 0, name: 'S'},
+                        in1: {type: 'in', pos: [45, 125], id: 1, name: 'R'},
+                        nor0: {type: 'nor', pos: [155, 35], in: [2, 3], out: 4},
+                        nor1: {type: 'nor', pos: [150, 115], in: [5, 6], out: 7},
+                        out0: {type: 'out', pos: [260, 115], id: 8, name: 'Q'},
+                    },
+                    wires: [[4, 5], [7, 3], [1, 6], [0, 2], [7, 8]]
+                }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+
+$tryout$
+<p>
+    Observez l'état initial de la sortie.
+    Utilisez ensuite l'entrée <code>S</code> pour changer la sortie à 1.
+    Pour cela, passez brièvement l'entrée à 1, puis remettez-la à 0.
+    Observez l'état de la sortie.
+    Faites ensuite de même avec l'entrée <code>R</code>.
+</p>
+
+<p>
+    Comment faire en sorte de mettre la sortie à 1 ?
+    Et comment faire pour la remettre à 0 ?
+</p>
+$endtryout$
+
+<p>
+    Le circuit ci-dessus est un circuit séquentiel de la famille de ce qu'on
+    appelle les <i>verrous</i>.
+    Pour être plus précis, il s'agit d'un <i>verrou SR</i>,
+    car il possède une entrée <code>S</code> (pour <i lang="en">set</i>) et
+    une entrée <code>R</code> (pour <i lang="en">reset</i>).
+    L'entrée <code>S</code> permet de mettre la sortie à 1,
+    alors que l'entrée <code>R</code> permet de la remettre à 0.
+</p>
+
+<p>
+    Comme le circuit est très utilisé,
+    il existe un symbole spécifique pour le représenter.
+    Il est représenté dans le circuit ci-dessous.
+</p>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 220px; height: 85px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                  {
+                    opts: {"hideTooltips": true},
+                    v: 6,
+                    components: {
+                        latch0: {type: 'latch-sr', pos: [110, 45], in: [9, 10], out: [11, 12]},
+                        in0: {type: 'in', pos: [40, 25], id: 13, name: 'S'},
+                        in1: {type: 'in', pos: [40, 65], id: 14, name: 'R'},
+                        out0: {type: 'out', pos: [180, 25], id: 15, name: 'Q'},
+                      },
+                      wires: [[13, 9], [14, 10], [11, 15]]
+                    }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+
+<p>
+    Encore une fois, et il est important de le noter,
+    nous faisons ici usage du principe d'abstraction.
+    Ce verrou est représenté comme un unique composant,
+    dont nous n'avons pas à nous soucier du fonctionnement interne.
+    Ce composant peut ensuite être utilisé dans d'autres circuits,
+    comme par exemple dans le circuit ci-dessous, qui présente
+    un autre exemple de verrou, le <i>verrou D</i>.
+</p>
+    
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 525px; height: 150px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                {
+                    opts: {"hideTooltips": true},
+                    v: 6,
+                    components: {
+                        not0: {type: 'not', pos: [155, 120], in: 51, out: 52},
+                        in0: {type: 'in', pos: [40, 20], id: 53, name: 'D'},
+                        in1: {type: 'in', pos: [40, 70], id: 54, name: 'H'},
+                        and0: {type: 'and', pos: [260, 30], in: [55, 56], out: 57},
+                        and1: {type: 'and', pos: [255, 110], in: [58, 59], out: 60},
+                        latch0: {type: 'latch-sr', pos: [390, 70], in: [61, 62], out: [63, 64]},
+                        pass0: {type: 'pass', pos: [165, 70], in: 65, out: 66},
+                        out0: {type: 'out', pos: [485, 50], id: 67, name: 'Q'},
+                    },
+                    wires: [[53, 51], [57, 61], [60, 62], [52, 59], [54, 65], [66, 58], [66, 56], [53, 55], [63, 67]]
+                }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+
+$tryout$
+<p>
+    Observez l'état initial de la sortie.
+    Que se passe-t-il si vous passez l'entrée <code>H</code> à 1 et
+    que vous modifiez ensuite l'entrée <code>D</code> ?
+</p>
+
+<p>
+    Que se passe t'il lorsque l'entrée <code>H</code> est à 0 ?
+    Est-il possible de modifier la sortie dans ce cas ?
+</p>
+$endtryout$
+
+<p>
+    Le verrou D est un verrou qui offre une interface
+    un peu différente du verrou SR.
+    À la place d'avoir une entrée pour mettre à 1 et une
+    entrée pour mettre à 0, il possède une entrée <code>D</code>
+    qui est un signal de <i>donnée</i> et une entrée <code>H</code>
+    qui est un signal d'activation.
+</p>
+
+<p>
+    Lorsque le signal d'activation est à 1, le verrou D
+    recopie le signal de donnée sur sa sortie.
+    Par contre, lorsque le signal d'activation est à 0,
+    le verrou D conserve la valeur de sa sortie et ne
+    tient pas compte du signal de donnée.
+</p>
+
+<p>
+    Ce genre de composants sont très utilisés dans les
+    circuits électroniques.
+    Ils servent aussi de base pour construire des
+    des composants plus complexes, comme par exemple
+    ceux qui composent la mémoire vive d'un ordinateur,
+    aussi appelée <i>RAM</i> (pour <i lang="en">Random Access Memory</i>).
+</p>
+
+<h2>RAM</h2>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="width: 330px; height: 295px;">
+        <logic-editor mode="tryout" hidereset>
+            <script type="application/json">
+                {
+                    opts: {"hideTooltips": true, "showDisconnectedPins": true},
+                    v: 6,
+                    components: {
+                        ram0: {type: 'ram', pos: [180, 165], in: '23-33', out: '34-37', content: '0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000'},
+                        in2: {type: 'in', pos: [180, 35], orient: 's', id: '38-41', name: 'Addr', bits: 4},
+                        in3: {type: 'in', pos: [60, 35], orient: 's', id: '42-45', name: 'D', bits: 4, val: '0000'},
+                        in4: {type: 'in', pos: [45, 275], id: 46, name: 'E', isPushButton: true},
+                        out2: {type: 'out', pos: [290, 165], id: '47-50', bits: 4, name: 'Q'},
+                    },
+                    wires: [[38, 30], [39, 31], [40, 32], [41, 33], [42, 26], [43, 27, {via: [[70, 125, 's']]}], [44, 28, {via: [[50, 145, 's']]}], [45, 29, {via: [[30, 165, 's']]}], [46, 23], [46, 24], [34, 47], [35, 48], [36, 49], [37, 50]]
+                }
+            </script>
+        </logic-editor>
+    </div>
+</div>
+
+<script src="/js/logic-simulator.js" type="text/javascript"></script>
+
+$master$
+<p>
+    Avant de poursuivre, assurez-vous de pouvoir :
+</p>
+
+<ul>
+    <li>Expliquer la différence entre un circuit combinatoire et un circuit séquentiel.</li>
+    <li>Expliquer le phénomène de mémoire dans un circuit séquentiel.</li>
+    <li>Expliquer le fonctionnement d'un verrou SR.</li>
+    <li>Expliquer le fonctionnement d'un verrou D.</li>
+    <li>Expliquer le fonctionnement d'une RAM.</li>
+</ul>
+$endmaster$

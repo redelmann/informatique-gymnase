@@ -22,14 +22,15 @@ unfinished: true
     Dans cette section, nous allons nous intéresser à une façon de représenter des
     nombres relatifs (positifs et négatifs) en binaire.
     Les nombres relatifs sont très utilisés dans de nombreux domaines,
-    que ce soit en finance, en physique, en géographie, pour ne citer que quelques exemples.
+    que ce soit en mathématiques, en finance, en physique ou même en géographie,
+    pour ne citer que quelques exemples.
     Il est donc important de pouvoir les représenter et les manipuler efficacement
     dans un ordinateur.
 </p>
 
 <p>
     Comme nous l'avons vu dans le chapitre précédent, les circuits logiques
-    d'un ordinateur manipulent toujours un nombre fixe de bits, c'est pourquoi
+    d'un ordinateur ont un nombre fixe d'entrées et de sorties, c'est pourquoi
     nous nous limitons à des nombres représentés sur un nombre fixe de bits.
     Dans les circuits que nous avons vus jusqu'à présent, 
     nous avons utilisé une taille de 4 bits, mais les concepts
@@ -145,8 +146,9 @@ unfinished: true
     Cette approche, bien que conceptuellement simple, présente plusieurs inconvénients.
     Premièrement, il y a dans ce cas deux représentations différentes pour le nombre 0,
     une positive (0 0 0 0) et une négative (1 0 0 0).
-    Deuxièmement, tous les circuits que nous avons vus jusqu'à présent ne sont pas
-    capables de manipuler des nombres représentés de cette façon.
+    Deuxièmement, les circuits que nous avons vus jusqu'à présent pour manipuler
+    les nombres ne sont pas capables de traiter correctement
+    les nombres représentés de cette façon.
     Par exemple, l'additionneur que nous avons vu dans ce chapitre ne donne pas
     le bon résultat en cas d'addition de deux nombres négatifs
     représentés de cette façon.
@@ -207,6 +209,7 @@ $endremark$
     chaque bit a exactement le même poids qu'en base 2,
     à l'exception du bit le plus à gauche.
     <b>Le bit le plus à gauche a le poids opposé du poids qu'il aurait en base 2.</b>
+    Pour 4 bits par exemple, le bit le plus à gauche a un poids de -8 au lieu de 8.
 </p>
 
 <p>
@@ -249,6 +252,20 @@ $remark$
     et selon la méthode classique.
     Par exemple, la séquence de bits 0101 représente le nombre 5 selon la méthode
     du complément à deux, mais aussi en base 2.
+</p>
+
+<p>
+    Pour toutes les séquences de bits commençant par 1,
+    la valeur associée est différente selon la méthode du complément à deux
+    et selon la méthode classique.
+    Cependant, la différence est toujours de 2<sup>n</sup>, où n est le nombre de bits.
+    Ainsi, sur 4 bits, la différence sera de 16.
+</p>
+
+<p>
+    Par exemple, la séquence de bits 1101 représente le nombre -3 selon la méthode
+    du complément à deux, mais le nombre 13 selon la méthode classique.
+    Il y a bien une différence de 16 entre ces deux nombres.
 </p>
 $endremark$
 
@@ -624,3 +641,18 @@ $remark$
 $endremark$
 
 <script src="/js/logic-simulator.js" type="text/javascript"></script>
+
+$master$
+<p>
+    Avant de poursuivre, assurez-vous de pouvoir :
+</p>
+
+<ul>
+    <li>Expliquer l'intérêt de la méthode du complément à deux, en particulier par rapport à la méthode naïve.</li>
+    <li>Déterminer le signe d'un nombre représenté en complément à deux.</li>
+    <li>Lire un nombre représenté en complément à deux.</li>
+    <li>Écrire un nombre en complément à deux.</li>
+    <li>Calculer l'opposé d'un nombre représenté en complément à deux.</li>
+    <li>Expliquer comment construire un soustracteur à partir d'un additionneur.</li>
+</ul>
+$endmaster$
