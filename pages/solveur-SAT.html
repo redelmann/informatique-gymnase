@@ -1,8 +1,12 @@
+---
+title: Solveur SAT
+---
 
 <h1>Solveur SAT</h1>
 
 <p>
-Entrez une proposition ci-dessous pour déterminer si elle est satisfiable.
+Entrez une proposition ci-dessous pour déterminer si elle est satisfiable ou non,
+ou pour lister toutes les interprétations qui la satisfont.
 </p>
 
 <style>
@@ -30,7 +34,7 @@ Entrez une proposition ci-dessous pour déterminer si elle est satisfiable.
 </style>
 
 <div id="sat-solver">
-    <textarea rows="5" cols="62"></textarea>
+    <textarea rows="6" cols="58"></textarea>
     <div class="buttons">
         <button id="sat-btn">Satisfiable ?</button>
         <button id="all-btn">Lister les solutions</button>
@@ -63,6 +67,7 @@ Entrez une proposition ci-dessous pour déterminer si elle est satisfiable.
 
         function showInterpretation(interpretation) {
             const keys = Object.keys(interpretation);
+            keys.sort();
             if (keys.length === 0) {
                 return '&laquo; &raquo;';
             }
