@@ -4,6 +4,21 @@ order: 7
 unfinished: true
 ---
 
+<p>
+    Dans les sections précédentes, nous avons vu comment concevoir
+    des circuits logiques pour réaliser des additions et des soustractions.
+    Pour obtenir un soustracteur, nous avions apporté une très simple modification à l'additionneur.
+    Dans cette section, nous allons commencer par voir comment
+    modifier encore légèrement ce circuit afin
+    de pouvoir choisir entre une addition et une soustraction à l'aide d'un bit de contrôle.
+</p>
+
+<p>
+    Considérez le circuit suivant, qui est une version modifiée
+    du soustracteur que nous avons vu dans la section précédente.
+</p>
+
+
 <style>
     .logic-frame {
         border: 0;
@@ -47,6 +62,33 @@ unfinished: true
     </div>
 </div>
 
+<p>
+    À la place d'inverser inconditionnellement les bits de l'entrée <code>B</code>
+    avec des portes NON, nous utilisons ici des portes OU-X
+    pour inverser les bits de <code>B</code> uniquement lorsque le 
+    bit de contrôle <code>+ / -</code> est à <code>1</code>.
+    Ainsi, lorsque <code>+ / -</code> est à <code>0</code>, <code>B</code> est
+    laissé intact, et l'additionneur fonctionne normalement.
+    Par contre, lorsque <code>+ / -</code> est à <code>1</code>, les bits de
+    <code>B</code> sont inversés, une retenue ajoutée, et ainsi l'additionneur devient un soustracteur.
+</p>
+
+<p>
+    Le circuit ci-dessus est intéressant car l'opération d'addition ou de soustraction
+    est déterminée par une entrée du circuit.
+    Il s'agit d'un exemple de circuit dont le comportement est configurable.
+    Nous pouvons pousser cette idée un peu plus loin
+    et permettre de choisir entre plus d'opérations.
+    C'est ce qui est réalisé par des circuits appelés <em>unités arithmétiques et logiques</em>,
+    ou <em>ALU</em> (pour <em lang="en">Arithmetic and Logic Unit</em>).
+    Ces circuits permettent de choisir entre plusieurs opérations arithmétiques
+    (comme l'addition et la soustraction) et logiques
+    (comme le ET et le OU, par exemple).
+    Ci-dessous est un exemple d'une ALU très simple,
+    représentée comme un unique composant, qui permet de choisir entre
+    quatre opérations.
+</p>
+
 
 <div class="scroll-x">
     <div class="logic-frame" style="width: 310px; height: 310px;">
@@ -72,5 +114,14 @@ unfinished: true
         </logic-editor>
     </div>
 </div>
+
+$remark$
+<p>
+    L'implémentation de l'ALU ci-dessus n'est pas discutée en détails ici.
+    Si vous êtes curieux, essayez de réfléchir à quels composants
+    abordés plus tôt dans ce chapitre, pourraient être utilisés pour réaliser
+    une ALU.
+</p>
+$endremark$
 
 <script src="/js/logic-simulator.js" type="text/javascript"></script>
