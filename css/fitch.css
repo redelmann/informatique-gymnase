@@ -1,0 +1,165 @@
+.proof-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.line-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 0.5em;
+}
+
+.line-container > * {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.line-container > .line-filler {
+    flex-grow: 1;
+}
+
+.subproof-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.subproof-range {
+    text-align: center;
+    color: #999;
+    font-size: 0.8em;
+    width: 55px;
+    padding: 5px 5px;
+}
+
+.subproof-parts {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #eee;
+    padding-left: 10px;
+}
+
+.separator {
+    padding: 5px 0;
+    transition: height 0.5s;
+    overflow: hidden;
+    height: 0;
+    background-color: #f4f4f4;
+    margin: 5px 5px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}
+
+.separator > a {
+    text-decoration: none;
+    color: #999;
+    font-size: 0.6em;
+    cursor: pointer;
+}
+
+.separator > * {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+}
+
+.separator:hover {
+    height: 40px;
+}
+
+.separator:hover > * {
+    visibility: visible;
+    opacity: 1;
+}
+
+.line-number {
+    text-align: center;
+    color: #999;
+    font-size: 0.8em;
+    width: 55px;
+    padding: 5px 5px;
+}
+
+.line-expr input.invalid {
+    background-color: #fdd;
+}
+
+.line-expr {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0;
+}
+
+.line-expr input {
+    width: 300px;
+    border: 1px solid #ccc;
+}
+
+.line-rule {
+    display: flex;
+    flex-direction: row;
+    font-size: 10pt;
+    padding: 5px 0;
+}
+
+.line-rule select {
+    border: 1px solid #ccc;
+}
+
+.line-refs {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 5px 0;
+}
+
+input.ref-part {
+    text-align: center;
+    width: 30px;
+    border: 1px solid #ccc;
+}
+
+input.ref-subproof {
+    text-align: center;
+    width: 50px;
+    border: 1px solid #ccc;
+}
+
+.line-controls {
+    display: flex;
+    flex-direction: row;
+}
+
+.line-controls > a {
+    text-decoration: none;
+    color: #999;
+    font-size: 0.6em;
+    cursor: pointer;
+    display: block;
+    padding: 5px 5px;
+}
+
+.line-corner {
+    width: 22px;
+    height: 100%;
+    background-color: #eee;   
+}
+
+.line-corner > div {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-top-right-radius: 22px;
+}
+
+.subproof-parts > .line-container:first-child > .line-controls > a {
+    background-color: #eee;
+    padding-left: 20px;
+    border-bottom-left-radius: 22px;
+}
