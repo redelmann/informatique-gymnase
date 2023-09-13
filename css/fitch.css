@@ -1,3 +1,20 @@
+.proof-menu {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 5px 5px;
+    justify-content: right;
+    border-bottom: 1px solid #333;
+    margin-bottom: 5px;
+}
+
+.proof-menu > a {
+    text-decoration: none;
+    color: #333;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
 .proof-container {
     display: flex;
     flex-direction: column;
@@ -38,18 +55,19 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    border: 1px solid #eee;
+    border: 1px solid #ccc;
     padding-left: 10px;
+    border-radius: 5px;
+    border-top-right-radius: 15px;
 }
 
 .separator {
-    padding: 5px 0;
-    transition: height 0.5s;
+    transition: all 0.5s;
     overflow: hidden;
-    height: 0;
-    background-color: #f4f4f4;
-    margin: 5px 5px;
+    margin: 2px 15px;
+    padding: 0 10px;
     border-radius: 5px;
+    background-color: #fff;
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -70,7 +88,7 @@
 }
 
 .separator:hover {
-    height: 40px;
+    background-color: #eee;
 }
 
 .separator:hover > * {
@@ -84,10 +102,6 @@
     font-size: 0.8em;
     width: 55px;
     padding: 5px 5px;
-}
-
-.line-expr input.invalid {
-    background-color: #fdd;
 }
 
 .line-expr {
@@ -148,7 +162,7 @@ input.ref-subproof {
 .line-corner {
     width: 22px;
     height: 100%;
-    background-color: #eee;   
+    background-color: #ccc;   
 }
 
 .line-corner > div {
@@ -159,7 +173,22 @@ input.ref-subproof {
 }
 
 .subproof-parts > .line-container:first-child > .line-controls > a {
-    background-color: #eee;
+    background-color: #ccc;
+    color: #333;
     padding-left: 20px;
     border-bottom-left-radius: 22px;
+    border-top-right-radius: 10px;
+}
+
+.subproof-parts .subproof-parts {
+    margin-right: 5px;
+}
+
+input.invalid, select.invalid {
+    border-color: red;
+    background-color: #fdd;
+}
+
+.line-number.invalid {
+    color: red;
 }

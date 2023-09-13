@@ -1,5 +1,119 @@
 const lq = logicQuestions;
 
+function setUpFitch(proof, container, key) {
+    console.log(key);
+    if (proof === undefined) {
+        proof = new lq.Proof();
+    }
+    const state = { proof: proof };
+    const proof_div = document.createElement('div');
+    const menu_div = document.createElement('div');
+
+    makeMenu(state, proof_div, menu_div, key);
+
+    let made_proof = false;
+
+    if (key) {
+        // On refresh, load the proof from sessionStorage
+        const json = window.sessionStorage.getItem('fitch-' + key);
+        console.log("JSON", json);
+        if (json) {
+            try {
+                state.proof = lq.Proof.fromJSON(JSON.parse(json));
+                proof_div.innerHTML = '';
+                makeProof(state, proof_div);
+                made_proof = true;
+            }
+            catch (e) {
+                console.error(e);
+            }
+        }
+
+        // On page unload, save the proof to sessionStorage
+        window.addEventListener('beforeunload', function() {
+            window.sessionStorage.setItem('fitch-' + key,
+                JSON.stringify(state.proof.toJSON()));
+        });
+    }
+
+    if (!made_proof) {
+        makeProof(state, proof_div);
+    }
+
+    container.appendChild(menu_div);
+    container.appendChild(proof_div);
+}
+
+async function asyncSaveToFile(string) {
+    const file = await window.showSaveFilePicker({
+        types: [{
+            description: "Fitch",
+            accept: {
+                "text/plain": ['.fitch']
+            }
+        }]
+    });
+  
+    const writable = await file.createWritable();
+    await writable.write(string);
+    await writable.close();
+}
+  
+function defaultSaveToFile(string) {
+    const blob = new Blob([string], {type: "text/plain;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'proof.fitch';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function makeMenu(state, proof_container, menu_container, key) {
+    menu_container.classList.add('proof-menu');
+
+    const export_button = document.createElement('a');
+    export_button.innerHTML = 'Exporter';
+    export_button.addEventListener('click', function() {
+        const json = JSON.stringify(state.proof.toJSON(), null, 2);
+        // File explorer to download the file
+
+        if (window.showSaveFilePicker) {
+            asyncSaveToFile(json);
+        }
+        else {
+            defaultSaveToFile(json);
+        }
+    });
+    menu_container.appendChild(export_button);
+
+    const import_button = document.createElement('a');
+    import_button.innerHTML = 'Importer';
+    import_button.addEventListener('click', function() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.addEventListener('change', function() {
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.addEventListener('load', function() {
+                try {
+                    const json = JSON.parse(reader.result);
+                    state.proof = lq.Proof.fromJSON(json);
+                    proof_container.innerHTML = '';
+                    makeProof(state, proof_container);
+                }
+                catch (e) {
+                    console.error(e);
+                    alert('Erreur lors de l\'importation du fichier');
+                }
+            });
+            reader.readAsText(file);
+        });
+        input.click();
+    });
+    menu_container.appendChild(import_button);
+}
+
 function makeSeparator(elem, container, position) {
     const div = document.createElement('div');
     div.classList.add('separator');
@@ -67,11 +181,12 @@ function makeSeparator(elem, container, position) {
 }
 
 
-function makeProof(proof, container) {
-    makeSeparator(proof, container);
-    for (let i = 0; i < proof.parts.length; i++) {
-        makePart(proof.parts[i], container);
-        makeSeparator(proof, container);
+function makeProof(state, container) {
+    container.classList.add('proof-container');
+    makeSeparator(state.proof, container);
+    for (let i = 0; i < state.proof.parts.length; i++) {
+        makePart(state.proof.parts[i], container);
+        makeSeparator(state.proof, container);
     }
 }
 
@@ -120,6 +235,8 @@ function makeSubproof(subproof, container, position) {
 function makeLine(line, container, position, is_assumption) {
     let last_expr = null;
     let parsed_expr = null;
+    let last_rule = null;
+    let last_status = null;
 
     const div = document.createElement('div');
     div.classList.add('line-container');
@@ -206,7 +323,7 @@ function makeLine(line, container, position, is_assumption) {
         const ref_input = document.createElement('input');
         ref_input.type = 'text';
         ref_input.value = '';
-        ref_input.placeholder = 'Numéro ?';
+        ref_input.placeholder = '?';
         ref_input.addEventListener('change', function() {
             const ref_key = ref_input.value;
             const part = line.root.lookupPart(ref_key);
@@ -241,41 +358,53 @@ function makeLine(line, container, position, is_assumption) {
     delete_button.innerHTML = 'Supprimer';
     delete_button.addEventListener('click', function() {
         if (is_assumption) {
-            console.log('delete subproof', line.parent);
+            let current = div;
+            while (!current.classList.contains('subproof-container')) {
+                current = current.parentElement;
+            }
+            current.nextElementSibling.remove();
+            current.remove();
+            line.root.deletePart(line.parent);
         }
         else {
-            console.log('delete line', line);
+            div.nextElementSibling.remove();
+            div.remove();
+            line.root.deletePart(line);
         }
     });
     if (!line.fixed || is_assumption) {
         controls_div.appendChild(delete_button);
     }
 
-    function update() {
-        // if (line.status.ok) {
-        //     div.style.backgroundColor = '#3f3';
-        // }
-        // else {
-        //     div.style.backgroundColor = '#fff';
-        // }
+    function update(event) {
+        let root_error_found = false;
+        let status_updated = true;
+        if (event !== undefined) {
+            if (event.message === 'renumbered' ||
+                event.message === 'ref_renumbered') {
 
-        if (line.expr === null && expr_input.value !== '') {
-            expr_input.classList.add('invalid');
-        }
-        else {
-            expr_input.classList.remove('invalid');
+                status_updated = false;
+            }
         }
 
+        if (status_updated) {
+            last_status = line.status;
+        }
+
+
+        // Expr do not match input
         if (line.expr && parsed_expr !== line.expr) {
             expr_input.value = lq.exprToString(line.expr);
             parsed_expr = line.expr;
         }
 
+        // Expr change
         if (line.expr !== last_expr) {
             last_expr = line.expr;
             enableRules(line.expr);
         }
 
+        // Select correct rule
         if (line.rule) {
             rule_select.value = lq.rules.indexOf(line.rule);
         }
@@ -283,62 +412,85 @@ function makeLine(line, container, position, is_assumption) {
             rule_select.value = '-1';
         }
 
-        refs_div.innerHTML = '';
+        const rule = line.rule;
+
+        // Rule change
+        if (rule !== last_rule) {
+            last_rule = rule;
+
+            // Repopulate refs inputs
+            refs_div.innerHTML = '';
+            for (let i = 0; i < line.refs.length; i++) {
+                const ref_input = makeRefInput(i);
+                refs_div.appendChild(ref_input);
+            }
+            if (rule) {
+                let k = 0;
+                for (let i = 0; i < rule.parts.length; i++, k++) {
+                    refs_div.children[k].classList.add('ref-part');
+                }
+                for (let i = 0; i < rule.subproofs.length; i++, k++) {
+                    refs_div.children[k].classList.add('ref-subproof');
+                }
+            }
+        }
+
+        // Update refs inputs values
         for (let i = 0; i < line.refs.length; i++) {
-            const ref_input = makeRefInput(i);
+            const ref_input = refs_div.children[i];
             if (line.refs[i]) {
                 ref_input.value = line.refs[i].range;
             }
-            refs_div.appendChild(ref_input);
+            else {
+                ref_input.value = '';
+            }
         }
 
-        const rule = line.rule;
+        // Update statuses
+        if (status_updated) {
 
-        let label_done = false;
-        if (rule && line.expr) {
-            const specs = rule.parts_and_subproof_specs(line.expr);
-            if (specs) {
-                label_done = true;
-                const parts_specs = specs[0];
-                const subproof_specs = specs[1];
-                for (let i = 0; i < parts_specs.length; i++) {
-                    const part_spec = parts_specs[i];
-                    const label = lq.exprToString(part_spec);
-                    refs_div.children[i].placeholder = label;
-                    refs_div.children[i].title = label;
+            // Expr status
+            if (last_status.expr.length > 0) {
+                expr_input.classList.add('invalid');
+                root_error_found = true;
+            }
+            else {
+                expr_input.classList.remove('invalid');
+            }
+
+            // Rule status
+            if (last_status.rule.length > 0) {
+                rule_select.classList.add('invalid');
+                root_error_found = true;
+            }
+            else {
+                rule_select.classList.remove('invalid');
+            }
+
+            // Refs status
+            for (let i = 0; i < last_status.refs.length; i++) {
+                if (last_status.refs[i].length > 0) {
+                    refs_div.children[i].classList.add('invalid');
+                    root_error_found = true;
                 }
-                for (let i = 0; i < subproof_specs.length; i++) {
-                    const j = parts_specs.length + i;
-                    const subproof_spec = subproof_specs[i];
-                    const assumption_spec = subproof_spec[0];
-                    const conclusion_spec = subproof_spec[1];
-                    const label = lq.exprToString(assumption_spec) + ' - ' + lq.exprToString(conclusion_spec);
-                    refs_div.children[j].placeholder = label;
-                    refs_div.children[j].title = label;
+                else {
+                    refs_div.children[i].classList.remove('invalid');
                 }
-            }
-        }
-
-        if (rule) {
-            let k = 0;
-            for (let i = 0; i < rule.parts.length; i++, k++) {
-                const part = rule.parts[i];
-                refs_div.children[k].classList.add('ref-part');
-            }
-            for (let i = 0; i < rule.subproofs.length; i++, k++) {
-                const subproof = rule.subproofs[i];
-                refs_div.children[k].classList.add('ref-subproof');
-            }
-        }
-        
-        if (!label_done) {
-            for (let i = 0; i < refs_div.children.length; i++) {
-                refs_div.children[i].placeholder = '?';
-                refs_div.children[i].title = '?';
             }
         }
 
         number_div.innerHTML = line.number;
+        if (last_status.ok) {
+            number_div.classList.remove('invalid');
+        }
+        else {
+            number_div.classList.add('invalid');
+            if (!root_error_found) {
+                for (let i = 0; i < refs_div.children.length; i++) {
+                    refs_div.children[i].classList.add('invalid');
+                }
+            }
+        }
     }
 
     line.addListener(update);

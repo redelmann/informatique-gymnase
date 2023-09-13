@@ -1,10 +1,13 @@
+---
+title: Fitch - Assistant de preuve
+---
 
-<div id="fitch-container" class="fitch-container"></div>
+<div id="fitch-container"></div>
 
 <link rel="stylesheet" href="/css/fitch.css" />
 <script src="/js/fitch.js"></script>
 <script type="text/javascript">
-function fitchExemple(container) {
+function fitchExemple(container, key) {
     const proof = lq.Proof.fromJSON([
         {
             "type": "line",
@@ -65,8 +68,8 @@ function fitchExemple(container) {
         }
     ]);
 
-    makeProof(proof, container);
+    setUpFitch(proof, container, key);
 }
 
-fitchExemple(document.getElementById("fitch-container"));
+fitchExemple(document.getElementById("fitch-container"), "fitch-exemple");
 </script>
