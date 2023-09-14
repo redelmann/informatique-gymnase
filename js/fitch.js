@@ -231,7 +231,7 @@ function makeSubproof(subproof, container, position) {
         container.insertBefore(div, container.children[position]);
     }
 
-    function update() {
+    function update(event) {
         if (subproof.status.ok) {
             div.classList.remove('invalid');
             div.classList.remove('missing');
