@@ -212,13 +212,13 @@ function makeSubproof(subproof, container, position) {
     parts_div.classList.add('subproof-parts');
     div.appendChild(parts_div);
 
-    makeLine(subproof.assumption, parts_div, 0, true);
+    makeLine(subproof.assumption, parts_div, undefined, "assumption");
     makeSeparator(subproof, parts_div);
     for (let i = 0; i < subproof.parts.length; i++) {
         makePart(subproof.parts[i], parts_div);
         makeSeparator(subproof, parts_div);
     }
-    makeLine(subproof.conclusion, parts_div);
+    makeLine(subproof.conclusion, parts_div, undefined, "conclusion");
 
     subproof.addListener(function() {
         range_div.innerHTML = subproof.range;
@@ -230,15 +230,42 @@ function makeSubproof(subproof, container, position) {
     else {
         container.insertBefore(div, container.children[position]);
     }
+
+    function update() {
+        if (subproof.status.ok) {
+            div.classList.remove('invalid');
+            div.classList.remove('missing');
+            div.classList.add('valid');
+        }
+        else if (subproof.status.only_missing) {
+            div.classList.remove('invalid');
+            div.classList.remove('valid');
+            div.classList.add('missing');
+        }
+        else {
+            div.classList.remove('valid');
+            div.classList.remove('missing');
+            div.classList.add('invalid');
+        }
+    }
+
+    subproof.addListener(update);
+    update();
 }
 
-function makeLine(line, container, position, is_assumption) {
+function makeLine(line, container, position, type) {
+    const is_assumption = type === "assumption";
+    const is_conclusion = type === "conclusion";
+    let had_expr = false;
+
     let last_expr = null;
     let parsed_expr = null;
     let last_rule = null;
-    let last_status = null;
 
     const div = document.createElement('div');
+    if (is_assumption) {
+        div.classList.add('line-assumption');
+    }
     div.classList.add('line-container');
 
     const number_div = document.createElement('div');
@@ -252,7 +279,10 @@ function makeLine(line, container, position, is_assumption) {
     const expr_input = document.createElement('input');
     expr_input.type = 'text';
     expr_input.value = '';
-    expr_input.placeholder = 'Proposition ?';
+    expr_input.placeholder =
+        is_assumption ? 'Hypothèse ?' :
+        is_conclusion ? 'Conclusion ?' :
+        'Proposition ?';
     expr_input.addEventListener('change', function() {
         try {
             parsed_expr = lq.parse(expr_input.value);
@@ -345,17 +375,10 @@ function makeLine(line, container, position, is_assumption) {
     controls_div.classList.add('line-controls');
     div.appendChild(controls_div);
 
-    if (is_assumption) {
-        const corner_div = document.createElement('div');
-        corner_div.classList.add('line-corner');
-        controls_div.appendChild(corner_div);
-
-        const inner_corner_div = document.createElement('div');
-        corner_div.appendChild(inner_corner_div);
-    }
-
     const delete_button = document.createElement('a');
-    delete_button.innerHTML = 'Supprimer';
+    delete_button.innerHTML = '-';
+    delete_button.classList.add('delete-button');
+    delete_button.title = is_assumption ? 'Supprimer la sous-preuve' : 'Supprimer la ligne';
     delete_button.addEventListener('click', function() {
         if (is_assumption) {
             let current = div;
@@ -378,19 +401,8 @@ function makeLine(line, container, position, is_assumption) {
 
     function update(event) {
         let root_error_found = false;
-        let status_updated = true;
-        if (event !== undefined) {
-            if (event.message === 'renumbered' ||
-                event.message === 'ref_renumbered') {
 
-                status_updated = false;
-            }
-        }
-
-        if (status_updated) {
-            last_status = line.status;
-        }
-
+        had_expr = had_expr || line.expr !== null;
 
         // Expr do not match input
         if (line.expr && parsed_expr !== line.expr) {
@@ -403,6 +415,8 @@ function makeLine(line, container, position, is_assumption) {
             last_expr = line.expr;
             enableRules(line.expr);
         }
+
+        div.classList.toggle('no-expr', !had_expr);
 
         // Select correct rule
         if (line.rule) {
@@ -446,45 +460,56 @@ function makeLine(line, container, position, is_assumption) {
             }
         }
 
-        // Update statuses
-        if (status_updated) {
-
-            // Expr status
-            if (last_status.expr.length > 0) {
-                expr_input.classList.add('invalid');
-                root_error_found = true;
-            }
-            else {
-                expr_input.classList.remove('invalid');
-            }
-
-            // Rule status
-            if (last_status.rule.length > 0) {
-                rule_select.classList.add('invalid');
-                root_error_found = true;
-            }
-            else {
-                rule_select.classList.remove('invalid');
-            }
-
-            // Refs status
-            for (let i = 0; i < last_status.refs.length; i++) {
-                if (last_status.refs[i].length > 0) {
-                    refs_div.children[i].classList.add('invalid');
-                    root_error_found = true;
-                }
-                else {
-                    refs_div.children[i].classList.remove('invalid');
-                }
-            }
-        }
-
-        number_div.innerHTML = line.number;
-        if (last_status.ok) {
-            number_div.classList.remove('invalid');
+        // Expr status
+        if (line.status.expr.length > 0) {
+            expr_input.classList.add('invalid');
+            root_error_found = true;
         }
         else {
-            number_div.classList.add('invalid');
+            expr_input.classList.remove('invalid');
+        }
+
+        // Rule status
+        if (line.status.rule.length > 0) {
+            rule_select.classList.add('invalid');
+            root_error_found = true;
+        }
+        else {
+            rule_select.classList.remove('invalid');
+        }
+
+        // Refs status
+        for (let i = 0; i < line.status.refs.length; i++) {
+            if (line.status.refs[i].length > 0) {
+                refs_div.children[i].classList.add('invalid');
+                root_error_found = true;
+            }
+            else {
+                refs_div.children[i].classList.remove('invalid');
+            }
+        }
+
+        if (line.expr && rule === lq.hypothesis) {
+            div.classList.add('hypothesis');
+        }
+
+        // Update number
+        number_div.innerHTML = line.number;
+        
+        if (line.status.ok) {
+            div.classList.remove('invalid');
+            div.classList.remove('missing');
+            div.classList.add('valid');
+        }
+        else if (line.status.only_missing) {
+            div.classList.remove('invalid');
+            div.classList.remove('valid');
+            div.classList.add('missing');
+        }
+        else {
+            div.classList.remove('valid');
+            div.classList.remove('missing');
+            div.classList.add('invalid');
             if (!root_error_found) {
                 for (let i = 0; i < refs_div.children.length; i++) {
                     refs_div.children[i].classList.add('invalid');
