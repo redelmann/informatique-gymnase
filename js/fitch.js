@@ -320,7 +320,7 @@ function makeLine(line, container, position, type) {
         rule_select.appendChild(option);
     }
     if (is_assumption) {
-        rule_div.innerHTML = 'Hypothèse locale';
+        rule_div.innerHTML = '';
     }
     else {
         rule_div.appendChild(rule_select);

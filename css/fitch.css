@@ -34,7 +34,7 @@ body {
     flex-direction: row;
     width: 100%;
     gap: 0.5em;
-    border: 2px groove rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     padding: 5px 0;
     transition: all 0.5s;
@@ -43,23 +43,23 @@ body {
 .line-container.missing:not(.line-assumption),
 .subproof-container.missing,
 .subproof-container.missing > .subproof-range {
-    background-color: rgba(87, 183, 221, 0.2);
+    background-color: rgb(165, 209, 227);
 }
 
 .line-container.invalid,
 .subproof-container.invalid,
 .subproof-container.invalid > .subproof-range {
-    background-color: rgba(200, 13, 13, 0.4);
+    background-color: rgb(227, 100, 100);
 }
 
 .line-container.hypothesis {
-    background-color: rgba(242, 205, 21, 0.4);
+    background-color: rgb(242, 220, 113);
 }
 
 .line-container.valid:not(.line-assumption):not(.line-container.hypothesis),
 .subproof-container.valid,
 .subproof-container.valid > .subproof-range{
-    background-color: rgba(0, 200, 0, 0.4);
+    background-color: rgb(128, 220, 128);
 }
 
 .line-assumption {
@@ -83,7 +83,7 @@ body {
 .subproof-container {
     display: flex;
     flex-direction: row;
-    border: 2px groove rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     width: fit-content;
     min-width: 100%;
@@ -98,6 +98,8 @@ body {
     padding: 18px 5px;
     border-right: 2px solid rgba(0, 0, 0, 0.1);
     transition: all 0.5s;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .subproof-parts {
@@ -184,7 +186,7 @@ body {
 
 .line-expr input {
     width: 300px;
-    border: 1px inset #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     padding: 6px;
     min-height: 35px;
@@ -205,7 +207,7 @@ body {
 }
 
 .line-rule select {
-    border: 1px groove rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     padding: 5px;
 }
