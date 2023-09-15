@@ -232,17 +232,26 @@ function makeSubproof(subproof, container, position) {
     }
 
     function update(event) {
-        if (subproof.status.ok) {
+        if (subproof.status.transitively_ok) {
+            div.classList.remove('ok');
             div.classList.remove('invalid');
             div.classList.remove('missing');
             div.classList.add('valid');
         }
+        else if (subproof.status.ok) {
+            div.classList.remove('invalid');
+            div.classList.remove('missing');
+            div.classList.remove('valid');
+            div.classList.add('ok');
+        }
         else if (subproof.status.only_missing) {
+            div.classList.remove('ok');
             div.classList.remove('invalid');
             div.classList.remove('valid');
             div.classList.add('missing');
         }
         else {
+            div.classList.remove('ok');
             div.classList.remove('valid');
             div.classList.remove('missing');
             div.classList.add('invalid');
@@ -259,7 +268,6 @@ function makeLine(line, container, position, type) {
     let had_expr = false;
 
     let last_expr = null;
-    let parsed_expr = null;
     let last_rule = null;
 
     const div = document.createElement('div');
@@ -285,7 +293,7 @@ function makeLine(line, container, position, type) {
         'Proposition ?';
     expr_input.addEventListener('change', function() {
         try {
-            parsed_expr = lq.parse(expr_input.value);
+            const parsed_expr = lq.parse(expr_input.value);
             line.setExpr(parsed_expr);
         }
         catch (e) {
@@ -401,13 +409,13 @@ function makeLine(line, container, position, type) {
 
     function update(event) {
         let root_error_found = false;
+        console.log(line.number, event, line.status);
 
         had_expr = had_expr || line.expr !== null;
 
-        // Expr do not match input
-        if (line.expr && parsed_expr !== line.expr) {
-            expr_input.value = lq.exprToString(line.expr);
-            parsed_expr = line.expr;
+        // Expr display
+        if (line.expr) {
+            expr_input.value = lq.verboseExprToString(line.expr);
         }
 
         // Expr change
@@ -492,21 +500,33 @@ function makeLine(line, container, position, type) {
         if (line.expr && rule === lq.hypothesis) {
             div.classList.add('hypothesis');
         }
+        else {
+            div.classList.remove('hypothesis');
+        }
 
         // Update number
         number_div.innerHTML = line.number;
         
-        if (line.status.ok) {
+        if (line.status.transitively_ok) {
+            div.classList.remove('ok');
             div.classList.remove('invalid');
             div.classList.remove('missing');
             div.classList.add('valid');
         }
+        else if (line.status.ok) {
+            div.classList.remove('invalid');
+            div.classList.remove('missing');
+            div.classList.remove('valid');
+            div.classList.add('ok');
+        }
         else if (line.status.only_missing) {
+            div.classList.remove('ok');
             div.classList.remove('invalid');
             div.classList.remove('valid');
             div.classList.add('missing');
         }
         else {
+            div.classList.remove('ok');
             div.classList.remove('valid');
             div.classList.remove('missing');
             div.classList.add('invalid');

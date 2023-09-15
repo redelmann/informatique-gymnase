@@ -56,6 +56,12 @@ body {
     background-color: rgb(242, 220, 113);
 }
 
+.line-container.ok:not(.line-assumption):not(.line-container.hypothesis),
+.subproof-container.ok,
+.subproof-container.ok > .subproof-range{
+    background-color: rgb(209, 209, 209);
+}
+
 .line-container.valid:not(.line-assumption):not(.line-container.hypothesis),
 .subproof-container.valid,
 .subproof-container.valid > .subproof-range{
