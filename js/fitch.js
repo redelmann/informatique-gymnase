@@ -1,7 +1,48 @@
 const lq = logicQuestions;
 
-function setUpFitch(proof, container, key) {
-    console.log(key);
+function setUpFitch(proof, container, settings) {
+    if (!settings) {
+        settings = {};
+    }
+    if (settings.rules === undefined) {
+        settings.rules = [
+            { type: "rule", name: "Hypothèse", rule: lq.hypothesis },
+            { type: "rule", name: "Répétition", rule: lq.rep },
+            { type: "group", name: "Constantes", rules: [
+                { type: "rule", name: "Introduction de vrai", rule: lq.trueI },
+                { type: "rule", name: "Élimination de faux", rule: lq.falseE },
+            ]},
+            { type: "group", name: "Négation (non)", rules: [
+                { type: "rule", name: "Introduction de non", rule: lq.notI },
+                { type: "rule", name: "Élimination de non", rule: lq.notE },
+            ]},
+            { type: "group", name: "Conjonction (et)", rules: [
+                { type: "rule", name: "Introduction de et", rule: lq.andI },
+                { type: "rule", name: "Élimination gauche de et", rule: lq.andE1 },
+                { type: "rule", name: "Élimination droite de et", rule: lq.andE2 },
+            ]},
+            { type: "group", name: "Disjonction (ou)", rules: [
+                { type: "rule", name: "Introduction gauche de ou", rule: lq.orI1 },
+                { type: "rule", name: "Introduction droite de ou", rule: lq.orI2 },
+                { type: "rule", name: "Élimination de ou", rule: lq.orE },
+            ]},
+            { type: "group", name: "Implication (implique)", rules: [
+                { type: "rule", name: "Introduction de implique", rule: lq.implI },
+                { type: "rule", name: "Élimination de implique", rule: lq.implE },
+            ]},
+            { type: "group", name: "Équivalence (ssi)", rules: [
+                { type: "rule", name: "Introduction de ssi", rule: lq.iffI },
+                { type: "rule", name: "Élimination gauche de ssi", rule: lq.iffE1 },
+                { type: "rule", name: "Élimination droite de ssi", rule: lq.iffE2 },
+            ]},
+            { type: "group", name: "Autres", rules: [
+                { type: "rule", name: "Tiers exclu", rule: lq.tnd },
+                { type: "rule", name: "Raisonnement par l'absurde", rule: lq.raa },
+                { type: "rule", name: "Élimination de la double négation", rule: lq.notNotE },
+            ]},
+        ];
+    }
+
     if (proof === undefined) {
         proof = new lq.Proof();
     }
@@ -9,11 +50,13 @@ function setUpFitch(proof, container, key) {
     const proof_div = document.createElement('div');
     const menu_div = document.createElement('div');
 
-    makeMenu(state, proof_div, menu_div, key);
+    makeMenu(state, proof_div, menu_div, settings);
 
     let made_proof = false;
 
-    if (key) {
+    if (settings && settings.key) {
+        const key = settings.key;
+
         // On refresh, load the proof from sessionStorage
         const json = window.sessionStorage.getItem('fitch-' + key);
         console.log("JSON", json);
@@ -21,7 +64,7 @@ function setUpFitch(proof, container, key) {
             try {
                 state.proof = lq.Proof.fromJSON(JSON.parse(json));
                 proof_div.innerHTML = '';
-                makeProof(state, proof_div);
+                makeProof(state, proof_div, settings);
                 made_proof = true;
             }
             catch (e) {
@@ -37,7 +80,7 @@ function setUpFitch(proof, container, key) {
     }
 
     if (!made_proof) {
-        makeProof(state, proof_div);
+        makeProof(state, proof_div, settings);
     }
 
     container.appendChild(menu_div);
@@ -69,7 +112,7 @@ function defaultSaveToFile(string) {
     URL.revokeObjectURL(url);
 }
 
-function makeMenu(state, proof_container, menu_container, key) {
+function makeMenu(state, proof_container, menu_container, settings) {
     menu_container.classList.add('proof-menu');
 
     const export_button = document.createElement('a');
@@ -114,7 +157,7 @@ function makeMenu(state, proof_container, menu_container, key) {
     menu_container.appendChild(import_button);
 }
 
-function makeSeparator(elem, container, position) {
+function makeSeparator(elem, container, position, settings) {
     const div = document.createElement('div');
     div.classList.add('separator');
     
@@ -140,8 +183,8 @@ function makeSeparator(elem, container, position) {
             throw new Error('Separator not found in container');
         }
         const line = elem.newLine(current_position);
-        makeLine(line, container, position_in_container + 1);
-        makeSeparator(elem, container, position_in_container + 2);
+        makeLine(line, container, position_in_container + 1, "normal", settings);
+        makeSeparator(elem, container, position_in_container + 2, settings);
     });
     div.appendChild(addLineButton);
 
@@ -167,8 +210,8 @@ function makeSeparator(elem, container, position) {
             throw new Error('Separator not found in container');
         }
         const subproof = elem.newSubproof(current_position);
-        makeSubproof(subproof, container, position_in_container + 1);
-        makeSeparator(elem, container, position_in_container + 2);
+        makeSubproof(subproof, container, position_in_container + 1, settings);
+        makeSeparator(elem, container, position_in_container + 2, settings);
     });
     div.appendChild(addSubproofButton);
 
@@ -181,25 +224,25 @@ function makeSeparator(elem, container, position) {
 }
 
 
-function makeProof(state, container) {
+function makeProof(state, container, settings) {
     container.classList.add('proof-container');
-    makeSeparator(state.proof, container);
+    makeSeparator(state.proof, container, undefined, settings);
     for (let i = 0; i < state.proof.parts.length; i++) {
-        makePart(state.proof.parts[i], container);
-        makeSeparator(state.proof, container);
+        makePart(state.proof.parts[i], container, undefined, settings);
+        makeSeparator(state.proof, container, undefined, settings);
     }
 }
 
-function makePart(part, container, position) {
+function makePart(part, container, position, settings) {
     if (part instanceof lq.Line) {
-        makeLine(part, container, position);
+        makeLine(part, container, position, "normal", settings);
     }
     else {
-        makeSubproof(part, container, position);
+        makeSubproof(part, container, position, settings);
     }
 }
 
-function makeSubproof(subproof, container, position) {
+function makeSubproof(subproof, container, position, settings) {
     const div = document.createElement('div');
     div.classList.add('subproof-container');
 
@@ -212,13 +255,13 @@ function makeSubproof(subproof, container, position) {
     parts_div.classList.add('subproof-parts');
     div.appendChild(parts_div);
 
-    makeLine(subproof.assumption, parts_div, undefined, "assumption");
-    makeSeparator(subproof, parts_div);
+    makeLine(subproof.assumption, parts_div, undefined, "assumption", settings);
+    makeSeparator(subproof, parts_div, undefined, settings);
     for (let i = 0; i < subproof.parts.length; i++) {
-        makePart(subproof.parts[i], parts_div);
-        makeSeparator(subproof, parts_div);
+        makePart(subproof.parts[i], parts_div, undefined, settings);
+        makeSeparator(subproof, parts_div, undefined, settings);
     }
-    makeLine(subproof.conclusion, parts_div, undefined, "conclusion");
+    makeLine(subproof.conclusion, parts_div, undefined, "conclusion", settings);
 
     subproof.addListener(function() {
         range_div.innerHTML = subproof.range;
@@ -262,13 +305,16 @@ function makeSubproof(subproof, container, position) {
     update();
 }
 
-function makeLine(line, container, position, type) {
+function makeLine(line, container, position, type, settings) {
     const is_assumption = type === "assumption";
     const is_conclusion = type === "conclusion";
     let had_expr = false;
 
     let last_expr = null;
     let last_rule = null;
+
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('line-wrapper');
 
     const div = document.createElement('div');
     if (is_assumption) {
@@ -292,13 +338,19 @@ function makeLine(line, container, position, type) {
         is_conclusion ? 'Conclusion ?' :
         'Proposition ?';
     expr_input.addEventListener('change', function() {
-        try {
-            const parsed_expr = lq.parse(expr_input.value);
-            line.setExpr(parsed_expr);
-        }
-        catch (e) {
+        if (expr_input.value.length === 0) {
             line.setExpr(null);
         }
+        else {
+            try {
+                const parsed_expr = lq.parse(expr_input.value);
+                line.setExpr(parsed_expr);
+            }
+            catch (e) {
+                line.setMalformedExpr();
+            }
+        }
+        exprTooltip();
     });
     expr_div.appendChild(expr_input);
     div.appendChild(expr_div);
@@ -309,46 +361,67 @@ function makeLine(line, container, position, type) {
 
     const rule_select = document.createElement('select');
     rule_select.addEventListener('change', function() {
-        const i = parseInt(rule_select.value);
-        if (i >= 0) {
-            line.setRule(lq.rules[i]);
+        const selected_name = rule_select.value;
+        const selected_rule = lq.rules_by_name[selected_name];
+        if (selected_rule) {
+            line.setRule(selected_rule);
         }
         else {
             line.setRule(null);
         }
+        ruleTooltip();
     });
     const empty_option = document.createElement('option');
-    empty_option.value = '-1';
+    empty_option.value = '';
     empty_option.innerHTML = 'Règle ?';
     rule_select.appendChild(empty_option);
-    for (let i = 0; i < lq.rules.length - 1; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.innerHTML = lq.rules_long_names[lq.rules[i].name];
-        rule_select.appendChild(option);
+    for (let i = 0; i < settings.rules.length; i++) {
+        const rules = [];
+        let parent_elem = rule_select;
+
+        if (settings.rules[i].type === "group") {
+            parent_elem = document.createElement('optgroup');
+            parent_elem.label = settings.rules[i].name;
+            rule_select.appendChild(parent_elem);
+            rules.push(...settings.rules[i].rules);
+        }
+        else if (settings.rules[i].type === "rule") {
+            rules.push(settings.rules[i]);
+        }
+        console.log(rules);
+        for (let j = 0; j < rules.length; j++) {
+            const option = document.createElement('option');
+            option.value = rules[j].rule.name;
+            option.innerHTML = rules[j].name;
+            parent_elem.appendChild(option);
+        }
     }
     if (is_assumption) {
-        rule_div.innerHTML = '';
+        rule_div.innerHTML = 'Hypothèse provisoire';
     }
     else {
         rule_div.appendChild(rule_select);
-        rule_select.value = '-1';
+        rule_select.value = '';
     }
 
     function enableRules(expr) {
-        for (let i = 1; i < rule_select.children.length; i++) {
+        const options = rule_select.querySelectorAll('option');
+        for (let i = 0; i < options.length; i++) {
             if (expr === null) {
-                rule_select.children[i].disabled = false;
+                options[i].disabled = false;
                 continue;
             }
-            const j = parseInt(rule_select.children[i].value);
-            const rule = lq.rules[j];
+            const rule_name = options[i].value;
+            const rule = lq.rules_by_name[rule_name];
+            if (!rule) {
+                continue;
+            }
             const specs = rule.parts_and_subproof_specs(expr);
             if (specs === null) {
-                rule_select.children[i].disabled = true;
+                options[i].disabled = true;
             }
             else {
-                rule_select.children[i].disabled = false;
+                options[i].disabled = false;
             }
         }
     }
@@ -398,8 +471,8 @@ function makeLine(line, container, position, type) {
             line.root.deletePart(line.parent);
         }
         else {
-            div.nextElementSibling.remove();
-            div.remove();
+            wrapper.nextElementSibling.remove(); // Separator
+            wrapper.remove();
             line.root.deletePart(line);
         }
     });
@@ -428,10 +501,10 @@ function makeLine(line, container, position, type) {
 
         // Select correct rule
         if (line.rule) {
-            rule_select.value = lq.rules.indexOf(line.rule);
+            rule_select.value = line.rule.name;
         }
         else {
-            rule_select.value = '-1';
+            rule_select.value = '';
         }
 
         const rule = line.rule;
@@ -454,6 +527,14 @@ function makeLine(line, container, position, type) {
                 for (let i = 0; i < rule.subproofs.length; i++, k++) {
                     refs_div.children[k].classList.add('ref-subproof');
                 }
+            }
+
+            // Add tooltips
+            for (let i = 0; i < refs_div.children.length; i++) {
+                refs_div.children[i].addEventListener('focus', function() {
+                    refTooltip(i);
+                });
+                refs_div.children[i].addEventListener('blur', closeInfo);
             }
         }
 
@@ -506,6 +587,8 @@ function makeLine(line, container, position, type) {
 
         // Update number
         number_div.innerHTML = line.number;
+
+        console.log("???", line.number, line.status);
         
         if (line.status.transitively_ok) {
             div.classList.remove('ok');
@@ -541,11 +624,228 @@ function makeLine(line, container, position, type) {
     line.addListener(update);
     update();
 
+    // Info window
+    const info_div = document.createElement('div');
+    info_div.classList.add('line-info');
+
+    const cursor_div = document.createElement('div');
+    cursor_div.classList.add('info-cursor');
+    info_div.appendChild(cursor_div);
+
+    const message_div = document.createElement('div');
+    message_div.classList.add('info-message');
+    info_div.appendChild(message_div);
+
+    function openInfo() {
+        info_div.classList.add('open');
+    }
+
+    function positionInfo(element) {
+        
+        let x = 0;
+        let currentElement = element;
+        while (!currentElement.classList.contains('line-wrapper')) {
+            x += currentElement.offsetLeft;
+            currentElement = currentElement.offsetParent;
+        }
+        info_div.style.left = '0px';
+        let line_width = div.getBoundingClientRect().width;
+        let element_width = element.getBoundingClientRect().width;
+        let info_width = info_div.getBoundingClientRect().width;
+
+        console.log("line_width", line_width);
+        console.log("element_width", element_width);
+        console.log("info_width", info_width);
+        console.log("x", x);
+
+        let center = x + element_width / 2;
+        let left = center - info_width / 2;
+
+        if (left + info_width > line_width - 12) {
+            left = line_width - 12 - info_width;
+        }
+
+        if (left < 0) {
+            left = 0;
+        }
+
+        cursor_div.style.left = (center - left - 16) + 'px';
+        info_div.style.left = left + 'px';
+    }
+
+    function displayInfo(message, element) {
+        openInfo();
+        message_div.innerHTML = message;
+        positionInfo(element);
+    }
+
+    function closeInfo() {
+        info_div.classList.remove('open');
+    }
+
+    // Expr tooltip
+    function exprTooltip() {
+        let message = '';
+        if (is_assumption) {
+            message += 'Entrez une hypothèse provisoire.';
+        }
+        else {
+            message += 'Entrez une proposition.';
+        }
+        if (line.status.expr.includes("malformed")) {
+            message += '<br /><span class="error">La proposition mal formée.</span>';
+        }
+        displayInfo(message, expr_input);
+    }
+    expr_input.addEventListener('focus', exprTooltip);
+    expr_input.addEventListener('blur', closeInfo);
+
+    // Rule tooltip
+    function ruleTooltip() {
+        let message = 'Choisissez une règle pour justifier cette proposition.';
+        if (line.status.rule.length > 0 &&
+            !(line.status.rule.length == 1 && line.status.rule[0] === "missing")) {
+  
+            message += '<br /><span class="error">La règle choisie est inapplicable sur la proposition donnée. ';
+            message += 'La règle doit être appliquée sur une proposition de la forme ';
+            message += '<code>' + lq.verboseExprToString(line.rule.expr) + '</code>';
+
+            const meta_vars = lq.collectMetaVariables(line.rule.expr);
+            if (meta_vars.length > 1) {
+                message += ', où <code>?' + meta_vars.join('</code>, <code>?') +
+                    '</code> sont des propositions arbitraires.';  
+            }
+            else if (meta_vars.length > 0) {
+                message += ', où <code>?' + meta_vars[0] + '</code> est une proposition arbitraire.';
+            }
+            else {
+                message += '.';
+            }
+
+            message += '</span>';
+        }
+
+        displayInfo(message, rule_select);
+    }
+    rule_select.addEventListener('focus', ruleTooltip);
+    rule_select.addEventListener('blur', closeInfo);
+
+    // Refs tooltip
+    function refTooltip(i) {
+        const is_part = i < line.rule.parts.length;
+        let meta_vars = [];
+        let message = '';
+        let specs = null;
+        if (line.expr !== null) {
+            specs = line.rule.parts_and_subproof_specs(line.expr);
+        }
+        if (is_part) {
+            const part = line.rule.parts[i];
+            const spec = specs ? specs[0][i] : null;
+            const most_precise = spec ? spec : part;
+            message += 'Entrez le numéro d\'une ligne montrant <code>' +
+                lq.verboseExprToString(most_precise) + '</code>';
+
+            meta_vars = lq.collectMetaVariables(most_precise);
+        }
+        else {
+            let j = i - line.rule.parts.length;
+            const subproof = line.rule.subproofs[j];
+            const assumption = subproof[0];
+            const conclusion = subproof[1];
+            const spec = specs ? specs[1][j] : null;
+            const assumption_spec = spec ? spec[0] : null;
+            const conclusion_spec = spec ? spec[1] : null;
+            const most_precise_assumption = assumption_spec ? assumption_spec : assumption;
+            const most_precise_conclusion = conclusion_spec ? conclusion_spec : conclusion;
+            message += 'Entrez les numéros d\'une sous-preuve ayant <code>' +
+                lq.verboseExprToString(most_precise_assumption) +
+                '</code> comme hypothèse provisoire et <code>' +
+                lq.verboseExprToString(most_precise_conclusion) +
+                '</code> comme conclusion';
+
+            meta_vars = Array.from(new Set([
+                ...lq.collectMetaVariables(most_precise_assumption),
+                ...lq.collectMetaVariables(most_precise_conclusion)
+            ])).sort();
+        }
+
+        if (meta_vars.length > 1) {
+            message += ', où <code>?' + meta_vars.join('</code>, <code>?') +
+                '</code> sont des propositions arbitraires.';  
+        }
+        else if (meta_vars.length > 0) {
+            message += ', où <code>?' + meta_vars[0] + '</code> est une proposition arbitraire.';
+        }
+        else {
+            message += '.';
+        }
+
+        if (line.status.refs[i].includes("unreachable")) {
+            message += '<br /><span class="error">La référence inatteignable.</span>';
+        }
+
+        if (line.status.refs[i].includes("wrong_type")) {
+            if (is_part) {
+                message += '<br /><span class="error">Indiquez un numéro de ligne, pas une sous-preuve.</span>';
+            }
+            else {
+                message += '<br /><span class="error">Indiquez les numéros d\'une sous-preuve, pas une ligne.</span>';
+            }
+        }
+
+        if (line.status.refs[i].includes("missing_expr")) {
+            message += '<br /><span class="error">La ligne indiquée n\'a pas de proposition.</span>';
+        }
+
+        if (line.status.refs[i].includes("missing_assumption")) {
+            message += '<br /><span class="error">La sous-preuve indiquée n\'a pas d\'hypothèse provisoire.</span>';
+        }
+
+        if (line.status.refs[i].includes("missing_conclusion")) {
+            message += '<br /><span class="error">La sous-preuve indiquée n\'a pas de conclusion.</span>';
+        }
+
+        if (line.status.refs[i].includes("wrong_expr")) {
+            message += '<br /><span class="error">La proposition de la ligne indiquée ne correspond pas.</span>';
+        }
+
+        if (line.status.refs[i].includes("wrong_assumption")) {
+            message += '<br /><span class="error">L\'hypothèse provisoire de la sous-preuve indiquée ne correspond pas.</span>';
+        }
+
+        if (line.status.refs[i].includes("wrong_conclusion")) {
+            message += '<br /><span class="error">La conclusion de la sous-preuve indiquée ne correspond pas.</span>';
+        }
+
+        let root_error_found =
+            line.status.ok ||
+            line.status.expr.length > 0 ||
+            line.status.rule.length > 0;
+        if (!root_error_found) {
+            for (let j = 0; j < line.status.refs.length; j++) {
+                if (line.status.refs[j].length > 0) {
+                    root_error_found = true;
+                    break;
+                }
+            }
+        }
+
+        if (!root_error_found) {
+            message += '<br /><span class="error">Les propositions arbitraires ne sont pas cohérentes entre les différentes références.</span>';
+        }
+
+        displayInfo(message, refs_div.children[i]);
+    }
+
+    wrapper.appendChild(div);
+    wrapper.appendChild(info_div);
+
     // Add to container at the right position
     if (position === undefined || position === null || position >= container.children.length) {
-        container.appendChild(div);
+        container.appendChild(wrapper);
     }
     else {
-        container.insertBefore(div, container.children[position]);
+        container.insertBefore(wrapper, container.children[position]);
     }
 }

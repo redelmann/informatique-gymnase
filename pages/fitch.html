@@ -68,7 +68,9 @@ function fitchExemple(container, key) {
         }
     ]);
 
-    setUpFitch(proof, container, key);
+    setUpFitch(proof, container, {
+        key: key,
+    });
 }
 
 fitchExemple(document.getElementById("fitch-container"), "fitch-exemple");

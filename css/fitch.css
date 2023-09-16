@@ -28,6 +28,12 @@ body {
     min-width: 100%;
 }
 
+.line-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
 .line-container {
     display: flex;
     align-items: center;
@@ -36,8 +42,8 @@ body {
     gap: 0.5em;
     border: 2px solid rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    padding: 5px 0;
     transition: all 0.5s;
+    position: relative;
 }
 
 .line-container.missing:not(.line-assumption),
@@ -82,8 +88,52 @@ body {
     flex-shrink: 0;
 }
 
-.line-container > .line-filler {
+.line-container > .line-expr {
     flex-grow: 1;
+}
+
+.line-info {
+    position: absolute;
+    top: 40px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background: #333;
+    color: #f5f5f5;
+    border-radius: 3px;
+    font-size: 0.8em;
+    margin: 6px;
+    z-index: 2;
+    display: none;
+    max-width: 80%;
+}
+
+.line-info.open {
+    display: block;
+}
+
+.line-info > .info-cursor {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: #333;
+    position: absolute;
+    top: -10px;
+    left: 100px;
+    transform: rotate(45deg);
+    z-index: 1;
+}
+
+.line-info > .info-message {
+    padding: 5px 10px;
+}
+
+.line-info > .info-message span.error {
+    color: red;
+}
+
+.line-info > .info-message code {
+    color: white;
+    background-color: transparent;
+    display: inline-block;
 }
 
 .subproof-container {
@@ -191,7 +241,8 @@ body {
 }
 
 .line-expr input {
-    width: 300px;
+    min-width: 200px;
+    width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     padding: 6px;
@@ -209,10 +260,11 @@ body {
 }
 
 .no-expr .line-rule, .no-expr .line-refs {
-    display: none;
+    visibility: hidden;
 }
 
 .line-rule select {
+    color: #333;
     background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNC45NSIgaGVpZ2h0PSIxMCIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxLjQxIDQuNjcgMi40OCAzLjE4IDMuNTQgNC42NyAxLjQxIDQuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMy41NCA1LjMzIDIuNDggNi44MiAxLjQxIDUuMzMgMy41NCA1LjMzIi8+PC9zdmc+) white no-repeat 95% 50%;
     -moz-appearance: none; 
     -webkit-appearance: none; 
@@ -229,6 +281,7 @@ body {
     flex-direction: row;
     gap: 10px;
     padding: 5px 0;
+    width: 150px;
 }
 
 input.ref-part {
@@ -250,12 +303,22 @@ input.ref-subproof {
 .line-controls {
     display: flex;
     flex-direction: row;
+    width: 40px;
     padding-right: 10px;
     align-items: center;
 }
 
+.line-container.line-assumption > .line-rule {
+    flex-grow: 1;
+}
+
+.line-container.line-assumption > .line-refs {
+    display: none;
+}
+
 .line-container.line-assumption > .line-controls {
     padding-right: 0;
+    width: 30px;
 }
 
 .line-controls > a {
