@@ -11,61 +11,10 @@ function fitchExemple(container, key) {
     const proof = lq.Proof.fromJSON([
         {
             "type": "line",
-            "expr": "P implique Q",
-            "rule": "hypothesis",
+            "expr": null,
+            "rule": null,
             "refs": []
         },
-        {
-            "type": "line",
-            "expr": "non Q",
-            "rule": "hypothesis",
-            "refs": []
-        },
-        {
-            "type": "subproof",
-            "assumption": {
-            "type": "line",
-            "expr": "P",
-            "rule": "assumption",
-            "refs": []
-            },
-            "parts": [
-            {
-                "type": "line",
-                "expr": "Q",
-                "rule": "implE",
-                "refs": [
-                "1",
-                "3"
-                ]
-            }
-            ],
-            "conclusion": {
-            "type": "line",
-            "expr": "faux",
-            "rule": "notE",
-            "refs": [
-                "2",
-                "4"
-            ]
-            }
-        },
-        {
-            "type": "line",
-            "expr": "non P",
-            "rule": "notI",
-            "refs": [
-            "3-5"
-            ]
-        },
-        {
-            "type": "line",
-            "expr": "P implique faux",
-            "rule": "implI",
-            "refs": [
-            "3-5"
-            ]
-        }
     ]);
 
     setUpFitch(proof, container, {

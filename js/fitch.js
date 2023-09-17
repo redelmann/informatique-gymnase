@@ -143,7 +143,7 @@ function makeMenu(state, proof_container, menu_container, settings) {
                     const json = JSON.parse(reader.result);
                     state.proof = lq.Proof.fromJSON(json);
                     proof_container.innerHTML = '';
-                    makeProof(state, proof_container);
+                    makeProof(state, proof_container, settings);
                 }
                 catch (e) {
                     console.error(e);
@@ -350,7 +350,12 @@ function makeLine(line, container, position, type, settings) {
                 line.setMalformedExpr();
             }
         }
-        exprTooltip();
+        if (line.status.expr.length > 0) {
+            exprTooltip();
+        }
+        else {
+            closeInfo();
+        }
     });
     expr_div.appendChild(expr_input);
     div.appendChild(expr_div);
@@ -369,7 +374,13 @@ function makeLine(line, container, position, type, settings) {
         else {
             line.setRule(null);
         }
-        ruleTooltip();
+
+        if (line.status.rule.length > 0) {
+            ruleTooltip();
+        }
+        else {
+            closeInfo();
+        }
     });
     const empty_option = document.createElement('option');
     empty_option.value = '';
@@ -443,6 +454,12 @@ function makeLine(line, container, position, type, settings) {
             }
             else {
                 line.setRef(i, null);
+            }
+            if (line.status.refs[i].length > 0) {
+                refTooltip(i);
+            }
+            else {
+                closeInfo();
             }
         });
         return ref_input;
