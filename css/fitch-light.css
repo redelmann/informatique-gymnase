@@ -18,8 +18,6 @@
 .proof-container {
     display: flex;
     flex-direction: column;
-    width: fit-content;
-    min-width: 100%;
     font-size: 14pt;
     overflow-x: auto;
 }
