@@ -4,6 +4,12 @@ function setUpFitch(proof, container, settings) {
     if (!settings) {
         settings = {};
     }
+    if (settings.menu === undefined) {
+        settings.menu = true;
+    }
+    if (settings.static === undefined) {
+        settings.static = false;
+    }
     if (settings.rules === undefined) {
         settings.rules = [
             { type: "rule", name: "Hypothèse", rule: lq.hypothesis },
@@ -50,7 +56,9 @@ function setUpFitch(proof, container, settings) {
     const proof_div = document.createElement('div');
     const menu_div = document.createElement('div');
 
-    makeMenu(state, proof_div, menu_div, settings);
+    if (settings.menu) {
+        makeMenu(state, proof_div, menu_div, settings);
+    }
 
     let made_proof = false;
 
@@ -158,6 +166,17 @@ function makeMenu(state, proof_container, menu_container, settings) {
 }
 
 function makeSeparator(elem, container, position, settings) {
+    if (settings.static) {
+        const spacer = document.createElement('div');
+        spacer.classList.add('spacer');
+        if (position === undefined || position === null || position >= container.children.length) {
+            container.appendChild(spacer);
+        }
+        else {
+            container.insertBefore(spacer, container.children[position]);
+        }
+        return;
+    }
     const div = document.createElement('div');
     div.classList.add('separator');
     
@@ -337,6 +356,9 @@ function makeLine(line, container, position, type, settings) {
         is_assumption ? 'Hypothèse ?' :
         is_conclusion ? 'Conclusion ?' :
         'Proposition ?';
+    if (settings.static) {
+        expr_input.disabled = true;
+    }
     expr_input.addEventListener('change', function() {
         if (expr_input.value.length === 0) {
             line.setExpr(null);
@@ -382,6 +404,9 @@ function makeLine(line, container, position, type, settings) {
             closeInfo();
         }
     });
+    if (settings.static) {
+        rule_select.disabled = true;
+    }
     const empty_option = document.createElement('option');
     empty_option.value = '';
     empty_option.innerHTML = 'Règle ?';
@@ -462,6 +487,9 @@ function makeLine(line, container, position, type, settings) {
                 closeInfo();
             }
         });
+        if (settings.static) {
+            ref_input.disabled = true;
+        }
         return ref_input;
     }
 
@@ -493,7 +521,7 @@ function makeLine(line, container, position, type, settings) {
             line.root.deletePart(line);
         }
     });
-    if (!line.fixed || is_assumption) {
+    if (!settings.static && (!line.fixed || is_assumption)) {
         controls_div.appendChild(delete_button);
     }
 
