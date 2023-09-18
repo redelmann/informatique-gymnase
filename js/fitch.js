@@ -356,8 +356,13 @@ function makeLine(line, container, position, type, settings) {
         is_assumption ? 'Hypothèse ?' :
         is_conclusion ? 'Conclusion ?' :
         'Proposition ?';
+    const expr_replacement = document.createElement('div');
     if (settings.static) {
         expr_input.disabled = true;
+        expr_input.style.display = 'none';
+        expr_replacement.classList.add('static-expr');
+        expr_replacement.innerHTML = '';
+        expr_div.appendChild(expr_replacement);
     }
     expr_input.addEventListener('change', function() {
         if (expr_input.value.length === 0) {
@@ -404,8 +409,13 @@ function makeLine(line, container, position, type, settings) {
             closeInfo();
         }
     });
+    const rule_replacement = document.createElement('span');
     if (settings.static) {
         rule_select.disabled = true;
+        rule_select.style.display = 'none';
+        rule_replacement.classList.add('static-rule');
+        rule_replacement.innerHTML = '';
+        rule_div.appendChild(rule_replacement);
     }
     const empty_option = document.createElement('option');
     empty_option.value = '';
@@ -534,6 +544,10 @@ function makeLine(line, container, position, type, settings) {
         // Expr display
         if (line.expr) {
             expr_input.value = lq.verboseExprToString(line.expr);
+            if (settings.static) {
+                expr_replacement.innerHTML = '<code>' +
+                    lq.verboseExprToString(line.expr) + '</code>';
+            }
         }
 
         // Expr change
@@ -547,9 +561,18 @@ function makeLine(line, container, position, type, settings) {
         // Select correct rule
         if (line.rule) {
             rule_select.value = line.rule.name;
+            if (settings.static) {
+                const name = is_assumption ?
+                    'Hypothèse provisoire' :
+                    rule_select.options[rule_select.selectedIndex].innerHTML;
+                rule_replacement.innerHTML = name;
+            }
         }
         else {
             rule_select.value = '';
+            if (settings.static) {
+                rule_replacement.innerHTML = '';
+            }
         }
 
         const rule = line.rule;
