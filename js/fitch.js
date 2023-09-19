@@ -67,7 +67,6 @@ function setUpFitch(proof, container, settings) {
 
         // On refresh, load the proof from sessionStorage
         const json = window.sessionStorage.getItem('fitch-' + key);
-        console.log("JSON", json);
         if (json) {
             try {
                 state.proof = lq.Proof.fromJSON(JSON.parse(json));
@@ -434,7 +433,6 @@ function makeLine(line, container, position, type, settings) {
         else if (settings.rules[i].type === "rule") {
             rules.push(settings.rules[i]);
         }
-        console.log(rules);
         for (let j = 0; j < rules.length; j++) {
             const option = document.createElement('option');
             option.value = rules[j].rule.name;
@@ -490,7 +488,7 @@ function makeLine(line, container, position, type, settings) {
             else {
                 line.setRef(i, null);
             }
-            if (line.status.refs[i].length > 0) {
+            if (line.status.refs[i].errors.length > 0) {
                 refTooltip(i);
             }
             else {
@@ -537,7 +535,6 @@ function makeLine(line, container, position, type, settings) {
 
     function update(event) {
         let root_error_found = false;
-        console.log(line.number, event, line.status);
 
         had_expr = had_expr || line.expr !== null;
 
@@ -637,7 +634,7 @@ function makeLine(line, container, position, type, settings) {
 
         // Refs status
         for (let i = 0; i < line.status.refs.length; i++) {
-            if (line.status.refs[i].length > 0) {
+            if (line.status.refs[i].errors.length > 0) {
                 refs_div.children[i].classList.add('invalid');
                 root_error_found = true;
             }
@@ -655,8 +652,6 @@ function makeLine(line, container, position, type, settings) {
 
         // Update number
         number_div.innerHTML = line.number;
-
-        console.log("???", line.number, line.status);
         
         if (line.status.transitively_ok) {
             div.classList.remove('ok');
@@ -720,11 +715,6 @@ function makeLine(line, container, position, type, settings) {
         let line_width = div.getBoundingClientRect().width;
         let element_width = element.getBoundingClientRect().width;
         let info_width = info_div.getBoundingClientRect().width;
-
-        console.log("line_width", line_width);
-        console.log("element_width", element_width);
-        console.log("info_width", info_width);
-        console.log("x", x);
 
         let center = x + element_width / 2;
         let left = center - info_width / 2;
@@ -804,13 +794,14 @@ function makeLine(line, container, position, type, settings) {
         let meta_vars = [];
         let message = '';
         let specs = null;
+        let template = line.status.refs[i].template;
         if (line.expr !== null) {
             specs = line.rule.parts_and_subproof_specs(line.expr);
         }
         if (is_part) {
             const part = line.rule.parts[i];
             const spec = specs ? specs[0][i] : null;
-            const most_precise = spec ? spec : part;
+            const most_precise = template ? template : spec ? spec : part;
             message += 'Entrez le numéro d\'une ligne montrant <code>' +
                 lq.verboseExprToString(most_precise) + '</code>';
 
@@ -824,8 +815,14 @@ function makeLine(line, container, position, type, settings) {
             const spec = specs ? specs[1][j] : null;
             const assumption_spec = spec ? spec[0] : null;
             const conclusion_spec = spec ? spec[1] : null;
-            const most_precise_assumption = assumption_spec ? assumption_spec : assumption;
-            const most_precise_conclusion = conclusion_spec ? conclusion_spec : conclusion;
+            const most_precise_assumption =
+                template ? template[0] :
+                assumption_spec ? assumption_spec :
+                assumption;
+            const most_precise_conclusion =
+                template ? template[1] :
+                conclusion_spec ? conclusion_spec :
+                conclusion;
             message += 'Entrez les numéros d\'une sous-preuve ayant <code>' +
                 lq.verboseExprToString(most_precise_assumption) +
                 '</code> comme hypothèse provisoire et <code>' +
@@ -849,11 +846,11 @@ function makeLine(line, container, position, type, settings) {
             message += '.';
         }
 
-        if (line.status.refs[i].includes("unreachable")) {
+        if (line.status.refs[i].errors.includes("unreachable")) {
             message += '<br /><span class="error">La référence inatteignable.</span>';
         }
 
-        if (line.status.refs[i].includes("wrong_type")) {
+        if (line.status.refs[i].errors.includes("wrong_type")) {
             if (is_part) {
                 message += '<br /><span class="error">Indiquez un numéro de ligne, pas une sous-preuve.</span>';
             }
@@ -862,27 +859,27 @@ function makeLine(line, container, position, type, settings) {
             }
         }
 
-        if (line.status.refs[i].includes("missing_expr")) {
+        if (line.status.refs[i].errors.includes("missing_expr")) {
             message += '<br /><span class="error">La ligne indiquée n\'a pas de proposition.</span>';
         }
 
-        if (line.status.refs[i].includes("missing_assumption")) {
+        if (line.status.refs[i].errors.includes("missing_assumption")) {
             message += '<br /><span class="error">La sous-preuve indiquée n\'a pas d\'hypothèse provisoire.</span>';
         }
 
-        if (line.status.refs[i].includes("missing_conclusion")) {
+        if (line.status.refs[i].errors.includes("missing_conclusion")) {
             message += '<br /><span class="error">La sous-preuve indiquée n\'a pas de conclusion.</span>';
         }
 
-        if (line.status.refs[i].includes("wrong_expr")) {
+        if (line.status.refs[i].errors.includes("wrong_expr")) {
             message += '<br /><span class="error">La proposition de la ligne indiquée ne correspond pas.</span>';
         }
 
-        if (line.status.refs[i].includes("wrong_assumption")) {
+        if (line.status.refs[i].errors.includes("wrong_assumption")) {
             message += '<br /><span class="error">L\'hypothèse provisoire de la sous-preuve indiquée ne correspond pas.</span>';
         }
 
-        if (line.status.refs[i].includes("wrong_conclusion")) {
+        if (line.status.refs[i].errors.includes("wrong_conclusion")) {
             message += '<br /><span class="error">La conclusion de la sous-preuve indiquée ne correspond pas.</span>';
         }
 
@@ -892,7 +889,7 @@ function makeLine(line, container, position, type, settings) {
             line.status.rule.length > 0;
         if (!root_error_found) {
             for (let j = 0; j < line.status.refs.length; j++) {
-                if (line.status.refs[j].length > 0) {
+                if (line.status.refs[j].errors.length > 0) {
                     root_error_found = true;
                     break;
                 }
