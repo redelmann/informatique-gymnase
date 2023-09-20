@@ -848,7 +848,7 @@ function makeLine(line, container, position, type, settings) {
         }
 
         if (line.status.refs[i].errors.includes("unreachable")) {
-            message += '<br /><span class="error">La référence inatteignable.</span>';
+            message += '<br /><span class="error">La référence est inatteignable.</span>';
         }
 
         if (line.status.refs[i].errors.includes("wrong_type")) {
