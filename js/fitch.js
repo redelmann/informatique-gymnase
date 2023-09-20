@@ -752,7 +752,7 @@ function makeLine(line, container, position, type, settings) {
             message += 'Entrez une proposition.';
         }
         if (line.status.expr.includes("malformed")) {
-            message += '<br /><span class="error">La proposition mal formée.</span>';
+            message += '<br /><span class="error">La proposition est mal formée.</span>';
         }
         displayInfo(message, expr_input);
     }
