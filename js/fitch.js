@@ -180,7 +180,7 @@ function makeSeparator(elem, container, position, settings) {
     div.classList.add('separator');
     
     const addLineButton = document.createElement('a');
-    addLineButton.innerHTML = 'Ajouter une ligne';
+    addLineButton.innerHTML = 'Ajouter une nouvelle ligne';
     addLineButton.addEventListener('click', function() {
         let current_position = 0;
         let position_in_container = null;
@@ -534,6 +534,7 @@ function makeLine(line, container, position, type, settings) {
     }
 
     function update(event) {
+        console.log(line.number, line.status);
         let root_error_found = false;
 
         had_expr = had_expr || line.expr !== null;
