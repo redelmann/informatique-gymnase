@@ -118,6 +118,7 @@
 
 .line-info > .info-message {
     padding: 5px 10px;
+    user-select: none;
 }
 
 .line-info > .info-message span.error {
@@ -208,6 +209,7 @@
     visibility: hidden;
     opacity: 0.8;
     transition: visibility 0s, opacity 0.5s;
+    user-select: none;
 }
 
 .separator:hover {
@@ -346,6 +348,7 @@ input.ref-subproof:disabled,
     width: 30px;
     text-align: center;
     transition: all 0.5s;
+    user-select: none;
 }
 
 .line-controls > a:hover {

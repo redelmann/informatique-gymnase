@@ -326,7 +326,7 @@ function makeSubproof(subproof, container, position, settings) {
 function makeLine(line, container, position, type, settings) {
     const is_assumption = type === "assumption";
     const is_conclusion = type === "conclusion";
-    let had_expr = false;
+    let had_expr = is_assumption;
 
     let last_expr = null;
     let last_rule = null;
