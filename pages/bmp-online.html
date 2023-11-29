@@ -1,0 +1,26 @@
+---
+title: BMP
+---
+
+<section>
+<header>
+    <p>Éditeur héxadécimal</p>
+    <h2>Image BMP</h2>
+</header>
+
+<div class="cols-2" id="bmp-container"></div>
+
+<link rel="stylesheet" href="/css/bmp-editor.css" />
+<script src="/js/bmp-online-editor.js"></script>
+<script type="text/javascript">
+(function() {
+    var container = document.getElementById("bmp-container");
+
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name');
+    const zone = params.get('zone') || 'default';
+
+    setup_bmp_online_editor(container, name, zone);
+})();
+</script>
+</section>
