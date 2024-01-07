@@ -86,6 +86,12 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" (baseContext defaultContext)
             >>= relativizeUrls
 
+    match "errors/**" $ do
+        route $ idRoute
+        compile $ getResourceBody
+            >>= applyAsTemplate (baseContext defaultContext)
+            >>= loadAndApplyTemplate "templates/default.html" (baseContext defaultContext)
+
     match "chapters/*" $ do
         route $ gsubRoute "chapters/" (const "")
         compile $ getResourceBody
