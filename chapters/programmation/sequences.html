@@ -316,8 +316,43 @@ $endcodeplay$
 <h3>Déconstruction d'un tuple</h3>
 
 <p>
-    À venir.
+    Il est possible de <i>déconstruire</i> un tuple à l'aide de l'instruction
+    d'affectation, en mettant sur la droite de l'opérateur <code>=</code>
+    le tuple à déconstruire et sur la gauche les variables
+    auxquelles affecter les valeurs du tuple, séparées par des virgules.
 </p>
+
+$codeplay$
+tuple_exemple = (10, 20, 30)
+a, b, c = tuple_exemple
+print("a:", a)
+print("b:", b)
+print("c:", c)
+$endcodeplay$
+
+<p>
+    Il est possible de ne pas utiliser toutes les valeurs du tuple
+    lors de la déconstruction, en utilisant un <i>underscore</i> (<code>_</code>)
+    pour les valeurs que l'on ne veut pas utiliser.
+</p>
+
+$codeplay$
+tuple_exemple = (10, 20, 30)
+a, _, c = tuple_exemple
+print("a:", a)
+print("c:", c)
+$endcodeplay$
+
+<p>
+    Il est possible de déconstruire un tuple directement dans une boucle <code>for</code>,
+    comme dans l'exemple suivant.
+</p>
+
+$codeplay$
+sequence_de_tuples = ((10, 50), (20, 30), (40, 10))
+for a, b in sequence_de_tuples:
+    print("a:", a, "b:", b)
+$endcodeplay$
 
 <h3>Rechercher une valeur</h3>
 
