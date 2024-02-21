@@ -22,10 +22,67 @@ body.grabbing * {
     cursor: grabbing !important;
 }
 
+#main-content {
+    display: flex;
+}
+
+#main-content > section {
+    flex: 1 1 auto;
+}
+
+#sec-nav {
+    display: none;
+    flex-direction: column;
+    flex: 0 0 250px;
+    position: sticky;
+    top: 10px;
+    align-self: flex-start;
+    max-height: 100vh;
+    overflow-y: auto;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+#sec-nav > a {
+    display: block;
+    padding: 5px;
+    padding-left: 15px;
+    text-decoration: none;
+    color: #444;
+    font-size: 0.9em;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #eee;
+}
+
+#sec-nav > a.before-active {
+    border-left: 3px solid #ccc;
+    color: #999;
+}
+
+#sec-nav > a.active, #sec-nav:not(:has(.active)) > a.before-active:not(:has(+ .before-active)) {
+    border-left: 3px solid var(--color-3);
+    color: #222;
+}
+
+
+#sec-nav > a.secondary {
+    padding-left: 25px;
+}
+
+#sec-nav > a.tertiary {
+    padding-left: 35px;
+}
+
 h1, h2, h3, h4, h5 {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: normal;
     clear: both;
+    scroll-margin-top: 20px;
+}
+
+section > header > h2 {
+    scroll-margin-top: 60px;
 }
 
 h1 {
@@ -211,7 +268,7 @@ blockquote p:last-child {
 body {
     width: 100%;
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 1250px;
 }
 
 main {
@@ -902,7 +959,9 @@ table.operators td:first-child {
 }
 
 @media (min-width: 1200px) {
-
+    #sec-nav {
+        display: flex;
+    }
 }
 
 .codewords {
