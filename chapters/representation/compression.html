@@ -1009,6 +1009,8 @@ $endtryout$
         const freqBufferLength = freqAnalysers[0].frequencyBinCount;
         const freqDataArray = new Uint8Array(freqBufferLength);
 
+        canvasWidth = canvasWrapper.clientWidth;
+        canvas.width = canvasWidth;
 
         canvasCtx.clearRect(0, 0, canvasWidth, CANVAS_HEIGHT);
         function draw() {
