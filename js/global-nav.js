@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // Setup the secondary navigation.
     const secNav = document.getElementById('sec-nav');
     const section = document.querySelector('#main-content > section');
-    const headings = section.querySelectorAll('h2, h3, h4');
+    const headings = section ? section.querySelectorAll('h2, h3, h4') : [];
 
     let headings_count = 0;
     for (let i = 0; i < headings.length; i++) {
@@ -92,7 +92,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         secNav.appendChild(link);
     }
     if (headings_count < 2) {
-        secNav.style.display = 'none';
+        if (secNav) {
+            secNav.style.display = 'none';
+        }
     }
     else {
 
@@ -145,8 +147,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         const id = window.location.hash.substring(1);
         const elem = document.getElementById(id);
         if (elem) {
-            console.log("Scrolling to #" + id)
-            console.log(elem);
             elem.scrollIntoView({
                 behavior: "smooth",
             });
