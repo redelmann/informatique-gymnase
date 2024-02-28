@@ -1,17 +1,14 @@
 ---
-title: Propositions basiques
+title: Propositions
 order: 1
 ---
 
 Comme nous l'avons vu en introduction de ce chapitre, la logique propositionnelle est une branche de la logique qui étudie les propositions.
-Dans cette section, nous allons discuter de ce qu'est une <i></i>proposition</i> et regarder les constructions de bases qui permettent d'en former. 
-
-<h3>Propositions</h3>
+Dans cette section, nous allons discuter de ce qu'est une <i>proposition</i> et regarder les constructions de bases qui permettent d'en former. 
 
 <p>
-    La logique propositionnelle a pour objet d'étude les propositions.
-    Une <i>proposition</i> est simplement un énoncé, une affirmation, auquel on peut accorder une <i>valeur de vérité</i>.
-    Les propositions sont des affirmations qui peuvent être vraies ou fausses selon le contexte que l'on considère.
+    La logique propositionnelle a pour objet d'étude les <b>propositions</b>.
+    De manière informelle, une <i>proposition</i> est simplement un énoncé, une affirmation, qui peut être vrai ou faux.
 </p>
 
 $example$
@@ -19,6 +16,7 @@ $example$
     La phrase <i>&laquo; La Terre est ronde. &raquo;</i> est une proposition,
     tout comme la phrase <i>&laquo; La maison est bleue. &raquo;</i>.
     Dans les deux cas, la phrase est une affirmation que l'on peut considérer comme <i>vraie</i> ou <i>fausse</i>.
+    Savoir si ces phrases sont vraies ou fausses dépend du contexte où elles sont énoncées.
 </p>
 <p>
     Au contraire, les phrases <i>&laquo; Est-ce qu'il y a quelqu'un ? &raquo;</i>,
@@ -27,36 +25,41 @@ $example$
 </p>
 $endexample$
 
-<h3>Valeurs de vérité</h3>
+<p>
+    Dans ce cours, nous allons traiter les propositions de manière formelle, précise et systématique.
+    Nous allons introduire une notation pour représenter les propositions, et nous allons étudier les règles qui permettent de former des propositions plus complexes à partir de propositions simples.
+    Comme nous allons le voir, nous aurons des propositions de base, que l'on appellera <i>propositions basiques</i>,
+    et des <i>connecteurs logiques</i> (comme <i>et</i> et <i>ou</i>) qui permettront de former des propositions plus complexes à partir de propositions propositions plus simples.
+</p>
 
-<div class="illustration left">
-    <img src="images/zero_un.png" style="max-height: 200px;" alt="Zéro et un.">
+<h2>Propositions basiques</h2>
+
+<div class="illustration right">
+    <img src="images/lego.png" alt="Dessin de briques LEGO.">
 </div>
 
+
 <p>
-    La <i>valeur de vérité</i> d'une proposition est soit <i>vraie</i> soit <i>fausse</i>.
-    On utilise le symbole 1 pour représenter le <i>vrai</i> et le symbole 0 pour représenter le <i>faux</i>.
+    Les propositions basiques sont les propositions les plus simples et forment les briques de base de la logique propositionnelle.
+    Ces propositions ne peuvent pas être décomposées en propositions plus simples.
+    On dit aussi que ce sont des <i>propositions atomiques</i> (qui ne peuvent pas être coupées).
+    Ces propositions sont souvent des affirmations simples dont la véracité peut être évaluée de manière directe.
 </p>
 
 <p>
-    La valeur de vérité d'une proposition n'est pas forcément fixe.
-    Dans certains contextes, certaines propositions peuvent être vraies (1), alors que dans d'autres contextes elles peuvent être fausses (0).
-    Par exemple, la proposition <i>&laquo; La maison est bleue. &raquo;</i> peut être vraie ou fausse selon la maison à laquelle on fait référence.
-    On parlera d'<i>interprétation</i> d'une proposition pour faire référence à ce contexte.
+    Comme propositions basiques, nous aurons deux types de propositions :
 </p>
 
-$example$
-<p>
-    La valeur de vérité de la proposition <i>&laquo; Nous sommes lundi. &raquo;</i> peut être 1 (<i>vrai</i>) ou 0 (<i>faux</i>).
-    Selon l'interprétation que l'on considère, la proposition peut être vraie ou fausse.
-</p>
-$endexample$
+<ul>
+    <li>Les <i>variables propositionnelles</i> : ce sont des noms que l'on donne à des propositions simples.</li>
+    <li>Les <i>constantes</i> : ce sont des propositions qui sont toujours vraies ou toujours fausses.</li>
+</ul>
 
 <h3>Variables</h3>
 
 <p>
     Pour représenter des propositions simples telles que celles que l'on a pu voir, on utilisera ce qu'on appelle des <i>variables propositionnelles</i> ou plus simplement <i>variables</i>.
-    Une variable est un simple nom que l'on donne à une proposition.
+    Une variable est un simple nom que l'on donne à une proposition simple.
     Par exemple, on peut nommer la proposition <i>&laquo; La maison est bleue. &raquo;</i> par la variable <code>B</code>.
     Les variables sont souvent représentées par des lettres majuscules.
 </p>
@@ -73,7 +76,7 @@ $remark$
     Au final, ce qui comptera, ce seront les propositions
     plus complexes que l'on pourra former à partir de ces simples variables.
     La logique propositionnelle s'attache à étudier les propositions
-    au travers de leur structure, et non via leur signification.
+    au travers de leur structure, et non via la signification des diverses variables.
 </p>
 $endremark$
 
@@ -87,18 +90,17 @@ $endremark$
     En plus des variables propositionnelles, on considère deux propositions constantes :
     <code>vrai</code> et <code>faux</code>.
     Ces propositions sont dites <i>constantes</i>, car leur valeur de vérité n'est pas sujette à interprétation.
-    La proposition <code>vrai</code> est une affirmation toujours vraie (valeur de vérité 1), tandis que la proposition <code>faux</code> est une affirmation toujours fausse (valeur de vérité 0).
+    La proposition <code>vrai</code> est une affirmation toujours vraie, tandis que la proposition <code>faux</code> est une affirmation toujours fausse.
 </p>
 
 $remark$
 <p>
     On note parfois la proposition <code>vrai</code> avec le symbole \(\top\) et la proposition <code>faux</code> avec le symbole \(\bot\).
-    La valeur de vérité de \(\top\) (<code>vrai</code>) est 1 et la valeur de vérité de \(\bot\) (<code>faux</code>) est 0.
 </p>
 <p>
-    Certaines présentations de la logique utilisent directement les symboles 1 et 0 pour représenter les propositions <code>vrai</code> et <code>faux</code>,
-    sans faire de distinction avec les <i>valeurs de vérité</i>.
-    Dans ce cours, nous préférons faire cette distinction.
+    Certaines présentations de la logique utilisent les symboles 1 et 0 pour représenter les propositions <code>vrai</code> et <code>faux</code>.
+    Dans ce cours, nous réserverons ces symboles pour représenter les <i>valeurs de vérité</i>, 
+    une notion que nous allons introduire dans la suite de ce chapitre.
 </p>
 $endremark$
 
@@ -131,20 +133,6 @@ $selfcheck$
         <option>la météo</option>
     </select>.
     Au contraire, les constantes ont toujours la même valeur de vérité.
-    La proposition constante <code>vrai</code> a pour valeur de vérité 
-    <select class="self-pick">
-        <option>⊤</option>
-        <option>⊥</option>
-        <option data-correct>1</option>
-        <option>0</option>
-    </select>.
-    La constante <code>faux</code> a pour valeur de vérité 
-    <select class="self-pick">
-        <option>⊤</option>
-        <option>⊥</option>
-        <option>1</option>
-        <option data-correct>0</option>
-    </select>.
 </p>
 $endselfcheck$
 
@@ -155,8 +143,6 @@ $master$
 
 <ul>
     <li>Définir ce qu'est une proposition.</li>
-    <li>Expliquer ce qu'est une valeur de vérité.</li>
-    <li>Lister les deux valeurs de vérité possibles.</li>
     <li>Expliquer ce qu'est une variable propositionnelle.</li>
     <li>Expliquer ce qu'est une constante dans le cadre de la logique propositionnelle.</li>
     <li>Lister les deux constantes de la logique propositionnelle.</li>

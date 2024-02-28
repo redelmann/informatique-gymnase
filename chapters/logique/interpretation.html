@@ -5,14 +5,39 @@ order: 3
 
 <p>
     Dans cette section, nous allons regarder comment
-    déterminer la valeur de vérité des propositions.
+    déterminer la <i>valeur de vérité</i> des propositions, c'est-à-dire si elles sont vraies ou fausses.
     Dans quelles conditions une proposition est-elle vraie ?
     Dans quelles conditions une proposition est-elle fausse ?
     Par quel procédé peut-on calculer la valeur de vérité d'une proposition ?
 </p>
 
+<h3>Valeurs de vérité</h3>
+
+<div class="illustration right">
+    <img src="images/zero_un.png" style="max-height: 200px;" alt="Zéro et un.">
+</div>
+
 <p>
-    De manière informelle, la valeur de vérité d'une proposition dépend du contexte auquel on l'applique.
+    La <i>valeur de vérité</i> d'une proposition est soit <i>vraie</i> soit <i>fausse</i>.
+    On utilise le symbole 1 pour représenter le <i>vrai</i> et le symbole 0 pour représenter le <i>faux</i>.
+</p>
+
+<p>
+    Comme nous allons le voir dans la suite de cette section, la valeur de vérité d'une proposition n'est pas forcément fixe.
+    Dans certains contextes, certaines propositions peuvent être vraies (1), alors que dans d'autres contextes elles peuvent être fausses (0).
+</p>
+
+$example$
+<p>
+    La valeur de vérité de la proposition <i>&laquo; Nous sommes lundi. &raquo;</i> peut être 1 (<i>vrai</i>) ou 0 (<i>faux</i>).
+    Selon l'interprétation que l'on considère, la proposition peut être vraie ou fausse.
+    En effet, si l'on considère le contexte où l'on est un lundi, la proposition est vraie,
+    alors que si l'on considère le contexte où l'on est un mardi, la proposition est fausse.
+</p>
+$endexample$
+
+<p>
+    La valeur de vérité d'une proposition dépend du contexte auquel on l'applique.
     Par exemple, la proposition <i>&laquo; La maison est rouge. &raquo;</i> est vraie si l'on parle d'une maison rouge, mais fausse si l'on parle d'une maison bleue.
     Pour parler des différents contextes auxquels on peut appliquer une proposition, on utilise le concept d'<i>interprétation</i>.
 </p>
@@ -24,7 +49,7 @@ order: 3
 </div>
 
 <p>
-    Formellement, on appelle une <i>interprétation</i> d'une proposition une assignation de valeur de vérité
+    On appelle une <i>interprétation</i> d'une proposition une assignation de valeur de vérité
     à chaque variable propositionnelle utilisée dans la proposition.
     Autrement dit, une interprétation liste la valeur de vérité de chaque variable propositionnelle utilisée dans la proposition.
     Pour chaque variable, l'interprétation permet de savoir si la variable est vraie ou fausse.
@@ -94,7 +119,9 @@ $endremark$
 </p>
 <p>
     Pour ce faire, il suffit de remplacer les occurences des différentes variables par leur valeur de vérité telle que renseignée par l'interprétation,
-    puis d'appliquer les connecteurs en respectant l'ordre d'application.</p>
+    de remplacer les constantes par leur valeur de vérité (0 pour <code>faux</code> et 1 pour <code>vrai</code>),
+    puis d'appliquer les connecteurs en respectant l'ordre d'application.
+</p>
 <p>
     Pour savoir la valeur retournée par les différents connecteurs en fonction des valeurs de vérité sur lesquelles ils sont appliqués,
     on peut utiliser les tableaux présentés ci-dessous.
@@ -341,6 +368,8 @@ $master$
 </p>
 
 <ul>
+    <li>Expliquer ce qu'est une valeur de vérité.</li>
+    <li>Lister les deux valeurs de vérité possibles.</li>
     <li>Définir ce qu'est une interprétation en logique propositionnelle.</li>
     <li>Lister les différentes interprétations d'une proposition quelconque.</li>
     <li>Déterminer la valeur de vérité d'une proposition étant donné une interprétation.</li>
