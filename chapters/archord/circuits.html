@@ -1,12 +1,11 @@
 ---
 title: Circuits
-order: 3
+order: 1
 ---
-
-<script src="/js/truth-tables.js"></script>
 
 <style>
     .logic-frame {
+        width: 250px;
         border: 0;
         margin: auto;
         margin-bottom: 40px;
@@ -14,451 +13,246 @@ order: 3
     }
 </style>
 
-<p>
-    Dans la section précédente, nous avons vu le concept de porte logique,
-    un composant électronique qui prend en entrée un ou plusieurs signaux
-    binaires et qui produit en sortie un signal binaire en fonction de
-    la valeur des signaux d'entrée. Ces portes logiques correspondent
-    aux opérateurs logiques que nous avons vus au chapitre précédent.
-</p>
 
 <p>
-    Dans cette section, nous allons voir comment les portes logiques peuvent être combinées pour former des circuits
-    plus complexes.
-    Nous allons aborder quelques exemples de circuits relativement simples qui
-    sont réalisés à partir de portes logiques.
-    De manière intéressante, les circuits que nous allons
-    voir dans cette section pourront ensuite à leur tour être utilisés
-    comme des composants de circuits plus complexes, via un mouvement d'<i>abstraction</i>.
+    Un circuit, ou circuit logique, est un ensemble de composants
+    électroniques interconnectés qui permettent de réaliser une tâche
+    spécifique de traitement de l'information.
+    Il s'agit donc d'un système selon la définition de la section précédente.
 </p>
 
 <p>
-    Le circuit que nous allons étudier dans cette section est appelé
-    un <i>multiplexeur</i>.
-    Il s'agit d'un circuit qui permet de choisir, via un signal d'entrée,
-    un signal à propager entre plusieurs signaux de données en entrée. 
+    Les composants électroniques qui composent un circuit sont
+    divers et variés. Nous aurons l'occasion d'en découvrir et d'en concevoir 
+    de nombreux au fil de ce chapitre.
+    Nous commencerons par les composants les plus simples, les <i>portes logiques</i>,
+    pour ensuite construire des circuits plus complexes.
+    Ces circuits plus complexes, grâce à un mouvement d'abstraction,
+    nous serviront de composants pour construire des circuits encore plus complexes.
+    Au final, nous verrons comment concevoir un circuit capable d'exécuter des
+    <i>programmes</i>, autrement dit, un <i>ordinateur</i>.
 </p>
 
-<h2>Multiplexeur</h2>
-
+$tryout$
 <p>
-    Un multiplexeur est un circuit qui permet de choisir entre plusieurs entrées
-    quelle est celle qui sera transmise en sortie.
-    Un tel circuit peut être utilisé pour choisir entre plusieurs
-    sources de données laquelle sera transmise à un autre circuit.
-    Par exemple, un multiplexeur peut être utilisé pour choisir entre
-    plusieurs signaux vidéo celui qui sera affiché à l'écran.
-</p>
-
-</p>
-    Il existe différentes variantes de multiplexeurs, mais nous allons tout d'abord nous
-    intéresser à la plus simple d'entre elles, le multiplexeur 2 vers 1.
-    Le multiplexeur 2 vers 1 est représenté schématiquement dans le circuit
-    ci-dessous.
+    Dans ce chapitre, nous allons nous intéresser à de nombreux circuits,
+    de plus en plus complexes.
+    Nous allons représenter des circuits par des schémas précis.
+    Ces schémas, grâce au travail de <a href="https://github.com/jppellet/Logic-Circuit-Simulator">Jean-Philippe Pellet</a>, sont interactifs.
+    Par exemple, dans le schéma ci-dessous, il est possible de cliquer sur les entrées du circuits,
+    représentés par des boutons, pour observer son comportement.
 </p>
 
 <div class="scroll-x">
-    <div class="logic-frame" style="width: 300px; height: 150px;">
+<div class="logic-frame" style="height: 160px; width: 350px;">
+    <logic-editor mode="tryout" hidereset>
+      <script type="application/json">
+        {
+          "v": 4,
+          "in": [
+            {"pos": [20, 20], "id": 0, "val": 0},
+            {"pos": [20, 60], "id": 1, "val": 0},
+            {"pos": [20, 100], "id": 2, "val": 0},
+            {"pos": [20, 140], "id": 3, "val": 0}
+          ],
+          "out": [
+            {"type": "7seg", "pos": [280, 90], "id": [26, 27, 28, 29, 30, 31, 32, 33]}
+          ],
+          "components": [
+            {"type": "decoder-7seg", "pos": [150, 80], "in": [4, 5, 6, 7], "out": [8, 9, 10, 11, 12, 13, 14]}
+          ],
+          "wires": [[2, 6], [3, 7], [1, 5], [0, 4], [8, 26], [9, 27], [10, 28], [11, 29], [12, 30], [13, 31], [14, 32]]
+        }
+      </script>
+    </logic-editor>
+  </div>
+</div>
+
+<p>
+    Ici, le circuit a quatre entrées et aucune sortie filaire visible.
+    En guise de sortie, nous avons un afficheur, appelé <i>afficheur à 7 segments</i>.
+    En fonction des valeurs en entrée, l'afficheur affiche un chiffre entre 0 et 9 ou une lettre entre A et F.
+</p>
+
+$endtryout$
+
+<script src="/js/logic-simulator.js" type="text/javascript"></script>
+
+<p>
+    Avant de ce plonger dans ces composants et dans 
+    la conception de circuits, il est important de comprendre
+    la notion d'<i>interface</i> d'un circuit.
+</p>
+
+<h2>Interface</h2>
+
+<p>
+    Les entrées et les sorties sont la partie visible d'un circuit.
+    Elles permettent de communiquer avec le circuit.
+    Cette interface est la partie du circuit qui est destinée à être utilisée
+    par les personnes qui font usage du circuit,
+    voire par d'autres circuits.
+    C'est par le biais de l'interface que l'on interagit avec le circuit.
+</p>
+
+<h3>Entrées</h3>
+
+<div class="illustration left">
+    <img src="images/interrupteur.png" style="height: 200px;" alt="Un interrupteur.">
+</div>
+
+<p>
+    Pour communiquer avec un circuit, il faut pouvoir lui envoyer des données.
+    Lorsque l'on souhaite qu'un humain puisse communiquer avec un circuit,
+    il faut lui fournir un moyen de le faire.
+    On utilise pour cela généralement des composants comme des boutons ou des interrupteurs
+    qui peuvent être allumés ou éteints.
+    Ces composants sont destinées à être utilisées par
+    les personnes qui utilisent le circuit et permettent d'entrer des données ou de configurer
+    le circuit.
+</p>
+
+<p>
+    Dans le cas où un circuit est destiné à être utilisé par d'autres circuits,
+    on se passe généralement d'une interface humaine et on utilise
+    simplement des fils électriques comme entrées.
+</p>
+
+$tryout$
+<p>
+    Ci-dessous est un exemple schématique d'entrée.
+    L'entrée est représentée par un bouton qui peut être allumé ou éteint.
+    Dans le cas où il est allumé, l'entrée fournit un <i>signal</i> de valeur 1.
+    Lorsque il est éteint, l'entrée fournit un signal de valeur 0.
+    <i>Dans le schéma de circuit ci-dessous, vous pouvez allumer ou éteindre l'entrée en cliquant dessus, essayez !</i>
+</p>
+
+<div class="scroll-x">
+    <div class="logic-frame" style="height: 40px;">
         <logic-editor mode="tryout" hidereset>
             <script type="application/json">
                 {
                     "v": 4,
                     "opts": {"hideTooltips": true},
                     "in": [
-                      {"pos": [50, 70], "id": 19, "name": "V0", "val": 0},
-                      {"pos": [50, 130], "id": 20, "name": "V1", "val": 0},
-                      {"pos": [150, 40], "orient": "s", "id": 21, "name": "S", "val": 0}
-                    ],
-                    "out": [
-                      {"pos": [240, 100], "id": 22, "name": "Z"}
-                    ],
-                    "components": [
-                      {"type": "mux-2to1", "pos": [150, 100], "in": [15, 16, 17], "out": 18}
-                    ],
-                    "wires": [[19, 15], [20, 16], [21, 17], [18, 22]]
-                  }
+                        {"pos": [120, 20], "id": 3, "val": 0, "name": "A"}
+                    ]
+                }
             </script>
         </logic-editor>
     </div>
 </div>
 
-$tryout$
 <p>
-    Changez les valeurs en entrée du circuit et observez la valeur en sortie.
-    Modifiez la valeur de l'entrée <code>S</code> et observez ensuite
-    quelle est l'entrée entre <code>V0</code> et <code>V1</code> qui est retransmise en sortie.
+    Dans le schéma de circuit ci-dessus, l'entrée est annotée du nom <i>A</i>.
+    Annoter les entrées d'un nom permet de les identifier facilement.
+</p>
+
+<p>
+    À noter que pour l'instant, l'entrée n'est pas reliée à des composants.
+    À part l'allumer ou l'éteindre, cliquer dessus ne fait rien.
 </p>
 $endtryout$
 
+$remark$
 <p>
-    Dans un multiplexeur 2 vers 1, il y a deux entrées de données (<code>V0</code> et <code>V1</code>),
-    une entrée de sélection (<code>S</code>) et une unique sortie (<code>Z</code>).
-    La valeur à l'entrée <code>S</code> permet de choisir quelle est l'entrée de données qui sera transmise en sortie.
-    Lorsque l'entrée <code>S</code> reçoit la valeur <code>0</code>, la valeur à l'entrée <code>V0</code> est transmise en sortie,
-    alors que lorsque l'entrée <code>S</code> reçoit la valeur <code>1</code>, c'est la valeur à l'entrée <code>V1</code> qui est transmise en sortie.
+    Dans un ordinateur, les touches du clavier sont des entrées.
+    Les boutons de la souris et ses capteurs de déplacement sont aussi des
+    entrées de l'ordinateur.
 </p>
+$endremark$
 
-<p>
-    Le multiplexeur 2 vers 1 dans le circuit ci-dessus est représenté schématiquement
-    comme un unique composant. Ce composant n'est pas un composant logique de base,
-    mais un composant réalisé à partir de portes logiques.
-    Dans la suite de cette section, nous allons voir comment construire un circuit
-    qui réalise un multiplexeur 2 vers 1 à partir de portes logiques.
-    Pour cela, nous allons commencer par décrire le comportement du multiplexeur 2 vers 1
-    à l'aide d'une table de vérité.
-</p>
+<h3>Sorties</h3>
 
-<h3>Table de vérité</h3>
-
-<p>
-    Le comportement du multiplexeur 2 vers 1 peut être décrit par une table de vérité.
-    En effet, la valeur en sortie du multiplexeur dépend de la valeur de ses entrées.
-    Cette table de vérité pourra ensuite nous être utile afin de déterminer
-    comment construire un circuit qui réalise un multiplexeur 2 vers 1.
-</p>
-
-<table class="truth-table" id="truth-table-mul-2-1"></table>
-
-<script type="text/javascript">
-populateTable('truth-table-mul-2-1', 'non S et V0 ou S et V1', ['Z']);
-</script>
-
-<p>
-    La table de vérité ci-dessus décrit le comportement du multiplexeur 2 vers 1.
-    On observe que lorsque l'entrée <code>S</code> reçoit la valeur <code>0</code>,
-    pour qu'il y ait une valeur <code>1</code> en sortie, il faut que l'entrée <code>V0</code> reçoive la valeur <code>1</code>.
-    De même, lorsque l'entrée <code>S</code> reçoit la valeur <code>1</code>,
-    pour qu'il y ait une valeur <code>1</code> en sortie, il faut que l'entrée <code>V1</code> reçoive la valeur <code>1</code>.
-</p>
-
-<p>
-    De cette observation, on peut obtenir comme expression logique de la sortie <code>Z</code> du multiplexeur 2 vers 1 :
-    <code>((non S) et V0) ou (S et V1)</code>.
-    En effet, pour que la sortie <code>Z</code> soit égale à <code>1</code>,
-    soit <code>S</code> est à <code>0</code> et <code>V0</code> est à <code>1</code>,
-    soit <code>S</code> est à <code>1</code> et <code>V1</code> est à <code>1</code>.
-</p>
-
-<h3>Conception du circuit</h3>
-
-<p>
-    L'expression logique de la sortie <code>Z</code> du multiplexeur 2 vers 1
-    nous permet de façon immédiate de construire un circuit.
-    En effet, il suffit de réaliser les opérations décrites par l'expression
-    à l'aide de portes logiques.
-    On peut ainsi construire le circuit suivant :
-</p>
-
-<div class="scroll-x">
-    <div class="logic-frame" style="width: 520px; height: 220px;">
-        <logic-editor mode="tryout" hidereset>
-            <script type="application/json">
-                {
-                    "v": 4,
-                    "opts": {"hideTooltips": true},
-                    "in": [
-                      {"pos": [50, 120], "id": 19, "name": "V0", "val": 0},
-                      {"pos": [50, 200], "id": 20, "name": "V1", "val": 0},
-                      {"pos": [110, 40], "orient": "s", "id": 21, "name": "S", "val": 0}
-                    ],
-                    "out": [
-                      {"pos": [480, 150], "id": 22, "name": "Z"}
-                    ],
-                    "gates": [
-                      {"type": "AND", "pos": [290, 110], "in": [23, 24], "out": 25},
-                      {"type": "AND", "pos": [290, 190], "in": [26, 27], "out": 28},
-                      {"type": "NOT", "pos": [180, 90], "in": 29, "out": 30},
-                      {"type": "OR", "pos": [410, 150], "in": [31, 32], "out": 33}
-                    ],
-                    "wires": [[30, 23], [21, 29], [19, 24], [20, 27], [21, 26, {"via": [[140, 180]]}], [25, 31], [28, 32], [33, 22]]
-                  }
-            </script>
-        </logic-editor>
-    </div>
+<div class="illustration right">
+    <img src="images/ampoule.png" alt="Une ampoule.">
 </div>
+
+<p>
+    Les sorties d'un circuit sont des composants qui
+    permettent de communiquer un résultat à l'utilisateur
+    ou à d'autres circuits.
+    Lorsqu'on réalise un véritable circuit, les sorties sont généralement
+    des composants physiques simples tels que des ampoules ou des diodes.
+    Ci-dessous est un exemple de sortie représentée de façon schématique.
+</p>
+
+<p>
+    Lorsqu'une sortie est destinée à être utilisée par un autre circuit,
+    on utilise généralement de simples fils comme sorties.
+</p>
+
+<div class="logic-frame" style="height: 40px;">
+    <logic-editor mode="tryout" hidereset>
+        <script type="application/json">
+            {
+                "v": 4,
+                "opts": {"hideTooltips": true},
+                "out": [
+                    {"pos": [120, 20], "id": 3, "name": "S"}
+                ]
+            }
+        </script>
+    </logic-editor>
+</div>
+
+<p>
+    Tout comme les entrées, les sorties peuvent être annotées d'un nom.
+    Ici, la sortie est annotée du nom <i>S</i>.
+</p>
+<p>
+    Remarquez qu'il n'est pas possible de changer la valeur d'une sortie en cliquant dessus.
+    En effet, les sorties sont destinées à fournir un résultat, et non à être modifiées directement par l'utilisateur.
+</p>
+<p>
+    Pour changer la valeur d'une sortie, il faut lui fournir un signal en la connectant à
+    d'autres composants par le biais de <i>fils</i>.
+</p>
 
 $tryout$
 <p>
-    Changez les valeurs en entrée du circuit et observez la valeur en sortie.
-    Vérifiez que le comportement du circuit est bien celui décrit par la table de vérité.
+    Dans l'exemple ci-dessous,
+    la sortie <i>S</i> est directement connectée à l'entrée <i>A</i> par un fil.
+    Le fil transmet le signal de l'entrée <i>A</i> à la sortie <i>S</i>.
+    Lorsque l'entrée <i>A</i> est allumée, la sortie <i>S</i> est également allumée.
+    Alors que lorsque l'entrée <i>A</i> est éteinte, la sortie <i>S</i> est elle aussi éteinte. 
 </p>
-$endtryout$
 
-<p>
-    Par un mouvement d'abstraction, on peut ainsi prendre un circuit réalisant
-    un multiplexeur 2 vers 1 et le représenter comme un unique composant, que l'on
-    peut ensuite réutiliser dans d'autres circuits. Ce composant a le schéma suivant,
-    que l'on avait déjà vu plus haut :
-</p>
 
 <div class="scroll-x">
-    <div class="logic-frame" style="width: 100px; height: 75px; margin-top: 10px; margin-bottom: 10px;">
+    <div class="logic-frame" style="height: 40px;">
         <logic-editor mode="tryout" hidereset>
             <script type="application/json">
-                {
-                    "v": 4,
-                    "opts": {"showDisconnectedPins": true, "hideWireColors": true, "hideTooltips": true},
-                    "in": [],
-                    "out": [],
-                    "components": [
-                      {"type": "mux-2to1", "pos": [50, 40], "in": [15, 16, 17], "out": 18}
-                    ],
-                    "wires": []
-                  }
+            {
+            "v": 4,
+            "opts": {"hideTooltips": true},
+            "in": [
+                {"pos": [40, 20], "id": 3, "val": 0, "name": "A"}
+            ],
+            "out": [
+                {"pos": [200, 20], "id": 4, "name": "S"}
+            ],
+            "wires": [[3, 4]]
+            }
             </script>
         </logic-editor>
     </div>
 </div>
-
-</p>
-    Il est important de comprendre ce mécanisme d'abstraction.
-    En effet, il permet de réutiliser des circuits déjà conçus afin de construire
-    des circuits plus complexes.
-    En quelque sortes, il permet d'enrichir le vocabulaire à notre disposition
-    pour décrire des circuits.
-</p>
-
-<h3>Variantes du multiplexeur</h3>
-
-<p>
-    Le multiplexeur que nous avons vu ici est un multiplexeur 2 vers 1.
-    Le multiplexeur a deux entrées de données, <code>V0</code> et <code>V1</code>,
-    et une unique sortie <code>Z</code>.
-    Pour choisir entre les deux entrées de données, le multiplexeur dispose d'une entrée
-    de sélection <code>S</code>.
-</p>
-
-<p>
-    Il existe cependant d'autres variantes de multiplexeurs, qui peuvent avoir
-    plus d'entrées de données, plus d'entrées de sélection et plus de sorties.
-    Pour finir cette partie sur le multiplexeur, nous allons voir deux variantes
-    du multiplexeur, le multiplexeur 4 vers 2 et le multiplexeur 4 vers 1.
-    De manière intéressante, nous allons pouvoir proposer une implémentation
-    de ces multiplexeurs à partir du multiplexeur 2 vers 1 que nous avons déjà vu.
-</p>
-
-<h4>Multiplexeur 4 vers 2</h4>
-
-<p>
-    Le multiplexeur 4 vers 2 est un multiplexeur qui a 4 entrées de données et 2 sorties.
-    Pour choisir entre les 4 entrées de données, le multiplexeur dispose d'une unique entrée de sélection.
-    Le circuit ci-dessous présente un multiplexeur 4 vers 2.
-</p>
-
-<div class="scroll-x">
-    <div class="logic-frame" style="width: 290px; height: 230px;">
-        <logic-editor mode="tryout" hidereset>
-            <script type="application/json">
-                {
-                    "v": 4,
-                    "opts": {"hideTooltips": true},
-                    "in": [
-                        {"pos": [50, 90], "id": 41, "name": "V0", "val": 0},
-                        {"pos": [50, 130], "id": 42, "name": "V1", "val": 0},
-                        {"pos": [50, 170], "id": 43, "name": "V2", "val": 0},
-                        {"pos": [50, 210], "id": 44, "name": "V3", "val": 0},
-                        {"pos": [150, 40], "orient": "s", "id": 46, "name": "S", "val": 0}
-                    ],
-                    "out": [
-                        {"pos": [240, 130], "id": 47, "name": "Z0"},
-                        {"pos": [240, 170], "id": 63, "name": "Z1"}
-                    ],
-                    "components": [
-                        {"type": "mux-4to2", "pos": [150, 150], "in": [64, 65, 66, 67, 68], "out": [69, 70]}
-                    ],
-                    "wires": [[41, 64], [42, 65], [43, 66], [44, 67], [70, 63], [69, 47], [46, 68]]
-                    }
-            </script>
-        </logic-editor>
-    </div>
-</div>
-
-$tryout$
-<p>
-    Essayez de modifier les valeurs en entrée du multiplexeur et observez les valeurs en sortie.
-</p>
 $endtryout$
 
+$remark$
 <p>
-    De manière intéressante, le multiplexeur 4 vers 2 peut être construit à partir
-    de deux multiplexeurs 2 vers 1, comme le montre le circuit ci-dessous.
+    Dans un ordinateur, les diodes d'un écran sont des sorties.
+    Elles permettent d'afficher des couleurs à l'écran en fonction des signaux qu'elles reçoivent.
+    Les haut-parleurs sont également des sorties : ils produisent des sons en fonction des signaux qu'ils reçoivent.
 </p>
-
-<div class="scroll-x">
-    <div class="logic-frame" style="width: 260px; height: 230px;">
-        <logic-editor mode="tryout" hidereset>
-            <script type="application/json">
-                  {
-                    "v": 4,
-                    "opts": {"hideTooltips": true},
-                    "in": [
-                        {"pos": [50, 90], "id": 41, "name": "V0", "val": 0},
-                        {"pos": [50, 130], "id": 42, "name": "V1", "val": 0},
-                        {"pos": [50, 170], "id": 43, "name": "V2", "val": 0},
-                        {"pos": [50, 210], "id": 44, "name": "V3", "val": 0},
-                        {"pos": [150, 40], "orient": "s", "id": 46, "name": "S", "val": 0}
-                    ],
-                    "out": [
-                        {"pos": [210, 110], "id": 47, "name": "Z0"},
-                        {"pos": [210, 190], "id": 63, "name": "Z1"}
-                    ],
-                    "components": [
-                        {"type": "mux-2to1", "pos": [150, 110], "in": [55, 56, 57], "out": 58},
-                        {"type": "mux-2to1", "pos": [150, 190], "in": [59, 60, 61], "out": 62}
-                    ],
-                    "wires": [[58, 47], [46, 57], [46, 61], [62, 63], [41, 55], [42, 59], [43, 56], [44, 60]]
-                    }
-            </script>
-        </logic-editor>
-    </div>
-</div>
-
-$tryout$
-<p>
-    Vérifiez que le circuit ci-dessus est bien équivalent au circuit précédent.
-</p>
-$endtryout$
+$endremark$
 
 <p>
-    Ainsi, il est possible de construire un multiplexeur 4 vers 2 à partir de deux multiplexeurs 2 vers 1.
-    Comme les multiplexeurs 2 vers 1 peuvent être construits à partir de portes logiques,
-    il est donc aussi possible de construire un multiplexeur 4 vers 2 à partir de portes logiques.
-    Cependant, grâce à l'abstraction, nous n'avons pas besoin de connaître la construction
-    d'un multiplexeur 4 vers 2 à partir de portes logiques.
-</p>
-
-
-<h4>Multiplexeur 4 vers 1</h4>
-
-<p>
-    Le multiplexeur 4 vers 1 est un multiplexeur qui a 4 entrées de données et une unique sortie.
-    Pour choisir entre les 4 entrées de données, le multiplexeur dispose de 2 entrées de sélection.
-    En effet, deux entrées de sélection permettent de choisir entre 4 possibilités.
-</p>
-
-<div class="scroll-x">
-    <div class="logic-frame" style="width: 270px; height: 230px;">
-        <logic-editor mode="tryout" hidereset>
-            <script type="application/json">
-                  {
-                    "v": 4,
-                    "opts": {"hideTooltips": true},
-                    "in": [
-                      {"pos": [50, 90], "id": 41, "name": "V0", "val": 0},
-                      {"pos": [50, 130], "id": 42, "name": "V1", "val": 0},
-                      {"pos": [50, 170], "id": 43, "name": "V2", "val": 0},
-                      {"pos": [50, 210], "id": 44, "name": "V3", "val": 0},
-                      {"pos": [140, 40], "orient": "s", "id": 45, "name": "S1", "val": 0},
-                      {"pos": [180, 40], "orient": "s", "id": 46, "name": "S0", "val": 0}
-                    ],
-                    "out": [
-                      {"pos": [230, 150], "id": 47, "name": "Z"}
-                    ],
-                    "components": [
-                      {"type": "mux-4to1", "pos": [160, 150], "in": [34, 35, 36, 37, 38, 39], "out": 40}
-                    ],
-                    "wires": [[41, 34], [42, 35], [43, 36], [44, 37], [45, 39], [46, 38], [40, 47]]
-                  }
-            </script>
-        </logic-editor>
-    </div>
-</div>
-
-$tryout$
-<p>
-    Essayez de modifier les valeurs en entrée du multiplexeur et observez la valeur en sortie.
-</p>
-$endtryout$
-
-<p>
-    Le multiplexeur 4 vers 1 peut être construit à partir
-    d'un multiplexeur 4 vers 2 suivi d'un multiplexeur 2 vers 1,
-    comme le montre le circuit ci-dessous.
-</p>
-
-<div class="scroll-x">
-    <div class="logic-frame" style="width: 300px; height: 230px;">
-        <logic-editor mode="tryout" hidereset>
-            <script type="application/json">
-                  {
-                    "v": 4,
-                    "opts": {"showDisconnectedPins": true, "hideTooltips": true},
-                    "in": [
-                        {"pos": [50, 90], "id": 41, "name": "V0", "val": 0},
-                        {"pos": [50, 130], "id": 42, "name": "V1", "val": 0},
-                        {"pos": [50, 170], "id": 43, "name": "V2", "val": 0},
-                        {"pos": [50, 210], "id": 44, "name": "V3", "val": 0},
-                        {"pos": [140, 40], "orient": "s", "id": 45, "name": "S1", "val": 0},
-                        {"pos": [180, 40], "orient": "s", "id": 46, "name": "S0", "val": 0}
-                    ],
-                    "out": [
-                        {"pos": [260, 150], "id": 47, "name": "Z"}
-                    ],
-                    "components": [
-                        {"type": "mux-4to2", "pos": [140, 150], "in": [48, 49, 50, 51, 52], "out": [53, 54]},
-                        {"type": "mux-2to1", "pos": [200, 150], "in": [55, 56, 57], "out": 58}
-                    ],
-                    "wires": [[41, 48], [42, 49], [43, 50], [44, 51], [45, 52], [53, 55], [54, 56], [58, 47], [46, 57]]
-                    }
-            </script>
-        </logic-editor>
-    </div>
-</div>
-
-$tryout$
-<p>
-    Vérifiez que le circuit ci-dessus est bien équivalent au circuit précédent.
-</p>
-$endtryout$
-
-<p>
-    À nouveau, nous avons ici une construction d'un circuit plus complexe à partir
-    de composants que nous avons décrits précédemment.
-    L'abstraction permet de gérer la complexité, en introduisant des composants
-    qui peuvent être utilisés sans avoir à connaître leur détails d'implémentation.
-</p>
-
-$selfcheck$
-<p>
-    Un multiplexeur 4 vers 1 a exactement quatre <select class="self-pick">
-        <option data-correct>entrées de données</option>
-        <option>entrées de sélection</option>
-        <option>sorties</option>
-    </select>, deux <select class="self-pick">
-        <option>entrées de données</option>
-        <option data-correct>entrées de sélection</option>
-        <option>sorties</option>
-    </select> et une <select class="self-pick">
-        <option>entrée de données</option>
-        <option>entrée de sélection</option>
-        <option data-correct>sortie</option>
-    </select>.
-$endselfcheck$
-
-$selfcheck$
-<p>
-    Pour gérer la complexité d'un circuit, on fait appel à
-    <select class="self-pick">
-        <option>l'introspection</option>
-        <option data-correct>l'abstraction</option>
-        <option>la dérision</option>
-    </select>. Grâce à ce mécanisme, on peut utiliser un
-    circuit en tant que composant d'un autre circuit, sans avoir à connaître
-    les détails de <select class="self-pick">
-        <option data-correct>son implémentation</option>
-        <option>ses entrées et sorties</option>
-        <option>son interface</option>
-    </select>.
-    Ainsi, il est possible de concevoir des systèmes de plus en plus complexes.
-</p>
-$endselfcheck$
-
-<p>
-    Dans la section suivante, nous allons nous intéresser à
-    la représentation binaire des nombres.
-    De cette façon, nous pourrons ensuite aborder la conception de circuits
-    permettant de réaliser des opérations qui manipulent des nombres,
-    comme par exemple l'addition.
+    Pour pouvoir réaliser des circuits qui font plus que simplement
+    transmettre un signal d'une entrée à une sortie, 
+    nous allons devoir incorporer à nos circuits des composants plus complexes.
+    Les portes logiques, que l'on découvrira dans la prochaine section, sont de tels composants.
 </p>
 
 <script src="/js/logic-simulator.js" type="text/javascript"></script>
@@ -469,8 +263,6 @@ $master$
 </p>
 
 <ul>
-    <li>Comprendre le fonctionnement des différents multiplexeurs.</li>
-    <li>Utiliser un multiplexeur au sein d'un circuit.</li>
-    <li>Expliquer en quoi le multiplexeur est un exemple d'abstraction.</li>
+    <li>Reconnaître les entrées et les sorties dans un circuit.</li>
 </ul>
 $endmaster$

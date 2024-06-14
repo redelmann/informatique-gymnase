@@ -1,0 +1,176 @@
+---
+title: L'ordinateur
+order: 9
+---
+
+<p>
+    Dans cette dernière section de ce chapitre sur l'architecture des ordinateurs,
+    nous allons finalement nous intéresser aux... ordinateurs !
+    Nous allons voir comment combiner les différents circuits que nous avons vus
+    dans ce chapitre pour construire ce que l'on va appeler un ordinateur.
+    Avant toute chose, il est important de définir ce qu'est un ordinateur.
+</p>
+
+<h3>L'ordinateur, définition</h3>
+
+<p>
+    On appelle <i>ordinateur</i> un système, généralement physique, d'<b>exécution de programmes</b>.
+</p>
+
+<p>
+    Un <i>programme</i> est une <b>séquence d'instructions</b> qui indiquent à l'ordinateur les opérations à effectuer.
+    Nous aurons le plaisir de découvrir plus en détails ce qu'est un programme et comment en écrire dans le
+    chapitre dédié à la programmation.
+</p>
+
+$example$
+<p>
+    Un ordinateur de bureau est un exemple d'ordinateur,
+    tout comme un ordinateur portable.
+    Les smartphones, tablettes et consoles de jeux sont aussi des ordinateurs selon cette définition:
+    ces machines sont des machines à exécuter des programmes (qu'on appelle aussi des <i>applications</i> dans certains contextes).
+</p>
+$endexample$
+
+<p>
+    La notion de programme est centrale dans la définition de l'ordinateur.
+    Un ordinateur est un système dont la tâche est d'exécuter des programmes.
+    L'ordinateur composé de nombreux composants qui travaillent ensemble pour exécuter ces programmes.
+    Dans cette section, nous allons passer en revue les principaux composants d'un ordinateur
+    et discuter de comment ils sont assemblés pour former un ordinateur.
+</p>
+
+<h3>Les composants d'un ordinateur</h3>
+
+<p>
+    Un ordinateur est composé de plusieurs parties, dont les plus importantes sont les suivantes:
+</p>
+
+<ul>
+    <li>Le <i>processeur</i> (<i>CPU</i>, <i>Central processing unit</i> en anglais) est le composant qui exécute les
+        instructions d'un programme.
+        Le processeur est composé de plusieurs parties, dont l'ALU qui effectue les opérations arithmétiques et logiques.
+        Le processeur contient aussi une <i>unité de contrôle</i> qui est responsable de la gestion de l'exécution des instructions,
+        ainsi que des registres qui sont des mémoires internes au processeur utilisées pour stocker des données temporaires.
+    </li>
+    <li>La <i>mémoire</i> est un composant qui permet de mémoriser les données utiles à l'exécution des programmes.
+        La RAM que nous avons vue précédemment est un exemple de mémoire.
+        Nous verrons aussi que, selon l'<i>architecture de von Neumann</i>, les programmes sont eux aussi accessibles en mémoire.
+    </li>
+    <li>Les <i>périphériques</i> sont des composants qui permettent à l'ordinateur de communiquer avec le monde extérieur.
+        Les périphériques incluent le clavier, la souris, l'écran, les haut-parleurs, les ports USB, etc.
+    </li>
+    <li>
+        Le <i>stockage</i> est un composant qui permet de stocker des données de manière permanente.
+        Les disques durs, les SSD et les clés USB sont des exemples de stockage.
+    </li>
+</ul>
+
+<h3>L'architecture de von Neumann</h3>
+
+<p>
+    L'architecture de von Neumann est un modèle d'ordinateur qui a été proposé par le mathématicien et physicien John von Neumann en 1945.
+    Ce modèle est toujours utilisé dans la conception des ordinateurs actuels.
+    L'architecure de von Neumann propose une façon d'agencer différents composants afin de réaliser un ordinateur (c'est-à-dire une machine à exécuter des programmes).
+    L'architecture de von Neumann peut être représenté de manière schématique comme suit :
+</p>
+
+<style>
+    svg .vertical-text {
+        transform-box: fill-box;
+        transform-origin: center;
+        transform: rotate(-90deg);
+    }
+</style>
+
+<svg width="600" height="650" class="diagram">
+    <defs>
+        <marker id="arrow" markerWidth="4" markerHeight="3" 
+        refX="0" refY="1.5" orient="auto">
+            <polygon points="0 0, 4 1.5, 0 3" />
+        </marker>
+    </defs>
+
+    <g transform="translate(150 50)">
+        <rect x="0" y="0" width="400" height="350" fill="white" stroke="black" stroke-width="2" />
+        <text x="200" y="25" text-anchor="middle" alignment-baseline="central">
+            Processeur
+        </text>
+        <rect x="50" y="50" width="300" height="100" fill="white" stroke="black" stroke-width="2" />
+        <text x="200" y="100" text-anchor="middle" alignment-baseline="central">
+            ALU
+        </text>
+        <rect x="50" y="200" width="300" height="100" fill="white" stroke="black" stroke-width="2" />
+        <text x="200" y="250" text-anchor="middle" alignment-baseline="central">
+            Unité de contrôle
+        </text>
+    </g>
+
+    <g transform="translate(150 500)">
+        <rect x="0" y="0" width="400" height="100" fill="white" stroke="black" stroke-width="2" />
+        <text x="200" y="50" text-anchor="middle" alignment-baseline="central">
+            Mémoire vive
+        </text>
+    </g>
+
+    <text x="10" y="225" text-anchor="middle" alignment-baseline="central" class="vertical-text">
+        Entrées et sorties
+    </text>
+
+    <line x1="35" y1="175" x2="135" y2="175" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+    <line x1="150" y1="275" x2="50" y2="275" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+    <line x1="300" y1="500" x2="300" y2="415" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+
+    <line x1="400" y1="400" x2="400" y2="485" stroke="#000" 
+            stroke-width="4" marker-end="url(#arrow)" />
+</svg>
+
+<p>
+    Le point central de l'architecture de von Neumann est que les programmes et les données sont stockés dans <i>la même mémoire</i>.
+    Ainsi, un programme est lui-même une donnée qui peut être manipulée par le processeur.
+</p>
+
+<p>
+    Le processeur récupère les instructions du programme en mémoire,
+    récupère les données nécessaires à l'exécution de ces instructions depuis la mémoire,
+    les exécute, et stocke les résultats à nouveau dans la mémoire.
+</p>
+
+<p>
+    L'unité de contrôle contenue dans le processeur est responsable de la gestion de l'exécution des instructions.
+    C'est elle qui indique à l'ALU quelles opérations effectuer, et qui gère le transfert des données entre la mémoire et le processeur
+    en fonction des instructions du programme.
+</p>
+
+<h3>Le système d'exploitation</h3>
+
+<p>
+    Comme nous l'avons vu, un ordinateur est un système qui exécute des programmes.
+    Généralement, le programme principal que l'ordinateur exécute est un programme appelé <i>système d'exploitation</i>.
+    Le système d'exploitation est un programme qui gère les ressources de l'ordinateur et
+    permet à d'autres programmes de s'exécuter.
+</p>
+
+<p>
+    Le système d'exploitation met en place tout un ensemble d'abstractions comme les fichiers, les utilisateurs, etc.
+    les environnements graphiques, les pilotes de périphériques, etc.
+    qui permettent aux programmes de s'exécuter sans avoir à se soucier des détails matériels de l'ordinateur.
+</p>
+
+$example$
+<p>
+    Windows, Mac OS, Linux, Android et iOS sont des exemples de systèmes d'exploitation.
+    Ces systèmes d'exploitation sont des programmes qui gèrent les ressources de l'ordinateur et permettent à d'autres programmes de s'exécuter.
+</p>
+<p>
+    Ils fournissent aussi des interfaces graphiques pour interagir avec l'ordinateur,
+    un système de fichiers pour stocker des données,
+    des comptes utilisateurs pour gérer les utilisateurs de l'ordinateur et leurs droits,
+    etc.
+</p>
+$endexample$

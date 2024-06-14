@@ -244,18 +244,33 @@ order: 0
 </svg>
 </div>
 
-<h3>Signaux électriques</h3>
+<h3>Signaux</h3>
 
 <p>
-    Les différents composants d'un système sont reliés entre eux
-    par des fils par lesquels circulent des signaux électriques.
+    Les différents composants d'un système agissent de manière coordonnée
+    afin de réaliser une tâche.
+    Pour cela, ils doivent communiquer entre eux en échangeant des informations.
+    Schématiquement, nous avions représenté ces canaux de communication
+    par des flèches sur les schémas précédents.
 </p>
+
+<p>
+    Dans le cadre des systèmes qui vont nous intéresser dans ce chapitre,
+    ces canaux de communication sont des fils sur lesquels circulent
+    des <i>signaux électriques</i>.
+    Un signal électrique est une variation de tension électrique
+    qui se propage le long d'un fil.
+</p>
+
 <p>
     Dans un système numérique, comme un ordinateur,
     de tels signaux électriques véhiculent
     des informations numériques sous la forme de 0 et 1.
     Suivant la tension appliquée sur un fil, on considère que le fil
-    transmet un signal de valeur 0 ou de valeur 1.
+    transmet un signal de valeur 0 ou de valeur 1 à un instant donné.
+</p>
+
+<p>
     Bien entendu, la valeur transmise sur un fil peut changer
     au cours du temps.
     Par exemple, le signal émit par un bouton peut changer
@@ -263,64 +278,6 @@ order: 0
     La valeur du signal transmit à une diode sur votre écran
     peut changer en fonction de ce qui doit être affiché à l'écran.
 </p>
-
-<style>
-    .logic-frame {
-        width: 350px;
-        border: 0;
-        margin: auto;
-        margin-bottom: 40px;
-        margin-top: 40px;
-    }
-</style>
-
-$tryout$
-<p>
-    Dans ce chapitre, nous allons nous intéresser à de nombreux systèmes,
-    de plus en plus complexes.
-    Très souvent, nous allons représenter des systèmes par des schémas.
-    Ces schémas, grâce au travail de <a href="https://github.com/jppellet/Logic-Circuit-Simulator">Jean-Philippe Pellet</a>, sont interactifs.
-    Par exemple, dans le schéma ci-dessous, il est possible de cliquer sur les entrées du système pour observer son comportement.
-</p>
-
-<div class="scroll-x">
-<div class="logic-frame" style="height: 160px;">
-    <logic-editor mode="tryout" hidereset>
-      <script type="application/json">
-        {
-          "v": 4,
-          "in": [
-            {"pos": [20, 20], "id": 0, "val": 0},
-            {"pos": [20, 60], "id": 1, "val": 0},
-            {"pos": [20, 100], "id": 2, "val": 0},
-            {"pos": [20, 140], "id": 3, "val": 0}
-          ],
-          "out": [
-            {"type": "7seg", "pos": [280, 90], "id": [26, 27, 28, 29, 30, 31, 32, 33]}
-          ],
-          "components": [
-            {"type": "decoder-7seg", "pos": [150, 80], "in": [4, 5, 6, 7], "out": [8, 9, 10, 11, 12, 13, 14]}
-          ],
-          "wires": [[2, 6], [3, 7], [1, 5], [0, 4], [8, 26], [9, 27], [10, 28], [11, 29], [12, 30], [13, 31], [14, 32]]
-        }
-      </script>
-    </logic-editor>
-  </div>
-</div>
-
-<p>
-    Ici, le système a quatre entrées et aucune sortie filaire visible.
-    En guise de sortie, nous avons un afficheur, appelé <i>afficheur à 7 segments</i>.
-    En fonction des entrées, l'afficheur affiche un chiffre entre 0 et 9 ou une lettre entre A et F.
-</p>
-
-<p>
-    Dans le reste de ce chapitre, nous allons voir comment construire de tels systèmes.
-</p>
-
-$endtryout$
-
-<script src="/js/logic-simulator.js" type="text/javascript"></script>
 
 $master$
 <p>
