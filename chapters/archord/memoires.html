@@ -1,7 +1,6 @@
 ---
 title: Mémoires
 order: 8
-unfinished: true
 ---
 
 <style>
@@ -260,6 +259,25 @@ $endtryout$
 
 <h2>RAM</h2>
 
+<p>
+    Une RAM (<i>Random Access Memory</i>) est une mémoire avec une grande capacité de mémorisation.
+    Une RAM est composée de plusieurs cellules de mémoire, chacune capable de mémoriser un bit.
+    Les cellules sont organisées en lignes, et chaque ligne est accessible par une adresse unique.
+    En donnant l'adresse d'une ligne, il est possible de lire ou d'écrire le contenu des cellules de cette ligne.
+</p>
+
+<p>
+    Ci-dessous est un exemple de RAM, composée de 16 lignes de 4 cellules,
+    chaque cellule étant capable de mémoriser un bit.
+    La RAM possède deux entrées sur 4 bits, une pour l'adresse de la ligne à sélectionner
+    et une pour les données à écrire.
+    L'entrée <code>Addr</code> permet de sélectionner la ligne de la RAM
+    à laquelle on souhaite accéder.
+    L'entrée <code>D</code> permet de spécifier quoi écrire dans la ligne.
+    La RAM possède aussi une entrée <code>E</code> pour activer l'écriture.
+    La sortie <code>Q</code> permet de lire le contenu de la ligne sélectionnée.
+</p>
+
 <div class="scroll-x">
     <div class="logic-frame" style="width: 330px; height: 295px;">
         <logic-editor mode="tryout" hidereset>
@@ -280,6 +298,29 @@ $endtryout$
         </logic-editor>
     </div>
 </div>
+
+<p>
+    La RAM présentée ci-dessus est une RAM de capacité 16 fois 4 bits, soit un total de 64 bits.
+    Dans les ordinateurs actuels, les RAMs sont beaucoup plus grandes.
+    Par exemple, une RAM de 8 Go possède une capacité de 64 milliards de bits, soit un milliard
+    de fois plus que la RAM présentée ci-dessus.
+</p>
+
+$remark$
+<p>
+    La RAM est aussi appelée <b>mémoire vive</b>.
+    La mémoire vive est volatile (non persistante).
+    Lorsque l'on ne l'alimente plus en électricité, son contenu est perdu.
+</p>
+<p>
+    À l'inverse, d'autres technologies de mémoire sont persistantes.
+    Elles permettent de garder en mémoire l'information même lorsque le composant n'est plus alimenté.
+    Ces mémoires sont utilisés comme mémoires de stockage sur un ordinateur.
+</p>
+<p>
+    Lorsqu'on parle de la mémoire d'un ordinateur, on fait généralement référence à sa mémoire vive.
+</p>
+$endremark$
 
 <script src="/js/logic-simulator.js" type="text/javascript"></script>
 
