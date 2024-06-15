@@ -81,12 +81,14 @@ function highlightKarnaugh(table, rows, cols) {
         border: 1px solid black;
         font-weight: normal;
         font-family: "Consolas", "Courier New", Courier, monospace;
+        height: 55px;
     }
 
     .karnaugh th.vertical {
-        width: 20px;
-        writing-mode: vertical-lr;
-        transform: rotate(180deg);
+        transform: rotate(-90deg);
+        overflow: hidden;
+        white-space: nowrap;
+
     }
 
     .karnaugh th.vertical.sep {
