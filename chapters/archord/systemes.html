@@ -1,15 +1,15 @@
 ---
-title: Systèmes et signaux
+title: Systèmes
 order: 0
 ---
 
 <p>
     Comme mentioné en introduction à ce chapitre,
-    les ordinateurs sont des exemples de circuits électroniques.
-    Ces circuits sont formés de composants reliés entre eux par des fils.
-    On parle de <i>système</i> pour désigner un tel ensemble de composants interconnectés.
-    Ci-dessous est présenté un schéma d'un système,
-    qui est composé de trois composants reliés entre eux par des fils.
+    les ordinateurs sont des exemples de ce qu'on appelle des <i>systèmes</i>.
+    Un système est un ensemble de composants interconnectés
+    qui travaillent ensemble pour réaliser une tâche bien précise.
+    Ci-dessous est présenté le schéma d'un système,
+    qui est composé de trois composants reliés entre eux par des connexions.
 </p>
 
 
@@ -74,24 +74,33 @@ order: 0
 </div>
 
 <p>
-    Les composants d'un système opèrent généralement
-    de concert dans le but de réaliser une tâche bien précise.
-    La tâche en question peut être très simple, comme par exemple
-    allumer une ampoule, ou plus complexe, comme par exemple
-    calculer la racine carrée d'un nombre.
+    Les composants peuvent être de nature très variée.
+    Il peut s'agir, comme nous le verrons dans ce chapitre,
+    de composants électroniques
+    qui réalisent des opérations de traitement de l'information.
+    Dans d'autres systèmes, il peut s'agir de
+    composants mécaniques, chimiques, voire biologiques.
+    Il peut aussi s'agir d'entreprises ou de personnes
+    qui collaborent pour réaliser un objectif commun.
+</p>
+
+<p> 
+    Les liens entre les différents composants
+    sont représentés par des <i>connexions</i>.
+    Ces connexions symbolisent le fait que les composants
+    interagissent entre eux, comme par exemple
+    pour échanger des infomations.
 </p>
 
 <h3>Interface d'un système</h3>
 
 <p>
-    De manière intéressante, certains composants peuvent lire et
-    transmettre des informations
-    hors du système, depuis ou vers des entités extérieures, comme par exemple
-    des utilisateurs humains ou encore d'autres systèmes.
-    Les fils qui entrent et sortent du système sont appelés
-    ses <i>entrées</i> et ses <i>sorties</i>.
-    Les entrées et les sorties forment ce qu'on appelle
-    l'<i>interface</i> du système.
+    De manière intéressante, certains composants peuvent interagir
+    avec des éléments en dehors du système.
+    Ces éléments hors système peuvent être par exemple
+    des êtres humains ou encore d'autres systèmes.
+    Les connexions qui entrent (<i>entrées</i>) et sortent (<i>sorties</i>) du système
+    forment l'<i>interface</i> du système.
 </p>
 
 <!-- SVG diagram of a system -->
@@ -162,14 +171,6 @@ order: 0
 </svg>
 </div>
 
-<p>
-    Certains composants peuvent également lire et transmettre des informations
-    à l'extérieur du système par d'autres biais que des fils.
-    On peut penser par exemple à des boutons que l'on peut appuyer ou à des ampoules qui peuvent émettre de la lumière.
-    Ces composants sont aussi considérés comme des entrées ou des sorties du système.
-    Nous en parlerons plus en détails dans la section suivante.
-</p>
-
 <h3>Abstraction</h3>
 
 <p>
@@ -178,14 +179,14 @@ order: 0
     En opérant un mouvement d'<i>abstraction</i>, on peut considérer
     un système comme une <i>boîte noire</i> dont on ne
     considère pas le fonctionnement interne, mais seulement
-    son comportement en terme d'entrées et de sorties.
+    son interface et son comportement.
     Suivant le niveau de détail auquel on s'intéresse,
     on ira ou pas regarder à l'intérieur de ces boites noires.
     Ainsi, une fois qu'on a construit un système, on peut
     le considérer comme un composant et l'intégrer à un autre système,
     voire plusieurs.
-    C'est par ce mécanisme d'abstraction que l'on peut concevoir
-    des systèmes de plus en plus complexes.
+    C'est par ce mécanisme d'abstraction que l'on peut étuder,
+    et même concevoir, des systèmes de plus en plus complexes.
 </p>
 
 <!-- SVG diagram of a system -->
@@ -244,40 +245,36 @@ order: 0
 </svg>
 </div>
 
-<h3>Signaux</h3>
-
+$example$
 <p>
-    Les différents composants d'un système agissent de manière coordonnée
-    afin de réaliser une tâche.
-    Pour cela, ils doivent communiquer entre eux en échangeant des informations.
-    Schématiquement, nous avions représenté ces canaux de communication
-    par des flèches sur les schémas précédents.
+    Pour illustrer la notion de système, prenons un exemple hors
+    du domaine de l'informatique: une entreprise.
+    Une entreprise est un exemple de système.
+    Elle est constituée de plusieurs départements qui travaillent ensemble
+    pour réaliser un objectif commun.
+    Chaque département est lui-même un système :
+    il a une tâche qui lui est propre est est aussi constitué de plusieurs équipes.
+    De même, chaque équipe est elle-même un système, constitué de plusieurs
+    personnes travaillant ensemble à la réalisation de la mission de l'équipe.
+    Nous pourrions même pousser l'exemple plus loin et considérer
+    chaque personne comme un système, constitué de plusieurs organes
+    qui travaillent ensemble dans le but de maintenir la personne en vie
+    et de lui permettre de réaliser ses tâches.
+    Chaque organe est lui-même un système, constitué de plusieurs cellules,
+    et ainsi de suite.
 </p>
 
 <p>
-    Dans le cadre des systèmes qui vont nous intéresser dans ce chapitre,
-    ces canaux de communication sont des fils sur lesquels circulent
-    des <i>signaux électriques</i>.
-    Un signal électrique est une variation de tension électrique
-    qui se propage le long d'un fil.
+    La notion d'abstraction est essentielle pour la compréhension
+    et la conception de systèmes complexes.
+    En effet, il est impossible de comprendre un système complexe
+    comme une entreprise en considérant chaque atome de chaque personne
+    qui la compose.
+    De même, on ne cherchera pas à comprendre le fonctionnement
+    interne d'une ordinateur en considérant chaque transistor,
+    chaque résistance, chaque condensateur de la machine.
 </p>
-
-<p>
-    Dans un système numérique, comme un ordinateur,
-    de tels signaux électriques véhiculent
-    des informations numériques sous la forme de 0 et 1.
-    Suivant la tension appliquée sur un fil, on considère que le fil
-    transmet un signal de valeur 0 ou de valeur 1 à un instant donné.
-</p>
-
-<p>
-    Bien entendu, la valeur transmise sur un fil peut changer
-    au cours du temps.
-    Par exemple, le signal émit par un bouton peut changer
-    de valeur lorsque l'on appuie sur le bouton.
-    La valeur du signal transmit à une diode sur votre écran
-    peut changer en fonction de ce qui doit être affiché à l'écran.
-</p>
+$endexample$
 
 $master$
 <p>
@@ -288,6 +285,5 @@ $master$
     <li>Définir ce qu'est un système.</li>
     <li>Expliquer ce qu'est l'interface d'un système.</li>
     <li>Expliquer le concept d'abstraction.</li>
-    <li>Expliquer ce qu'est un signal.</li>
 </ul>
 $endmaster$

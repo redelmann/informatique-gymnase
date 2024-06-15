@@ -17,7 +17,7 @@ order: 1
 <p>
     Un circuit, ou circuit logique, est un ensemble de composants
     électroniques interconnectés qui permettent de réaliser une tâche
-    spécifique de traitement de l'information.
+    de traitement de l'information.
     Il s'agit donc d'un système selon la définition de la section précédente.
 </p>
 
@@ -81,18 +81,51 @@ $endtryout$
 <p>
     Avant de ce plonger dans ces composants et dans 
     la conception de circuits, il est important de comprendre
-    la notion d'<i>interface</i> d'un circuit.
+    la notion de <i>signal</i> dans un circuit.
+    Enfin, nous aborderons la notion d'<i>interface</i> d'un circuit.
+</p>
+
+<h2>Signaux</h2>
+
+<p>
+    Les différents composants d'un circuit communiquent entre eux
+    par le biais de fils électriques qui véhiculent des <i>signaux électriques</i>.
+    Un signal électrique est une variation de tension électrique
+    qui se propage le long d'un fil.
+</p>
+
+<p>
+    Dans un système numérique, comme un ordinateur,
+    de tels signaux électriques véhiculent
+    des informations numériques sous la forme de 0 et 1.
+    Suivant la tension appliquée sur un fil, on considère que le fil
+    transmet un signal de valeur 0 ou de valeur 1.
+    Une tension basse est généralement associée à la valeur 0,
+    tandis qu'une tension haute est associée à la valeur 1.
+</p>
+
+<p>
+    Bien entendu, la valeur transmise sur un fil peut changer
+    au cours du temps.
+    Par exemple, le signal émit par un bouton peut changer
+    de valeur lorsque l'on appuie sur le bouton.
+    La valeur du signal transmit à une diode sur votre écran
+    peut changer en fonction de ce qui doit être affiché à l'écran.
+    Un composant peut changer la valeur du signal qu'il émet
+    en fonction de la valeur des signaux qu'il reçoit.
+    Et ainsi de suite.
 </p>
 
 <h2>Interface</h2>
 
 <p>
     Les entrées et les sorties sont la partie visible d'un circuit.
-    Elles permettent de communiquer avec le circuit.
+    Elles permettent de communiquer avec le circuit pour échanger des informations,
+    toujours sous forme de signaux électriques.
     Cette interface est la partie du circuit qui est destinée à être utilisée
     par les personnes qui font usage du circuit,
     voire par d'autres circuits.
-    C'est par le biais de l'interface que l'on interagit avec le circuit.
+    C'est par le biais de l'interface qu'on interagit avec le circuit.
 </p>
 
 <h3>Entrées</h3>
@@ -106,7 +139,7 @@ $endtryout$
     Lorsque l'on souhaite qu'un humain puisse communiquer avec un circuit,
     il faut lui fournir un moyen de le faire.
     On utilise pour cela généralement des composants comme des boutons ou des interrupteurs
-    qui peuvent être allumés ou éteints.
+    qui peuvent être enclenchés ou désenclenchés.
     Ces composants sont destinées à être utilisées par
     les personnes qui utilisent le circuit et permettent d'entrer des données ou de configurer
     le circuit.
@@ -121,10 +154,10 @@ $endtryout$
 $tryout$
 <p>
     Ci-dessous est un exemple schématique d'entrée.
-    L'entrée est représentée par un bouton qui peut être allumé ou éteint.
-    Dans le cas où il est allumé, l'entrée fournit un <i>signal</i> de valeur 1.
-    Lorsque il est éteint, l'entrée fournit un signal de valeur 0.
-    <i>Dans le schéma de circuit ci-dessous, vous pouvez allumer ou éteindre l'entrée en cliquant dessus, essayez !</i>
+    L'entrée est représentée par un bouton qui peut être enclenché ou non.
+    Dans le cas où il est enclenché, le signal prend la valeur 1.
+    Lorsqu'il est désenclenché, le signal prend la valeur 0.
+    <i>Dans le schéma de circuit ci-dessous, vous pouvez activer ou désactiver l'entrée en cliquant dessus, essayez !</i>
 </p>
 
 <div class="scroll-x">
@@ -173,7 +206,8 @@ $endremark$
     permettent de communiquer un résultat à l'utilisateur
     ou à d'autres circuits.
     Lorsqu'on réalise un véritable circuit, les sorties sont généralement
-    des composants physiques simples tels que des ampoules ou des diodes.
+    des composants physiques simples tels que des ampoules, des diodes,
+    des haut-parleurs, des moteurs, etc.
     Ci-dessous est un exemple de sortie représentée de façon schématique.
 </p>
 
@@ -202,11 +236,12 @@ $endremark$
 </p>
 <p>
     Remarquez qu'il n'est pas possible de changer la valeur d'une sortie en cliquant dessus.
-    En effet, les sorties sont destinées à fournir un résultat, et non à être modifiées directement par l'utilisateur.
+    En effet, les sorties sont destinées à fournir un résultat calculé par le circuit,
+    et non à être modifiées directement par l'utilisateur.
 </p>
 <p>
     Pour changer la valeur d'une sortie, il faut lui fournir un signal en la connectant à
-    d'autres composants par le biais de <i>fils</i>.
+    d'autres composants par le biais d'un fil.
 </p>
 
 $tryout$
@@ -263,6 +298,7 @@ $master$
 </p>
 
 <ul>
+    <li>Lister les différentes valeurs que peut prendre un signal numérique.</li>
     <li>Reconnaître les entrées et les sorties dans un circuit.</li>
 </ul>
 $endmaster$

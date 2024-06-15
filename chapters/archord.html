@@ -9,16 +9,20 @@ order: 1
 
 <p>
     De nos jours, les ordinateurs sont omniprésents.
-    Qu'il s'agisse de votre téléphone portable, de votre ordinateur de bureau ou de votre console de jeux,
+    Qu'il s'agisse de téléphones portables,
+    d'ordinateurs de bureau ou de consoles de jeux,
     les ordinateurs sont partout.
     Les ordinateurs nous permettent de communiquer, de nous informer, de nous divertir, de travailler, etc.
-    Ils sont devenus un outil indispensable de notre vie.
+    Certains ordinateurs sont même cachés dans des objets de notre quotidien,
+    comme les montres, les voitures et les trains ou encore les réfrigérateurs et les machines à laver.
+    Ils sont devenus un outil omniprésent dans notre société.
 </p>
 
 <p>
-    Dans ce chapitre, nous allons étudier le fonctionnement des ordinateurs.
-    Les ordinateurs sont des systèmes complexes constitués d'un très grand nombre de composants électroniques de base (des milliards !) reliés par des fils
-    selon un arrangement bien précis.
+    Dans ce chapitre, nous allons étudier le fonctionnement des ordinateurs à partir de zéro.
+    Comme nous allons le voir, les ordinateurs sont des systèmes complexes constitués d'un très grand nombre de composants électroniques de base (des milliards !).
+    Ces composants de bases sont interconnectés
+    selon un arrangement bien précis, ce qui fait des ordinateurs des systèmes très complexes.
     Au vu de cette complexité, il est impossible de comprendre le fonctionnement des ordinateurs en étudiant
     l'ensemble de leurs composants basiques en même temps.
 </p>
@@ -27,15 +31,18 @@ order: 1
     Dans ce chapitre, nous allons suivre une approche <i>bottom-up</i> :
     nous allons partir de l'étude des composants électriques élémentaires
     pour ensuite étudier des systèmes de plus en plus complexes,
-    jusqu'à arriver à l'étude de ce qu'on appelle les ordinateurs.
+    jusqu'à arriver à l'étude de ce qu'on appelle les ordinateurs:
+    des machines capables d'exécuter des <i>programmes</i>.
 </p>
 
 <p>
     La clé pour gérer cette grande complexité sera l'<i>abstraction</i>.
     L'abstraction est un outil de pensée qui permet de
     simplifier l'utilisation et la compréhension de systèmes complexes.
+    Une fois un système implémenté et testé, il est possible de l'abstraire
+    pour le considérer comme un unique composant.
     En abstrayant un système, on se concentre sur son <i>interface</i> (ses entrées et ses sorties, sa fonction)
-    et on ignore les détails de sa réalisation.
+    et on cache volontairement les détails de sa réalisation.
     Cette approche permet de se concentrer sur les aspects essentiels
     et de construire des systèmes à la complexité croissante tout en
     gardant une bonne compréhension du système dans son ensemble.
@@ -62,6 +69,8 @@ order: 1
     l'humain a toujours cherché à utiliser des outils pour
     augmenter ses capacités cognitives.
     L'ordinateur tel que nous le connaissons aujourd'hui est un tel outil.
+    Il permet de réaliser des tâches complexes en suivant des séquences d'instructions
+    appelées <i>programmes</i>.
     Les ordinateurs ne sont cependant pas apparus du jour au lendemain.
 </p>
 
@@ -73,7 +82,7 @@ order: 1
     elle est considérée comme le précurseur de ce qu'on appelle aujourd'hui 
     les ordinateurs.
     Inspiré par les métiers à tisser, Charles Babbage conçoit une machine
-    qui est configurable à l'aide de cartes perforées.
+    qui est <i>configurable</i> à l'aide de cartes perforées.
     La même année, la comptesse Ada Lovelace, elle aussi anglaise,
     décrit comment utiliser cette machine pour résoudre des problèmes
     à l'aide d'un <i>programme</i>, une suite d'instructions.
@@ -140,7 +149,7 @@ $endremark$
     qui s'avère bien trop complexe.
     En effet, un ordinateur moderne est constitué de centaines de milliards
     de transistors. Il est donc vain de vouloir comprendre
-    le fonctionnement d'un ordinateur à ce niveau de lecture là.
+    le fonctionnement d'un ordinateur à ce niveau-là de lecture.
     À la place, tout au long de ce chapitre, nous allons faire usage de l'<i>abstraction</i> et
     concevoir étape par étape des systèmes de plus en plus complexes,
     jusqu'à arriver à l'ordinateur.
@@ -159,6 +168,7 @@ $objectives$
 <p>
     À la fin de ce chapitre, vous serez capable :
     <ul>
+        <li>D'expliquer le concept de système et d'abstraction.</li>
         <li>De décrire le fonctionnement des différentes portes logiques.</li>
         <li>De concevoir et d'analyser des circuits simples.</li>
         <li>De maîtriser le système binaire, c'est-à-dire :</li>
@@ -173,7 +183,6 @@ $objectives$
         <li>De comprendre le fonctionnement d'une <i>ALU</i>.</li>
         <li>De comprendre le fonctionnement d'un <i>verrou</i> et d'une <i>bascule</i>.</li>
         <li>De comprendre le fonctionnement de la mémoire <i>RAM</i>.</li>
-        <li>D'utiliser correctement les différentes unités de mesure de l'information.</li>
         <li>De lister et d'expliquer les différents composants d'un ordinateur dans l'<i>architecture de von Neumann</i>.</li>
     </ul>
 </p>
