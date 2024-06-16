@@ -2,35 +2,160 @@
 title: Informatique - École de Maturité
 ---
 
+<style>
+  h1 {
+    text-align: center;
+    font-size: 3em;
+    margin: 80px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  body {
+    background-color: #f3f3f3;
+  }
+
+  #chapters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 50px;
+  }
+
+  .chapter {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding-bottom: 100px;
+  }
+
+  .chapter-header {
+    margin-bottom: 15px;
+  }
+
+  .chapter-header a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .chapter-number {
+    font-variant: all-small-caps;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+  }
+
+  .chapter-title {
+    font-size: 1.3em;
+  }
+
+  .chapter-picture img {
+    display: block;
+    height: 150px;
+    margin: 25px auto;
+  }
+
+  .chapter-snippet {
+    font-style: italic;
+    margin: 15px 0;
+    color: #888;
+  }
+
+  .chapter-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+  }
+
+  .chapter-footer a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    padding: 15px 50px;
+    width: fit-content;
+    text-align: center;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    transition: all 0.2s;
+  }
+
+  .chapter-footer a:hover {
+    color: #2539ca;
+  }
+
+  .chapter-footer a:active {
+    color: #2d45fc;
+  }
+</style>
+
 <section>
   <h1>Informatique</h1>
 
   <p>
-    Bienvenue !
-    Ce site propose des ressources pour l'apprentissage de l'informatique en école de maturité.
+    Plongez dans le monde fascinant de l'informatique
+    au travers des différents chapitres de ce livre en ligne.
+  </p>
+
+  <h2>Chapitres</h2>
+
+  <div id="chapters">
+    $for(chapters)$
+    <div class="chapter">
+      <div class="chapter-header">
+        <div class="chapter-number"><a href="$url$">Chapitre $chapterNumber$</a></div>
+        <div class="chapter-title"><a href="$url$">$title$$if(unfinished)$ 🚧$endif$</a></div>
+      </div>
+
+      $if(picture)$
+      <div class="chapter-picture">
+        <a href="$url$">
+        <img src="$picture$" alt="Image illustrant le chapitre $chapterNumber$." />
+        </a>
+      </div>
+      $endif$
+
+      $if(snippet)$
+      <p class="chapter-snippet">
+        $snippet$
+      </p>
+      $endif$
+
+      <div class="chapter-toc">
+        <h4>Table des matières</h4>
+        <ul>
+          <li>
+            <a href="$url$">$chapterNumber$.0. Introduction$if(unfinished)$ 🚧$endif$</a>
+        $for(sections)$
+          <li>
+            <a href="$url$">$chapterNumber$.$sectionNumber$. $title$$if(unfinished)$ 🚧$endif$</a>
+          </li>
+        $endfor$
+        </ul>
+      </div>
+
+      <div class="chapter-footer">
+        <a href="$url$">Ouvrir le chapitre</a>
+      </div>
+    </div>
+  $endfor$
+
+  </div>
+
+
+  <h2>À propos</h2>
+
+  <p>
+    Ce livre a pour vocation de servir de support de cours pour l'enseignement de l'informatique
+    à des élèves de l'école secondaire.
+    Le cours couvre le programme de la discipline obligatoire <i>Informatique</i>
+    de l'École de Maturité du canton de Vaud en Suisse.
   </p>
 
   <p>
     Le site est actuellement en construction.
     Dernière modification le $globalLastModified$.
   </p>
-
-  <h2>Chapitres</h2>
-
-  <ul class="table-of-content">
-  $for(chapters)$
-    <li>
-      <a href="$url$">$chapterNumber$. $title$$if(unfinished)$ 🚧$endif$</a>
-      <ul>
-      $for(sections)$
-        <li>
-          <a href="$url$">$chapterNumber$.$sectionNumber$. $title$$if(unfinished)$ 🚧$endif$</a>
-        </li>
-      $endfor$
-      </ul>
-    </li>
-  $endfor$
-  </ul>
 </section>
 
 
