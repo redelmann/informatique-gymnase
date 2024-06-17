@@ -22,7 +22,7 @@ class KarnaughTable {
         this.forEachCell((element, interpretation) => {
             const entries = [];
             for (const variable of variables) {
-                entries.push(variable + '=' + interpretation[variable]);
+                entries.push(variable + '=' + (interpretation[variable] ? '1' : '0'));
             }
             element.title = entries.join(', ');
         });
@@ -75,8 +75,8 @@ class KarnaughTable {
             row.appendChild(th);
             for (let j = 0; j < 2; j++) {
                 const interpretation = {};
-                interpretation[this.variables[0]] = j;
-                interpretation[this.variables[1]] = i;
+                interpretation[this.variables[0]] = j === 1;
+                interpretation[this.variables[1]] = i === 1;
                 const td = document.createElement('td');
                 const cell = new KarnaughCell(td, interpretation);
                 this.cells.push(cell);
@@ -134,9 +134,9 @@ class KarnaughTable {
             row.appendChild(th);
             for (let j = 0; j < 4; j++) {
                 const interpretation = {};
-                interpretation[this.variables[0]] = j >= 2 ? 1 : 0;
-                interpretation[this.variables[1]] = j === 1 || j === 2 ? 1 : 0;
-                interpretation[this.variables[2]] = i;
+                interpretation[this.variables[0]] = j >= 2;
+                interpretation[this.variables[1]] = j === 1 || j === 2;
+                interpretation[this.variables[2]] = i === 1;
                 const td = document.createElement('td');
                 const cell = new KarnaughCell(td, interpretation);
                 this.cells.push(cell);
@@ -214,10 +214,10 @@ class KarnaughTable {
 
             for (let j = 0; j < 4; j++) {
                 const interpretation = {};
-                interpretation[this.variables[0]] = j >= 2 ? 1 : 0;
-                interpretation[this.variables[1]] = j === 1 || j === 2 ? 1 : 0;
-                interpretation[this.variables[2]] = i >= 2 ? 1 : 0;
-                interpretation[this.variables[3]] = i === 1 || i === 2 ? 1 : 0;
+                interpretation[this.variables[0]] = j >= 2;
+                interpretation[this.variables[1]] = j === 1 || j === 2;
+                interpretation[this.variables[2]] = i >= 2;
+                interpretation[this.variables[3]] = i === 1 || i === 2;
                 const td = document.createElement('td');
                 const cell = new KarnaughCell(td, interpretation);
                 this.cells.push(cell);
