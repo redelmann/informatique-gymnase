@@ -1,0 +1,53 @@
+.karnaugh {
+    border-collapse: collapse;
+    margin: 40px auto;
+}
+
+.karnaugh td:not(.empty) {
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+}
+
+.karnaugh th {
+    border: 1px solid black;
+    font-weight: normal;
+    font-family: "Consolas", "Courier New", Courier, monospace;
+    height: 55px;
+}
+
+.karnaugh th.vertical {
+    transform: rotate(-90deg);
+    overflow: hidden;
+    white-space: nowrap;
+
+}
+
+.karnaugh th.vertical.sep {
+    border-right: 2px solid black;
+}
+
+.karnaugh th.sep:not(.vertical) {
+    border-bottom: 2px solid black;
+}
+
+.karnaugh td.dimmed {
+    background-color: #f0f0f0;
+}
+
+.karnaugh td.highlight {
+    background-color: #ffcc00;
+}
+
+.karnaugh td.true-positive, .karnaugh td.selected:not(.zero) {
+    background-color: #55cc55;
+}
+
+.karnaugh td.false-positive, .karnaugh td.selected.zero {
+    background-color: #ff5555;
+}
+
+.karnaugh td.false-negative, .karnaugh td.one:not(.selected) {
+    background-color: #ffaa00;
+}

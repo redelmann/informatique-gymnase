@@ -1,133 +1,118 @@
+---
+title: Table de Karnaugh
+---
+
+<link rel="stylesheet" href="/css/karnaugh.css">
+<script src="/js/karnaugh-tables.js"></script>
 
 <style>
-
-.table {
-    margin: auto;
-    font-size: 25px;
-}
-
-.table td, .table th {
-    text-align: center;
-    padding: 5px;
-    user-select: none;
-}
-
-.table td {
-    cursor: pointer;
-}
-
-.variable-row {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.variables {
-    flex-grow: 1;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-}
-
-.variable-row .minus {
-    flex-grow: 0;
-    flex-shrink: 0;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.variable-row .minus span {
-    display: block;
-    background-color: #999;
-    color: #fff;
-    padding: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-    border-radius: 20px;
-    user-select: none;
-}
-
-.variable-selector {
-    padding: 6px;
-    border-radius: 15px;
+#karnaugh-table td:not(.empty) {
     cursor: pointer;
     user-select: none;
-    display: inline-block;
 }
-
-.not {
-    padding-right: 5px;
-}
-
-.state-0 {
-    background-color: #999;
-    color: #eee;
-}
-
-.state-1 {
-    background-color: rgb(6, 93, 6);
-    color: #fff;
-}
-
-.state-2 {
-    background-color: #f00;
-    color: #fff;
-}
-
-.state-0 .not, .state-1 .not {
-    visibility: hidden;
-}
-
-.groups {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: stretch;
-}
-
-.groups .or {
-    text-align: center;
-}
-
-.groups .plus {
-    font-size: 30px;
-    cursor: pointer;
-    text-align: center;
-}
-
-.groups .plus span {
-    display: inline-block;
-    background-color: #999;
-    color: #fff;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    user-select: none;
-}
-
 </style>
 
-<h1>Tables de Karnaugh</h1>
+<section>
+<h1>Table de Karnaugh</h1>
 
-<script src="js/karnaugh.js"></script>
+<p>
+    Cliquez dans les cellules pour changer les valeurs.
+    Vous pouvez laisser une cellule vide pour indiquer que la valeur n'a pas d'importance.
+    Entrez ensuite une proposition dans le champ de texte ci-dessous et cliquez sur le bouton <i>Vérifier</i> pour voir si la proposition correspond à la table de Karnaugh.
+</p>
 
-<table id="table">
+<table id="karnaugh-table"></table>
 
-</table>
-
-<div id="groups">
-
+<div class="expr-input">
+    <input type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" id="expr-input" />
+    <button id="verify-button">Vérifier</button>
 </div>
 
-<script type="text/javascript">
-    makeTable(document.getElementById('table'), 1, 2, function (interpretation, value) {
-        console.log(interpretation, value);
-    });
+<div id="output"></div>
+</section>
 
-    const vars = ['N2', 'N1', 'N0'];
-    
-    makeVarsList(document.getElementById('groups'), vars);
+<script type="text/javascript">
+
+function toggleValue(cell) {
+    const value = cell.textContent;
+    if (value === '0') {
+        cell.textContent = '1';
+        cell.classList.remove('zero');
+        cell.classList.add('one');
+    } else if (value === '1') {
+        cell.textContent = '';
+        cell.classList.remove('one');
+        cell.classList.remove('zero');
+    } else {
+        cell.textContent = '0';
+        cell.classList.remove('one');
+        cell.classList.add('zero');
+    }
+}
+
+(function() {
+    // Lookup variables in URL
+    let variables = new URLSearchParams(window.location.search).get('vs');
+    if (variables) {
+        variables = variables.split(',').map(v => v.trim());
+    } else {
+        variables = prompt('Entrez les variables séparées par des virgules (ex: A, B, C)');
+        if (variables) {
+            variables = variables.split(',').map(v => v.trim());
+        }
+    }
+
+    const ktable = new KarnaughTable('karnaugh-table', variables);
+    ktable.forEachCell(cell => {
+        cell.addEventListener('click', () => {
+            toggleValue(cell);
+        });
+    })
+
+    const exprInput = document.getElementById('expr-input');
+    const verifyButton = document.getElementById('verify-button');
+
+    function handler() {
+        const text = exprInput.value;
+        if (text.trim() === '') {
+            output.innerHTML = '';
+            ktable.unselect();
+            return;
+        }
+        let expr;
+        try {
+            expr = logicQuestions.parse(text);
+        } catch (e) {
+            output.innerHTML = '<p>Oups, la proposition est mal formée.</p>';
+            ktable.unselect();
+            return;
+        }
+        const usedVariables = logicQuestions.freeVariables(expr);
+        const unknownVariables = [];
+        console.log(variables, usedVariables);
+        for (const usedVariable of usedVariables) {
+            if (!variables.includes(usedVariable)) {
+                unknownVariables.push(usedVariable);
+            }
+        }
+        if (unknownVariables.length > 0) {
+            if (unknownVariables.length === 1) {
+                output.innerHTML = '<p>Votre proposition utilise une variable inconnue: ' + unknownVariables[0] + '</p>';
+            }
+            else {
+                output.innerHTML = '<p>Votre proposition utilise des variables inconnues: ' + unknownVariables.join(', ') + '</p>';
+            }
+            return;
+        }
+
+        ktable.select(expr);
+    }
+
+    verifyButton.addEventListener('click', handler);
+    exprInput.addEventListener('keyup', function() {
+        if (event.key === "Enter") {
+            handler();
+        }
+    });
+})();
 </script>

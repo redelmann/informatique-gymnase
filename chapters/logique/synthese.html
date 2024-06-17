@@ -2,52 +2,106 @@
 title: Des tables aux propositions
 order: 7
 ---
+
+<link rel="stylesheet" type="text/css" href="/css/karnaugh.css">
 <script src="/js/truth-tables.js"></script>
+<script src="/js/karnaugh-tables.js"></script>
+
+<style>
+select.zoneSelector {
+    display: block;
+    margin: auto;
+    padding: 10px;
+}
+</style>
 
 <script type="text/javascript">
-
-function unhilightKarnaugh(table) {
-    for (let row of table.rows) {
-        for (let cell of row.cells) {
-            cell.classList.remove('highlight');
+    function subsequences(arr) {
+        if (arr.length === 0) {
+            return [[]];
         }
+        const rest = subsequences(arr.slice(1));
+        return rest.map(x => [arr[0], ...x]).concat(rest);
     }
-}
 
-function highlightKarnaugh(table, rows, cols) {
-    let i = 0;
-    for (let row of table.rows) {
-        let is_data_row = false;
-        // Check if the row contains a non-empty td cell
-        for (let cell of row.cells) {
-            if (cell.tagName === 'TD' && !cell.classList.contains('empty')) {
-                is_data_row = true;
-                break;
+    function valuations(n) {
+        if (n <= 0) {
+            return [[]];
+        }
+
+        const rest = valuations(n - 1);
+        return rest.flatMap(val => {
+            return [
+                [false, ...val],
+                [true, ...val]
+            ];
+        });
+    }
+
+    function zones(variables) {
+        const buckets = [];
+        for (i = 0; i <= variables.length; i++) {
+            buckets.push([]);
+        }
+
+        for (const subseq of subsequences(variables)) {
+            const n = subseq.length;
+            if (n === 0) {
+                buckets[n].push('vrai');
+                continue;
             }
-        }
-        if (!is_data_row) {
-            continue;
-        }
-
-        let j = 0;
-        for (let cell of row.cells) {
-            if (cell.tagName === 'TD' && !cell.classList.contains('empty')) {
-                if (rows.includes(i) && cols.includes(j)) {
-                    cell.classList.add('highlight');
+            for (const val of valuations(n)) {
+                let negate = x => 'non ' + x;
+                if (n > 1) {
+                    negate = x => '(non ' + x + ')';
                 }
-                j++;
+                const zone = subseq.map((v, i) => val[i] ? v : negate(v)).join(' et ');
+                buckets[n].push(zone);
             }
         }
 
-        i++;
+        return buckets;
     }
-}
-</script>
 
-<script type="text/javascript">
-    function exerciceHandler(input, output, targetExpr) {
+    function setupZoneSelector(element, variables) {
+        if (typeof element === 'string') {
+            element = document.getElementById(element);
+        }
+
+        element.classList.add('zoneSelector');
+
+        const all_zones = zones(variables);
+
+        let size = Math.pow(2, variables.length);
+        const defaultOption = document.createElement('option');
+        defaultOption.value = 'faux';
+        defaultOption.textContent = 'Sélectionnez une zone';
+        element.appendChild(defaultOption);
+
+        for (let i = 1; i < all_zones.length; i++) {
+            size /= 2;
+            const optgroup = document.createElement('optgroup');
+            optgroup.label = 'Zones de taille ' + size;
+            for (const zone of all_zones[i]) {
+                const option = document.createElement('option');
+                option.value = zone;
+                option.textContent = zone;
+                optgroup.appendChild(option);
+            }
+            element.appendChild(optgroup);
+        }
+
+        return element;
+    }
+
+
+    function highlightExerciseHandler(input, output, targetExpr, variables) {
         output.innerHTML = '';
         const text = input.value;
+        if (text.trim() === '') {
+            output.innerHTML = '';
+            return;
+        }
         let expr;
         try {
             expr = logicQuestions.parse(text);
@@ -55,58 +109,75 @@ function highlightKarnaugh(table, rows, cols) {
             output.innerHTML = '<p>Oups, la proposition est mal formée.</p>';
             return;
         }
+        const usedVariables = logicQuestions.freeVariables(expr);
+        const unknownVariables = [];
+        for (const usedVariable of usedVariables) {
+            if (!variables.includes(usedVariable)) {
+                unknownVariables.push(usedVariable);
+            }
+        }
+        if (unknownVariables.length > 0) {
+            if (unknownVariables.length === 1) {
+                output.innerHTML = '<p>Votre proposition utilise une variable inconnue: ' + unknownVariables[0] + '</p>';
+            }
+            else {
+                output.innerHTML = '<p>Votre proposition utilise des variables inconnues: ' + unknownVariables.join(', ') + '</p>';
+            }
+            return;
+        }
         const model = logicQuestions.getCounterExample(logicQuestions.iff(expr, targetExpr));
         if (model === null) {
             output.innerHTML = '<p>Correct ! Bravo !</p>';
         } else {
-            output.innerHTML = '<p>Ce n\'est pas tout à fait ça.</p>';
+            output.innerHTML = '<p>Ce n\'est pas tout à fait ça. L\'expression entrée correspond à la zone suivante :</p>';
+            const table = document.createElement('table');
+            const ktable = new KarnaughTable(table, variables);
+            ktable.highlight(expr);
+            output.appendChild(table);
+        }
+    }
+
+    function findExerciseHandler(input, output, ktable, variables) {
+        output.innerHTML = '';
+        const text = input.value;
+        if (text.trim() === '') {
+            output.innerHTML = '';
+            ktable.unhighlight();
+            return;
+        }
+        let expr;
+        try {
+            expr = logicQuestions.parse(text);
+        } catch (e) {
+            output.innerHTML = '<p>Oups, la proposition est mal formée.</p>';
+            return;
+        }
+        const usedVariables = logicQuestions.freeVariables(expr);
+        const unknownVariables = [];
+        console.log(variables, usedVariables);
+        for (const usedVariable of usedVariables) {
+            if (!variables.includes(usedVariable)) {
+                unknownVariables.push(usedVariable);
+            }
+        }
+        if (unknownVariables.length > 0) {
+            if (unknownVariables.length === 1) {
+                output.innerHTML = '<p>Votre proposition utilise une variable inconnue: ' + unknownVariables[0] + '</p>';
+            }
+            else {
+                output.innerHTML = '<p>Votre proposition utilise des variables inconnues: ' + unknownVariables.join(', ') + '</p>';
+            }
+            return;
+        }
+        ktable.verify(expr);
+        let errors = ktable.table.querySelectorAll('.false-positive, .false-negative');
+        if (errors.length === 0) {
+            output.innerHTML = '<p>Correct ! Bravo !</p>';
+        } else {
+            output.innerHTML = '<p>Ce n\'est pas tout à fait ça. En rouge sont indiquées les cellules sélectionnées par erreur et en orange les cellules manquantes.</p>'
         }
     }
 </script>
-
-<style>
-    .karnaugh {
-        border-collapse: collapse;
-        margin: 40px auto;
-    }
-
-    .karnaugh td:not(.empty) {
-        border: 1px solid black;
-        width: 100px;
-        height: 100px;
-        text-align: center;
-    }
-
-    .karnaugh th {
-        border: 1px solid black;
-        font-weight: normal;
-        font-family: "Consolas", "Courier New", Courier, monospace;
-        height: 55px;
-    }
-
-    .karnaugh th.vertical {
-        transform: rotate(-90deg);
-        overflow: hidden;
-        white-space: nowrap;
-
-    }
-
-    .karnaugh th.vertical.sep {
-        border-right: 2px solid black;
-    }
-
-    .karnaugh th.sep:not(.vertical) {
-        border-bottom: 2px solid black;
-    }
-
-    .karnaugh td.dimmed {
-        background-color: #f0f0f0;
-    }
-
-    .karnaugh td.highlight {
-        background-color: #ffcc00;
-    }
-</style>
 
 <p>
     Comme nous le verrons dans le chapitre suivant,
@@ -160,23 +231,12 @@ $endremark$
     Voici à quoi ressemble une table de Karnaugh pour deux variables <code>A</code> et <code>B</code> :
 </p>
 
-<table class="karnaugh" id="karnaugh-ex-0">
-    <tr>
-        <td class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th class="vertical sep">non B</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th class="vertical sep">B</th>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
+<table id="karnaugh-ex-0"></table>
+<script type="text/javascript">
+(function() {
+    const ktable = new KarnaughTable('karnaugh-ex-0', ['A', 'B']);
+})();
+</script>
 
 <p>
     Une table de Karnaugh est un tableau de cellules, ici au nombre de 4, pour le moment vides.
@@ -257,23 +317,13 @@ populateTable('ex-1-truth-table', 'non A ou B', ['?']);
     On peut remplir la table de Karnaugh de la manière suivante :
 </p>
 
-<table class="karnaugh" id="karnaugh-ex-1">
-    <tr>
-        <td class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th class="vertical sep">non B</th>
-        <td>1</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th class="vertical sep">B</th>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-</table>
+<table id="karnaugh-ex-1"></table>
+<script type="text/javascript">
+(function() {
+    const ktable = new KarnaughTable('karnaugh-ex-1', ['A', 'B']);
+    ktable.display('non A ou B');
+})();
+</script>
 
 <p>
     La cellule en haut à droite contient 0.
@@ -320,39 +370,20 @@ $endexample$
     peuvent faire intervenir une ou plusieurs variables.
 </p>
 
-<table class="karnaugh" id="karnaugh-ex-2">
-    <tr>
-        <td class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th class="vertical sep">non B</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th class="vertical sep">B</th>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
 
-<select id="karnaugh-ex-2-select" style="display:block; margin:auto; padding: 10px;">
-    <option value=":">Sélectionner une zone</option>
-    <optgroup label="Zones de taille 2">
-        <option value="01:0">non A</option>
-        <option value="01:1">A</option>
-        <option value="0:01">non B</option>
-        <option value="1:01">B</option>
-    </optgroup>
-    <optgroup label="Zones de taille 1">
-        <option value="0:0">(non A) et (non B)</option>
-        <option value="0:1">A et (non B)</option>
-        <option value="1:0">(non A) et B</option>
-        <option value="1:1">A et B</option>
-    </optgroup>
-</select>
+<table id="karnaugh-ex-2"></table>
+
+<select id="karnaugh-ex-2-select"></select>
+
+<script type="text/javascript">
+(function() {
+    const ktable = new KarnaughTable('karnaugh-ex-2', ['A', 'B']);
+    const select = setupZoneSelector('karnaugh-ex-2-select', ['A', 'B']);
+    select.addEventListener('change', function() {
+        ktable.highlight(select.value);
+    });
+})();
+</script>
 
 $tryout$
 <p>
@@ -360,18 +391,6 @@ $tryout$
     et observez comment les cellules de la table sont mises en évidence.
 </p>
 $endtryout$
-
-<script type="text/javascript">
-(function() {
-    const table = document.getElementById('karnaugh-ex-2');
-    const select = document.getElementById('karnaugh-ex-2-select');
-    select.addEventListener('change', function() {
-        unhilightKarnaugh(table);
-        const [rows, cols] = select.value.split(':').map(x => x.split('').map(x => parseInt(x)));
-        highlightKarnaugh(table, rows, cols);
-    });
-})();
-</script>
 
 <p>
     Plus une zone fait intervenir de variables, plus elle est <i>petite</i>.
@@ -425,26 +444,14 @@ $example$
     en prenant la zone correspondant à <code>B</code>.
 </p>
 
-<table class="karnaugh" id="karnaugh-ex-3">
-    <tr>
-        <td class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th class="vertical sep">non B</th>
-        <td>1</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th class="vertical sep">B</th>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-</table>
+<table id="karnaugh-ex-3"></table>
 
 <script type="text/javascript">
-highlightKarnaugh(document.getElementById('karnaugh-ex-3'), [1], [0, 1]);
+(function() {
+    const ktable = new KarnaughTable('karnaugh-ex-3', ['A', 'B']);
+    ktable.display('non A ou B');
+    ktable.highlight('B');
+})();
 </script>
 
 <p>
@@ -452,26 +459,14 @@ highlightKarnaugh(document.getElementById('karnaugh-ex-3'), [1], [0, 1]);
     et ce même si la zone <code>non A</code> contient une cellule à 1 déjà couverte par le premier groupe.
 </p>
 
-<table class="karnaugh" id="karnaugh-ex-4">
-    <tr>
-        <td class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th class="vertical sep">non B</th>
-        <td>1</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th class="vertical sep">B</th>
-        <td>1</td>
-        <td class="dimmed">1</td>
-    </tr>
-</table>
+<table id="karnaugh-ex-4"></table>
 
 <script type="text/javascript">
-highlightKarnaugh(document.getElementById('karnaugh-ex-4'), [0, 1], [0]);
+(function() {
+    const ktable = new KarnaughTable('karnaugh-ex-4', ['A', 'B']);
+    ktable.display('non A ou B');
+    ktable.highlight('non A', 'B');
+})();
 </script>
 
 <p>
@@ -502,34 +497,13 @@ $endexample$
     Voici à quoi ressemble une table de Karnaugh pour trois variables <code>A</code>, <code>B</code> et <code>C</code> :
 </p>
 
-<table class="karnaugh" id="karnaugh-2-ex-0">
-    <tr>
-        <td colspan="2" class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">non B</th>
-        <th class="vertical sep">non C</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical sep">C</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">B</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th class="vertical sep">non C</th>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
+<table id="karnaugh-2-ex-0"></table>
+
+<script type="text/javascript">
+(function() {
+    const ktable = new KarnaughTable('karnaugh-2-ex-0', ['A', 'B', 'C']);
+})();
+</script>
 
 <p>
     Il est intéressant de noter que,
@@ -550,70 +524,19 @@ $endexample$
     Voici les différentes zones possibles :
 </p>
 
-<table class="karnaugh" id="karnaugh-2-ex-1">
-    <tr>
-        <td colspan="2" class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">non B</th>
-        <th class="vertical sep">non C</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical sep">C</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">B</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th class="vertical sep">non C</th>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
+<table id="karnaugh-2-ex-1"></table>
 
-<select id="karnaugh-2-ex-1-select" style="display:block; margin:auto; padding: 10px;">
-    <option value=":">Sélectionner une zone</option>
-    <optgroup label="Zones de taille 4">
-        <option value="0123:0">non A</option>
-        <option value="0123:1">A</option>
-        <option value="01:01">non B</option>
-        <option value="23:01">B</option>
-        <option value="03:01">non C</option>
-        <option value="12:01">C</option>
-    </optgroup>
-    <optgroup label="Zones de taille 2">
-        <option value="01:0">(non A) et (non B)</option>
-        <option value="01:1">A et (non B)</option>
-        <option value="23:0">(non A) et B</option>
-        <option value="23:1">A et B</option>
-        <option value="03:0">(non A) et (non C)</option>
-        <option value="03:1">A et (non C)</option>
-        <option value="12:0">(non A) et C</option>
-        <option value="12:1">A et C</option>
-        <option value="0:01">(non B) et (non C)</option>
-        <option value="3:01">B et (non C)</option>
-        <option value="1:01">(non B) et C</option>
-        <option value="2:01">B et C</option>
-    </optgroup>
-    <optgroup label="Zones de taille 1">
-        <option value="0:0">(non A) et (non B) et (non C)</option>
-        <option value="0:1">A et (non B) et (non C)</option>
-        <option value="3:0">(non A) et B et (non C)</option>
-        <option value="3:1">A et B et (non C)</option>
-        <option value="1:0">(non A) et (non B) et C</option>
-        <option value="1:1">A et (non B) et C</option>
-        <option value="2:0">(non A) et B et C</option>
-        <option value="2:1">A et B et C</option>
-    </optgroup>
-</select>
+<select id="karnaugh-2-ex-1-select"></select>
+
+<script type="text/javascript">
+(function() {
+    const ktable = new KarnaughTable('karnaugh-2-ex-1', ['A', 'B', 'C']);
+    const select = setupZoneSelector('karnaugh-2-ex-1-select', ['A', 'B', 'C']);
+    select.addEventListener('change', function() {
+        ktable.highlight(select.value);
+    });
+})();
+</script>
 
 $tryout$
 <p>
@@ -621,18 +544,6 @@ $tryout$
     et observez comment les cellules de la table sont mises en évidence.
 </p>
 $endtryout$
-
-<script type="text/javascript">
-(function() {
-    const table = document.getElementById('karnaugh-2-ex-1');
-    const select = document.getElementById('karnaugh-2-ex-1-select');
-    select.addEventListener('change', function() {
-        unhilightKarnaugh(table);
-        const [rows, cols] = select.value.split(':').map(x => x.split('').map(x => parseInt(x)));
-        highlightKarnaugh(table, rows, cols);
-    });
-})();
-</script>
 
 $example$
 <p>
@@ -650,111 +561,46 @@ populateTable('ex-2-truth-table', '(non A) et B ou non C', ['?']);
     On remplit ainsi la table de Karnaugh de la manière suivante :
 </p>
 
-<table class="karnaugh" id="karnaugh-2-ex-2">
-    <tr>
-        <td colspan="2" class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">non B</th>
-        <th class="vertical sep">non C</th>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical sep">C</th>
-        <td>0</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">B</th>
-        <td>1</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th class="vertical sep">non C</th>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-</table>
+<table id="karnaugh-2-ex-2"></table>
+
+<script type="text/javascript">
+(function() {
+    const ktable = new KarnaughTable('karnaugh-2-ex-2', ['A', 'B', 'C']);
+    ktable.display('(non A) et B ou non C');
+})();
+</script>
 
 <p>
     Vient ensuite le moment de former les groupes de cellules à 1.
     Le premier groupe que l'on peut former est un groupe de taille 4,
-    correspondant à la première et dernière ligne de la table,
+    correspondant à la première de la table,
     c'est-à-dire à la zone <code>non C</code>.
 </p>
 
-<table class="karnaugh" id="karnaugh-2-ex-3">
-    <tr>
-        <td colspan="2" class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">non B</th>
-        <th class="vertical sep">non C</th>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical sep">C</th>
-        <td>0</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">B</th>
-        <td>1</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th class="vertical sep">non C</th>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-</table>
+<table id="karnaugh-2-ex-3"></table>
 
 <script type="text/javascript">
-highlightKarnaugh(document.getElementById('karnaugh-2-ex-3'), [0, 3], [0, 1]);
+(function() {
+    const ktable = new KarnaughTable('karnaugh-2-ex-3', ['A', 'B', 'C']);
+    ktable.display('(non A) et B ou non C');
+    ktable.highlight('non C');
+})();
 </script>
 
 <p>
     On peut ensuite former un deuxième groupe, de taille 2 cette fois,
-    correspondant à la zone <code>(non A) et B</code>.
+    correspondant à la zone <code>(non A) et B</code>,
+    en deuxième colonne.
 </p>
 
-<table class="karnaugh" id="karnaugh-2-ex-4">
-    <tr>
-        <td colspan="2" class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">non B</th>
-        <th class="vertical sep">non C</th>
-        <td class="dimmed">1</td>
-        <td class="dimmed">1</td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical sep">C</th>
-        <td>0</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">B</th>
-        <td>1</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th class="vertical sep">non C</th>
-        <td class="dimmed">1</td>
-        <td class="dimmed">1</td>
-    </tr>
-</table>
+<table id="karnaugh-2-ex-4"></table>
 
 <script type="text/javascript">
-    highlightKarnaugh(document.getElementById('karnaugh-2-ex-4'), [2, 3], [0]);
+(function() {
+    const ktable = new KarnaughTable('karnaugh-2-ex-4', ['A', 'B', 'C']);
+    ktable.display('(non A) et B ou non C');
+    ktable.highlight('non A et B', 'non C');
+})();
 </script>
 
 <p>
@@ -779,47 +625,13 @@ $endexample$
     Voici à quoi ressemble une table de Karnaugh pour quatre variables <code>A</code>, <code>B</code>, <code>C</code> et <code>D</code> :
 </p>
 
-<table class="karnaugh" id="karnaugh-3-ex-0">
-    <tr>
-        <td colspan="2" rowspan="2" class="empty"></td>
-        <th colspan="2">non A</th>
-        <th colspan="2">A</th>
-    </tr>
-    <tr>
-        <th class="sep">non B</th>
-        <th class="sep" colspan="2">B</th>
-        <th class="sep">non B</th>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">non C</th>
-        <th class="vertical sep">non D</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical sep">D</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">C</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th class="vertical sep">non D</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
+<table id="karnaugh-3-ex-0"></table>
+
+<script type="text/javascript">
+(function() {
+    const ktable = new KarnaughTable('karnaugh-3-ex-0', ['A', 'B', 'C', 'D']);
+})();
+</script>
 
 <h4>Zones de la table de Karnaugh</h4>
 
@@ -829,159 +641,16 @@ $endexample$
     Voici les différentes zones possibles :
 </p>
 
-<table class="karnaugh" id="karnaugh-3-ex-1">
-    <tr>
-        <td colspan="2" rowspan="2" class="empty"></td>
-        <th colspan="2">non A</th>
-        <th colspan="2">A</th>
-    </tr>
-    <tr>
-        <th class="sep">non B</th>
-        <th class="sep" colspan="2">B</th>
-        <th class="sep">non B</th>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">non C</th>
-        <th class="vertical sep">non D</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical sep">D</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">C</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th class="vertical sep">non D</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
+<table id="karnaugh-3-ex-1"></table>
 
-<select id="karnaugh-3-ex-1-select" style="display:block; margin:auto; padding: 10px;">
-    <option value=":">Sélectionner une zone</option>
-    <optgroup label="Zones de taille 8">
-        <option value="0123:01">non A</option>
-        <option value="0123:23">A</option>
-        <option value="0123:03">non B</option>
-        <option value="0123:12">B</option>
-        <option value="01:0123">non C</option>
-        <option value="23:0123">C</option>
-        <option value="03:0123">non D</option>
-        <option value="12:0123">D</option>
-    </optgroup>
-    <optgroup label="Zones de taille 4">
-        <option value="0123:0">(non A) et (non B)</option>
-        <option value="0123:3">A et (non B)</option>
-        <option value="0123:1">(non A) et B</option>
-        <option value="0123:2">A et B</option>
-        <option value="01:01">(non A) et (non C)</option>
-        <option value="01:23">A et (non C)</option>
-        <option value="23:01">(non A) et C</option>
-        <option value="23:23">A et C</option>
-        <option value="03:01">(non A) et (non D)</option>
-        <option value="03:23">A et (non D)</option>
-        <option value="12:01">(non A) et D</option>
-        <option value="12:23">A et D</option>
-        <option value="01:03">(non B) et (non C)</option>
-        <option value="01:12">B et (non C)</option>
-        <option value="23:03">(non B) et C</option>
-        <option value="23:12">B et C</option>
-        <option value="03:03">(non B) et (non D)</option>
-        <option value="03:12">B et (non D)</option>
-        <option value="12:03">(non B) et D</option>
-        <option value="12:12">B et D</option>
-        <option value="0:0123">(non C) et (non D)</option>
-        <option value="3:0123">C et (non D)</option>
-        <option value="1:0123">(non C) et D</option>
-        <option value="2:0123">C et D</option>
-    </optgroup>
-    <optgroup label="Zones de taille 2">
-        <option value="01:0">(non A) et (non B) et (non C)</option>
-        <option value="01:3">A et (non B) et (non C)</option>
-        <option value="01:1">(non A) et B et (non C)</option>
-        <option value="01:2">A et B et (non C)</option>
-
-        <option value="23:0">(non A) et (non B) et C</option>
-        <option value="23:3">A et (non B) et C</option>
-        <option value="23:1">(non A) et B et C</option>
-        <option value="23:2">A et B et C</option>
-
-        <option value="03:0">(non A) et (non B) et (non D)</option>
-        <option value="03:3">A et (non B) et (non D)</option>
-        <option value="03:1">(non A) et B et (non D)</option>
-        <option value="03:2">A et B et (non D)</option>
-
-        <option value="12:0">(non A) et (non B) et D</option>
-        <option value="12:3">A et (non B) et D</option>
-        <option value="12:1">(non A) et B et D</option>
-        <option value="12:2">A et B et D</option>
-
-        <option value="0:01">(non A) et (non C) et (non D)</option>
-        <option value="0:23">A et (non C) et (non D)</option>
-        <option value="3:01">(non A) et C et (non D)</option>
-        <option value="3:23">A et C et (non D)</option>
-
-        <option value="1:01">(non A) et (non C) et D</option>
-        <option value="1:23">A et (non C) et D</option>
-        <option value="2:01">(non A) et C et D</option>
-        <option value="2:23">A et C et D</option>
-
-        <option value="0:03">(non B) et (non C) et (non D)</option>
-        <option value="0:12">B et (non C) et (non D)</option>
-        <option value="3:03">(non B) et C et (non D)</option>
-        <option value="3:12">B et C et (non D)</option>
-
-        <option value="1:03">(non B) et (non C) et D</option>
-        <option value="1:12">B et (non C) et D</option>
-        <option value="2:03">(non B) et C et D</option>
-        <option value="2:12">B et C et D</option>
-    </optgroup>
-
-    <optgroup label="Zones de taille 1">
-        <option value="0:0">(non A) et (non B) et (non C) et (non D)</option>
-        <option value="0:3">A et (non B) et (non C) et (non D)</option>
-        <option value="0:1">(non A) et B et (non C) et (non D)</option>
-        <option value="0:2">A et B et (non C) et (non D)</option>
-
-        <option value="3:0">(non A) et (non B) et C et (non D)</option>
-        <option value="3:3">A et (non B) et C et (non D)</option>
-        <option value="3:1">(non A) et B et C et (non D)</option>
-        <option value="3:2">A et B et C et (non D)</option>
-
-        <option value="1:0">(non A) et (non B) et (non C) et D</option>
-        <option value="1:3">A et (non B) et (non C) et D</option>
-        <option value="1:1">(non A) et B et (non C) et D</option>
-        <option value="1:2">A et B et (non C) et D</option>
-
-        <option value="2:0">(non A) et (non B) et C et D</option>
-        <option value="2:3">A et (non B) et C et D</option>
-        <option value="2:1">(non A) et B et C et D</option>
-        <option value="2:2">A et B et C et D</option>
-    </optgroup>
-</select>
+<select id="karnaugh-3-ex-1-select"></select>
 
 <script type="text/javascript">
 (function() {
-    const table = document.getElementById('karnaugh-3-ex-1');
-    const select = document.getElementById('karnaugh-3-ex-1-select');
+    const ktable = new KarnaughTable('karnaugh-3-ex-1', ['A', 'B', 'C', 'D']);
+    const select = setupZoneSelector('karnaugh-3-ex-1-select', ['A', 'B', 'C', 'D']);
     select.addEventListener('change', function() {
-        unhilightKarnaugh(table);
-        const [rows, cols] = select.value.split(':').map(x => x.split('').map(x => parseInt(x)));
-        highlightKarnaugh(table, rows, cols);
+        ktable.highlight(select.value);
     });
 })();
 </script>
@@ -1029,37 +698,13 @@ $selfcheck$
     Soit la table de Karnough suivante, avec une zone mise en évidence :
 </p>
 
-<table class="karnaugh" id="karnaugh-self-check-0">
-    <tr>
-        <td colspan="2" class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">non B</th>
-        <th class="vertical sep">non C</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical sep">C</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">B</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th class="vertical sep">non C</th>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
+<table id="karnaugh-self-check-0"></table>
 
 <script type="text/javascript">
-highlightKarnaugh(document.getElementById('karnaugh-self-check-0'), [0, 1], [1]);
+(function() {
+    const ktable = new KarnaughTable('karnaugh-self-check-0', ['A', 'B', 'C']);
+    ktable.highlight('A et non B');
+})();
 </script>
 
 <p>
@@ -1073,16 +718,17 @@ highlightKarnaugh(document.getElementById('karnaugh-self-check-0'), [0, 1], [1])
 
 <script type="text/javascript">
 (function() {
+    const variables = ['A', 'B', 'C'];
     const expr = document.getElementById('self-check-ex-0-in').querySelector('input');
     const button = document.getElementById('self-check-ex-0-in').querySelector('button');
     const out = document.getElementById('self-check-ex-0-out');
     const target = logicQuestions.parse('A et non B');
     button.addEventListener('click', function() {
-        exerciceHandler(expr, out, target);
+        highlightExerciseHandler(expr, out, target, variables);
     });
     expr.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
-            exerciceHandler(expr, out, target);
+            highlightExerciseHandler(expr, out, target, variables);
         }
     });
 })();
@@ -1092,40 +738,16 @@ $endselfcheck$
 
 $selfcheck$
 <p>
-    Soit la table de Karnough suivante, avec une zone mise en évidence :
+    Soit la table de Karnaugh suivante, avec une zone mise en évidence :
 </p>
 
-<table class="karnaugh" id="karnaugh-self-check-1">
-    <tr>
-        <td colspan="2" class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">non B</th>
-        <th class="vertical sep">non C</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical sep">C</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">B</th>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <th class="vertical sep">non C</th>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
+<table id="karnaugh-self-check-1"></table>
 
 <script type="text/javascript">
-highlightKarnaugh(document.getElementById('karnaugh-self-check-1'), [3], [0]);
+(function() {
+    const ktable = new KarnaughTable('karnaugh-self-check-1', ['A', 'B', 'C']);
+    ktable.highlight('non A et non C et B');
+})();
 </script>
 
 <p>
@@ -1139,16 +761,17 @@ highlightKarnaugh(document.getElementById('karnaugh-self-check-1'), [3], [0]);
 
 <script type="text/javascript">
 (function() {
+    const variables = ['A', 'B', 'C'];
     const expr = document.getElementById('self-check-ex-1-in').querySelector('input');
     const button = document.getElementById('self-check-ex-1-in').querySelector('button');
     const out = document.getElementById('self-check-ex-1-out');
     const target = logicQuestions.parse('non A et non C et B');
     button.addEventListener('click', function() {
-        exerciceHandler(expr, out, target);
+        highlightExerciseHandler(expr, out, target, variables);
     });
     expr.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
-            exerciceHandler(expr, out, target);
+            highlightExerciseHandler(expr, out, target, variables);
         }
     });
 })();
@@ -1162,7 +785,7 @@ $selfcheck$
     fonction de la table de vérité proposée.
 </p>
 
-<div class="cols-2">
+<div style="display: flex; gap: 50px; justify-content: space-around; flex-wrap: wrap;">
 <div>
     <p style="margin-bottom: 0;">Table de vérité :</p>
 <table class="truth-table" id="self-check-ex-2-truth-table">
@@ -1170,80 +793,35 @@ $selfcheck$
 </div>
 <div>
     <p>Table de Karnaugh :</p>
-<table class="karnaugh" id="karnaugh-self-check-1">
-    <tr>
-        <td colspan="2" class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">non B</th>
-        <th class="vertical sep">non C</th>
-        <td>
-            <select class="self-pick">
-                <option>0</option>
-                <option data-correct>1</option>
-            </select>
-        </td>
-        <td>
-            <select class="self-pick">
-                <option data-correct>0</option>
-                <option>1</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical sep">C</th>
-        <td>
-            <select class="self-pick">
-                <option data-correct>0</option>
-                <option>1</option>
-            </select>
-        </td>
-        <td>
-            <select class="self-pick">
-                <option>0</option>
-                <option data-correct>1</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">B</th>
-        <td>
-            <select class="self-pick">
-                <option>0</option>
-                <option data-correct>1</option>
-            </select>
-        </td>
-        <td>
-            <select class="self-pick">
-                <option>0</option>
-                <option data-correct>1</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <th class="vertical sep">non C</th>
-        <td>
-            <select class="self-pick">
-                <option data-correct>0</option>
-                <option>1</option>
-            </select>
-        </td>
-        <td>
-            <select class="self-pick">
-                <option>0</option>
-                <option data-correct>1</option>
-            </select>
-        </td>
-    </tr>
-</table>
+    <table id="karnaugh-self-check-2"></table>
+
 </div>
 
 </div>
+
 
 <script type="text/javascript">
+(function() {
     populateTable('self-check-ex-2-truth-table', '(A et (B ou C)) ou non A et (B ssi C)', ['?']);
+    const ktable = new KarnaughTable('karnaugh-self-check-2', ['A', 'B', 'C']);
+    ktable.display('(A et (B ou C)) ou non A et (B ssi C)');
+    ktable.forEachCell(cell => {
+        const val = cell.textContent;
+        const select = document.createElement('select');
+        select.classList.add('self-pick');
+        for (const v of ['0', '1']) {
+            const option = document.createElement('option');
+            option.value = v;
+            option.textContent = v;
+            if (v === val) {
+                option.setAttribute('data-correct', '');
+            }
+            select.appendChild(option);
+        }
+        cell.textContent = '';
+        cell.appendChild(select);
+    });
+})();
 </script>
 
 $endselfcheck$
@@ -1253,22 +831,45 @@ $selfcheck$
     Soit la table de Karnough suivante, préalablement remplie :
 </p>
 
-<table class="karnaugh" id="karnaugh-self-check-4">
-    <tr>
-        <td class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th class="vertical sep">non B</th>
-        <td>0</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th class="vertical sep">B</th>
-        <td>1</td>
-        <td>1</td>
-    </tr>
+<table class="karnaugh" id="karnaugh-self-check-3"></table>
+
+<p>
+    La table de Karnaugh correspond à la proposition :
+    <div class="expr-input" id="self-check-ex-3-in">
+        <input type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" />
+        <button>Vérifier</button>
+    </div>
+    <div id="self-check-ex-3-out"></div>
+</p>
+
+<script type="text/javascript">
+(function() {
+    const variables = ['A', 'B'];
+    const ktable = new KarnaughTable('karnaugh-self-check-3', variables);
+    const expr = document.getElementById('self-check-ex-3-in').querySelector('input');
+    const button = document.getElementById('self-check-ex-3-in').querySelector('button');
+    const out = document.getElementById('self-check-ex-3-out');
+    const target = logicQuestions.parse('B');
+    ktable.display(target);
+    button.addEventListener('click', function() {
+        findExerciseHandler(expr, out, ktable, variables);
+    });
+    expr.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            findExerciseHandler(expr, out, ktable, variables);
+        }
+    });
+})();
+</script>
+
+$endselfcheck$
+
+$selfcheck$
+<p>
+    Soit la table de Karnough suivante, préalablement remplie :
+</p>
+
+<table id="karnaugh-self-check-4">
 </table>
 
 <p>
@@ -1282,78 +883,19 @@ $selfcheck$
 
 <script type="text/javascript">
 (function() {
+    const variables = ['A', 'B', 'C'];
+    const ktable = new KarnaughTable('karnaugh-self-check-4', variables);
     const expr = document.getElementById('self-check-ex-4-in').querySelector('input');
     const button = document.getElementById('self-check-ex-4-in').querySelector('button');
     const out = document.getElementById('self-check-ex-4-out');
-    const target = logicQuestions.parse('B');
-    button.addEventListener('click', function() {
-        exerciceHandler(expr, out, target);
-    });
-    expr.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            exerciceHandler(expr, out, target);
-        }
-    });
-})();
-</script>
-
-$endselfcheck$
-
-$selfcheck$
-<p>
-    Soit la table de Karnough suivante, préalablement remplie :
-</p>
-
-<table class="karnaugh" id="karnaugh-self-check-2">
-    <tr>
-        <td colspan="2" class="empty"></td>
-        <th class="sep">non A</th>
-        <th class="sep">A</th>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">non B</th>
-        <th class="vertical sep">non C</th>
-        <td>1</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical sep">C</th>
-        <td>0</td>
-        <td>1</td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">B</th>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-    <tr>
-        <th class="vertical sep">non C</th>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-</table>
-
-<p>
-    La table de Karnaugh correspond à la proposition :
-    <div class="expr-input" id="self-check-ex-2-in">
-        <input type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" />
-        <button>Vérifier</button>
-    </div>
-    <div id="self-check-ex-2-out"></div>
-</p>
-
-<script type="text/javascript">
-(function() {
-    const expr = document.getElementById('self-check-ex-2-in').querySelector('input');
-    const button = document.getElementById('self-check-ex-2-in').querySelector('button');
-    const out = document.getElementById('self-check-ex-2-out');
     const target = logicQuestions.parse('B ou (A ssi C)');
+    ktable.display(target);
     button.addEventListener('click', function() {
-        exerciceHandler(expr, out, target);
+        findExerciseHandler(expr, out, ktable, variables);
     });
     expr.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
-            exerciceHandler(expr, out, target);
+            findExerciseHandler(expr, out, ktable, variables);
         }
     });
 })();
@@ -1366,75 +908,57 @@ $selfcheck$
     Soit la table de Karnough suivante, préalablement remplie :
 </p>
 
-<table class="karnaugh" id="karnaugh-self-check-3">
-    <tr>
-        <td colspan="2" rowspan="2" class="empty"></td>
-        <th colspan="2">non A</th>
-        <th colspan="2">A</th>
-    </tr>
-    <tr>
-        <th class="sep">non B</th>
-        <th class="sep" colspan="2">B</th>
-        <th class="sep">non B</th>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">non C</th>
-        <th class="vertical sep">non D</th>
-        <td>1</td>
-        <td>1</td>
-        <td>0</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical sep">D</th>
-        <td>0</td>
-        <td>1</td>
-        <td>1</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th rowspan="2" class="vertical">C</th>
-        <td>0</td>
-        <td>1</td>
-        <td>0</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <th class="vertical sep">non D</th>
-        <td>1</td>
-        <td>1</td>
-        <td>0</td>
-        <td>0</td>
-    </tr>
-</table>
+<table id="karnaugh-self-check-5"></table>
 
 <p>
     La table de Karnaugh correspond à la proposition :
-    <div class="expr-input" id="self-check-ex-3-in">
+    <div class="expr-input" id="self-check-ex-5-in">
         <input type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" />
         <button>Vérifier</button>
     </div>
-    <div id="self-check-ex-3-out"></div>
+    <div id="self-check-ex-5-out"></div>
 </p>
 
 <script type="text/javascript">
 (function() {
-    const expr = document.getElementById('self-check-ex-3-in').querySelector('input');
-    const button = document.getElementById('self-check-ex-3-in').querySelector('button');
-    const out = document.getElementById('self-check-ex-3-out');
+    const variables = ['A', 'B', 'C', 'D'];
+    const ktable = new KarnaughTable('karnaugh-self-check-5', variables);
+    const expr = document.getElementById('self-check-ex-5-in').querySelector('input');
+    const button = document.getElementById('self-check-ex-5-in').querySelector('button');
+    const out = document.getElementById('self-check-ex-5-out');
     const target = logicQuestions.parse('(non A et (non D ou B)) ou (B et non C et D)');
+    ktable.display(target);
     button.addEventListener('click', function() {
-        exerciceHandler(expr, out, target);
+        findExerciseHandler(expr, out, ktable, variables);
     });
     expr.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
-            exerciceHandler(expr, out, target);
+            findExerciseHandler(expr, out, ktable, variables);
         }
     });
 })();
 </script>
 
 $endselfcheck$
+
+$tryout$
+<p>
+    N'hésitez pas à vous exercer avec les tables de Karnaugh
+    grâce aux pages ci-dessous :
+</p>
+
+<ul>
+    <li>
+        <a href="/karnaugh.html?vs=A,B">Tables de Karnaugh à deux variables</a>
+    </li>
+    <li>
+        <a href="/karnaugh.html?vs=A,B,C">Tables de Karnaugh à trois variables</a>
+    </li>
+    <li>
+        <a href="/karnaugh.html?vs=A,B,C,D">Tables de Karnaugh à quatre variables</a>
+    </li>
+</ul>
+$endtryout$
 
 $master$
 <p>
