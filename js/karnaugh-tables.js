@@ -19,6 +19,13 @@ class KarnaughTable {
         this.variables = variables;
         this.cells = [];
         this.build();
+        this.forEachCell((element, interpretation) => {
+            const entries = [];
+            for (const variable of variables) {
+                entries.push(variable + '=' + interpretation[variable]);
+            }
+            element.title = entries.join(', ');
+        });
     }
 
     build() {
