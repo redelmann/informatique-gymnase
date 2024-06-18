@@ -61,6 +61,7 @@ function reask(vs) {
         text = text.split(',').map(v => v.trim()).join(',');
     }
     window.location.search = '?vs=' + text;
+    throw new Error('Reask');
 }
 
 (function() {
