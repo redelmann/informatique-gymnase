@@ -51,16 +51,50 @@ function toggleValue(cell) {
     }
 }
 
+function reask(vs) {
+    const base_text = vs ? vs.join(',') : '';
+    let text = prompt('Entrez les variables séparées par des virgules (ex: A, B, C)', base_text);
+    text = text || base_text;
+    window.location.search = '?vs=' + text;
+}
+
 (function() {
     // Lookup variables in URL
     let variables = new URLSearchParams(window.location.search).get('vs');
-    if (variables) {
-        variables = variables.split(',').map(v => v.trim());
-    } else {
-        variables = prompt('Entrez les variables séparées par des virgules (ex: A, B, C)');
-        if (variables) {
-            variables = variables.split(',').map(v => v.trim());
+
+    // If no variables are found, ask the user
+    if (!variables) {
+        reask();
+    }
+
+    variables = variables.split(',').map(v => v.trim());
+
+    // Check that there are between 2 and 4 variables
+    if (variables.length < 2 || variables.length > 4) {
+        alert('Le nombre de variables doit être compris entre 2 et 4.');
+        reask(variables);
+    }
+
+    // Check that all entries are valid variable names
+    for (const name of variables) {
+        let expr = null;
+        try {
+            expr = logicQuestions.parse(name);
         }
+        catch (e) {
+            // Ignore
+        }
+        if (expr !== null && expr.kind !== 'Variable') {
+            alert('Noms de variables invalides.');
+            reask(variables);
+        }
+    }
+
+    // Check if there are no duplicates
+    const unique = new Set(variables);
+    if (unique.size !== variables.length) {
+        alert('Les noms de variables doivent être uniques.');
+        reask(variables);
     }
 
     const ktable = new KarnaughTable('karnaugh-table', variables);
