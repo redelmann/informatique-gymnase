@@ -52,9 +52,14 @@ function toggleValue(cell) {
 }
 
 function reask(vs) {
-    const base_text = vs ? vs.join(',') : '';
-    let text = prompt('Entrez les variables séparées par des virgules (ex: A, B, C)', base_text);
-    text = text || base_text;
+    let text = prompt('Entrez les variables séparées par des virgules (ex: A, B, C)', vs ? vs.join(', ') : '');
+    if (!text) {
+        text = (vs ? vs.join(',') : '');
+    }
+    else {
+        text = text.trim();
+        text = text.split(',').map(v => v.trim()).join(',');
+    }
     window.location.search = '?vs=' + text;
 }
 
