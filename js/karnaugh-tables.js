@@ -278,6 +278,10 @@ class KarnaughTable {
                 cell.classList.add('dimmed');
                 cell.classList.remove('highlight');
             }
+            else {
+                cell.classList.remove('highlight');
+                cell.classList.remove('dimmed');
+            }
         });
     }
 
@@ -324,6 +328,7 @@ class KarnaughTable {
     unhighlight() {
         this.forEachCell((element, _) => {
             element.classList.remove('highlight');
+            element.classList.remove('dimmed');
         });
     }
 }
