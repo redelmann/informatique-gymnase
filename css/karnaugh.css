@@ -51,3 +51,7 @@
 .karnaugh td.false-negative, .karnaugh td.one:not(.selected) {
     background-color: #ffaa00;
 }
+
+.karnaugh td.true-negative, .karnaugh td.zero:not(.selected) {
+    background-color: #dddddd;
+}
