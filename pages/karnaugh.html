@@ -137,11 +137,11 @@ function reask(vs) {
     })
 
     const with_visu = new URLSearchParams(window.location.search).get('visu');
-    if (variables.length === 4 && with_visu !== null && with_visu !== 'false') {
+    if (variables.length !== 2 && with_visu !== null && with_visu !== 'false') {
         const container = document.getElementById('tables');
         const wrapper = document.createElement('div');
         container.appendChild(wrapper);
-        const visualiser = new kvis.KVis(wrapper);
+        const visualiser = new kvis.KVis(wrapper, variables.length);
         update_vis = function() {
             const table = ktable.table;
             const cells = table.querySelectorAll('td:not(.empty)');

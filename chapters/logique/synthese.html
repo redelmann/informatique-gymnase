@@ -6,6 +6,7 @@ order: 7
 <link rel="stylesheet" type="text/css" href="/css/karnaugh.css">
 <script src="/js/truth-tables.js"></script>
 <script src="/js/karnaugh-tables.js"></script>
+<script src="/js/kvis.min.js"></script>
 
 <style>
 select.zoneSelector {
@@ -401,7 +402,7 @@ $endtryout$
 </p>
 
 <p>
-    Il est intéressant de remarquer que les zones de la table de Karnaugh
+    Remarquez que les zones de la table de Karnaugh
     correspondent à des propositions.
     Chaque zone correspond à une conjonction (<code>et</code>) des variables ou de leurs négations.
 </p>
@@ -545,8 +546,101 @@ $tryout$
 </p>
 $endtryout$
 
+$tryout$
+<p>
+    Il est intéressant de considérer que les deux colonnes extérieures
+    de la table de Karnaugh sont connectées et forment une unique zone.
+    Pour ce faire, il faudrait plier la table de Karnaugh en cylindre
+    de manière à ce que les colonnes extérieures se rejoignent.
+    Essayez de visualiser cette opération à l'aide de la visualisation ci-dessous.
+    Utilisez le curseur afin de transformer la table en cylindre.
+    Vous pouvez ensuite observer à votre aise les différentes zones de la table
+    sous cette nouvelle forme.
+</p>
+
+<div id="karnaugh-viz-3" style="width:100%; height: 600px; margin-bottom: 20px;"></div>
+
+<p>
+    Entrez une proposition ci-dessous pour visualiser les cellules correspondantes dans la table de Karnaugh.
+    Utilisez les variables <code>A</code>, <code>B</code> et/ou <code>C</code>.
+</p>
+
+<div class="expr-input" style="margin-bottom: 20px; margin-top: 20px;">
+    <input type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" id="expr-input-viz-3" />
+    <button id="verify-button-viz-3">Visualiser</button>
+</div>
+
+<div id="output-viz-3" style="margin-top: 20px;"></div>
+</section>
+
+<script type="text/javascript">
+(function() {
+    const viz = new kvis.KVis(document.getElementById('karnaugh-viz-3'), 3, 3, 5, 1);
+    const variables = ['A', 'B', 'C'];
+    const table = document.createElement('table');
+    const ktable = new KarnaughTable(table, variables);
+    const exprInput = document.getElementById('expr-input-viz-3');
+    const verifyButton = document.getElementById('verify-button-viz-3');
+    const output = document.getElementById('output-viz-3');
+
+    function handler() {
+        const text = exprInput.value;
+        if (text.trim() === '') {
+            output.innerHTML = '';
+            return;
+        }
+        let expr;
+        try {
+            expr = logicQuestions.parse(text);
+        } catch (e) {
+            output.innerHTML = '<p>Oups, la proposition est mal formée.</p>';
+            viz.update(undefined, undefined);
+            return;
+        }
+        const usedVariables = logicQuestions.freeVariables(expr);
+        const unknownVariables = [];
+        for (const usedVariable of usedVariables) {
+            if (!variables.includes(usedVariable)) {
+                unknownVariables.push(usedVariable);
+            }
+        }
+        if (unknownVariables.length > 0) {
+            if (unknownVariables.length === 1) {
+                output.innerHTML = '<p>Votre proposition utilise une variable inconnue: ' + unknownVariables[0] + '. Veuillez uniquement utiliser A, B et/ou C.</p>';
+            }
+            else {
+                output.innerHTML = '<p>Votre proposition utilise des variables inconnues: ' + unknownVariables.join(', ') + ' Veuillez uniquement utiliser A, B et/ou C.</p>';
+            }
+            viz.update(undefined, undefined);
+            return;
+        }
+        ktable.select(expr);
+        // Select all cells that are not empty
+        const values = [];
+        ktable.forEachCell(cell => {
+            values.push(cell.classList.contains('selected'));
+        });
+        // Split by rows of 4
+        const rows = [];
+        for (let i = 0; i < values.length; i += 4) {
+            rows.push(values.slice(i, i + 4));
+        }
+        viz.update(undefined, rows);
+    }
+
+    verifyButton.addEventListener('click', handler);
+    exprInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            handler();
+        }
+    });
+})();
+</script>
+$endtryout$
+
 $example$
 <p>
+    Prenons un exemple pour illustrer le cas à trois variables.
     Admettons que l'on cherche à trouver une proposition qui admet la table de vérité suivante :
 </p>
 
@@ -660,6 +754,96 @@ $tryout$
     Utilisez le menu déroulant ci-dessus pour sélectionner une zone de la table de Karnaugh
     et observez comment les cellules de la table sont mises en évidence.
 </p>
+$endtryout$
+
+$tryout$
+<p>
+    Comme pour le cas à trois variables, il est intéressant de considérer que les deux colonnes extérieures
+    de la table de Karnaugh sont connectées et forment une unique zone.
+    Additionnellement, il serait aussi souhaitable de connecter les deux lignes extérieures
+    de la table de Karnaugh pour former une unique zone.
+    La forme obtenue est alors celle d'un <i>donut</i>, ou plus formellement d'un <i>tore</i>.
+    Observez plutôt !
+</p>
+
+<div id="karnaugh-viz-4" style="width:100%; height: 600px;"></div>
+
+<p>
+    Entrez une proposition ci-dessous pour visualiser les cellules correspondantes dans la table de Karnaugh.
+    Utilisez les variables <code>A</code>, <code>B</code>, <code>C</code> et/ou <code>D</code>.
+</p>
+
+<div class="expr-input" style="margin-bottom: 20px; margin-top: 20px;">
+    <input type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" id="expr-input-viz-4" />
+    <button id="verify-button-viz-4">Visualiser</button>
+</div>
+
+<div id="output-viz-4" style="margin-top: 20px;"></div>
+</section>
+
+<script type="text/javascript">
+(function() {
+    const viz = new kvis.KVis(document.getElementById('karnaugh-viz-4'), 4, 3, 5, 1);
+    const variables = ['A', 'B', 'C', 'D'];
+    const table = document.createElement('table');
+    const ktable = new KarnaughTable(table, variables);
+    const exprInput = document.getElementById('expr-input-viz-4');
+    const verifyButton = document.getElementById('verify-button-viz-4');
+    const output = document.getElementById('output-viz-4');
+
+    function handler() {
+        const text = exprInput.value;
+        if (text.trim() === '') {
+            output.innerHTML = '';
+            return;
+        }
+        let expr;
+        try {
+            expr = logicQuestions.parse(text);
+        } catch (e) {
+            output.innerHTML = '<p>Oups, la proposition est mal formée.</p>';
+            viz.update(undefined, undefined);
+            return;
+        }
+        const usedVariables = logicQuestions.freeVariables(expr);
+        const unknownVariables = [];
+        for (const usedVariable of usedVariables) {
+            if (!variables.includes(usedVariable)) {
+                unknownVariables.push(usedVariable);
+            }
+        }
+        if (unknownVariables.length > 0) {
+            if (unknownVariables.length === 1) {
+                output.innerHTML = '<p>Votre proposition utilise une variable inconnue: ' + unknownVariables[0] + '. Veuillez uniquement utiliser A, B, C et/ou D.</p>';
+            }
+            else {
+                output.innerHTML = '<p>Votre proposition utilise des variables inconnues: ' + unknownVariables.join(', ') + ' Veuillez uniquement utiliser A, B, C et/ou D.</p>';
+            }
+            viz.update(undefined, undefined);
+            return;
+        }
+        ktable.select(expr);
+        // Select all cells that are not empty
+        const values = [];
+        ktable.forEachCell(cell => {
+            values.push(cell.classList.contains('selected'));
+        });
+        // Split by rows of 4
+        const rows = [];
+        for (let i = 0; i < values.length; i += 4) {
+            rows.push(values.slice(i, i + 4));
+        }
+        viz.update(undefined, rows);
+    }
+
+    verifyButton.addEventListener('click', handler);
+    exprInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            handler();
+        }
+    });
+})();
+</script>
 $endtryout$
 
 <h3>Conclusion</h3>
