@@ -586,6 +586,7 @@ $tryout$
         const text = exprInput.value;
         if (text.trim() === '') {
             output.innerHTML = '';
+            viz.update(undefined, undefined);
             return;
         }
         let expr;
@@ -793,6 +794,7 @@ $tryout$
         const text = exprInput.value;
         if (text.trim() === '') {
             output.innerHTML = '';
+            viz.update(undefined, undefined);
             return;
         }
         let expr;
