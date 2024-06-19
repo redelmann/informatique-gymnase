@@ -4,12 +4,34 @@ title: Table de Karnaugh
 
 <link rel="stylesheet" href="/css/karnaugh.css">
 <script src="/js/karnaugh-tables.js"></script>
+<script src="/js/kvis.min.js"></script>
 
 <style>
 #karnaugh-table td:not(.empty) {
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
+}
+
+#tables {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+#tables > table {
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+#tables > div {
+    flex: 1;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    height: 510px;
+    overflow: hidden;
+    min-width: 400px;
 }
 </style>
 
@@ -22,7 +44,9 @@ title: Table de Karnaugh
     Entrez ensuite une proposition dans le champ de texte ci-dessous et cliquez sur le bouton <i>Vérifier</i> pour voir si la proposition correspond à la table de Karnaugh.
 </p>
 
-<table id="karnaugh-table"></table>
+<div id="tables">
+    <table id="karnaugh-table"></table>
+</div>
 
 <div class="expr-input">
     <input type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" id="expr-input" />
@@ -103,12 +127,41 @@ function reask(vs) {
         reask(variables);
     }
 
+    let update_vis = function() {};
     const ktable = new KarnaughTable('karnaugh-table', variables);
     ktable.forEachCell(cell => {
         cell.addEventListener('click', () => {
             toggleValue(cell);
+            update_vis();
         });
     })
+
+    const with_visu = new URLSearchParams(window.location.search).get('visu');
+    if (variables.length === 4 && with_visu !== null && with_visu !== 'false') {
+        const container = document.getElementById('tables');
+        const wrapper = document.createElement('div');
+        container.appendChild(wrapper);
+        const visualiser = new kvis.KVis(wrapper);
+        update_vis = function() {
+            const table = ktable.table;
+            const cells = table.querySelectorAll('td:not(.empty)');
+            const values = Array.from(cells).map(cell => {
+                return cell.textContent === '1' ? true : cell.textContent === '0' ? false : null;
+            });
+            const selections = Array.from(cells).map(cell => {
+                return cell.classList.contains('selected');
+            });
+            const values2d = [];
+            for (let i = 0; i < 4; i++) {
+                values2d.push(values.slice(i * 4, (i + 1) * 4));
+            }
+            const selections2d = [];
+            for (let i = 0; i < 4; i++) {
+                selections2d.push(selections.slice(i * 4, (i + 1) * 4));
+            }
+            visualiser.update(values2d, selections2d);
+        };
+    }
 
     const exprInput = document.getElementById('expr-input');
     const verifyButton = document.getElementById('verify-button');
@@ -118,6 +171,7 @@ function reask(vs) {
         if (text.trim() === '') {
             output.innerHTML = '';
             ktable.unselect();
+            update_vis();
             return;
         }
         let expr;
@@ -126,6 +180,7 @@ function reask(vs) {
         } catch (e) {
             output.innerHTML = '<p>Oups, la proposition est mal formée.</p>';
             ktable.unselect();
+            update_vis();
             return;
         }
         const usedVariables = logicQuestions.freeVariables(expr);
@@ -147,6 +202,7 @@ function reask(vs) {
         }
 
         ktable.select(expr);
+        update_vis();
     }
 
     verifyButton.addEventListener('click', handler);
