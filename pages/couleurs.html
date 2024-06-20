@@ -1,0 +1,194 @@
+---
+title: Sélecteur de couleurs
+---
+
+<style>
+    #color-picker {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    @media (max-width: 800px) {
+        #color-picker {
+            flex-direction: column;
+        }
+
+        #color-selector {
+            margin-bottom: 20px;
+        }
+    }
+    #color-zone {
+        width: 600px;
+        aspect-ratio: 3/2;
+        background-color: black;
+        margin: auto;
+        max-width: 80%;
+        display: block;
+        border-radius: 5px;
+    }
+
+    #color-selector {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #color-selector .color-picker {
+        width: 400px;
+        max-width: 100%;
+    }
+
+    #color-selector .color-picker .picker_wrapper {
+        width: 400px;
+        max-width: 100%;
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+
+    #color-selector .color-picker .picker_sample {
+        height: 20px;
+    }
+
+    #color-selector .color-components {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 400px;
+        max-width: 100%;
+        font-size: 1.4em;
+    }
+
+    #color-selector .color-components input {
+        font-size: 1.2em;
+        width: 80px;
+    }
+</style>
+
+<section>
+    <h1>Sélecteur de couleurs</h1>
+
+    <div id="color-picker">
+        <div id="color-selector">
+            <div class="color-picker"></div>
+            <div class="color-components">
+                <div>
+                    <label for="red">R</label>
+                    <input type="number" id="red" min="0" max="255" value="0">
+                </div>
+                <div>
+                    <label for="green">G</label>
+                    <input type="number" id="green" min="0" max="255" value="0">
+                </div>
+                <div>
+                    <label for="blue">B</label>
+                    <input type="number" id="blue" min="0" max="255" value="0">
+                </div>
+            </div>
+        </div>
+        <div id="spots">
+            <canvas id="color-zone" width="600" height="400"></canvas>
+        </div>
+    </div>
+</section>
+
+<script src="/js/vanilla-picker.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+(function() {
+    var parent = document.querySelector('#color-selector .color-picker');
+
+    var picker = new Picker({
+        parent,
+        popup: false,
+        editorFormat: 'rgb',
+        color: 'rgb(64, 191, 191)'
+    });
+
+    parent.querySelector('.picker_alpha').style.display = 'none';
+    parent.querySelector('.picker_editor').style.display = 'none';
+    parent.querySelector('.picker_done').style.display = 'none';
+
+    const red_input = document.getElementById('red');
+    const green_input = document.getElementById('green');
+    const blue_input = document.getElementById('blue');
+
+    red_input.value = 64;
+    green_input.value = 191;
+    blue_input.value = 191;
+
+    function updateValues(color) {
+        red_input.value = color.rgba[0];
+        green_input.value = color.rgba[1];
+        blue_input.value = color.rgba[2];
+
+        updateSpots();
+    }
+
+    picker.onChange = updateValues;
+
+    red_input.addEventListener('change', updatePicker);
+    green_input.addEventListener('change', updatePicker);
+    blue_input.addEventListener('change', updatePicker);
+
+    const colorZone = document.getElementById("color-zone");
+
+    var ctx = colorZone.getContext('2d');
+    ctx.globalCompositeOperation = 'lighter';
+
+    function hex(value) {
+        var str = Number(value).toString(16);
+        if (str.length == 1) {
+        str = '0' + str;
+        }
+        return str;
+    }
+
+    function updatePicker() {
+
+        const red = red_input.value;
+        const green = green_input.value;
+        const blue = blue_input.value;
+
+        picker.setColor('rgb(' + red + ',' + green + ',' + blue + ')');
+
+        updateSpots();
+    }
+
+    function updateSpots() {
+        const red = red_input.value;
+        const green = green_input.value;
+        const blue = blue_input.value;
+
+        const hexred = hex(red);
+        const hexgreen = hex(green);
+        const hexblue = hex(blue);
+
+        ctx.clearRect(0, 0, colorZone.width, colorZone.height);
+
+        const d = 45;
+        const c = 100;
+        const cx = colorZone.width / 2;
+        const cy = (colorZone.height + Math.sqrt(3) * d) / 2;
+
+        ctx.beginPath();
+        ctx.fillStyle = '#' + hexred + '0000';
+        ctx.arc(cx - d, cy, c, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = '#00' + hexgreen + '00';
+        ctx.arc(cx + d, cy, c, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = '#0000' + hexblue;
+        ctx.arc(cx, cy - Math.sqrt(3) * d, c, 0, 2*Math.PI);
+        ctx.fill();
+    }
+
+    updatePicker();
+})();
+</script>
