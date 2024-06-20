@@ -14,6 +14,17 @@ select.zoneSelector {
     margin: auto;
     padding: 10px;
 }
+
+.kvis {
+    height: 300px;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .kvis {
+        height: 500px;
+    }
+}
 </style>
 
 <script type="text/javascript">
@@ -558,7 +569,7 @@ $tryout$
     sous cette nouvelle forme.
 </p>
 
-<div id="karnaugh-viz-3" style="width:100%; height: 600px; margin-bottom: 20px;"></div>
+<div id="karnaugh-viz-3" class="kvis"></div>
 
 <p>
     Entrez une proposition ci-dessous pour visualiser les cellules correspondantes dans la table de Karnaugh.
@@ -574,7 +585,7 @@ $tryout$
 
 <script type="text/javascript">
 (function() {
-    const viz = new kvis.KVis(document.getElementById('karnaugh-viz-3'), 3, 3, 5, 1);
+    const viz = new kvis.KVis(document.getElementById('karnaugh-viz-3'), 3, 4, 7, 0);
     const variables = ['A', 'B', 'C'];
     const table = document.createElement('table');
     const ktable = new KarnaughTable(table, variables);
@@ -766,7 +777,7 @@ $tryout$
     Observez plutôt !
 </p>
 
-<div id="karnaugh-viz-4" style="width:100%; height: 600px;"></div>
+<div id="karnaugh-viz-4" class="kvis"></div>
 
 <p>
     Entrez une proposition ci-dessous pour visualiser les cellules correspondantes dans la table de Karnaugh.
@@ -782,7 +793,7 @@ $tryout$
 
 <script type="text/javascript">
 (function() {
-    const viz = new kvis.KVis(document.getElementById('karnaugh-viz-4'), 4, 3, 5, 1);
+    const viz = new kvis.KVis(document.getElementById('karnaugh-viz-4'), 4, 4, 7, 0);
     const variables = ['A', 'B', 'C', 'D'];
     const table = document.createElement('table');
     const ktable = new KarnaughTable(table, variables);
