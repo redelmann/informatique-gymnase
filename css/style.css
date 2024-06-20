@@ -278,7 +278,7 @@ main {
 main section {
     padding: 20px;
     padding-top: 10px;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 section {

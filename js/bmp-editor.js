@@ -33,10 +33,41 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
     const image = document.createElement("img");
     const link = document.createElement("a");
     link.textContent = "Télécharger";
+    const preview_container = document.createElement("div");
+    preview_container.classList.add("bmp-preview-container");
     preview.appendChild(image);
     preview.appendChild(link);
     container.appendChild(editor);
-    container.appendChild(preview);
+    preview_container.appendChild(preview);
+    container.appendChild(preview_container);
+
+    function nextInput(input) {
+        if (input.nextElementSibling) {
+            return input.nextElementSibling;
+        }
+        let group = input.parentElement;
+        while (group.nextElementSibling) {
+            group = group.nextElementSibling;
+            if (group.children.length > 0) {
+                return group.children[0];
+            }
+        }
+        return null;
+    }
+
+    function prevInput(input) {
+        if (input.previousElementSibling) {
+            return input.previousElementSibling;
+        }
+        let group = input.parentElement;
+        while (group.previousElementSibling) {
+            group = group.previousElementSibling;
+            if (group.children.length > 0) {
+                return group.children[group.children.length - 1];
+            }
+        }
+        return null;
+    }
 
     const bytes = new Uint8Array(header_bytes.length + palette_bytes.length + pixels_bytes.length);
 
@@ -63,7 +94,14 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
         bytes[j] = pixels_bytes[i];
     }
 
+    let group;
+
     for (let i = 0; i < bytes.length; i++) {
+        if (i % 3 == 0) {
+            group = document.createElement("div");
+            group.classList.add("bmp-group");
+            editor.appendChild(group);
+        }
         const input = document.createElement("input");
         input.type = "text";
         input.size = 2;
@@ -82,9 +120,9 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
             bytes[i] = byte_from_hex(value);
             update_preview();
             if (input.value.length == 2) {
-                let next = input.nextElementSibling;
+                let next = nextInput(input)
                 while (next && next.disabled) {
-                    next = next.nextElementSibling;
+                    next = nextInput(next);
                 }
                 if (next) {
                     next.focus();
@@ -104,9 +142,9 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
         });
         input.addEventListener("keydown", function(event) {
             if (input.selectionStart == 0 && event.key == "ArrowLeft") {
-                let previous = input.previousElementSibling;
+                let previous = prevInput(input);
                 while (previous && previous.disabled) {
-                    previous = previous.previousElementSibling;
+                    previous = prevInput(previous);
                 }
                 if (previous) {
                     previous.focus();
@@ -115,9 +153,9 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
                 return false;
             }
             if (input.selectionEnd == 2 && event.key == "ArrowRight") {
-                let next = input.nextElementSibling;
+                let next = nextInput(input);
                 while (next && next.disabled) {
-                    next = next.nextElementSibling;
+                    next = nextInput(next);
                 }
                 if (next) {
                     next.focus();
@@ -146,15 +184,15 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
             if (event.key == "ArrowUp") {
                 const left = input.offsetLeft;
                 let top = input.offsetTop;
-                let previous = input.previousElementSibling;
+                let previous = prevInput(input);
                 let keep_going = true;
                 while (keep_going) {
                     keep_going = false;
                     while (previous && previous.offsetTop == top) {
-                        previous = previous.previousElementSibling;
+                        previous = prevInput(previous);
                     }
                     while (previous && previous.offsetLeft > left) {
-                        previous = previous.previousElementSibling;
+                        previous = prevInput(previous);
                     }
                     if (previous && previous.disabled) {
                         top = previous.offsetTop;
@@ -170,15 +208,15 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
             if (event.key == "ArrowDown") {
                 const left = input.offsetLeft;
                 let top = input.offsetTop;
-                let next = input.nextElementSibling;
+                let next = nextInput(input);
                 let keep_going = true;
                 while (keep_going) {
                     keep_going = false;
                     while (next && next.offsetTop == top) {
-                        next = next.nextElementSibling;
+                        next = nextInput(next);
                     }
                     while (next && next.offsetLeft < left) {
-                        next = next.nextElementSibling;
+                        next = nextInput(next);
                     }
                     if (next && next.disabled) {
                         top = next.offsetTop;
@@ -192,9 +230,9 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
                 return false;
             }
             if (input.value == "" && event.key == "Backspace") {
-                let previous = input.previousElementSibling;
+                let previous = prevInput(input);
                 while (previous && previous.disabled) {
-                    previous = previous.previousElementSibling;
+                    previous = prevInput(previous);
                 }
                 if (previous) {
                     previous.focus();
@@ -215,7 +253,7 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
                 input.disabled = true;
             }
         }
-        editor.appendChild(input);
+        group.appendChild(input);
     }
 
     function byte_to_hex(byte) {

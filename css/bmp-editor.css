@@ -1,13 +1,24 @@
 .bmp-editor {
     width: 100%;
     padding-bottom: 20px;
-    max-height: 650px;
-    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 120px);
+    grid-template-rows: repeat(auto-fill, 50px);
+    grid-auto-rows: 50px;
+}
+
+.bmp-editor .bmp-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 50px;
+    overflow: hidden;
 }
 
 .bmp-editor input {
-    width: 2em;
-    height: 1em;
+    width: 40px;
+    height: 50px;
     border: none;
     background-color: white;
     text-align: center;
@@ -27,7 +38,14 @@
     background-color: #eee;
 }
 
+.bmp-preview-container {
+    width: 100%;
+    position: relative;
+}
+
 .bmp-preview {
+    position: sticky;
+    top: 10px;
     width: 100%;
 }
 
