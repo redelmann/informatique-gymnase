@@ -110,10 +110,24 @@ title: Informatique - École de Maturité
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  #tools > div > ul {
+    margin: 0;
+  }
+
+  #tools > div > img {
+    display: block;
+    height: 110px;
   }
 
   #tools > div.high {
     grid-row-end: span 2;
+  }
+
+  #tools > div.extra-high {
+    grid-row-end: span 3;
   }
 
   #tools > div > a {
@@ -184,13 +198,16 @@ title: Informatique - École de Maturité
   </p>
 
   <div id="tools">
-    <div>
+    <div class="high">
+      <img src="/logique/images/table.png" alt="Table de vérité" />
       <a href="/table.html">Tables de vérité</a>
     </div>
-    <div>
+    <div class="high">
+      <img src="/logique/images/loupe.png" alt="Loupe" />
       <a href="/solveur-SAT.html">Solveur SAT</a>
     </div>
-    <div class="high">
+    <div class="extra-high">
+      <img src="/logique/images/donut.png" alt="Table de Karnaugh" />
       Tables de Karnaugh
       <ul>
         <li><a href="/karnaugh.html?vs=A,B">Deux variables</a></li>
@@ -198,16 +215,20 @@ title: Informatique - École de Maturité
         <li><a href="/karnaugh.html?vs=A,B,C,D">Quatre variables</a> <a href="/karnaugh.html?vs=A,B,C,D&visu">(3D)</a></li>
       </ul>
     </div>
-    <div>
+    <div class="high">
+      <img src="/logique/images/tampon.png" alt="Logo de Python, retravaillé" />
       <a href="/fitch.html">Assistant de preuve</a>
     </div>
-    <div>
+    <div class="high">
+      <img src="/archord/images/interrupteur.png" alt="Bouton" />
       <a href="https://logic.modulo-info.ch">Éditeur de circuits</a>
     </div>
-    <div>
+    <div class="high">
+      <img src="/representation/images/palette.png" alt="Palette de couleurs" />
       <a href="/couleurs.html">Sélecteur de couleurs</a>
     </div>
-    <div class="high">
+    <div class="extra-high">
+      <img src="/representation/images/hex-lettres.png" alt="Lettres A, B, C, D, E et F" />
       Éditeur d'images BMP
       <ul>
         <li><a href="/bmp-4-4.html">Dimensions 4x4</a></li>
@@ -215,7 +236,12 @@ title: Informatique - École de Maturité
         <li><a href="/bmp-8-8-palette.html">Dimensions 8x8 (palette)</a></li>
       </ul>
     </div>
-    <div>
+    <div class="high">
+      <img src="/logique/images/arbre.png" alt="Un arbre" />
+      <a href="/huffman.html">Algorithme de Huffman</a>
+    </div>
+    <div class="high">
+      <img src="/programmation/images/python.png" alt="Logo de Python, retravaillé" />
       <a href="https://python.modulo-info.ch">Éditeur Python</a>
     </div>
   </div>
