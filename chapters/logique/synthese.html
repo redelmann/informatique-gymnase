@@ -585,7 +585,11 @@ $tryout$
 
 <script type="text/javascript">
 (function() {
-    const viz = new kvis.KVis(document.getElementById('karnaugh-viz-3'), 3, 4, 7, 0);
+    const viz = new kvis.KVis(document.getElementById('karnaugh-viz-3'), 3, {
+        target_y: 4,
+        fixed_z: 7,
+        initial_progress: 0
+    });
     const variables = ['A', 'B', 'C'];
     const table = document.createElement('table');
     const ktable = new KarnaughTable(table, variables);
@@ -793,7 +797,11 @@ $tryout$
 
 <script type="text/javascript">
 (function() {
-    const viz = new kvis.KVis(document.getElementById('karnaugh-viz-4'), 4, 4, 7, 0);
+    const viz = new kvis.KVis(document.getElementById('karnaugh-viz-4'), 4, {
+        target_y: 4,
+        fixed_z: 7,
+        initial_progress: 0
+    });
     const variables = ['A', 'B', 'C', 'D'];
     const table = document.createElement('table');
     const ktable = new KarnaughTable(table, variables);

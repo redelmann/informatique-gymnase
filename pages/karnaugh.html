@@ -141,7 +141,9 @@ function reask(vs) {
         const container = document.getElementById('tables');
         const wrapper = document.createElement('div');
         container.appendChild(wrapper);
-        const visualiser = new kvis.KVis(wrapper, variables.length);
+        const visualiser = new kvis.KVis(wrapper, variables.length, {
+            fixed_z: 7
+        });
         update_vis = function() {
             const table = ktable.table;
             const cells = table.querySelectorAll('td:not(.empty)');
