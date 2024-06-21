@@ -41,6 +41,45 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
     preview_container.appendChild(preview);
     container.appendChild(preview_container);
 
+    const colorPicker = document.createElement("div");
+    colorPicker.classList.add("color-picker");
+    const colors = ["Bleu", "Vert", "Rouge"];
+
+    preview.appendChild(colorPicker);
+
+    const colorInput = document.createElement("input");
+    colorInput.type = "color";
+    colorInput.value = "#000000";
+    colorPicker.appendChild(colorInput);
+
+    const values = [];
+
+    for(let i = 0; i < 3; i++) {
+        const div = document.createElement("div");
+        div.classList.add("color");
+        const label = document.createElement("div");
+        label.classList.add("color-label");
+        label.textContent = colors[i];
+        const value = document.createElement("div");
+        value.classList.add("color-value");
+        value.textContent = "00";
+        div.appendChild(label);
+        div.appendChild(value);
+        values.push(value);
+        colorPicker.appendChild(div);
+    }
+
+    colorInput.addEventListener("input", function() {
+        const color = colorInput.value;
+        const red = color.substring(1, 3).toUpperCase();
+        const green = color.substring(3, 5).toUpperCase();
+        const blue = color.substring(5, 7).toUpperCase();
+        values[0].textContent = blue;
+        values[1].textContent = green;
+        values[2].textContent = red;
+    });
+
+
     function nextInput(input) {
         if (input.nextElementSibling) {
             return input.nextElementSibling;

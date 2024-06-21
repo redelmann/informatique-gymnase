@@ -54,7 +54,7 @@
     text-align: center;
     font-size: 1em;
     text-decoration: underline;
-    color: blue;
+    color: inherit;
     margin-top: 10px;
     cursor: pointer;
 }
@@ -66,4 +66,41 @@
     height: auto;
     image-rendering: pixelated;
     border: 1px solid black;
+}
+
+.color-picker {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.color-picker input {
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.color-picker > .color {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 60px;
+}
+
+.color-picker > .color > .color-label {
+    font-variant: all-small-caps;
+    color: #777;
+    font-size: 20px;
+    text-shadow: white -1px 1px;
+}
+
+.color-picker > .color > .color-value {
+    font-family: monospace;
+    font-size: 30px;
+    color: #333;
 }
