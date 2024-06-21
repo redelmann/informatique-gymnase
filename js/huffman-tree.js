@@ -47,6 +47,26 @@ function get_counts(text) {
             counts[c] = 1;
         }
     }
+    return get_counts_from_object(counts);
+}
+
+function get_counts_from_specs(line) {
+    counts = {};
+    for (const part of line.split(',')) {
+        let [value, weight] = part.split(':');
+        if (weight === undefined) {
+            weight = '1';
+        }
+        value = value.trim();
+        if (!(value in counts)) {
+            counts[value] = 0;
+        }
+        counts[value] += parseInt(weight.trim());
+    }
+    return get_counts_from_object(counts);
+}
+
+function get_counts_from_object(counts) {
     const elems = [];
     for (const c in counts) {
         elems.push({
@@ -170,7 +190,6 @@ function display_elems(container, elems, step) {
         );
 
     const links = build_links(nodes);
-    console.log(links);
 
     const link = container.select('g.links').selectAll('line.link')
         .data(links, function(d) { 

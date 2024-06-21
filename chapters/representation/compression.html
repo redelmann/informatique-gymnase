@@ -254,15 +254,14 @@ $endexample$
 
 $tryout$
 <p>
-    Entrez un texte dans la zone ci-dessous et cliquez sur le bouton
-    <i>Construire</i> pour démarrer la construction de l'arbre de Huffman 
-    se basant sur la fréquence d'apparition des caractères dans le texte.
+    Entrez une liste de lettres et poids dans la zone ci-dessous et cliquez sur le bouton
+    <i>Construire</i> pour démarrer la construction de l'arbre de Huffman.
     Utilisez les boutons <i>Précédent</i> et <i>Suivant</i> pour naviguer
     dans les étapes de la construction de l'arbre.
 </p>
 
 <div id="huffman-control">
-    <input type="text" id="huffman-input" value="HELLO WORLD">
+    <input type="text" id="huffman-input" value="A: 20, B: 15, C: 10, D: 20, E: 35" placeholder="A: 20, B: 15, C: 10, D: 20, E: 35" />
     <button id="huffman-exec">Construire</button>
     <div class="spacer"></div>
     <button id="huffman-prev">Précédent</button>
@@ -274,7 +273,7 @@ $tryout$
 
 <p style="font-style: italic; color: #999;">
     Dans la visualisation ci-dessus, les nœuds de couleur rouge
-    représentent les nœuds qui n'ont pas encore été traités.
+    représentent les nœuds qui n'ont pas encore été triés.
     Au milieu des cercles sont indiqués les poids des différents nœuds.
     Les arrêtes sont étiquetées avec les bits à ajouter au mot de code.
 </p>
@@ -293,7 +292,7 @@ $endtryout$
 
     function setup(text) {
 
-        const elems = get_counts(text);
+        const elems = get_counts_from_specs(text);
         const steps = all_steps(elems);
         const last_tree = steps[steps.length - 1][0];
         const last_height = last_tree.height;
