@@ -142,7 +142,9 @@ function reask(vs) {
         const wrapper = document.createElement('div');
         container.appendChild(wrapper);
         const visualiser = new kvis.KVis(wrapper, variables.length, {
-            fixed_z: 7
+            fixed_z: 7,
+            with_axes: true,
+            variables: variables
         });
         update_vis = function() {
             const table = ktable.table;
