@@ -1,0 +1,174 @@
+---
+title: Algorithme de Huffman
+---
+
+<section>
+    <header>
+        <p>Démonstration</p>
+        <h2>Algorithme de Huffman</h2>
+    </header>
+
+<script type="text/javascript" src="/js/d3.min.js"></script>
+<script type="text/javascript" src="/js/huffman-tree.js"></script>
+
+<style type="text/css">
+    #huffman-control {
+        display: flex;
+        flex-direction: row;
+        align-items: space-between;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    #huffman-control button {
+        flex-grow: 0;
+        padding: 3px;
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: 1.1em;
+    }
+
+    #huffman-control .spacer {
+        flex-grow: 1;
+    }
+
+    #huffman-control input {
+        flex-grow: 1;
+        padding: 3px;
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: 1.1em;
+    }
+
+    #huffman-example {
+        width: fit-content;
+        height: fit-content;
+        margin: 0 auto;
+        min-height: 50px;
+    }
+    
+    #huffman-example line.link {
+        stroke: #999;
+        stroke-width: 3px;
+    }
+
+    @media screen and (max-width: 700px) {
+        #huffman-control {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #huffman-control button {
+            width: 100%;
+        }
+
+        #huffman-control .spacer {
+            height: 10px;
+        }
+
+        #huffman-control input {
+            width: 100%;
+        }
+    }
+</style>
+
+
+<div id="huffman-control">
+    <input type="text" id="huffman-input" value="A: 20, B: 15, C: 10, D: 20, E: 35" placeholder="A: 20, B: 15, C: 10, D: 20, E: 35" />
+    <button id="huffman-exec">Construire</button>
+    <div class="spacer"></div>
+    <button id="huffman-prev">Précédent</button>
+    <button id="huffman-next">Suivant</button>
+</div>
+<div class="scroll-x" style="margin-top: 50px;">
+    <div id="huffman-example"></div>
+</div>
+
+</section>
+
+<script type="text/javascript">
+(function() {
+    const prev_button = document.getElementById("huffman-prev");
+    const next_button = document.getElementById("huffman-next");
+    prev_button.disabled = true;
+    next_button.disabled = true;
+
+    function g_for_id(id) {
+        return d3.select(`#huffman-example g[data-id="$${id}"]`);
+    }
+
+    function setup(text) {
+
+        const elems = get_counts_from_specs(text);
+        const steps = all_steps(elems);
+        const last_tree = steps[steps.length - 1][0];
+        const last_height = last_tree.height;
+        const last_width = last_tree.size;
+
+        const svg = d3.select("#huffman-example")
+            .html("")
+            .append("svg")
+            .attr("width", last_width * 80 + 80)
+            .attr("height", last_height * 80 + 120);
+
+        svg.append("g")
+            .classed("links", true);
+
+        svg.append("g")
+            .classed("nodes", true);
+
+        svg.append("g")
+            .classed("bits", true);
+
+        display_elems(svg, steps[0], 0);
+
+        let current = 0;
+
+        function enable_buttons() {
+            prev_button.disabled = current == 0;
+            next_button.disabled = current == steps.length - 1;
+        }
+
+        prev_button.addEventListener("click", () => {
+            prev_button.disabled = true;
+            next_button.disabled = true;
+            if (current > 0) {
+                current--;
+                display_elems(svg, steps[current], current);
+            }
+            enable_buttons();
+        });
+
+        next_button.addEventListener("click", () => {
+            prev_button.disabled = true;
+            next_button.disabled = true;
+            if (current < steps.length - 1) {
+                current++;
+                display_elems(svg, steps[current], current);
+            }
+            enable_buttons();
+        });
+
+        enable_buttons();
+    }
+
+    const input = document.getElementById("huffman-input");
+    const button = document.getElementById("huffman-exec");
+
+    input.addEventListener("keyup", (event) => {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            button.click();
+        }
+    });
+
+    button.addEventListener('click', () => {
+        const text = input.value;
+        if (text.length == 0) {
+            d3.select("#huffman-example").html("");
+            return;
+        }
+        setup(text);
+    });
+})();
+</script>
