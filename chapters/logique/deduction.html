@@ -6,6 +6,15 @@ order: 8
 <link rel="stylesheet" href="/css/fitch-light.css" />
 <script src="/js/fitch.js"></script>
 
+<style>
+    .informal-proof {
+        font-style: italic;
+        padding-left: 20px;
+        border-left: #ccc 2px solid;
+        color : #666;
+    }
+</style>
+
 <div class="illustration right">
     <img src="images/tampon.png" style="margin-top: 30px; margin-bottom: 30px;" alt="Un tampon encreur de validation." />
 </div>
@@ -50,17 +59,58 @@ $endremark$
     Une preuve est généralement constituée d'une suite d'étapes.
     À chaque étape, on montre qu'une proposition est valide à partir de la validité d'autres propositions
     déjà démontrées.
-    Pour justifier chaque étape, on utilise une règle de raisonnement
-    qu'on appelle une <i>règle d'inférence</i>.
 </p>
 
 <p>
-    Ci-dessous est présenté un exemple de preuve dans une notation appelée <i>style de Fitch</i>.
+    Parfois, une preuve utilisera des hypothèses, c'est-à-dire des propositions qu'on suppose vraies sans avoir à les démontrer.
+    Les preuves peuvent aussi faire appel à des sous-preuves, c'est-à-dire des preuves dans la preuve,
+    qui permettent de démontrer une proposition à partir d'une hypothèse provisoire.
+</p>
+
+<p>
+    Commençons par un exemple de preuve, retranscrite tout d'abord en français.
+    La preuve cherche à démontrer que si on admet <code>A ou B</code> et <code>non A</code>,
+    alors on peut en déduire <code>B</code>.
+    La preuve est ci-dessous :
+</p>
+
+<div class="informal-proof">
+    <p>
+        Posons comme première hypothèse <code>A ou B</code> et comme deuxième hypothèse <code>non A</code>.
+        De la première hypothèse, on sait que <code>A</code> ou <code>B</code> est vrai.
+        Analysons les deux cas possibles.
+    </p>
+    <ul>
+        <li>
+            Admettons d'abord que <code>A</code> est vrai.
+            Or, dans ce cas, on peut conclure à une contradiction, car <code>A</code> est vrai
+            par hypothèse provisoire et <code>non A</code> est vrai par hypothèse.
+            Ce cas est donc impossible, on peut donc conclure ce que l'on veut,
+            par exemple que <code>B</code> est vrai.
+        </li>
+        <li>
+            Admettons maintenant que <code>B</code> est vrai.
+            Alors, on peut conclure immédiatement que <code>B</code> est vrai
+            par notre hypothèse provisoire.
+        </li>
+    </ul>
+    <p>
+        Dans les deux cas, on peut conclure que <code>B</code> est vrai,
+        ce qui conclut la preuve que <code>B</code> est vrai.
+    </p>
+</div>
+
+<p>
+    Ci-dessous est présenté la même preuve dans une notation appelée <i>style de Fitch</i>.
     Il s'agit d'une preuve formelle de la validité de la proposition <code>B</code>
     étant données les deux hypothèses <code>A ou B</code> et <code>non A</code>.
-    Dans cette preuve figure toutes les étapes de raisonnement
-    qui permettent d'arriver à la conclusion.
-    Chaque étape est très simple et ainsi peut être facilement vérifiée.
+    Dans cette présentation figurent
+    toutes les étapes qui permettent d'arriver à la conclusion.
+    Contrairement à la preuve en français ci-dessus,
+    chaque étape est justifée de manière explicite par l'utilisation
+    d'une règle d'inférence nommée.
+    Chaque étape est très simple et ainsi peut être facilement vérifiée
+    par un lecteur ou même un ordinateur.
 </p>
 
 <div id="ex-proof"></div>
@@ -647,7 +697,7 @@ $endtryout$
     const proof = logicQuestions.Proof.fromJSON([
         {
             "type": "line",
-            "expr": "P ou Q",
+            "expr": "A ou B",
             "rule": "hypothesis",
             "refs": []
         },
@@ -655,37 +705,41 @@ $endtryout$
             "type": "subproof",
             "assumption": {
             "type": "line",
-            "expr": "P",
+            "expr": "A",
             "rule": "assumption",
             "refs": []
             },
             "parts": [],
             "conclusion": {
             "type": "line",
-            "expr": "R",
-            "rule": "hypothesis",
-            "refs": []
+            "expr": "B ou A",
+            "rule": "orI2",
+            "refs": [
+                "2"
+            ]
             }
         },
         {
             "type": "subproof",
             "assumption": {
             "type": "line",
-            "expr": "Q",
+            "expr": "B",
             "rule": "assumption",
             "refs": []
             },
             "parts": [],
             "conclusion": {
             "type": "line",
-            "expr": "R",
-            "rule": "hypothesis",
-            "refs": []
+            "expr": "B ou A",
+            "rule": "orI1",
+            "refs": [
+                "4"
+            ]
             }
         },
         {
             "type": "line",
-            "expr": "R",
+            "expr": "B ou A",
             "rule": "orE",
             "refs": [
             "1",
@@ -705,12 +759,12 @@ $endtryout$
 <p>
     Dans l'exemple ci-dessus, la ligne 6 est démontrée à l'aide de la règle d'inférence <i>Élimination de <code>ou</code></i>
     à partir de la ligne 1 et des sous-preuves des lignes 2-3 et 4-5.
-    La ligne 1 établit que <code>P ou Q</code> est vraie.
-    La sous-preuve des lignes 2-3 établit que <code>R</code> est vraie
-    si <code>P</code> est vraie.
-    De même, la sous-preuve des lignes 4-5 établit que <code>R</code> est vraie
-    si <code>Q</code> est vraie.
-    Ainsi, on peut déduire que <code>R</code> est vraie dans tous les cas.
+    La ligne 1 établit que <code>A ou B</code> est vraie.
+    La sous-preuve des lignes 2-3 établit que <code>B ou A</code> est vraie
+    si <code>A</code> est vraie.
+    De même, la sous-preuve des lignes 4-5 établit que <code>B ou A</code> est vraie
+    si <code>B</code> est vraie.
+    Ainsi, on peut déduire que <code>B ou A</code> est vraie dans tous les cas.
 </p>
 
 <h4>Introduction de <code>implique</code></h4>
@@ -982,7 +1036,7 @@ $endtryout$
 </p>
 
 <p>
-    On appel aussi cette règle <i>réduction à l'absurde</i>.
+    On appelle aussi cette règle <i>réduction à l'absurde</i>.
     On admet qu'une proposition est vraie parce que sa négation est fausse.
 </p>
 
