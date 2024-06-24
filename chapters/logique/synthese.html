@@ -15,9 +15,16 @@ select.zoneSelector {
     padding: 10px;
 }
 
+.kvis-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
 .kvis {
     height: 300px;
     width: 100%;
+    margin: auto;
+    overflow-x: hidden;
 }
 
 @media (min-width: 768px) {
@@ -573,7 +580,9 @@ $tryout$
     sous cette nouvelle forme.
 </p>
 
+<div class="kvis-wrapper">
 <div id="karnaugh-viz-3" class="kvis"></div>
+</div>
 
 <p>
     Entrez une proposition ci-dessous pour visualiser les cellules correspondantes dans la table de Karnaugh.
@@ -785,7 +794,9 @@ $tryout$
     Observez plutôt !
 </p>
 
+<div class="kvis-wrapper">
 <div id="karnaugh-viz-4" class="kvis"></div>
+</div>
 
 <p>
     Entrez une proposition ci-dessous pour visualiser les cellules correspondantes dans la table de Karnaugh.

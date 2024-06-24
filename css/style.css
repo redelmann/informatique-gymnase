@@ -283,6 +283,7 @@ main section {
 
 section {
     position: relative;
+    overflow: hidden;
 }
 
 main .illustration {
