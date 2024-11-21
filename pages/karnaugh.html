@@ -202,9 +202,12 @@ function reask(vs) {
             else {
                 output.innerHTML = '<p>Votre proposition utilise des variables inconnues: ' + unknownVariables.join(', ') + '</p>';
             }
+            ktable.unselect();
+            update_vis();
             return;
         }
 
+        output.innerHTML = '';
         ktable.select(expr);
         update_vis();
     }
