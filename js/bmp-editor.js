@@ -3,6 +3,7 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
     options = options || {};
     const save_key = options.save_key;
     const save_pixels = save_key !== undefined;
+    const hide_color_picker = options.hide_color_picker || false;
 
     let palette_bytes = options.palette_bytes || 0;
     if (typeof palette_bytes === "number") {
@@ -45,8 +46,10 @@ function setup_bmp_editor(container, header_bytes, pixels_bytes, options) {
     colorPicker.classList.add("color-picker");
     const colors = ["Bleu", "Vert", "Rouge"];
 
-    preview.appendChild(colorPicker);
-
+    if (!hide_color_picker) {
+        preview.appendChild(colorPicker);
+    }
+    
     const colorInput = document.createElement("input");
     colorInput.type = "color";
     colorInput.value = "#000000";

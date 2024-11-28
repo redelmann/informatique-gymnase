@@ -26,8 +26,11 @@ title: Image BMP 4×4
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00
     ];
 
+    const params = new URLSearchParams(window.location.search);
+
     setup_bmp_editor(container, header_bytes, 16, {
-        save_key: "4-4-standalone"
+        save_key: "4-4-standalone",
+        hide_color_picker: params.has("nc")
     });
 })();
 </script>

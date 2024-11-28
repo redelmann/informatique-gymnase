@@ -24,8 +24,11 @@ title: Image BMP 8×8
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     ];
 
+    const params = new URLSearchParams(window.location.search);
+
     setup_bmp_editor(container, header_bytes, 64, {
-        save_key: "8-8-standalone"
+        save_key: "8-8-standalone",
+        hide_color_picker: params.has("nc")
     });
 })();
 </script>
