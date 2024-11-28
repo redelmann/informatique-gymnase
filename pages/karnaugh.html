@@ -76,7 +76,7 @@ function toggleValue(cell) {
 }
 
 function reask(vs) {
-    let text = prompt('Entrez les variables séparées par des virgules (ex: A, B, C)', vs ? vs.join(', ') : '');
+    let text = prompt('Entrez les variables séparées par des virgules (ex : A, B, C)', vs ? vs.join(', ') : '');
     if (!text) {
         text = (vs ? vs.join(',') : '');
     }
