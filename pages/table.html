@@ -4,7 +4,7 @@ title: Générateur de tables de vérité
 
 <h1>Générateur de tables de vérité</h1>
 
-<script src="js/truth-tables.js"></script>
+<script src="js/endless-truth-tables.js"></script>
 
 <p>
     Entrez une proposition dans le champ de texte ci-dessous et cliquez sur le bouton <i>Calculer</i> pour obtenir la table de vérité de cette proposition.
@@ -14,7 +14,169 @@ title: Générateur de tables de vérité
     <button>Calculer</button>
 </div>
 
-<table id="generated-truth-table" class="truth-table"></table>
+<style>
+    .endless-truth-table, .endless-truth-table * {
+        box-sizing: border-box;
+    }
+
+    :root {
+        --number-of-variables: 0;
+        --number-of-expressions: 0;
+    }
+
+    .endless-truth-table {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        overflow-x: auto;
+        max-width: 100%;
+    }
+
+    .table-container {
+        display: grid;
+        grid-template-columns:
+            repeat(var(--number-of-variables), minmax(min-content, 50px))
+            repeat(var(--number-of-expressions), 1fr);
+    }
+
+    .header-row {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: 1 / -1;
+        font-weight: bold;
+        background-color: #f4f4f4;
+        font-family: "Consolas", "Courier New", Courier, monospace !important;
+        font-size: 1.2em;
+        border-bottom: 2px double #888;
+    }
+
+    .header-row > div {
+        padding: 10px;
+        text-align: center;
+        white-space: nowrap;
+        border-right: 1px solid #ccc;
+    }
+
+    .header-row > div:last-child {
+        border-right: none;
+    }
+
+    .header-row > div.delimited {
+        border-right: 2px double #ccc;
+    }
+
+    .scrollable {
+        overflow-y: auto;
+        scroll-snap-type: y mandatory;
+        background-color: #f9f9f9;
+
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: 1 / -1;
+    }
+
+    .scrollable > .content {
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+        overflow: hidden;
+
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: 1 / -1;
+        /* grid-auto-rows: 50px;
+        grid-auto-flow: row; */
+    }
+
+    .scrollable > .canary {
+        height: 50px;
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: 1 / -1;
+        position: relative;
+    }
+
+    .scrollable > .canary > .end_label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #888;
+        height: 100%;
+        grid-column: 1 / -1;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .scrollable-row {
+        width: 100%;
+        height: 50px;
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: 1 / -1;
+    }
+
+    .scrollable-row > div {
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        padding: 5px;
+        box-sizing: border-box;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .scrollable-row > div.delimited {
+        border-right: 2px double #ccc;
+    }
+
+    .scrollable-row > :last-child {
+        border-right: none;
+    }
+
+    .scrollable > .canary > .scrollable-row {
+        color: #888;
+        background-color: #f6f6f6;
+    }
+
+    .scrollable > .canary > .loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-style: italic;
+        color: #888;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5));
+    }
+
+    .controls {
+        display: flex;
+        justify-content: flex-start;
+        align-items: baseline;
+        padding: 10px;
+        background-color: #f4f4f4;
+        border-top: 1px solid #ccc;
+        gap: 8px;
+        width: 100%;
+        position: sticky;
+        bottom: 0;
+        left: 0;
+    }
+
+    .controls input {
+        width: 80px;
+        padding: 5px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+</style>
+
+<div id="generated-truth-table"></div>
 
 <script type="text/javascript">
     (function() {
@@ -37,7 +199,7 @@ title: Générateur de tables de vérité
                 populateTable(table, input.value);
             } catch (e) {
                 console.log(e);
-                table.innerHTML = '<tr><td>Oups, l\'expression est mal formée.</td></tr>';
+                table.innerHTML = 'Oups, l\'expression est mal formée.';
             }
         }
 
